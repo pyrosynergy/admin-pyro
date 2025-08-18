@@ -25,34 +25,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
-  },
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
-  },
-  define: {
-    'process.env': {},
-  },
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
-  optimizeDeps: {
-    include: ['@mui/material', '@emotion/react', '@emotion/styled'],
-  },
-  css: {
-    preprocessorOptions: {
-      css: {
-        additionalData: `@import "@/styles/variables.css";`,
-      },
-    },
-  },
-  json: {
-    stringify: true,
   },
 })
