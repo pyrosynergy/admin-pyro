@@ -14,14 +14,18 @@ const submitToBackend = async (formData) => {
   try {
     // Use environment-based URL
     const API_BASE_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://land-pyro-backend.vercel.app'
+      ? 'https://admin-pyro-backend-git-aditya-pyrosynergys-projects.vercel.app'
       : 'http://localhost:5000';
+    
+    console.log('Submitting to:', API_BASE_URL);
+    console.log('Environment:', process.env.NODE_ENV);
     
     const response = await fetch(`${API_BASE_URL}/api/questionnaire/submit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Add credentials for CORS
       body: JSON.stringify(formData)
     });
 
