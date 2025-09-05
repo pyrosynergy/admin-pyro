@@ -12,10 +12,11 @@ const isMobileDevice = () => {
 // Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    // Use environment-based URL
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://land-pyro-backend.vercel.app'
-      : 'http://localhost:5000';
+    // Use environment variable first, fallback to hardcoded URLs
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 
+      (import.meta.env.MODE === 'production' 
+        ? 'https://land-pyro-backend.vercel.app'  // Replace with your actual backend URL
+        : 'http://localhost:5000');
     
     const response = await fetch(`${API_BASE_URL}/api/questionnaire/submit`, {
       method: 'POST',
