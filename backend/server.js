@@ -14,8 +14,10 @@ app.use(cors({
     'https://land-pyro.vercel.app',
     'https://admin-pyro.vercel.app',  // Add your frontend Vercel URL
     'https://admin-pyro-git-main-pyrosynergys-projects.vercel.app',  // Git-based URL
+    'https://admin-pyro-git-aditya-pyrosynergys-projects.vercel.app',  // Frontend preview URL
     'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
     'http://localhost:3000', 
+    'http://localhost:3001', 
     'http://localhost:5173'
   ],
   credentials: true,
