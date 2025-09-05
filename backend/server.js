@@ -6,32 +6,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware - More permissive CORS for testing
+// Middleware - Completely permissive CORS for testing
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, etc.)
-    if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      'https://pyrosynergy.com', 
-      'https://www.pyrosynergy.com', 
-      'https://land-pyro.vercel.app',
-      'https://admin-pyro.vercel.app',
-      'https://admin-pyro-git-main-pyrosynergys-projects.vercel.app',
-      'https://admin-pyro-git-aditya-pyrosynergys-projects.vercel.app',
-      'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
-      'http://localhost:3000', 
-      'http://localhost:3001', 
-      'http://localhost:5173'
-    ];
-    
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('localhost')) {
-      return callback(null, true);
-    }
-    
-    console.log('CORS blocked origin:', origin);
-    return callback(null, false);
-  },
+  origin: true,  // Allow all origins for testing
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
@@ -81,6 +58,15 @@ app.use('/api/questionnaire', require('./routes/questionnaire'));
 // Basic route
 app.get('/', (req, res) => {
   res.json({ message: 'PyroSynergy Backend API' });
+});
+
+// Test route for CORS
+app.get('/test', (req, res) => {
+  res.json({ 
+    message: 'CORS test successful',
+    origin: req.headers.origin,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Health check route
