@@ -17,6 +17,8 @@ const submitToBackend = async (formData) => {
       (import.meta.env.MODE === 'production' 
         ? 'https://land-pyro-backend.vercel.app'  // Replace with your actual backend URL
         : 'http://localhost:5000');
+
+    console.log('Using API URL:', API_BASE_URL);
     
     const response = await fetch(`${API_BASE_URL}/api/questionnaire/submit`, {
       method: 'POST',
@@ -35,6 +37,29 @@ const submitToBackend = async (formData) => {
     return result;
   } catch (error) {
     console.error('Error submitting questionnaire:', error);
+    throw error;
+  }
+};
+
+// Test function for CORS
+const testCORS = async () => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    console.log('Testing CORS with:', API_BASE_URL);
+    
+    const response = await fetch(`${API_BASE_URL}/api/test-cors`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ test: 'cors' })
+    });
+    
+    const result = await response.json();
+    console.log('CORS test result:', result);
+    return result;
+  } catch (error) {
+    console.error('CORS test failed:', error);
     throw error;
   }
 };
