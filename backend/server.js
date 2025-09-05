@@ -6,31 +6,25 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware - Completely permissive CORS for testing
-app.use(cors({
-  origin: true,  // Allow all origins for testing
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  optionsSuccessStatus: 200
-}));
-app.use(express.json());
-
-// Enhanced OPTIONS handler with logging
+// Manual CORS middleware - more reliable for Vercel
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url} from origin: ${req.headers.origin}`);
+  // Set CORS headers manually
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Max-Age', '86400');
   
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    console.log('Handling OPTIONS request');
-    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Max-Age', '86400'); // 24 hours
+    console.log('OPTIONS request from:', req.headers.origin);
     return res.status(200).end();
   }
+  
+  console.log(`${req.method} ${req.url} from origin: ${req.headers.origin}`);
   next();
 });
+app.use(express.json());
 
 // MongoDB Connection with better error handling
 if (!process.env.MONGODB_URI) {
