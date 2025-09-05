@@ -12,6 +12,8 @@ app.use(cors({
     'https://pyrosynergy.com', 
     'https://www.pyrosynergy.com', 
     'https://land-pyro.vercel.app',
+    'https://admin-pyro.vercel.app',  // Add your frontend Vercel URL
+    'https://admin-pyro-git-main-pyrosynergys-projects.vercel.app',  // Git-based URL
     'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
     'http://localhost:3000', 
     'http://localhost:5173'

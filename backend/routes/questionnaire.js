@@ -95,8 +95,14 @@ router.post('/submit', async (req, res) => {
     // Save to database
     await questionnaireResponse.save();
 
+    console.log('Attempting to send email to:', email, 'for user:', name);
+    console.log('EMAIL_USER:', process.env.EMAIL_USER ? 'Set' : 'NOT SET');
+    console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'Set' : 'NOT SET');
+
     // Send thank you email (don't block response)
-    sendThankYouMail(email, name).catch(console.error);
+    sendThankYouMail(email, name)
+      .then(() => console.log('Email sent successfully to:', email))
+      .catch(err => console.error('Email sending failed:', err));
 
     res.status(201).json({
       success: true,
