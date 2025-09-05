@@ -73,7 +73,27 @@ app.use('/api/questionnaire', require('./routes/questionnaire'));
 
 // Basic route
 app.get('/', (req, res) => {
-  res.json({ message: 'PyroSynergy Backend API' });
+  res.json({ 
+    message: 'PyroSynergy Backend API',
+    timestamp: new Date().toISOString(),
+    env: {
+      NODE_ENV: process.env.NODE_ENV || 'undefined',
+      EMAIL_USER: process.env.EMAIL_USER ? 'SET' : 'NOT SET',
+      EMAIL_PASS: process.env.EMAIL_PASS ? 'SET' : 'NOT SET',
+      MONGODB_URI: process.env.MONGODB_URI ? 'SET' : 'NOT SET'
+    }
+  });
+});
+
+// Simple test endpoint that doesn't require database
+app.post('/api/test-cors', (req, res) => {
+  console.log('Test CORS endpoint called');
+  res.json({
+    success: true,
+    message: 'CORS test successful',
+    body: req.body,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Test route for CORS
