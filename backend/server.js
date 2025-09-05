@@ -32,7 +32,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// MongoDB Connection with simplified options
+// MongoDB Connection with better error handling
+if (!process.env.MONGODB_URI) {
+  console.error('MONGODB_URI environment variable is not set');
+  process.exit(1);
+}
+
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log('MongoDB Atlas connected successfully');
@@ -40,7 +45,8 @@ mongoose.connect(process.env.MONGODB_URI)
 })
 .catch((err) => {
   console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit if can't connect to database
+  // Don't exit in serverless environment, just log the error
+  console.error('Continuing without database connection...');
 });
 
 // Handle MongoDB connection events
@@ -50,6 +56,16 @@ mongoose.connection.on('error', (err) => {
 
 mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected');
+});
+
+// Global error handler for unhandled rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+// Global error handler for uncaught exceptions  
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
 });
 
 // Routes
