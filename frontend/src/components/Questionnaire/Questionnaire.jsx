@@ -15,7 +15,7 @@ const submitToBackend = async (formData) => {
   try {
     // Use environment-based URL
     const API_BASE_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://admin-pyro-backend-git-aditya-pyrosynergys-projects.vercel.app'
+      ? 'https://admin-pyro-backend-git-dev-pyrosynergys-projects.vercel.app/'
       : 'http://localhost:5000';
     
     console.log('Submitting to:', API_BASE_URL);

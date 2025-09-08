@@ -119,76 +119,96 @@ const sendThankYouMail = async (to, name, formData) => {
     console.error('   - Error message:', error.message);
     console.error('   - Error code:', error.code);
     console.error('   - Error status:', error.status);
+    console.error('   - Full error object:', JSON.stringify(error, null, 2));
+    
+    // Check for specific EmailJS errors
+    if (error.status === 400) {
+      console.error('🚨 EmailJS Error: Bad Request - Check template ID and service ID');
+    } else if (error.status === 401) {
+      console.error('🚨 EmailJS Error: Unauthorized - Check public key');
+    } else if (error.status === 404) {
+      console.error('🚨 EmailJS Error: Not Found - Service or template doesn\'t exist');
+    }
     
     // Fallback: Try alternative email service
-    console.log('🔄 Trying fallback email service...');
+    console.log('🔄 EmailJS failed, trying Web3Forms fallback service...');
     return await sendEmailFallback(to, name, formData);
   }
 };
 
-// Fallback email method using a simple email API
+// Fallback email method using Web3Forms (free and reliable)
 const sendEmailFallback = async (to, name, formData) => {
-  console.log('🔄 Using fallback email service...');
+  console.log('🔄 Using Web3Forms fallback email service...');
   
   try {
-    // Using a simple email service like Formspree or similar
-    const fallbackUrl = 'https://formspree.io/f/your_form_id'; // You need to set this up
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
     
-    console.log('📡 Fallback URL:', fallbackUrl);
-    console.warn('⚠️ Fallback service not configured - this is just a placeholder');
+    if (!accessKey) {
+      console.error('❌ Web3Forms access key not found');
+      throw new Error('Web3Forms not configured');
+    }
+    
+    console.log('📡 Web3Forms access key found');
     
     const emailData = {
-      email: to,
+      access_key: accessKey,
+      subject: "Thank you for completing your Reality Check!",
+      from_name: "PyroSynergy Team",
+      to: to,
       name: name,
-      subject: 'Thank you for completing your Reality Check!',
+      email: to, // Reply-to email
       message: `
-        Hi ${name},
-        
-        Thank you for completing your Reality Check questionnaire!
-        
-        Your personalized business analytics:
-        • Business Stage: ${formData.businessStage || 'Not specified'}
-        • Total Score: ${formData.totalScore || 0}/${formData.totalMaxScore || 0} (${formData.totalPercentage || 0}%)
-        • Score Band: ${formData.scoreLabel || 'Not calculated'}
-        
-        Your personalized insights are being processed and will be sent to you shortly.
-        
-        What's next?
-        • Review your personalized analytics (coming soon)
-        • Book a consultation call with our experts
-        • Explore our business growth solutions
-        
-        Best regards,
-        PyroSynergy Team
+Hi ${name},
+
+Thank you for completing your Reality Check questionnaire!
+
+Your personalized business analytics:
+• Business Stage: ${formData.businessStage || 'Not specified'}
+• Business Challenge: ${formData.businessChallenge || 'Not specified'}
+• Revenue Satisfaction: ${formData.revenueSatisfaction || 'Not specified'}
+• Success Vision: ${formData.successVision || 'Not specified'}
+• Total Score: ${formData.totalScore || 0} (${formData.totalPercentage || 0}%)
+• Score Band: ${formData.scoreBand || 'Not calculated'}
+
+Your personalized insights are being processed and will be sent to you shortly.
+
+What's next?
+• Review your personalized analytics (coming soon)
+• Book a consultation call with our experts
+• Explore our business growth solutions
+
+Best regards,
+PyroSynergy Team
       `
     };
     
-    console.log('📦 Fallback email data prepared:', emailData);
+    console.log('📦 Web3Forms email data prepared for:', to);
     
-    // Commenting out actual request since fallback URL is not configured
-    /*
-    const response = await fetch(fallbackUrl, {
+    const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify(emailData)
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send email via fallback service');
+      throw new Error(`Web3Forms HTTP error! status: ${response.status}`);
     }
 
     const result = await response.json();
-    console.log('✅ Fallback email sent successfully:', result);
-    return result;
-    */
+    console.log('✅ Web3Forms email sent successfully:', result);
     
-    console.warn('⚠️ Fallback email service is not configured. Email was not sent.');
-    throw new Error('Both EmailJS and fallback service failed');
+    if (result.success) {
+      console.log('🎉 Email delivered successfully via Web3Forms!');
+      return result;
+    } else {
+      throw new Error(result.message || 'Web3Forms reported failure');
+    }
     
   } catch (error) {
-    console.error('❌ Fallback email service also failed:', error);
+    console.error('❌ Web3Forms email service failed:', error);
     throw error;
   }
 };
