@@ -13,8 +13,10 @@ const isMobileDevice = () => {
 // Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    // TEMPORARY: Force localhost for testing - CHANGE BACK WHEN VERCEL IS FIXED
-    const API_BASE_URL = 'http://localhost:5000';
+    // Use environment-based URL - FIXED: Removed trailing slash to prevent double slash
+    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+      ? 'https://admin-pyro-backend-git-dev-pyrosynergys-projects.vercel.app'
+      : 'http://localhost:5000';
     
     console.log('Submitting to:', API_BASE_URL);
     console.log('Environment:', process.env.NODE_ENV);
