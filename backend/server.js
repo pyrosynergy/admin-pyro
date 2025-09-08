@@ -61,6 +61,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Ensure DB connection for serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    res.status(500).json({ error: 'Database connection failed' });
+  }
+});
+
 // Explicit OPTIONS handler for all routes
 app.use((req, res, next) => {
   // Add CORS headers to all responses
@@ -89,16 +100,31 @@ app.use((req, res, next) => {
   next();
 });
 
-// MongoDB Connection with simplified options
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-  console.log('MongoDB Atlas connected successfully');
-  console.log('Database:', mongoose.connection.name);
-})
-.catch((err) => {
-  console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit if can't connect to database
-});
+// MongoDB Connection with serverless-friendly options
+const connectDB = async () => {
+  try {
+    if (mongoose.connections[0].readyState) {
+      return; // Already connected
+    }
+    await mongoose.connect(process.env.MONGODB_URI, {
+      bufferCommands: false, // Disable mongoose buffering for serverless
+      maxPoolSize: 1, // Maintain up to 1 socket connection
+      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    });
+    console.log('MongoDB Atlas connected successfully');
+    console.log('Database:', mongoose.connection.name);
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    // Don't exit process in serverless environment
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
+  }
+};
+
+// Connect to database
+connectDB();
 
 // Handle MongoDB connection events
 mongoose.connection.on('error', (err) => {

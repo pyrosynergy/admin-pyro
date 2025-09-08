@@ -18,5 +18,10 @@
   ],
   "env": {
     "NODE_ENV": "production"
+  },
+  "functions": {
+    "server.js": {
+      "maxDuration": 10
+    }
   }
 }
