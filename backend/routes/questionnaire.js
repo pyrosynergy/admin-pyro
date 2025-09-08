@@ -3,6 +3,19 @@ const router = express.Router();
 const Questionnaire = require('../models/Questionnaire');
 // Removed mailer import since email is now handled in frontend
 
+// @route   GET /api/questionnaire
+// @desc    Test questionnaire API endpoint
+// @access  Public
+router.get('/', (req, res) => {
+  res.json({ 
+    message: 'Questionnaire API is working!',
+    endpoints: {
+      'POST /api/questionnaire/submit': 'Submit a new questionnaire',
+      'GET /api/questionnaire/responses': 'Get all questionnaire responses'
+    }
+  });
+});
+
 // @route   POST /api/questionnaire/submit
 // @desc    Submit questionnaire response
 // @access  Public
