@@ -18,6 +18,7 @@ app.use(cors({
       'https://land-pyro.vercel.app',
       'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
       'https://admin-pyro-frontend-git-aditya-pyrosynergys-projects.vercel.app',
+      'https://admin-pyro-frontend-git-dev-pyrosynergys-projects.vercel.app', // ADDED: Current frontend domain
       'https://realitycheck-1.vercel.app', // Add this based on the error screenshot
       'http://localhost:3000', 
       'http://localhost:5173',
