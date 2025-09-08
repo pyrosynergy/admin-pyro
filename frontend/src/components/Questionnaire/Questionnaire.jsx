@@ -43,7 +43,7 @@ const submitToBackend = async (formData) => {
   }
 };
 
-// Frontend-only submission function with email
+// Complete submission function with backend storage and email
 const submitQuestionnaire = async (formData) => {
   try {
     console.log('🚀 Starting questionnaire submission process...');
@@ -56,18 +56,21 @@ const submitQuestionnaire = async (formData) => {
       scoreBand: formData.scoreBand
     });
     
-    console.log('📧 About to send email...');
+    // Step 1: Save to backend database
+    console.log('💾 Saving to database...');
+    const backendResult = await submitToBackend(formData);
+    console.log('✅ Database save completed successfully!');
+    console.log('� Backend Result:', backendResult);
+    
+    // Step 2: Send email directly from frontend
+    console.log('�📧 About to send email...');
     console.log('   - Recipient:', formData.email);
     console.log('   - Name:', formData.name);
     
-    // Send email directly from frontend
     const emailResult = await sendThankYouMail(formData.email, formData.name, formData);
     
     console.log('✅ Email sending completed successfully!');
     console.log('📊 Email Result:', emailResult);
-    
-    // You can optionally still save to backend without email functionality
-    // Or remove backend submission entirely if not needed
     
     console.log('✅ Questionnaire submission completed successfully!');
     return { success: true, message: 'Questionnaire submitted and email sent successfully' };
