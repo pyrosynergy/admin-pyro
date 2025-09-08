@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Questionnaire = require('../models/Questionnaire');
-const { sendThankYouMail } = require('../utils/mailer');
+// Removed mailer import since email is now handled in frontend
 
 // @route   POST /api/questionnaire/submit
 // @desc    Submit questionnaire response
@@ -95,8 +95,7 @@ router.post('/submit', async (req, res) => {
     // Save to database
     await questionnaireResponse.save();
 
-    // Send thank you email (don't block response)
-    sendThankYouMail(email, name).catch(console.error);
+    // Email is now sent from frontend, no backend email needed
 
     res.status(201).json({
       success: true,

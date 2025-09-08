@@ -5,6 +5,9 @@ import './index.css';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals.jsx';
 
+// Import email test for debugging
+import './utils/emailTest.js';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Questionnaire.css';
+import { sendThankYouMail } from '../../utils/mailer';
 
 // Utility function to detect mobile devices
 const isMobileDevice = () => {
@@ -38,6 +39,44 @@ const submitToBackend = async (formData) => {
     return result;
   } catch (error) {
     console.error('Error submitting questionnaire:', error);
+    throw error;
+  }
+};
+
+// Frontend-only submission function with email
+const submitQuestionnaire = async (formData) => {
+  try {
+    console.log('🚀 Starting questionnaire submission process...');
+    console.log('📊 Form Data:', {
+      name: formData.name,
+      email: formData.email,
+      businessStage: formData.businessStage,
+      totalScore: formData.totalScore,
+      totalPercentage: formData.totalPercentage,
+      scoreBand: formData.scoreBand
+    });
+    
+    console.log('📧 About to send email...');
+    console.log('   - Recipient:', formData.email);
+    console.log('   - Name:', formData.name);
+    
+    // Send email directly from frontend
+    const emailResult = await sendThankYouMail(formData.email, formData.name, formData);
+    
+    console.log('✅ Email sending completed successfully!');
+    console.log('📊 Email Result:', emailResult);
+    
+    // You can optionally still save to backend without email functionality
+    // Or remove backend submission entirely if not needed
+    
+    console.log('✅ Questionnaire submission completed successfully!');
+    return { success: true, message: 'Questionnaire submitted and email sent successfully' };
+    
+  } catch (error) {
+    console.error('❌ Error in questionnaire submission:');
+    console.error('   - Error:', error);
+    console.error('   - Error message:', error.message);
+    console.error('   - Error stack:', error.stack);
     throw error;
   }
 };
@@ -395,7 +434,7 @@ const Questionnaire = () => {
           scoreLabel: scoreBand.label
         };
 
-        await submitToBackend(submissionData);
+        await submitQuestionnaire(submissionData);
         setAlertMessage(`Thank you! Your personalized business insights are on their way to ${formData.email}!`);
         setIsAlertVisible(true);
         
