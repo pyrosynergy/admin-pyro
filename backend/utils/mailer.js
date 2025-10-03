@@ -7,6 +7,12 @@ const OAuth2Client = require('./oauth2');
  */
 async function createTransporter() {
   try {
+    // Check if OAuth2 environment variables are available
+    if (!process.env.GMAIL_CLIENT_ID || !process.env.GMAIL_CLIENT_SECRET || !process.env.GMAIL_REFRESH_TOKEN) {
+      console.log('OAuth2 credentials not available, skipping email setup');
+      return null;
+    }
+
     const oauth2Client = new OAuth2Client();
     const accessToken = await oauth2Client.getAccessToken();
 
@@ -23,13 +29,19 @@ async function createTransporter() {
     });
   } catch (error) {
     console.error('Failed to create email transporter:', error.message);
-    throw new Error('Email service configuration failed');
+    return null; // Return null instead of throwing to prevent crashes
   }
 }
 
 async function sendThankYouMail(to, name) {
   try {
     const transporter = await createTransporter();
+    
+    // If transporter creation failed, log and continue without sending email
+    if (!transporter) {
+      console.log('Email service not available, skipping email send');
+      return { success: false, message: 'Email service not configured' };
+    }
     
     const mailOptions = {
       from: `"PyroSynergy" <${process.env.EMAIL_USER}>`,
@@ -55,17 +67,11 @@ async function sendThankYouMail(to, name) {
 
     const result = await transporter.sendMail(mailOptions);
     console.log('Email sent successfully:', result.messageId);
-    return result;
+    return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error('Error sending email:', error.message);
-    // Log the full error for debugging but don't expose sensitive details
-    if (error.code === 'EAUTH') {
-      throw new Error('Email authentication failed. Please check OAuth2 configuration.');
-    } else if (error.code === 'ECONNECTION') {
-      throw new Error('Failed to connect to email service. Please try again later.');
-    } else {
-      throw new Error('Failed to send email. Please contact support if the issue persists.');
-    }
+    // Don't throw error to prevent function crashes
+    return { success: false, error: error.message };
   }
 }
 
