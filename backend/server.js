@@ -78,7 +78,16 @@ app.use('/api/questionnaire', require('./routes/questionnaire'));
 
 // Basic route
 app.get('/', (req, res) => {
-  res.json({ message: 'PyroSynergy Backend API' });
+  res.json({ message: 'PyroSynergy Backend API', timestamp: new Date().toISOString() });
+});
+
+// CORS test route
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    message: 'CORS test successful', 
+    origin: req.headers.origin,
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // Health check route
