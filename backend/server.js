@@ -13,6 +13,7 @@ app.use(cors({
     'https://www.pyrosynergy.com', 
     'https://land-pyro.vercel.app',
     'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
+    'https://admin-pyro-frontend-git-testing1-pyrosynergys-projects.vercel.app',
     'http://localhost:3000', 
     'http://localhost:5173'
   ],
