@@ -22,19 +22,36 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   optionsSuccessStatus: 200
 }));
-app.use(express.json());
 
-// Explicit OPTIONS handler for all routes
+// Additional CORS headers for Vercel deployment
 app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    return res.sendStatus(200);
+  const allowedOrigins = [
+    'https://pyrosynergy.com',
+    'https://www.pyrosynergy.com',
+    'https://land-pyro.vercel.app',
+    'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
+    'https://admin-pyro-frontend-git-testing1-pyrosynergys-projects.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
   }
+  
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  
   next();
 });
+app.use(express.json());
 
 // MongoDB Connection with simplified options
 mongoose.connect(process.env.MONGODB_URI)
