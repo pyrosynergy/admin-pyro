@@ -121,11 +121,12 @@ app.use((error, req, res, next) => {
   });
 });
 
-// For Vercel serverless functions
-if (process.env.NODE_ENV !== 'development') {
-  module.exports = app;
-} else {
+// Start server for local development
+if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
+// Export the app for Vercel
+module.exports = app;
