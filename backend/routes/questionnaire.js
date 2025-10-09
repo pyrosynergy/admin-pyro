@@ -96,8 +96,9 @@ router.post('/submit', async (req, res) => {
     await questionnaireResponse.save();
 
     // Send thank you email (don't block response)
-    const resss=sendThankYouMail(email, name).catch(console.error);
-    console.log("Email send result:", resss);
+    sendThankYouMail(email, name)
+      .then(() => console.log(`Thank you email sent successfully to ${email}`))
+      .catch(error => console.error('Email sending failed:', error));
 
     res.status(201).json({
       success: true,
