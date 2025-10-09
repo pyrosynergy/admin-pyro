@@ -105,7 +105,7 @@ router.post('/submit', async (req, res) => {
         console.error('Email sending failed:', error);
         console.error('Error details:', error.message);
       });
-    console.log(email, name);
+    console.log(email)
 
     res.status(201).json({
       success: true,
