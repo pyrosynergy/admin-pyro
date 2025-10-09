@@ -14,7 +14,8 @@ app.use(cors({
     'https://land-pyro.vercel.app',
     'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
     'http://localhost:3000', 
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://admin-pyro-backend.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -26,11 +27,24 @@ app.use(express.json());
 // Explicit OPTIONS handler for all routes
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    const origin = req.headers.origin;
+    const allowedOrigins = [
+      'https://pyrosynergy.com', 
+      'https://www.pyrosynergy.com', 
+      'https://land-pyro.vercel.app',
+      'https://land-pyro-git-structure1-prachetyerrs-projects.vercel.app',
+      'http://localhost:3000', 
+      'http://localhost:5173',
+      'https://admin-pyro-backend.vercel.app'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
+    }
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
     res.header('Access-Control-Allow-Credentials', 'true');
-    return res.sendStatus(200);
+    return res.status(200).end();
   }
   next();
 });
