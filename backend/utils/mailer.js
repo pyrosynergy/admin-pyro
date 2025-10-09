@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 function sendThankYouMail(to, name) {
   return transporter.sendMail({
     from: `"PyroSynergy" <${process.env.EMAIL_USER}>`,
-    to,
+    to: to,
     subject: 'Thank you for completing your Reality Check!',
     html:  `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

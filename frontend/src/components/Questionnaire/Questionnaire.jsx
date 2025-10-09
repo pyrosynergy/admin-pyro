@@ -16,7 +16,7 @@ const submitToBackend = async (formData) => {
     const API_BASE_URL = process.env.NODE_ENV === 'production' 
       ? 'https://admin-pyro-backend.vercel.app/'
       : 'http://localhost:5000';
-    
+    console.log("demoo",formData)
     const response = await fetch(`${API_BASE_URL}/api/questionnaire/submit`, {
       method: 'POST',
       headers: {
