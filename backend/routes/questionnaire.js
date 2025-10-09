@@ -97,8 +97,14 @@ router.post('/submit', async (req, res) => {
 
     // Send thank you email (don't block response)
     sendThankYouMail(email, name)
-      .then(() => console.log(`Thank you email sent successfully to ${email}`))
-      .catch(error => console.error('Email sending failed:', error));
+      .then((result) => {
+        console.log(`Thank you email sent successfully to ${email}`);
+        console.log('Email result:', result);
+      })
+      .catch(error => {
+        console.error('Email sending failed:', error);
+        console.error('Error details:', error.message);
+      });
 
     res.status(201).json({
       success: true,
