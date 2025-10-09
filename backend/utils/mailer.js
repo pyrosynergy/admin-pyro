@@ -5,11 +5,12 @@ console.log('📧 Mailer Config Check:');
 console.log('EMAIL_USER:', process.env.EMAIL_USER ? '✅ Set' : '❌ Missing');
 console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ Set' : '❌ Missing');
 
-const transporter = nodemailer.createTransporter({
+// Fix: Change createTransporter to createTransport
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER, // Make sure this matches your .env
-    pass: process.env.EMAIL_PASS  // Make sure this matches your .env
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
