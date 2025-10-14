@@ -95,17 +95,18 @@ router.post('/submit', async (req, res) => {
     // Save to database
     await questionnaireResponse.save();
 
-    // Send thank you email (don't block response)
-    sendThankYouMail(email, name)
-      .then((result) => {
-        console.log(`Thank you email sent successfully to ${email}`);
-        console.log('Email result:', result);
-      })
-      .catch(error => {
-        console.error('Email sending failed:', error);
-        console.error('Error details:', error.message);
-      });
-    console.log(email)
+    // Send thank you email BEFORE responding.
+    // On Vercel Serverless, any async work that isn't awaited can be terminated when the response is sent.
+    try {
+      const mailResult = await sendThankYouMail(email, name);
+      console.log(`Thank you email sent successfully to ${email}`);
+      console.log('Email result:', mailResult);
+    } catch (error) {
+      // Don't fail the submission if email fails; just log it for observability
+      console.error('Email sending failed:', error);
+      console.error('Error details:', error?.message);
+    }
+    console.log(email);
 
     res.status(201).json({
       success: true,
