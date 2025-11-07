@@ -12,12 +12,14 @@ const isMobileDevice = () => {
 // Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    // Use environment-based URL
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://admin-pyro-backend.vercel.app/'
+    // Normalize base URL (remove trailing slash), then add path with leading slash
+    const rawBase = process.env.NODE_ENV === 'production'
+      ? 'https://admin-pyro-backend.vercel.app'
       : 'http://localhost:5000';
-    console.log("demoo",formData)
-    const response = await fetch(`${API_BASE_URL}api/questionnaire/submit`, {
+    const API_BASE_URL = rawBase.replace(/\/$/, '');
+    const endpoint = `${API_BASE_URL}/api/questionnaire/submit`;
+
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,12 +27,16 @@ const submitToBackend = async (formData) => {
       body: JSON.stringify(formData)
     });
 
-    const result = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(result.message || 'Failed to submit questionnaire');
+    let result;
+    try {
+      result = await response.json();
+    } catch (parseErr) {
+      throw new Error('Invalid JSON response from server');
     }
 
+    if (!response.ok) {
+      throw new Error(result?.message || `Failed to submit questionnaire (status ${response.status})`);
+    }
     return result;
   } catch (error) {
     console.error('Error submitting questionnaire:', error);
@@ -108,6 +114,78 @@ const Questionnaire = () => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false); // prevent duplicate submits
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
+
+  // Key used for persisting progress between visits
+  const STORAGE_KEY = 'questionnaireProgress';
+
+  // Load saved progress on first mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return; // Nothing saved previously
+      const saved = JSON.parse(raw);
+      if (!saved || typeof saved !== 'object') return;
+
+      // Merge saved form data (keep new fields if added later)
+      if (saved.formData) {
+        setFormData(prev => ({ ...prev, ...saved.formData }));
+      }
+      if (typeof saved.currentStep === 'number') {
+        setCurrentStep(saved.currentStep);
+      }
+      if (saved.showAnalytics) {
+        setShowAnalytics(true);
+      }
+      if (saved.cameFromAnalytics) {
+        setCameFromAnalytics(true);
+      }
+    } catch (e) {
+      console.warn('Failed to restore questionnaire progress', e);
+    }
+  }, []);
+
+  // Persist progress whenever relevant state changes
+  useEffect(() => {
+    try {
+      // Don't persist if user has completed and been reset to welcome
+      const allEmpty = Object.values(formData).every(v => !v || String(v).trim() === '');
+      if (currentStep === -1 && !showAnalytics && allEmpty) {
+        // Nothing meaningful to persist
+        localStorage.removeItem(STORAGE_KEY);
+        return;
+      }
+      const payload = { formData, currentStep, showAnalytics, cameFromAnalytics };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (e) {
+      console.warn('Failed to save questionnaire progress', e);
+    }
+  }, [formData, currentStep, showAnalytics, cameFromAnalytics]);
+
+  // Reset progress and state
+  const handleReset = () => {
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    setFormData({
+      name: '',
+      businessStage: '',
+      businessStageOther: '',
+      businessChallenge: '',
+      revenueSatisfaction: '',
+      successVision: '',
+      hiringConcern: '',
+      hiringConcernOther: '',
+      visionAlignment: '',
+      onepartnerAppeal: '',
+      improvementTimeline: '',
+      email: ''
+    });
+    setCurrentStep(-1);
+    setShowAnalytics(false);
+    setCameFromAnalytics(false);
+    setIsAlertVisible(false);
+  };
 
   const questions = [
     {
@@ -368,7 +446,9 @@ const Questionnaire = () => {
     
     // If we're on the last question (email), submit the form
     if (isLastQuestion) {
+      if (isSubmitting) return; // guard
       try {
+        setIsSubmitting(true);
         const totalScoreData = calculateTotalScore(formData);
         const scoreBand = getScoreBand(totalScoreData.totalPercentage);
         
@@ -391,9 +471,13 @@ const Questionnaire = () => {
           scoreLabel: scoreBand.label
         };
 
-        await submitToBackend(submissionData);
-        setAlertMessage(`Thank you! Your personalized business insights are on their way to ${formData.email}!`);
-        setIsAlertVisible(true);
+  await submitToBackend(submissionData);
+  // Success toast instead of blocking alert
+  setToastMessage(`Insights sent to ${formData.email}`);
+  setShowToast(true);
+  setTimeout(() => setShowToast(false), 4000); // auto-dismiss
+        // Clear stored progress after successful submission
+        localStorage.removeItem(STORAGE_KEY);
         
         // Reset form and return to welcome
         setFormData({
@@ -412,9 +496,11 @@ const Questionnaire = () => {
         });
         setCurrentStep(-1);
         setShowAnalytics(false);
+        setIsSubmitting(false);
       } catch (error) {
         setAlertMessage("Sorry, there was an error. Please try again.");
         setIsAlertVisible(true);
+        setIsSubmitting(false);
       }
     } else {
       setCurrentStep(prev => prev + 1);
@@ -889,6 +975,11 @@ const Questionnaire = () => {
     return (
       <section id="questionnaire" className="questionnaire-section">
         <div className="questionnaire-container">
+          {showToast && (
+            <div className="toast-container">
+              <div className="toast toast-success">{toastMessage}</div>
+            </div>
+          )}
           <AnalyticsSection
             formData={formData}
             onContinue={handleContinueFromAnalytics}
@@ -903,6 +994,11 @@ const Questionnaire = () => {
     <section id="questionnaire" className="questionnaire-section">
       {isAlertVisible && <ThemeAlert message={alertMessage} onClose={() => setIsAlertVisible(false)} />}
       <div className="questionnaire-container">
+        {showToast && (
+          <div className="toast-container">
+            <div className="toast toast-success">{toastMessage}</div>
+          </div>
+        )}
         {/* Welcome screen logic */} 
         {currentStep === -1 ? (
           <div className="welcome-container">
@@ -962,6 +1058,15 @@ const Questionnaire = () => {
                 {renderInput()}
               </div>
               <div className="navigation-buttons">
+                {currentStep >= 0 && !isLastQuestion && (
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="nav-button prev-button"
+                  >
+                    Start over
+                  </button>
+                )}
                 {currentStep > 0 && (
                   <button
                     type="button"
@@ -973,9 +1078,10 @@ const Questionnaire = () => {
                 )}
                 <button
                   type="submit"
-                  className="nav-button next-button"
+                  className={`nav-button next-button ${isSubmitting && isLastQuestion ? 'submitting' : ''}`}
+                  disabled={isSubmitting && isLastQuestion}
                 >
-                  {isLastQuestion ? 'Submit' : 'Next →'}
+                  {isLastQuestion ? (isSubmitting ? 'Sending…' : 'Submit') : 'Next →'}
                 </button>
               </div>
             </form>
