@@ -87,9 +87,24 @@
 }
 
 .progress-container {
-  margin-bottom: 3rem;
+  /* margin-bottom: 3rem; */
   text-align: center;
   position: relative;
+}
+
+/* Wrapper to position restart icon without affecting bar width */
+.progress-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr; /* icon + full-width bar */
+  align-items: center;
+  column-gap: 12px;
+}
+
+/* When there's no restart icon, collapse to a single column and remove the left gap */
+.progress-wrapper.no-restart {
+  grid-template-columns: 1fr;
+  column-gap: 0;
 }
 
 .progress-bar {
@@ -1738,6 +1753,58 @@ transform: translateY(-2px);
   }
 }
 
+/* Small circular icon button for restart, matching glass UI */
+.icon-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.icon-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.restart-button {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Restart icon sits in the first grid column */
+.progress-restart-btn {
+  position: absolute;
+  top: -13px;
+  justify-self: center;
+  z-index: 60; /* bring above nearby elements so clicks register */
+  pointer-events: auto;
+}
+
+@media (max-width: 767px) {
+  .progress-restart-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Ensure the progress container fills its grid cell (second column) */
+.progress-container {
+  grid-column: 1 / -1; /* default: span full width */
+}
+
+/* If restart icon is present, shift the bar to the second column */
+.progress-wrapper.has-restart .progress-container {
+  grid-column: 2 / -1;
+}
+
 /* Toast styles */
 .toast-container {
   position: fixed;
@@ -1760,6 +1827,21 @@ transform: translateY(-2px);
 
 .toast-success {
   background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(61,114,255,0.15));
+}
+
+.toast-error {
+  background: #ef4444; /* solid red */
+  border-color: #dc2626;
+  box-shadow: 0 12px 32px rgba(239,68,68,0.35);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 1.1rem 1.6rem;
+}
+
+/* Larger error toast positioned tighter to top-right */
+.toast-container {
+  top: 12px;
+  right: 12px;
 }
 
 @keyframes toastEnter {

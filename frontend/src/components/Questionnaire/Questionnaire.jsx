@@ -117,6 +117,7 @@ const Questionnaire = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // prevent duplicate submits
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('success'); // 'success' | 'error'
 
   // Key used for persisting progress between visits
   const STORAGE_KEY = 'questionnaireProgress';
@@ -166,6 +167,7 @@ const Questionnaire = () => {
 
   // Reset progress and state
   const handleReset = () => {
+    console.log('🔁 Restart button clicked — resetting questionnaire');
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
     setFormData({
       name: '',
@@ -472,7 +474,8 @@ const Questionnaire = () => {
         };
 
   await submitToBackend(submissionData);
-  // Success toast instead of blocking alert
+  // Success toast
+  setToastType('success');
   setToastMessage(`Insights sent to ${formData.email}`);
   setShowToast(true);
   setTimeout(() => setShowToast(false), 4000); // auto-dismiss
@@ -498,8 +501,11 @@ const Questionnaire = () => {
         setShowAnalytics(false);
         setIsSubmitting(false);
       } catch (error) {
-        setAlertMessage("Sorry, there was an error. Please try again.");
-        setIsAlertVisible(true);
+        // Error toast - show server message if available
+        setToastType('error');
+        setToastMessage('Failed to send insights. Please try again.');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 6000);
         setIsSubmitting(false);
       }
     } else {
@@ -977,7 +983,7 @@ const Questionnaire = () => {
         <div className="questionnaire-container">
           {showToast && (
             <div className="toast-container">
-              <div className="toast toast-success">{toastMessage}</div>
+              <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
             </div>
           )}
           <AnalyticsSection
@@ -996,7 +1002,7 @@ const Questionnaire = () => {
       <div className="questionnaire-container">
         {showToast && (
           <div className="toast-container">
-            <div className="toast toast-success">{toastMessage}</div>
+            <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
           </div>
         )}
         {/* Welcome screen logic */} 
@@ -1033,19 +1039,36 @@ const Questionnaire = () => {
           </div>
         ): (
           <>
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill"
-                  style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-                ></div>
-              </div>
-              {/* Only show progress text if it's not the last step */}
+            <div className={`progress-wrapper ${!isLastQuestion ? 'has-restart' : 'no-restart'}`}>
+              {/* Restart icon positioned to the left of the bar without affecting its width */}
               {!isLastQuestion && (
-                <span className="progress-text">
-                  Question {currentStep + 1} of {questions.length - 1}
-                </span>
+                <div><button
+                  type="button"
+                  onClick={handleReset}
+                  className="icon-button restart-button progress-restart-btn"
+                  aria-label="Restart questionnaire"
+                  title="Restart"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M20 12a8 8 0 1 1-2.343-5.657" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M20 4v6h-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button></div>
               )}
+              <div className="progress-container">
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill"
+                    style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+                  ></div>
+                </div>
+                {/* Only show progress text if it's not the last step */}
+                {!isLastQuestion && (
+                  <span className="progress-text">
+                    Question {currentStep + 1} of {questions.length - 1}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="questionnaire-header">
@@ -1058,15 +1081,6 @@ const Questionnaire = () => {
                 {renderInput()}
               </div>
               <div className="navigation-buttons">
-                {currentStep >= 0 && !isLastQuestion && (
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="nav-button prev-button"
-                  >
-                    Start over
-                  </button>
-                )}
                 {currentStep > 0 && (
                   <button
                     type="button"
