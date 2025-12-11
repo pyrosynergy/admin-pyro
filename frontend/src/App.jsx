@@ -80,15 +80,12 @@ const openCalendarPopup = () => {
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
-  const [expandedCardIndex, setExpandedCardIndex] = useState(null); // Add this line
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navRef = useRef(null);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [formStatus, setFormStatus] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const [closingCardIndex, setClosingCardIndex] = useState(null);
-  const closeTimerRef = useRef(null); // To manage the timeout
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,72 +106,11 @@ function App() {
     // Simulate loading time - adjust as needed
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 1800); // Reduced from probably 3000-5000ms to 1000ms (1 second)
+    }, 1800);
 
     // Cleanup
     return () => clearTimeout(loadingTimer);
   }, []);
-
-  // --- EVENT HANDLERS FOR INTERACTIVE SERVICES ---
-  const handleCardClick = (index) => {
-     // Clear any pending instant-close state if a new card is clicked
-    if (closeTimerRef.current) {
-        clearTimeout(closeTimerRef.current);
-        closeTimerRef.current = null;
-    }
-    if (closingCardIndex !== null) {
-        setClosingCardIndex(null); // Explicitly turn off the instant-close state for the previous card
-    }
-
-    if (expandedCardIndex !== index) {
-      setExpandedCardIndex(index);
-    }
-    // If clicking the already expanded card, the click is on the wrapper behind the modal,
-    // which should probably just keep the modal open. The close button handles closing.
-  };
-
-  // Wrap handleCloseCard in useCallback to maintain reference stability
-  const handleCloseCard = useCallback((e) => {
-    if (e) e.stopPropagation(); // Prevents the click from bubbling up to the card's onClick
-
-    // Only trigger close if a card is actually expanded
-    if (expandedCardIndex !== null) {
-        // Clear any existing timeout before starting a new one
-        if (closeTimerRef.current) {
-            clearTimeout(closeTimerRef.current);
-        }
-
-        // Set the currently expanded card as the one that should close instantly
-        setClosingCardIndex(expandedCardIndex);
-        setExpandedCardIndex(null); // This will remove the 'expanded' class from the card
-
-        // Set a timeout to remove the 'closing-instant' class after a minimal delay
-        // The delay needs to be just enough for React to render the state change
-        closeTimerRef.current = setTimeout(() => {
-            setClosingCardIndex(null); // Remove the closing-instant class
-            closeTimerRef.current = null; // Clean up the ref
-        }, 50); // 50ms should be sufficient for the browser to register the change
-    }
-  }, [expandedCardIndex]); // Add expandedCardIndex as a dependency
-  
-  // ======================================================================
-  // ========== NEW: EFFECT TO HANDLE BODY SCROLL ON MOBILE MODAL =========
-  // ======================================================================
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    // Lock body scroll when loading or when a card is expanded on mobile
-    if (isLoading || (expandedCardIndex !== null && isMobile)) {
-      document.body.style.overflow = "hidden";
-    } else {
-      // Otherwise, ensure it's unlocked
-      document.body.style.overflow = "auto";
-    }
-    // Cleanup function to ensure scroll is always restored on component unmount
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [expandedCardIndex, isLoading]); // Add isLoading to dependencies
-  // ======================================================================
 
   // Click handler for mobile nav links
   const handleLinkClick = () => {
@@ -232,20 +168,6 @@ function App() {
     }
   }, [formStatus]);
 
-  // Handle escape key to close expanded card
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === "Escape") {
-        if (expandedCardIndex !== null) { // Only close if a card is expanded
-             handleCloseCard(event); // Use the modified handler
-        }
-      }
-    };
-    // The useEffect now has a stable reference to handleCloseCard
-    window.addEventListener("keydown", handleEscKey);
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [expandedCardIndex, handleCloseCard]);
-
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
     navigate('/realitycheck');
@@ -288,11 +210,7 @@ function App() {
   
               <Services 
                 servicesData={servicesData}
-                expandedCardIndex={expandedCardIndex}
-                closingCardIndex={closingCardIndex} // Add this line
-                handleCardClick={handleCardClick}
-                handleCloseCard={handleCloseCard} // Add this line
-                openCalendarPopup={openCalendarPopup} // Make sure this is passed
+                openCalendarPopup={openCalendarPopup}
               />
   
               

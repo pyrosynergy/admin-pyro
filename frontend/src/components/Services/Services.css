@@ -1,5 +1,5 @@
 /* ============================================================= */
-/* ========== INTERACTIVE SERVICES SECTION ========== */
+/* ========== SERVICES SECTION - VERTICAL CARDS ================ */
 /* ============================================================= */
 
 .services-section {
@@ -16,242 +16,6 @@
   padding: 0 1rem;
 }
 
-.services-interactive-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: auto;
-}
-
-.service-card-wrapper {
-  position: relative;
-  border-radius: 17px;
-  cursor: pointer;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.service-card-interactive {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  background: linear-gradient(145deg, hsl(258, 15%, 8%), #0d0b02 80%);
-  border: 1px solid rgba(151, 151, 151, 0.2);
-  border-radius: 16px;
-  text-align: center;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, transform 0.5s ease;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.service-card-interactive-content {
-  position: relative;
-  width: 100%;
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  z-index: 2;
-  flex: 1;
-  display: flex;
-  min-height: 0;
-}
-
-/* === MODIFIED: Styles for COLLAPSED card content === */
-.card-content-initial {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.card-image-initial {
-  width: 100%;
-  height: 150px;
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card-image-initial img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-/* === MODIFIED: Styles for EXPANDED card content === */
-.card-content-expanded {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px);
-  display: flex; /* This is the main container now */
-  flex-direction: column;
-  text-align: left;
-}
-.modal-title {
-  /* Center title as per design */
-  width: 100%;
-  font-size: clamp(1.2rem, 4vw, 2rem); /* Responsive font size */
-  line-height: 1.2;
-  color: #fff;
-  margin-bottom: clamp(0.8rem, 2vw, 1.5rem); /* Responsive margin */
-  text-align: center;
-}
-
-.modal-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: clamp(0.8rem, 2vw, 2rem); /* Responsive margin */
-}
-
-.modal-image {
-  max-width: clamp(200px, 40vw, 350px); /* Responsive image size */
-  width: 80%;
-  height: auto;
-  opacity: 1; /* Changed from 0 to 1 - make images visible by default */
-}
-
-.modal-text-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* This will push the CTA button to the bottom */
-}
-
-.modal-statement {
-  font-family: "Albert Sans", sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.4rem); /* Responsive font size */
-  font-weight: 500;
-  line-height: 1.6;
-  color: #ccc;
-   /* Centered text */
-  margin-bottom: clamp(0.5rem, 1.5vw, 1rem); /* Responsive margin */
-  margin-right: clamp(1rem, 10vw, 7rem); /* Responsive margin */
-}
- .modal-description{
-   font-size: clamp(0.9rem, 2.2vw, 1.4rem); /* Responsive font size */
-  font-weight: 500;
-  color: #ccc;
-  max-width: clamp(300px, 80vw, 650px); /* Responsive max-width */
- }
-
-
-
-/* === States & Close Button (PRESERVED) === */
-.service-card-wrapper.expanded .card-content-initial {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-20px);
-}
-.service-card-wrapper.expanded .card-content-expanded {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-  transition-delay: 0.3s;
-}
-.card-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: #8a8a8a;
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease 0.3s, color 0.3s ease, transform 0.3s ease;
-}
-.card-close-btn:hover {
-  color: #fff;
-  transform: rotate(90deg) scale(1.1);
-}
-.service-card-wrapper.expanded .card-close-btn {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* === NEW: SVG Animation on expand === */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-.service-card-wrapper.expanded .modal-image {
-  opacity: 1; /* Ensure immediate visibility */
-  animation: slideInUp 0.6s 0s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Changed delay from 0.2s to 0s */
-}
-
-/* === Modal view (PRESERVED) === */
-.service-card-wrapper.expanded {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  background: rgba(13, 11, 2, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: default;
-  opacity: 0;
-  animation: fadeInBackdrop 0.4s forwards;
-}
-.service-card-wrapper.expanded .service-card-interactive {
-  transform: scale(0.95);
-  animation: scaleUpModal 0.4s 0.1s forwards
-    cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.service-card-wrapper.overlay {
-}
-@keyframes fadeInBackdrop {
-  to {
-    opacity: 1;
-  }
-}
-@keyframes scaleUpModal {
-  to {
-    transform: scale(1);
-  }
-}
-.service-card-wrapper.closing-instant,
-.service-card-wrapper.closing-instant * {
-  transition: none !important;
-  animation: none !important;
-}
-
-/* === Typography (PRESERVED) === */
-.service-card-title-quote {
-  margin-bottom: 1rem;
-  font-family: "Albert Sans", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #fff;
-  flex-grow: 1;
-}
 .services-title {
   margin-bottom: 1rem;
   font-family: "Albert Sans", sans-serif;
@@ -259,6 +23,7 @@
   font-weight: 500;
   color: #fff;
 }
+
 .services-subtitle {
   font-family: "Albert Sans", sans-serif;
   font-size: 1.125rem;
@@ -266,895 +31,210 @@
   color: #a5a5a5;
 }
 
-/* === Modal CTA Button (MODIFIED FOR POSITIONING) === */
-.modal-cta-btn {
-  display: block; /* Make it a block for centering */
-  margin: clamp(0.8rem, 2vw, 1.5rem) 0 0 clamp(15rem, 60vw, 45rem); /* Responsive margins */
-  margin-top: auto; /* Pushes to bottom */
-  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 2rem); /* Responsive padding */
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive font size */
-  font-weight: 500;
-  color: #fff;
-  text-align: center;
-  background: linear-gradient(
-    90deg,
-    #d904ff,
-    #003cff
-  ); /* Gradient from design */
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* === Collapsed Card Buttons (EFFECTS RESTORED) === */
-.card-buttons-initial {
+.services-container {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 2.5rem;
   width: 100%;
-  margin-top: auto;
-  padding-top: 1rem;
-}
-.card-cta-initial,
-.know-more-btn {
-  flex: 1;
-  padding: 12px 15px;
-  border-radius: 33px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
-  text-transform: capitalize;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.card-cta-initial {
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
-  color: #ffffff;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 33px;
+/* ============================================================= */
+/* ========== SERVICE CARD STYLING ============================= */
+/* ============================================================= */
+
+.service-card {
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  border-radius: 22px;
+  background: transparent;
 }
-.card-cta-initial::before {
-  /* RESTORED SWEEP EFFECT */
+
+/* Gradient border effect */
+.service-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: left 0.5s ease;
-}
-.card-cta-initial:hover::before {
-  left: 130%;
-}
-.card-cta-initial:hover {
-  transition: all 1s ease;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(255, 0, 204, 0.4);
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(115deg, #ff00ff, #4f00ff 45%, #00b2ff);
+  filter: drop-shadow(0 0 25px rgba(146, 76, 255, 0.4));
+  z-index: 0;
 }
 
-.know-more-btn {
-  background-color: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-.know-more-btn:hover {
-  background-color: #ffffff;
-  color: #1a1a1a;
-  border-color: #ffffff;
-}
-
-/* ============================================================= */
-/* ========== RESPONSIVE MODAL CONTENT ========== */
-/* ============================================================= */
-
-/* Base modal styles with responsive adjustments */
-/* ============================================================= */
-/* ========== RESPONSIVE MODAL CONTENT ========== */
-/* ============================================================= */
-
-/* Base modal styles with responsive adjustments */
-.modal-title {
-  width: 100%;
-  font-size: clamp(1.2rem, 4vw, 2rem); /* Responsive font size */
-  line-height: 1.2;
-  color: #fff;
-  margin-bottom: clamp(0.8rem, 2vw, 1.5rem); /* Responsive margin */
-  text-align: center;
-}
-
-.modal-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: clamp(0.8rem, 2vw, 2rem); /* Responsive margin */
-}
-
-.modal-image {
-  max-width: clamp(200px, 40vw, 350px); /* Responsive image size */
-  width: 80%;
-  height: auto;
-  opacity: 1; /* Changed from 0 to 1 - make images visible by default */
-}
-
-.modal-text-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* This will push the CTA button to the bottom */
-}
-
-.modal-statement {
-  font-family: "Albert Sans", sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.4rem); /* Responsive font size */
-  font-weight: 500;
-  line-height: 1.6;
-  color: #ccc;
-  margin-bottom: clamp(0.5rem, 1.5vw, 1rem); /* Responsive margin */
-  margin-right: clamp(1rem, 10vw, 7rem); /* Responsive margin */
-}
- .modal-description{
-   font-size: clamp(0.9rem, 2.2vw, 1.4rem); /* Responsive font size */
-  font-weight: 500;
-  color: #ccc;
-  max-width: clamp(300px, 80vw, 650px); /* Responsive max-width */
-}
-
-.modal-cta-btn {
-  display: block;
-  margin: clamp(0.8rem, 2vw, 1.5rem) 0 0 clamp(15rem, 60vw, 45rem); /* Responsive margins */
-  margin-top: auto; /* Pushes to bottom */
-  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 2rem); /* Responsive padding */
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive font size */
-  font-weight: 500;
-  color: #fff;
-  text-align: center;
-  background: linear-gradient(90deg, #d904ff, #003cff);
-  border: none;
-  border-radius: 31px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Responsive card content padding */
-.card-content-expanded {
+/* Dark inner background */
+.service-card::after {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: clamp(1rem, 3vw, 2rem); /* Responsive padding */
-  box-sizing: border-box;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px);
+  inset: 6px;
+  border-radius: 16px;
+  background: #0d0b13;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.service-card-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-areas: "text image";
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(2rem, 4vw, 3rem);
+  min-height: 320px;
+}
+
+/* ============================================================= */
+/* ========== TEXT SECTION ===================================== */
+/* ============================================================= */
+
+.service-text-section {
+  grid-area: text;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   text-align: left;
 }
 
-/* Enhanced responsive breakpoints for better scaling */
-@media (max-width: 480px) {
-  .card-content-expanded {
-    padding: 0.6rem;
-    display: flex;
-    flex-direction: column;
+.service-title {
+  font-family: "Albert Sans", sans-serif;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #f9f7ff;
+  margin: 0;
+}
+
+.service-statement {
+  font-family: "Albert Sans", sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #e8e9f0;
+  margin: 0.5rem 0 0 0;
+}
+
+.service-description {
+  font-family: "Albert Sans", sans-serif;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #c7c9d4;
+  margin: 0 0 1rem 0;
+}
+
+.service-cta-btn {
+  align-self: flex-start;
+  padding: 0.85rem 1.8rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(100deg, #b400ff, #0040ff);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(80, 30, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.service-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(80, 30, 255, 0.5);
+}
+
+/* ============================================================= */
+/* ========== IMAGE SECTION ==================================== */
+/* ============================================================= */
+
+.service-image-section {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.service-image {
+  max-width: 100%;
+  width: clamp(220px, 30vw, 320px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.5));
+}
+
+/* ============================================================= */
+/* ========== RESPONSIVE DESIGN ================================ */
+/* ============================================================= */
+
+/* Tablet and below */
+@media (max-width: 1024px) {
+  .service-card-content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "image";
     text-align: center;
-    justify-content: space-between;
-    min-height: 100%;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
   }
-  
-  .modal-image-container {
-    order: 1;
-    margin-bottom: 0.5rem;
+
+  .service-text-section {
+    text-align: center;
+    align-items: center;
+  }
+
+  .service-cta-btn {
     align-self: center;
-    flex-shrink: 0;
   }
-  
-  .modal-title {
-    order: 2;
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    text-align: center;
-    flex-shrink: 0;
-  }
-  
-  .modal-main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    order: 3;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .modal-image {
-    max-width: 140px;
-    height: auto;
-  }
-  
-  .modal-text-content {
-    text-align: center;
-    gap: 0.5rem;
-    align-items: center;
-    max-height: 200px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .modal-statement {
-    font-size: 0.8rem;
-    text-align: center;
-    margin: 0;
-    line-height: 1.4;
-  }
-  
-  .modal-description {
-    font-size: 0.75rem;
-    text-align: center;
-    margin: 0;
-    line-height: 1.3;
-  }
-  
-  .modal-cta-btn {
-    order: 4;
-    font-size: 0.8rem;
-    padding: 0.6rem 1.2rem;
-    margin: 0.8rem auto 0 auto;
-    align-self: center;
-    flex-shrink: 0;
-    position: relative;
-  }
-  
-  /* Center the expanded card on mobile with more right margin */
-  .service-card-wrapper.expanded {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem 1rem 1rem; /* More right padding */
-  }
-  
-  /* Keep card smaller and more centered on mobile */
-  .service-card-wrapper.expanded .service-card-interactive {
-    max-height: 50vh !important;
-    max-width: 75vw !important; /* Slightly smaller width */
-    margin: 0 auto 0 0.5rem; /* Add left margin to shift right */
-    transform: none !important;
+
+  .service-image {
+    width: clamp(200px, 50vw, 280px);
   }
 }
 
+/* Mobile */
 @media (max-width: 640px) {
-  .card-content-expanded {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 0.8rem;
-    justify-content: space-between;
-    min-height: 100%;
-  }
-  
-  .modal-image-container {
-    order: 1;
-    margin-bottom: 0.8rem;
-    align-self: center;
-    flex-shrink: 0;
-  }
-  
-  .modal-title {
-    order: 2;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    flex-shrink: 0;
-  }
-  
-  .modal-main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    order: 3;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .modal-image {
-    max-width: 160px;
-    height: auto;
-  }
-  
-  .modal-text-content {
-    text-align: center;
-    gap: 0.6rem;
-    align-items: center;
-    max-height: 250px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .modal-statement {
-    font-size: 0.85rem;
-    text-align: center;
-    margin: 0;
-    line-height: 1.4;
-  }
-  
-  .modal-description {
-    font-size: 0.8rem;
-    text-align: center;
-    margin: 0;
-    line-height: 1.3;
-  }
-  
-  .modal-cta-btn {
-    order: 4;
-    font-size: 0.85rem;
-    padding: 0.7rem 1.4rem;
-    margin: 1rem auto 0 auto;
-    align-self: center;
-    flex-shrink: 0;
-    position: relative;
-  }
-  
-  /* Center with more right margin */
-  .service-card-wrapper.expanded {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2.5rem 1rem 1rem; /* More right padding */
-  }
-  
-  /* Keep card smaller and more centered */
-  .service-card-wrapper.expanded .service-card-interactive {
-    max-height: 55vh !important;
-    max-width: 80vw !important;
-    margin: 0 auto 0 0.8rem; /* Add left margin */
-    transform: none !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .services-interactive-container {
-    gap: 2rem;
-  }
-  .card-buttons-initial {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .card-content-expanded {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: space-between;
-    min-height: 100%;
-  }
-  
-  .modal-image-container {
-    order: 1;
-    margin-bottom: 1rem;
-    align-self: center;
-    flex-shrink: 0;
-  }
-  
-  .modal-title {
-    order: 2;
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-    text-align: center;
-    flex-shrink: 0;
-  }
-  
-  .modal-main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    order: 3;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .modal-image {
-    max-width: 180px;
-    height: auto;
-  }
-  
-  .modal-text-content {
-    text-align: center;
-    gap: 0.8rem;
-    align-items: center;
-    max-height: 300px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .modal-statement,
-  .modal-outcome,
-  .outcome-point {
-    font-size: 0.9rem;
-    text-align: center;
-    margin: 0;
-    line-height: 1.4;
-  }
-  
-  .modal-cta-btn {
-    order: 4;
-    font-size: 0.9rem;
-    padding: 0.8rem 1.6rem;
-    margin: 1.2rem auto 0 auto;
-    align-self: center;
-    flex-shrink: 0;
-    position: relative;
-  }
-  
-  /* Center with more right margin */
-  .service-card-wrapper.expanded {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 3rem 1rem 1rem; /* More right padding */
-  }
-  
-  /* Keep card reasonable size and more centered */
-  .service-card-wrapper.expanded .service-card-interactive {
-    max-height: 60vh !important;
-    max-width: 85vw !important;
-    margin: 0 auto 0 1rem; /* Add left margin */
-    border-radius: 12px;
-    transform: none !important;
-  }
-}
-
-/* Tablet adjustments */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .card-content-expanded {
-    padding: 1.5rem;
-  }
-  
-  .modal-title {
-    font-size: 1.6rem;
-  }
-  
-  .modal-image {
-    max-width: 280px;
-  }
-  
-  .modal-statement,
-  .modal-description {
-    font-size: 1.1rem;
-  }
-  
-  .modal-cta-btn {
-    margin-left: 25rem;
-  }
-}
-
-/* Large desktop */
-@media (min-width: 1400px) {
-  .modal-title {
-    font-size: 2.2rem;
-  }
-  
-  .modal-image {
-    max-width: 400px;
-  }
-  
-  .modal-statement,
-  .modal-description {
-    font-size: 1.5rem;
-  }
-}
-
-/* === Responsive styles (PRESERVED) === */
-@media (max-width: 767px) {
-  .services-interactive-container {
-    gap: 2rem;
-  }
-  .card-buttons-initial {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  .modal-title {
-    font-size: 1.5rem;
-  }
-  .modal-statement,
-  .modal-outcome,
-  .outcome-point {
-    font-size: 0.9rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .services-interactive-container {
-    flex-direction: row;
-    height: 500px; /* Adjusted for better fit */
-    perspective: 1000px;
-  }
-  .card-content-expanded {
-    padding: 2.5rem; /* More padding on desktop */
-  }
-  .modal-cta-btn {
-    align-self: center; /* Ensure it stays centered in its column */
+  .services-section {
+    padding: 3rem 1rem;
   }
 
-  /* === All your desktop hover/transition effects are preserved below === */
-  .service-card-wrapper {
-    flex: 1 1 0px;
-    cursor: default;
-    transition: flex-basis 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease,
-      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  .section-heading {
+    margin-bottom: 2rem;
   }
-  .service-card-wrapper:not(.expanded):hover {
-    transform: rotateY(-5deg) rotateX(5deg) scale(1.05);
-    box-shadow: 0 10px 40px -10px rgba(93, 143, 255, 0.5);
-    z-index: 5;
-    padding: 2px;
-    background: linear-gradient(120deg, #5d8fff, #ff00ff);
-  }
-  .service-card-wrapper:not(.expanded):hover .service-card-interactive {
-    background: linear-gradient(145deg, hsl(258, 15%, 8%), #0d0b02 80%);
-    border-color: transparent;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .service-card-wrapper.expanded {
-    position: relative;
-    flex-basis: 100%;
-    z-index: 10;
-    padding: 0;
-    background: none;
-    backdrop-filter: none;
-    animation: none;
-    opacity: 1;
-  }
-  .service-card-wrapper.expanded .service-card-interactive {
-    transform: none;
-    animation: none;
-    height: 100%;
-    max-height: none;
-  }
-  .service-card-wrapper.overlay {
-    flex-basis: 0px;
-    opacity: 0;
-    overflow: hidden;
-    pointer-events: none;
-    padding: 0;
-    border: none;
-    transform: none;
-  }
-}
 
-/* Enhanced desktop layout for consistency */
-@media (min-width: 768px) {
-  .services-interactive-container {
-    flex-direction: row;
-    height: 500px;
-    perspective: 1000px;
+  .services-title {
+    font-size: 2rem;
   }
-  
-  .card-content-expanded {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  /* Fixed layout structure for desktop */
-  .modal-title {
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
-    margin-bottom: 1.5rem;
-    text-align: center;
-    flex-shrink: 0; /* Prevent shrinking */
-  }
-  
-  .modal-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    flex-shrink: 0; /* Fixed position */
-    height: 200px; /* Fixed height for consistency */
-  }
-  
-  .modal-image {
-    max-width: 180px; /* Fixed size for all cards */
-    max-height: 180px; /* Fixed height */
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    opacity: 1; /* Ensure visibility on desktop */
-  }
-  
-  .modal-text-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Take available space */
-    justify-content: flex-start; /* Align text to top of available space */
-    margin-bottom: 1.5rem;
-    min-height: 150px; /* Minimum space for text */
-    max-height: 200px; /* Maximum space to prevent overflow */
-    overflow-y: auto; /* Scroll if content is too long */
-  }
-  
-  .modal-statement {
-    font-family: "Albert Sans", sans-serif;
-    font-size: clamp(1rem, 1.2vw, 1.1rem);
-    font-weight: 500;
-    line-height: 1.6;
-    color: #ccc;
-    text-align: left;
-    margin-bottom: 1rem;
-  }
-  
-  .modal-description {
-    font-size: clamp(0.9rem, 1.1vw, 1rem);
-    font-weight: 500;
-    color: #ccc;
-    text-align: left;
-    line-height: 1.5;
-  }
-  
-  .modal-cta-btn {
-    display: block;
-    align-self: flex-end; /* Align to right */
-    padding: 0.75rem 2rem;
-    font-family: "Space Grotesk", sans-serif;
+
+  .services-subtitle {
     font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    text-align: center;
-    background: linear-gradient(90deg, #d904ff, #003cff);
-    border: none;
-    border-radius: 31px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex-shrink: 0; /* Prevent shrinking */
-    margin-top: auto; /* Push to bottom */
   }
-  
-  /* Preserve existing desktop hover effects */
-  .service-card-wrapper {
-    flex: 1 1 0px;
-    cursor: default;
-    transition: flex-basis 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease,
-      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .service-card-wrapper:not(.expanded):hover {
-    transform: rotateY(-5deg) rotateX(5deg) scale(1.05);
-    box-shadow: 0 10px 40px -10px rgba(93, 143, 255, 0.5);
-    z-index: 5;
-    padding: 2px;
-    background: linear-gradient(120deg, #5d8fff, #ff00ff);
-  }
-  
-  .service-card-wrapper:not(.expanded):hover .service-card-interactive {
-    background: linear-gradient(145deg, hsl(258, 15%, 8%), #0d0b02 80%);
-    border-color: transparent;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .service-card-wrapper.expanded {
-    position: relative;
-    flex-basis: 100%;
-    z-index: 10;
-    padding: 0;
-    background: none;
-    backdrop-filter: none;
-    animation: none;
-    opacity: 1;
-  }
-  
-  .service-card-wrapper.expanded .service-card-interactive {
-    transform: none;
-    animation: none;
-    height: 100%;
-    max-height: none;
-  }
-  
-  .service-card-wrapper.overlay {
-    flex-basis: 0px;
-    opacity: 0;
-    overflow: hidden;
-    pointer-events: none;
-    padding: 0;
-    border: none;
-    transform: none;
-  }
-}
 
-/* Large desktop adjustments */
-@media (min-width: 1200px) {
-  .modal-image-container {
-    height: 220px; /* Slightly larger for bigger screens */
-  }
-  
-  .modal-image {
-    max-width: 200px;
-    max-height: 200px;
-  }
-  
-  .modal-text-content {
-    min-height: 180px;
-    max-height: 220px;
-  }
-  
-  .modal-statement {
-    font-size: 1.2rem;
-  }
-  
-  .modal-description {
-    font-size: 1.1rem;
-  }
-  
-  .modal-cta-btn {
-    padding: 0.8rem 2.2rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Extra large desktop */
-@media (min-width: 1400px) {
-  .modal-image-container {
-    height: 250px;
-  }
-  
-  .modal-image {
-    max-width: 220px;
-    max-height: 220px;
-  }
-  
-  .modal-text-content {
-    min-height: 200px;
-    max-height: 250px;
-  }
-  
-  .modal-statement {
-    font-size: 1.3rem;
-  }
-  
-  .modal-description {
-    font-size: 1.2rem;
-  }
-}
-
-/* === Card-specific layouts for expanded content === */
-
-/* First Card Layout - Side by side text and image */
-.first-card-layout {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.first-card-layout .modal-text-content {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-.first-card-layout .modal-image-container {
-  flex: 0 0 auto;
-  margin-bottom: 0;
-  width: 300px;
-}
-
-/* Second Card Layout - Similar to first but potentially different spacing */
-.second-card-layout {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.second-card-layout .modal-text-content {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-.second-card-layout .modal-image-container {
-  flex: 0 0 auto;
-  margin-bottom: 0;
-  width: 300px;
-}
-
-/* Third Card Layout - Similar structure */
-.third-card-layout {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.third-card-layout .modal-text-content {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-.third-card-layout .modal-image-container {
-  flex: 0 0 auto;
-  margin-bottom: 0;
-  width: 300px;
-}
-
-/* Mobile responsive adjustments for card-specific layouts */
-@media (max-width: 767px) {
-  .first-card-layout,
-  .second-card-layout,
-  .third-card-layout {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .first-card-layout .modal-image-container,
-  .second-card-layout .modal-image-container,
-  .third-card-layout .modal-image-container {
-    width: auto;
-    order: 1;
-  }
-  
-  .first-card-layout .modal-text-content,
-  .second-card-layout .modal-text-content,
-  .third-card-layout .modal-text-content {
-    order: 2;
-    text-align: center;
-  }
-}
-
-/* Desktop layout adjustments - button below image */
-@media (min-width: 768px) {
-  /* Create a right column for image and button */
-  .first-card-layout,
-  .second-card-layout,
-  .third-card-layout {
-    display: flex;
-    flex-direction: row;
+  .services-container {
     gap: 2rem;
-    align-items: flex-start;
   }
-  
-  .first-card-layout .modal-text-content,
-  .second-card-layout .modal-text-content,
-  .third-card-layout .modal-text-content {
-    flex: 1;
-    margin-bottom: 0;
+
+  .service-card-content {
+    padding: 1.5rem 1rem;
+    min-height: auto;
   }
-  
-  /* Right column with image and button stacked */
-  .first-card-layout .modal-image-container,
-  .second-card-layout .modal-image-container,
-  .third-card-layout .modal-image-container {
-    flex: 0 0 auto;
-    margin-bottom: 1rem; /* Space between image and button */
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  .service-title {
+    font-size: 1.25rem;
   }
-  
-  /* Position button directly below image */
-  .first-card-layout .modal-cta-btn,
-  .second-card-layout .modal-cta-btn,
-  .third-card-layout .modal-cta-btn {
-    align-self: center;
-    margin: 0;
-    margin-top: 1rem; /* Space from image */
+
+  .service-statement {
+    font-size: 1rem;
+  }
+
+  .service-description {
+    font-size: 0.9rem;
+  }
+
+  .service-image {
+    width: clamp(160px, 60vw, 220px);
   }
 }
