@@ -12,7 +12,14 @@ const isMobileDevice = () => {
 // Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    const response = await fetch('https://land-pyro-backend.vercel.app/api/questionnaire/submit', {
+    // Normalize base URL (remove trailing slash), then add path with leading slash
+    const rawBase = process.env.NODE_ENV === 'production'
+      ? 'https://admin-pyro-backend.vercel.app'
+      : 'http://localhost:5000';
+    const API_BASE_URL = rawBase.replace(/\/$/, '');
+    const endpoint = `${API_BASE_URL}/api/questionnaire/submit`;
+
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,12 +27,16 @@ const submitToBackend = async (formData) => {
       body: JSON.stringify(formData)
     });
 
-    const result = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(result.message || 'Failed to submit questionnaire');
+    let result;
+    try {
+      result = await response.json();
+    } catch (parseErr) {
+      throw new Error('Invalid JSON response from server');
     }
 
+    if (!response.ok) {
+      throw new Error(result?.message || `Failed to submit questionnaire (status ${response.status})`);
+    }
     return result;
   } catch (error) {
     console.error('Error submitting questionnaire:', error);
@@ -103,6 +114,80 @@ const Questionnaire = () => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false); // prevent duplicate submits
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('success'); // 'success' | 'error'
+
+  // Key used for persisting progress between visits
+  const STORAGE_KEY = 'questionnaireProgress';
+
+  // Load saved progress on first mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return; // Nothing saved previously
+      const saved = JSON.parse(raw);
+      if (!saved || typeof saved !== 'object') return;
+
+      // Merge saved form data (keep new fields if added later)
+      if (saved.formData) {
+        setFormData(prev => ({ ...prev, ...saved.formData }));
+      }
+      if (typeof saved.currentStep === 'number') {
+        setCurrentStep(saved.currentStep);
+      }
+      if (saved.showAnalytics) {
+        setShowAnalytics(true);
+      }
+      if (saved.cameFromAnalytics) {
+        setCameFromAnalytics(true);
+      }
+    } catch (e) {
+      console.warn('Failed to restore questionnaire progress', e);
+    }
+  }, []);
+
+  // Persist progress whenever relevant state changes
+  useEffect(() => {
+    try {
+      // Don't persist if user has completed and been reset to welcome
+      const allEmpty = Object.values(formData).every(v => !v || String(v).trim() === '');
+      if (currentStep === -1 && !showAnalytics && allEmpty) {
+        // Nothing meaningful to persist
+        localStorage.removeItem(STORAGE_KEY);
+        return;
+      }
+      const payload = { formData, currentStep, showAnalytics, cameFromAnalytics };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (e) {
+      console.warn('Failed to save questionnaire progress', e);
+    }
+  }, [formData, currentStep, showAnalytics, cameFromAnalytics]);
+
+  // Reset progress and state
+  const handleReset = () => {
+    console.log('🔁 Restart button clicked — resetting questionnaire');
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    setFormData({
+      name: '',
+      businessStage: '',
+      businessStageOther: '',
+      businessChallenge: '',
+      revenueSatisfaction: '',
+      successVision: '',
+      hiringConcern: '',
+      hiringConcernOther: '',
+      visionAlignment: '',
+      onepartnerAppeal: '',
+      improvementTimeline: '',
+      email: ''
+    });
+    setCurrentStep(-1);
+    setShowAnalytics(false);
+    setCameFromAnalytics(false);
+    setIsAlertVisible(false);
+  };
 
   const questions = [
     {
@@ -363,7 +448,9 @@ const Questionnaire = () => {
     
     // If we're on the last question (email), submit the form
     if (isLastQuestion) {
+      if (isSubmitting) return; // guard
       try {
+        setIsSubmitting(true);
         const totalScoreData = calculateTotalScore(formData);
         const scoreBand = getScoreBand(totalScoreData.totalPercentage);
         
@@ -386,9 +473,14 @@ const Questionnaire = () => {
           scoreLabel: scoreBand.label
         };
 
-        await submitToBackend(submissionData);
-        setAlertMessage(`Thank you! Your personalized business insights are on their way to ${formData.email}!`);
-        setIsAlertVisible(true);
+  await submitToBackend(submissionData);
+  // Success toast
+  setToastType('success');
+  setToastMessage(`Insights sent to ${formData.email}`);
+  setShowToast(true);
+  setTimeout(() => setShowToast(false), 4000); // auto-dismiss
+        // Clear stored progress after successful submission
+        localStorage.removeItem(STORAGE_KEY);
         
         // Reset form and return to welcome
         setFormData({
@@ -407,9 +499,14 @@ const Questionnaire = () => {
         });
         setCurrentStep(-1);
         setShowAnalytics(false);
+        setIsSubmitting(false);
       } catch (error) {
-        setAlertMessage("Sorry, there was an error. Please try again.");
-        setIsAlertVisible(true);
+        // Error toast - show server message if available
+        setToastType('error');
+        setToastMessage('Failed to send insights. Please try again.');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 6000);
+        setIsSubmitting(false);
       }
     } else {
       setCurrentStep(prev => prev + 1);
@@ -884,6 +981,11 @@ const Questionnaire = () => {
     return (
       <section id="questionnaire" className="questionnaire-section">
         <div className="questionnaire-container">
+          {showToast && (
+            <div className="toast-container">
+              <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
+            </div>
+          )}
           <AnalyticsSection
             formData={formData}
             onContinue={handleContinueFromAnalytics}
@@ -898,6 +1000,11 @@ const Questionnaire = () => {
     <section id="questionnaire" className="questionnaire-section">
       {isAlertVisible && <ThemeAlert message={alertMessage} onClose={() => setIsAlertVisible(false)} />}
       <div className="questionnaire-container">
+        {showToast && (
+          <div className="toast-container">
+            <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
+          </div>
+        )}
         {/* Welcome screen logic */} 
         {currentStep === -1 ? (
           <div className="welcome-container">
@@ -932,19 +1039,36 @@ const Questionnaire = () => {
           </div>
         ): (
           <>
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill"
-                  style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-                ></div>
-              </div>
-              {/* Only show progress text if it's not the last step */}
+            <div className={`progress-wrapper ${!isLastQuestion ? 'has-restart' : 'no-restart'}`}>
+              {/* Restart icon positioned to the left of the bar without affecting its width */}
               {!isLastQuestion && (
-                <span className="progress-text">
-                  Question {currentStep + 1} of {questions.length - 1}
-                </span>
+                <div><button
+                  type="button"
+                  onClick={handleReset}
+                  className="icon-button restart-button progress-restart-btn"
+                  aria-label="Restart questionnaire"
+                  title="Restart"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M20 12a8 8 0 1 1-2.343-5.657" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M20 4v6h-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button></div>
               )}
+              <div className="progress-container">
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill"
+                    style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+                  ></div>
+                </div>
+                {/* Only show progress text if it's not the last step */}
+                {!isLastQuestion && (
+                  <span className="progress-text">
+                    Question {currentStep + 1} of {questions.length - 1}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="questionnaire-header">
@@ -968,9 +1092,10 @@ const Questionnaire = () => {
                 )}
                 <button
                   type="submit"
-                  className="nav-button next-button"
+                  className={`nav-button next-button ${isSubmitting && isLastQuestion ? 'submitting' : ''}`}
+                  disabled={isSubmitting && isLastQuestion}
                 >
-                  {isLastQuestion ? 'Submit' : 'Next →'}
+                  {isLastQuestion ? (isSubmitting ? 'Sending…' : 'Submit') : 'Next →'}
                 </button>
               </div>
             </form>

@@ -18,6 +18,10 @@ const questionnaireSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  revenueSatisfaction: {
+    type: String,
+    required: true
+  },
   successVision: {
     type: String,
     required: true

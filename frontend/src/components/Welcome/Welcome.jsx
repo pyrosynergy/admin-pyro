@@ -80,7 +80,9 @@ const Welcome = () => {
 
         {/* Links Section */}
         <div className="pyro-navigation-menu">
-          Want to get aligned? Take our FREE PyroReality Check!
+          <div className="pyro-cta-text">
+            Want to get aligned? Take our FREE PyroReality Check!
+          </div>
           {links.map((link, index) => (
             <button
               key={index}
