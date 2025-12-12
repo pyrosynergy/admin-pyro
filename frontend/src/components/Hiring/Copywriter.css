@@ -45,12 +45,13 @@
 /* Full page background */
 .role-section {
   min-height: 100vh;
-  padding: 4rem 2rem 5rem;
+  padding: 4rem 2rem 2rem;
   background: linear-gradient(135deg, #101010 0%, #0d0d1a 50%, #101010 100%);
   color: #fff;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   box-sizing: border-box;
   font-family: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
 }

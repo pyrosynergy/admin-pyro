@@ -1,13 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
 
 const ContentStrategist = () => {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     // preserve original scroll behaviour only
     window.scrollTo(0, 0);
+
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Keep the exact content as a single source of truth
