@@ -1,12 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
 
 const SalesIntern = () => {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const content = `Sales Intern (Commision-based)
@@ -264,9 +275,9 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
+              target={isMobile ? undefined : "_blank"}
+              rel={isMobile ? undefined : "noopener noreferrer"}
               aria-label="Apply Now"
             >
               Apply Now

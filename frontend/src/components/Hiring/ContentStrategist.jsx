@@ -251,9 +251,9 @@ We'll only go through eye-catching submissions that aren't too ChatGPT-like. If 
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
+              target={isMobile ? undefined : "_blank"}
+              rel={isMobile ? undefined : "noopener noreferrer"}
               aria-label="Apply Now"
             >
               Apply Now

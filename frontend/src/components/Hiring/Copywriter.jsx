@@ -1,13 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
 
 const Copywriter = () => {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     // preserve original scroll behaviour only
     window.scrollTo(0, 0);
+
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // No handler required; we link directly to Gmail compose
@@ -244,9 +256,9 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
+              target={isMobile ? undefined : "_blank"}
+              rel={isMobile ? undefined : "noopener noreferrer"}
               aria-label="Apply Now"
             >
               Apply Now
@@ -261,7 +273,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           </div>
         </div>
       </div>
-      <HiringFooter />
+    <HiringFooter />
     </section>
   );
 };
