@@ -1,73 +1,88 @@
 import React, { useEffect } from "react";
 import "./Copywriter.css";
 
-const Copywriter = () => {
+const SalesIntern = () => {
   useEffect(() => {
-    // preserve original scroll behaviour only
     window.scrollTo(0, 0);
   }, []);
 
-  // No handler required; we link directly to Gmail compose
-
-  // Keep the exact content as a single source of truth
-  const content = `Copywriter Intern
+  const content = `Sales Intern (Commision-based)
 Internship Details
-Start Date: January 2026 onwards
-Type: Unpaid + performance-based bonuses and opportunities for paid client work
+Start Date: Immediately
+Type: Commission-based (10%+) with bonuses for consistent closures
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
+Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
- 
+NOTE: Apply only if you’re comfortable with a commission-based role and the expectations outlined above.
 
 About PyroSynergy
 PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with understanding of users, of founders, and of the story behind the product.
-As a Copywriter at PyroSynergy, you’ll help shape the voice and narrative of multiple brands. Your words will translate complex ideas into simple, engaging language that resonates with users and reflects the founder’s deeper intent. You’ll work closely with designers, strategists, and no-code developers to craft messaging that feels thoughtful, intentional, and empathetic from the very first line.
+We’re looking for a Sales Intern who can communicate with clarity, connect with people genuinely, and represent PyroSynergy with an empathetic, partnership-driven approach.
 What You’ll Do
-Write compelling website and landing-page copy tailored to different tones: professional, conversational, premium, or marketing-heavy.
-Translate client requirements into sharp, structured messaging that holds attention.
-Create headlines, subheads, value propositions, CTAs, and narrative-driven copy for websites.
-Support internal communication tasks, such as onboarding docs and emails when needed.
-Contribute ideas that improve user engagement and brand consistency across digital platforms.
+Identify, research, and build lists of high-potential prospects across founder communities, startups, and early-stage businesses
+Conduct lead generation + outreach + qualification across LinkedIn, email, Instagram, and other channels
+Understand each founder’s needs and communicate solutions with empathy, clarity, and confidence
+Book meetings, maintain structured follow-ups, and nurture warm prospects
+Optionally handle end-to-end closing for higher commission
+Maintain records of conversations, objections, opportunities, and pipeline movement
+Work closely with the founder and strategy team to refine messaging and outreach scripts
 
 
 Required Skills
-Strong writing fundamentals: clarity, structure, message discipline
-Thorough understanding of how marketing works
-Ability to adapt tone for different audiences
-Comfort researching unfamiliar topics
-A naturally empathetic approach to understanding client intent, user needs, and communication context
-Openness to feedback and iterative improvements
+Strong verbal and written communication with international prospects
+Ability to connect with people naturally and respectfully
+Empathy-first approach: making prospects feel understood, not sold to
+Research-oriented mindset
+Consistent follow-up habits and responsibility toward timelines
+A calm, professional tone when speaking to founders and decision-makers
+Ability to handle rejection and keep moving without losing quality
 
 
 Good-to-Have
-SEO basics (keywords, meta descriptions, structure).
-Experience writing copy for landing pages or brand messaging.
-Familiarity with AI writing assistants or prompt-based workflows.
+Prior experience in sales, outreach, or lead generation
+Understanding of startup ecosystems
+Familiarity with CRMs or automation tools (free versions are fine)
+Comfortable using AI tools for research, writing, or messaging assistance
 
 
 What You’ll Gain
-Hands-on experience crafting real copy for clients and early-stage startups.
-Learn to write with precision in a variety of tones and formats.
-Exposure to brand strategy and AI-assisted content workflows.
-Opportunity to transition into paid client projects based on performance.
-
+Real-world experience speaking to founders and high-level stakeholders
+Training in outreach strategy, sales psychology, and pipeline management
+Opportunity to shadow or participate in live sales calls and closings
+Potential to grow into a full-fledged Sales Associate role
+Significant earning potential through commissions
+Compensation & Commission Structure
+This role is fully commission-based, with two earning paths:
+Option A: {Lead Gen + Outreach + Qualification}
+Earns you 10%+ commission, depending on project size and negotiation
+Option B: {Lead Gen + Outreach + Qualification + Closing}
+Higher commission tier, negotiated per candidate and skill level
+Bonuses
+Additional bonuses for consistent closures
+Higher reward for bringing multi-project chains or longer-term clients
+Potential long-term collaboration or paid role based on consistency, communication quality, and deal flow
+There is no “lead gen only” role, since every intern will handle outreach and qualification at a minimum.
 
 Internship Details
-Start Date: January 2026 onwards
-Type: Unpaid + performance-based bonuses and opportunities for paid client work
+Start Date: Immediately
+Type: Commission-based (10%+) with bonuses for consistent closures
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
+Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
+NOTE: Apply only if you’re comfortable with a commission-based role and the expectations outlined above.
 
 
 How to Apply
-Send your resume + 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: “Copywriter Intern/Your Name”.
-We’ll only go through eye-catching submissions that aren’t too ChatGPT-like. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
+Send the following to admin@pyrosynergy.com with the subject line: “Sales Intern/Your Name”:
+Your background and short story
+A short note on why you’re interested in working with PyroSynergy
+A brief explanation of any prior experience in outreach, communication, or sales (with proof, if any)
+A 30–60 second video (strongly preferred) introducing yourself and explaining how you approach conversations with prospects
+Your LinkedIn profile link and mobile number
+If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
-    "Copywriter Intern",
+    "Sales Intern (Commision-based)",
     "Internship Details",
     "About PyroSynergy",
     "What You’ll Do",
@@ -77,7 +92,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "How to Apply",
   ]);
   const bulletPointSections = new Set([
-    // Support both straight and smart apostrophes to be safe
     "What You’ll Do",
     "What You'll Do",
     "Required Skills",
@@ -85,16 +99,16 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "What You’ll Gain",
     "What You'll Gain",
   ]);
+
   const boldPatterns = [
-    { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:)/, className: 'role-label' },
+    { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:|Compensation & Commission Structure|Option A:|Option B:|Bonuses)$/,
+      className: 'role-label' },
   ];
 
-  // Highlight specific tokens inline (email, subject line text)
   const highlightTokens = (text) => {
     const tokens = [
       "admin@pyrosynergy.com",
-      "Copywriter Intern/Your Name",
-      "Unpaid",
+      "Sales Intern/Your Name",
     ];
     let remaining = text;
     const parts = [];
@@ -116,27 +130,37 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
       if (nextIndex > 0) {
         parts.push(remaining.slice(0, nextIndex));
       }
-      // Render special styling for specific tokens
-      if (foundToken === "Unpaid") {
-        parts.push(
-          <em key={`emph-${k++}`}>
-            <strong className="role-emph role-emph-bold-italic">{foundToken}</strong>
-          </em>
-        );
-      } else {
-        parts.push(<strong key={`emph-${k++}`} className="role-emph">{foundToken}</strong>);
-      }
+      parts.push(<strong key={`emph-${k++}`} className="role-emph">{foundToken}</strong>);
       remaining = remaining.slice(nextIndex + (foundToken?.length || 0));
     }
     return parts.length ? parts : text;
   };
 
   const formatLine = (line) => {
-    // Check if line should be bolded
+    // Special handling to make "Commission-based (10%+)" bold+italic in Type line
+    if (line.startsWith("Type:") && line.includes("Commission-based (10%+)")) {
+      const label = "Type:";
+      const afterLabel = line.substring(label.length);
+      const phrase = "Commission-based (10%+)";
+      const idx = afterLabel.indexOf(phrase);
+      if (idx !== -1) {
+        const before = afterLabel.slice(0, idx);
+        const after = afterLabel.slice(idx + phrase.length);
+        return (
+          <>
+            <strong className="role-label">{label}</strong>
+            {before}
+            <strong><em>{phrase}</em></strong>
+            {highlightTokens(after)}
+          </>
+        );
+      }
+    }
+
     for (const pattern of boldPatterns) {
       const match = line.match(pattern.regex);
       if (match) {
-        const label = match[1];
+        const label = match[1] || match[0];
         const rest = line.substring(label.length);
         return (
           <>
@@ -159,10 +183,9 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
             {lines.map((line, idx) => {
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
-                const isMainHeading = trimmed === "Copywriter Intern";
+                const isMainHeading = trimmed === "Sales Intern (Commision-based)";
                 const isAboutHeading = trimmed === "About PyroSynergy";
                 if (isAboutHeading) {
-                  // Render with a span to style only the word "PyroSynergy" using a specific font
                   return (
                     <div key={idx} className="role-heading">
                       {"About "}
@@ -187,8 +210,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
               if (trimmed === "") {
                 return <div key={idx} className="role-spacer" aria-hidden="true"></div>;
               }
-              
-              // Check if we're in a bullet point section
+
               let currentSection = null;
               for (let i = idx - 1; i >= 0; i--) {
                 const prevLine = lines[i].trim();
@@ -197,19 +219,17 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   break;
                 }
               }
-              
-              // Check if this line should be a bullet point
-              const isBulletLine = bulletPointSections.has(currentSection) && 
+
+              const isBulletLine = bulletPointSections.has(currentSection) &&
                                    trimmed.length > 10 &&
-                                   !trimmed.startsWith("Start Date:") && 
-                                   !trimmed.startsWith("Type:") && 
-                                   !trimmed.startsWith("Minimum Duration:") && 
-                                   !trimmed.startsWith("Work Mode:") && 
+                                   !trimmed.startsWith("Start Date:") &&
+                                   !trimmed.startsWith("Type:") &&
+                                   !trimmed.startsWith("Minimum Duration:") &&
+                                   !trimmed.startsWith("Work Mode:") &&
                                    !trimmed.startsWith("Culture & Expectations:");
-              
-              // Check if it's a paragraph (longer text in non-bullet sections)
+
               const isParagraph = trimmed.length > 80 && !isBulletLine;
-              
+
               if (isBulletLine) {
                 return (
                   <div key={idx} className="role-bullet-item">
@@ -218,7 +238,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   </div>
                 );
               }
-              
+
               return (
                 <div key={idx} className={isParagraph ? "role-paragraph" : "role-line"}>
                   {formatLine(line)}
@@ -230,7 +250,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Copywriter%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Sales%20Intern%20Application"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"
@@ -251,4 +271,4 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   );
 };
 
-export default Copywriter;
+export default SalesIntern;

@@ -14,6 +14,10 @@ import Loading from "./components/Loading/Loading.jsx"; // Add this import
 import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
 import Hiring from "./components/Hiring/Hiring.jsx";
 import Copywriter from "./components/Hiring/Copywriter.jsx";
+import VisualDesigner from "./components/Hiring/VisualDesigner.jsx";
+import UXDesigner from "./components/Hiring/UXDesigner.jsx";
+import NoCodeWeb from "./components/Hiring/NoCodeWeb.jsx";
+import SalesIntern from "./components/Hiring/SalesIntern.jsx";
 import ContentStrategist from "./components/Hiring/ContentStrategist.jsx";
 
 // Asset Imports
@@ -97,9 +101,9 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname === '/realitycheck' ? 'questionnaire' : 'home';
   // Show header on reality check; hide only on specific pages
-  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1'].includes(location.pathname);
-  // Hide footer on reality check, hiring, and copywriter intern pages
-  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1'].includes(location.pathname);
+  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
+  // Hide footer on reality check, hiring, and role-specific intern pages
+  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -285,6 +289,10 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
           <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
+          <Route path="/hiring/videsign_intern_1" element={<VisualDesigner />} />
+          <Route path="/hiring/uxdesign_intern_1" element={<UXDesigner />} />
+          <Route path="/hiring/nocodeweb_intern_1" element={<NoCodeWeb />} />
+          <Route path="/hiring/sales_intern_1" element={<SalesIntern />} />
           <Route path="/hiring/content_intern_1" element={<ContentStrategist />} />
           <Route path="/" element={
             <>

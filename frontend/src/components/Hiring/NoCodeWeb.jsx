@@ -1,73 +1,71 @@
 import React, { useEffect } from "react";
 import "./Copywriter.css";
 
-const Copywriter = () => {
+const NoCodeWeb = () => {
   useEffect(() => {
-    // preserve original scroll behaviour only
     window.scrollTo(0, 0);
   }, []);
 
-  // No handler required; we link directly to Gmail compose
-
-  // Keep the exact content as a single source of truth
-  const content = `Copywriter Intern
+  const content = `No-Code Web Developer Intern (Wix Studio Specialist)
 Internship Details
 Start Date: January 2026 onwards
 Type: Unpaid + performance-based bonuses and opportunities for paid client work
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
+Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
 NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
- 
 
 About PyroSynergy
 PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with understanding of users, of founders, and of the story behind the product.
-As a Copywriter at PyroSynergy, you’ll help shape the voice and narrative of multiple brands. Your words will translate complex ideas into simple, engaging language that resonates with users and reflects the founder’s deeper intent. You’ll work closely with designers, strategists, and no-code developers to craft messaging that feels thoughtful, intentional, and empathetic from the very first line.
+As a No-Code Web Developer, you will turn designs into fast, responsive, and aesthetic websites using Wix Studio and complementary tools. Your builds will reflect strong UX thinking and deep attention to user behaviour. You’ll collaborate closely with UI/UX and strategy teams, using empathy and technical clarity to create digital experiences that feel smooth, intuitive, and founder-centric.
 What You’ll Do
-Write compelling website and landing-page copy tailored to different tones: professional, conversational, premium, or marketing-heavy.
-Translate client requirements into sharp, structured messaging that holds attention.
-Create headlines, subheads, value propositions, CTAs, and narrative-driven copy for websites.
-Support internal communication tasks, such as onboarding docs and emails when needed.
-Contribute ideas that improve user engagement and brand consistency across digital platforms.
+Build responsive, clean, conversion-focused websites using Wix Studio.
+Implement interactions, layouts, and sections with strong UX thinking.
+Use basic or advanced Velo custom code (preferred) inside Wix Studio.
+Optimize websites for performance (speed, responsiveness, SEO basics).
+Collaborate with UI/UX designers to convert wireframes into functioning websites, like plugins like Figma to Studio (or equivalent)
+Occasionally, create quick prototypes, POCs, or MVPs with aesthetic clarity.
+Use no-code tools like Webflow or Framer (optional but valuable).
 
 
 Required Skills
-Strong writing fundamentals: clarity, structure, message discipline
-Thorough understanding of how marketing works
-Ability to adapt tone for different audiences
-Comfort researching unfamiliar topics
-A naturally empathetic approach to understanding client intent, user needs, and communication context
-Openness to feedback and iterative improvements
+Deep understanding of Wix Studio
+Experience using the Figma to Studio conversion plugin
+Good UI/UX sense (not basic; enough to make clear decisions)
+Performance optimization understanding
+Empathy toward user experience by thinking from the user's perspective when designing interactions or flows
+Fast learning and iterative execution skills
 
 
 Good-to-Have
-SEO basics (keywords, meta descriptions, structure).
-Experience writing copy for landing pages or brand messaging.
-Familiarity with AI writing assistants or prompt-based workflows.
+Velo coding
+Experience with Webflow, Framer, and Bubble
+Knowledge of performance optimization techniques
+Familiarity with AI design tools for prototyping or asset generation
 
 
 What You’ll Gain
-Hands-on experience crafting real copy for clients and early-stage startups.
-Learn to write with precision in a variety of tones and formats.
-Exposure to brand strategy and AI-assisted content workflows.
-Opportunity to transition into paid client projects based on performance.
+Experience building production-ready websites quickly.
+Exposure to client feedback loops and real startup workflows.
+Learn advanced no-code strategies and system design.
+Opportunity to take on paid client work based on performance.
 
 
 Internship Details
 Start Date: January 2026 onwards
-Type: Unpaid + performance-based bonuses and opportunities for paid client work
+Type: Unpaid + bonuses and performance-based opportunities for paid client work
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
+Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
 NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
 
 
 How to Apply
-Send your resume + 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: “Copywriter Intern/Your Name”.
-We’ll only go through eye-catching submissions that aren’t too ChatGPT-like. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
+Send your resume + live portfolio links along with your mobile number to admin@pyrosynergy.com with subject line: “No-Code Web Developer Intern/Your Name”.
+We’ll only go through eye-catching submissions that tell a story through your live designs. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
-    "Copywriter Intern",
+    "No-Code Web Developer Intern (Wix Studio Specialist)",
     "Internship Details",
     "About PyroSynergy",
     "What You’ll Do",
@@ -77,7 +75,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "How to Apply",
   ]);
   const bulletPointSections = new Set([
-    // Support both straight and smart apostrophes to be safe
     "What You’ll Do",
     "What You'll Do",
     "Required Skills",
@@ -85,15 +82,15 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "What You’ll Gain",
     "What You'll Gain",
   ]);
+
   const boldPatterns = [
     { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:)/, className: 'role-label' },
   ];
 
-  // Highlight specific tokens inline (email, subject line text)
   const highlightTokens = (text) => {
     const tokens = [
       "admin@pyrosynergy.com",
-      "Copywriter Intern/Your Name",
+      "No-Code Web Developer Intern/Your Name",
       "Unpaid",
     ];
     let remaining = text;
@@ -116,7 +113,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
       if (nextIndex > 0) {
         parts.push(remaining.slice(0, nextIndex));
       }
-      // Render special styling for specific tokens
       if (foundToken === "Unpaid") {
         parts.push(
           <em key={`emph-${k++}`}>
@@ -132,7 +128,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   };
 
   const formatLine = (line) => {
-    // Check if line should be bolded
     for (const pattern of boldPatterns) {
       const match = line.match(pattern.regex);
       if (match) {
@@ -159,10 +154,9 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
             {lines.map((line, idx) => {
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
-                const isMainHeading = trimmed === "Copywriter Intern";
+                const isMainHeading = trimmed === "No-Code Web Developer Intern (Wix Studio Specialist)";
                 const isAboutHeading = trimmed === "About PyroSynergy";
                 if (isAboutHeading) {
-                  // Render with a span to style only the word "PyroSynergy" using a specific font
                   return (
                     <div key={idx} className="role-heading">
                       {"About "}
@@ -187,8 +181,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
               if (trimmed === "") {
                 return <div key={idx} className="role-spacer" aria-hidden="true"></div>;
               }
-              
-              // Check if we're in a bullet point section
+
               let currentSection = null;
               for (let i = idx - 1; i >= 0; i--) {
                 const prevLine = lines[i].trim();
@@ -197,19 +190,17 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   break;
                 }
               }
-              
-              // Check if this line should be a bullet point
-              const isBulletLine = bulletPointSections.has(currentSection) && 
+
+              const isBulletLine = bulletPointSections.has(currentSection) &&
                                    trimmed.length > 10 &&
-                                   !trimmed.startsWith("Start Date:") && 
-                                   !trimmed.startsWith("Type:") && 
-                                   !trimmed.startsWith("Minimum Duration:") && 
-                                   !trimmed.startsWith("Work Mode:") && 
+                                   !trimmed.startsWith("Start Date:") &&
+                                   !trimmed.startsWith("Type:") &&
+                                   !trimmed.startsWith("Minimum Duration:") &&
+                                   !trimmed.startsWith("Work Mode:") &&
                                    !trimmed.startsWith("Culture & Expectations:");
-              
-              // Check if it's a paragraph (longer text in non-bullet sections)
+
               const isParagraph = trimmed.length > 80 && !isBulletLine;
-              
+
               if (isBulletLine) {
                 return (
                   <div key={idx} className="role-bullet-item">
@@ -218,7 +209,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   </div>
                 );
               }
-              
+
               return (
                 <div key={idx} className={isParagraph ? "role-paragraph" : "role-line"}>
                   {formatLine(line)}
@@ -230,7 +221,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Copywriter%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=No-Code%20Web%20Developer%20Intern%20Application"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"
@@ -251,4 +242,4 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   );
 };
 
-export default Copywriter;
+export default NoCodeWeb;

@@ -120,6 +120,26 @@ We'll only go through eye-catching submissions that aren't too ChatGPT-like. If 
   };
 
   const formatLine = (line) => {
+    // Special handling: make the word "Unpaid" bold+italic in the Type line
+    if (line.startsWith("Type:") && line.includes("Unpaid")) {
+      const label = "Type:";
+      const afterLabel = line.substring(label.length);
+      const phrase = "Unpaid";
+      const idx = afterLabel.indexOf(phrase);
+      if (idx !== -1) {
+        const before = afterLabel.slice(0, idx);
+        const after = afterLabel.slice(idx + phrase.length);
+        return (
+          <>
+            <strong className="role-label">{label}</strong>
+            {before}
+            <strong><em>{phrase}</em></strong>
+            {highlightTokens(after)}
+          </>
+        );
+      }
+    }
+
     // Check if line should be bolded
     for (const pattern of boldPatterns) {
       const match = line.match(pattern.regex);
@@ -148,18 +168,27 @@ We'll only go through eye-catching submissions that aren't too ChatGPT-like. If 
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
                 const isMainHeading = trimmed === "Social Media Content Strategist Intern";
+                const isAboutHeading = trimmed === "About PyroSynergy";
+                if (isAboutHeading) {
+                  return (
+                    <div key={idx} className="role-heading">
+                      {"About "}
+                      <span className="role-heading-brand">{"PyroSynergy"}</span>
+                    </div>
+                  );
+                }
                 return (
                   <div key={idx} className={`role-heading${isMainHeading ? " role-heading-main" : ""}`}>{line}</div>
                 );
               }
               if (trimmed.startsWith("NOTE:")) {
-                const formattedNote = (
-                  <>
-                    <strong>NOTE:</strong>{line.substring(5)}
-                  </>
-                );
+                const label = "NOTE:";
+                const rest = line.substring(label.length);
                 return (
-                  <div key={idx} className="role-note">{formattedNote}</div>
+                  <div key={idx} className="role-note">
+                    <strong className="role-note-label">{label}</strong>
+                    <span className="role-note-text">{rest}</span>
+                  </div>
                 );
               }
               if (trimmed === "") {

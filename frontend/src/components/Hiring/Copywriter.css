@@ -57,6 +57,7 @@
   font-size: 17px;
   line-height: 1.7;
   color: #e4eaf9;
+  font-family: "Albert Sans", sans-serif;
   white-space: pre-wrap; /* preserves line breaks exactly as in the provided content */
   letter-spacing: 0.01em;
   max-height: none;
@@ -73,6 +74,7 @@
   margin: 2.5rem 0 1rem;
   font-size: 1.35rem;
   color: #ffffff;
+  font-family: "Albert Sans", sans-serif;
   text-shadow: none;
   background: linear-gradient(135deg, #00b0ff 0%, #6e00ff 100%);
   -webkit-background-clip: text;
@@ -84,6 +86,7 @@
 
 /* Larger size only for the main page title heading */
 .role-heading-main {
+    font-family: "Bricolage Grotesque", sans-serif;
   font-size: 3.2rem;
   font-weight: 900;
   text-align: center;
@@ -97,6 +100,11 @@
   letter-spacing: 0.02em;
   text-transform: none;
   animation: titleGlow 3s ease-in-out infinite;
+}
+
+/* Brand word font for the About PyroSynergy heading only */
+.role-heading-brand {
+  font-family: "Bricolage Grotesque", sans-serif;
 }
 
 .role-heading-main::before {
@@ -151,12 +159,14 @@
 /* Normal lines (kept subtle) */
 .role-line {
   color: #e4eaf9;
+  font-family: "Albert Sans", sans-serif;
   font-size: 17px;
 }
 
 /* Paragraph text with justified alignment */
 .role-paragraph {
   color: #e4eaf9;
+  font-family: "Albert Sans", sans-serif;
   font-size: 17px;
   text-align: justify;
   text-justify: inter-word;
@@ -190,6 +200,7 @@
   gap: 0.8rem;
   align-items: flex-start;
   color: #e4eaf9;
+  font-family: "Albert Sans", sans-serif;
   font-size: 17px;
   line-height: 1.7;
   margin: 0.4rem 0;
@@ -236,6 +247,10 @@
   color: #00d4ff;
   letter-spacing: 0.03em;
 }
+
+/* Keep NOTE label normal; make the sentences italic */
+.role-note-label { font-style: normal; }
+.role-note-text { font-style: italic; }
 
 /* nicer scrollbar for long content */
 /* Hide the side scrollbar for a cleaner look */

@@ -60,7 +60,7 @@ const Hiring = () => {
         <div className="hiring-intro">
           <h1 className="hiring-title">We’re Hiring!</h1>
           <p className="hiring-body">
-            "At PyroSynergy, we’re building with empathy — for founders, for users, and for the teams that bring ideas to life. We’re looking for interns who take ownership, communicate clearly, and care about the impact of their work. If you're passionate about learning, creating meaningful work, and contributing to early-stage brands, these roles are for you."
+            At PyroSynergy, we’re building with empathy — for founders, for users, and for the teams that bring ideas to life. We’re looking for interns who take ownership, communicate clearly, and care about the impact of their work. If you're passionate about learning, creating meaningful work, and contributing to early-stage brands, these roles are for you.
           </p>
           <div className="openings-pill">Openings</div>
         </div>
@@ -84,6 +84,14 @@ const Hiring = () => {
                       navigate("/hiring/copywriter_intern_1");
                     } else if (role.title === "Social Media Content Strategist Intern") {
                       navigate("/hiring/content_intern_1");
+                    } else if (role.title === "Visual Designer Intern") {
+                      navigate("/hiring/videsign_intern_1");
+                    } else if (role.title === "User Experience (UX) Designer Intern") {
+                      navigate("/hiring/uxdesign_intern_1");
+                    } else if (role.title === "Sales Intern (Commission-Based)") {
+                      navigate("/hiring/sales_intern_1");
+                    } else if (role.title === "No-Code Web Developer Intern (Wix Studio)") {
+                      navigate("/hiring/nocodeweb_intern_1");
                     }
                   }}
                 >

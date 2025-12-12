@@ -1,56 +1,50 @@
 import React, { useEffect } from "react";
 import "./Copywriter.css";
 
-const Copywriter = () => {
+const UXDesigner = () => {
   useEffect(() => {
-    // preserve original scroll behaviour only
     window.scrollTo(0, 0);
   }, []);
 
-  // No handler required; we link directly to Gmail compose
-
-  // Keep the exact content as a single source of truth
-  const content = `Copywriter Intern
+  const content = `User Experience (UX) Designer Intern
 Internship Details
 Start Date: January 2026 onwards
 Type: Unpaid + performance-based bonuses and opportunities for paid client work
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
+Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
 NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
- 
 
 About PyroSynergy
 PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with understanding of users, of founders, and of the story behind the product.
-As a Copywriter at PyroSynergy, you’ll help shape the voice and narrative of multiple brands. Your words will translate complex ideas into simple, engaging language that resonates with users and reflects the founder’s deeper intent. You’ll work closely with designers, strategists, and no-code developers to craft messaging that feels thoughtful, intentional, and empathetic from the very first line.
+As a UI/UX Designer, you’ll design interfaces that make complex journeys feel natural and intuitive. You’ll use research, structure, and AI-powered ideation to craft experiences that genuinely support how users think and behave. Your work will directly influence how founders present their products to the world — with empathy guiding every decision, from the first wireframe to the final design system.
 What You’ll Do
-Write compelling website and landing-page copy tailored to different tones: professional, conversational, premium, or marketing-heavy.
-Translate client requirements into sharp, structured messaging that holds attention.
-Create headlines, subheads, value propositions, CTAs, and narrative-driven copy for websites.
-Support internal communication tasks, such as onboarding docs and emails when needed.
-Contribute ideas that improve user engagement and brand consistency across digital platforms.
-
-
+Create wireframes, flows, and high-fidelity interfaces
+Conduct lightweight UX research through competitive analysis, heuristic evaluations, user behaviour insights, and requirement breakdowns to inform design decisions
+Build structured, organised Figma files suitable for both code-based and non-code-based (e.g., Figma to Studio plugin) development.
+Ensure proper layer naming, auto-layout use, responsive framing, grids, and component structuring so that no-code devs can import efficiently
+Collaborate with the No-Code Web Dev team to ensure studio-ready outputs
+Use generative AI tools to ideate, generate variations, and accelerate workflows
 Required Skills
-Strong writing fundamentals: clarity, structure, message discipline
-Thorough understanding of how marketing works
-Ability to adapt tone for different audiences
-Comfort researching unfamiliar topics
-A naturally empathetic approach to understanding client intent, user needs, and communication context
-Openness to feedback and iterative improvements
+Strong Figma proficiency
+Ability to conduct basic UX research: analyzing competitors, identifying usability issues, interpreting user needs, and converting findings into actionable design inputs
+Solid UX foundations (heuristics, IA, flows, patterns)
+Experience designing components and systems
+Empathy-driven design thinking — understanding user mental models, accessibility, microinteractions, and emotional design
+Ability to structure files for plugin compatibility
 
 
 Good-to-Have
-SEO basics (keywords, meta descriptions, structure).
-Experience writing copy for landing pages or brand messaging.
-Familiarity with AI writing assistants or prompt-based workflows.
+Experience with AI design workflows
+Knowledge of prototyping tools beyond Figma
+Ability to articulate design decisions clearly
 
 
 What You’ll Gain
-Hands-on experience crafting real copy for clients and early-stage startups.
-Learn to write with precision in a variety of tones and formats.
-Exposure to brand strategy and AI-assisted content workflows.
-Opportunity to transition into paid client projects based on performance.
+Real-world experience building interfaces for early-stage startups.
+Learn how design, branding, and development integrate in production workflows.
+Opportunity to lead small design projects independently.
+Potential transition to paid client projects.
 
 
 Internship Details
@@ -63,11 +57,11 @@ NOTE: Apply only if you’re comfortable with the internship structure and are l
 
 
 How to Apply
-Send your resume + 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: “Copywriter Intern/Your Name”.
-We’ll only go through eye-catching submissions that aren’t too ChatGPT-like. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
+Send your resume + portfolio link along with your mobile number to admin@pyrosynergy.com with subject line: “UI/UX Designer Intern/Your Name”.
+We’ll only go through eye-catching submissions that show an emotion and tell a story through your design. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
-    "Copywriter Intern",
+    "User Experience (UX) Designer Intern",
     "Internship Details",
     "About PyroSynergy",
     "What You’ll Do",
@@ -77,7 +71,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "How to Apply",
   ]);
   const bulletPointSections = new Set([
-    // Support both straight and smart apostrophes to be safe
     "What You’ll Do",
     "What You'll Do",
     "Required Skills",
@@ -85,15 +78,15 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
     "What You’ll Gain",
     "What You'll Gain",
   ]);
+
   const boldPatterns = [
     { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:)/, className: 'role-label' },
   ];
 
-  // Highlight specific tokens inline (email, subject line text)
   const highlightTokens = (text) => {
     const tokens = [
       "admin@pyrosynergy.com",
-      "Copywriter Intern/Your Name",
+      "UI/UX Designer Intern/Your Name",
       "Unpaid",
     ];
     let remaining = text;
@@ -116,7 +109,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
       if (nextIndex > 0) {
         parts.push(remaining.slice(0, nextIndex));
       }
-      // Render special styling for specific tokens
       if (foundToken === "Unpaid") {
         parts.push(
           <em key={`emph-${k++}`}>
@@ -132,7 +124,6 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   };
 
   const formatLine = (line) => {
-    // Check if line should be bolded
     for (const pattern of boldPatterns) {
       const match = line.match(pattern.regex);
       if (match) {
@@ -159,10 +150,9 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
             {lines.map((line, idx) => {
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
-                const isMainHeading = trimmed === "Copywriter Intern";
+                const isMainHeading = trimmed === "User Experience (UX) Designer Intern";
                 const isAboutHeading = trimmed === "About PyroSynergy";
                 if (isAboutHeading) {
-                  // Render with a span to style only the word "PyroSynergy" using a specific font
                   return (
                     <div key={idx} className="role-heading">
                       {"About "}
@@ -187,8 +177,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
               if (trimmed === "") {
                 return <div key={idx} className="role-spacer" aria-hidden="true"></div>;
               }
-              
-              // Check if we're in a bullet point section
+
               let currentSection = null;
               for (let i = idx - 1; i >= 0; i--) {
                 const prevLine = lines[i].trim();
@@ -197,19 +186,17 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   break;
                 }
               }
-              
-              // Check if this line should be a bullet point
-              const isBulletLine = bulletPointSections.has(currentSection) && 
+
+              const isBulletLine = bulletPointSections.has(currentSection) &&
                                    trimmed.length > 10 &&
-                                   !trimmed.startsWith("Start Date:") && 
-                                   !trimmed.startsWith("Type:") && 
-                                   !trimmed.startsWith("Minimum Duration:") && 
-                                   !trimmed.startsWith("Work Mode:") && 
+                                   !trimmed.startsWith("Start Date:") &&
+                                   !trimmed.startsWith("Type:") &&
+                                   !trimmed.startsWith("Minimum Duration:") &&
+                                   !trimmed.startsWith("Work Mode:") &&
                                    !trimmed.startsWith("Culture & Expectations:");
-              
-              // Check if it's a paragraph (longer text in non-bullet sections)
+
               const isParagraph = trimmed.length > 80 && !isBulletLine;
-              
+
               if (isBulletLine) {
                 return (
                   <div key={idx} className="role-bullet-item">
@@ -218,7 +205,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
                   </div>
                 );
               }
-              
+
               return (
                 <div key={idx} className={isParagraph ? "role-paragraph" : "role-line"}>
                   {formatLine(line)}
@@ -230,7 +217,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Copywriter%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=UI%2FUX%20Designer%20Intern%20Application"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"
@@ -251,4 +238,4 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   );
 };
 
-export default Copywriter;
+export default UXDesigner;
