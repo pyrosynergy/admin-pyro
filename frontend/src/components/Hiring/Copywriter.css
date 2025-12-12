@@ -92,6 +92,8 @@
   max-height: none;
   overflow: visible;
   padding: 0;
+  padding-left: 0;
+  margin-left: 0;
   word-break: break-word;
   margin-bottom: 2.5rem;
 }
@@ -114,21 +116,27 @@
   font-size: 3.2rem;
   font-weight: 100;
   text-align: center;
-  margin: 0 0 3rem;
-  padding: 1.5rem 2rem;
+  margin: 0;
+  padding: 1.5rem 2rem 0;
   color: #ffffff;
   position: relative;
   letter-spacing: -0.06em;
   text-transform: none;
 }
 
-
-/* Brand word font for the About PyroSynergy heading only */
-.role-heading-brand {
-  font-family: "Bricolage Grotesque", sans-serif; 
+/* Posted date styling - now with gradient line below it */
+.role-posted-date {
+  text-align: center;
+  color: #999999;
+  font-style: italic;
+  font-size: 0.95rem;
+  margin: 0 0 3rem;
+  padding-bottom: 1.5rem;
+  font-family: "Albert Sans", sans-serif;
+  position: relative;
 }
 
-.role-heading-main::after {
+.role-posted-date::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -139,6 +147,12 @@
   background: linear-gradient(90deg, transparent, #9b5de5 20%, #c084fc 50%, #d8b4fe 80%, transparent);
   border-radius: 2px;
   box-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+}
+
+/* Brand word font for the About PyroSynergy heading only */
+.role-heading-brand {
+  font-family: "Bricolage Grotesque", sans-serif; 
+  letter-spacing: -0.06rem;
 }
 
 @keyframes titleGlow {
@@ -166,24 +180,28 @@
   color: #e4eaf9;
   font-family: "Albert Sans", sans-serif;
   font-size: 17px;
+  padding-left: 0;
+  margin-left: 0;
 }
 
-/* Paragraph text with justified alignment */
+/* Paragraph text */
 .role-paragraph {
   color: #e4eaf9;
   font-family: "Albert Sans", sans-serif;
   font-size: 17px;
-  text-align: justify;
-  text-justify: inter-word;
   line-height: 1.75;
   margin: 0.5rem 0;
+  padding-left: 0;
+  margin-left: 0;
 }
 
 /* Bold labels for important fields */
 .role-label {
   font-weight: 700;
   color: #ffffff;
-  margin-right: 0.3rem;
+  margin-right: 0;
+  margin-bottom: -0.3rem;
+  display: block;
 }
 
 /* Visual spacer for blank lines to preserve vertical rhythm */
@@ -233,8 +251,6 @@
   font-size: 17px;
   font-weight: 500;
   backdrop-filter: blur(10px);
-  text-align: justify;
-  text-justify: inter-word;
   line-height: 1.7;
 }
 
@@ -272,6 +288,7 @@
   color: #fff;
   font-weight: 700;
   font-size: 18px;
+  font-family: "Albert Sans", sans-serif;
   text-decoration: none;
   box-shadow: 0 14px 44px rgba(139, 92, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: transform 180ms ease, box-shadow 180ms ease;
@@ -288,6 +305,7 @@
   color: #ffffff;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.25);
   font-weight: 700;
+  font-family: "Albert Sans", sans-serif;
 }
 .role-cta-secondary:hover {
   background: rgba(255,255,255,0.06);
@@ -337,14 +355,9 @@
   }
   .role-heading-main { 
     font-size: 3rem;
-    padding: 0.8rem 0.5rem;
-    margin: 0 0 2rem;
+    padding: 0.8rem 0.5rem 0;
+    margin: 0;
     line-height: 1.2;
-  }
-  .role-heading-main::after {
-    width: 80px;
-    height: 2px;
-    bottom: -5px;
   }
   .role-heading { 
     font-size: 1.5rem;
@@ -352,6 +365,14 @@
   }
   .role-heading-main {
     font-size: 2.1rem;
+  }
+  .role-posted-date {
+    padding-bottom: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  .role-posted-date::after {
+    width: 80px;
+    height: 2px;
   }
   .role-line,
   .role-paragraph {

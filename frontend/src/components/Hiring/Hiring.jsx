@@ -66,9 +66,9 @@ const Hiring = () => {
       <div className="hiring-grid-overlay" aria-hidden="true"></div>
       <div className="hiring-container">
         <div className="hiring-intro">
-          <h1 className="hiring-title">We’re Hiring!</h1>
+          <h1 className="hiring-title">We're Hiring!</h1>
           <p className="hiring-body">
-            At PyroSynergy, we’re building with empathy — for founders, for users, and for the teams that bring ideas to life. We’re looking for interns who take ownership, communicate clearly, and care about the impact of their work. If you're passionate about learning, creating meaningful work, and contributing to early-stage brands, these roles are for you.
+            At PyroSynergy, we're building with <em>empathy</em> for founders, users, and the teams that bring ideas to life. We're looking for interns who take ownership, communicate clearly, and care about the impact of their work. If you're passionate about learning, creating meaningful work, and contributing to early-stage brands, these roles are for you.
           </p>
         </div>
 

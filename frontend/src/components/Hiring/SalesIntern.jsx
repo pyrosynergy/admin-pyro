@@ -204,7 +204,10 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
                   );
                 }
                 return (
-                  <div key={idx} className={`role-heading${isMainHeading ? " role-heading-main" : ""}`}>{line}</div>
+                  <>
+                    <div key={idx} className={`role-heading${isMainHeading ? " role-heading-main" : ""}`}>{line}</div>
+                    {isMainHeading && <div className="role-posted-date">Posted on 12th December 2025</div>}
+                  </>
                 );
               }
               if (trimmed.startsWith("NOTE:")) {
