@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Marquee from "react-fast-marquee";
 import './Hero.css';
 import bgvideo from "../../assets/bgvideo.mp4";
@@ -8,6 +9,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
   const lastChangeTime = useRef(Date.now());
+  const navigate = useNavigate();
 
   // Carousel effect for buttons on mobile
   useEffect(() => {
@@ -71,6 +73,19 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
             paddingBottom: "0px",
           }}
         >
+          <div 
+            className="hiring-announcement"
+            onClick={() => navigate('/hiring')}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate('/hiring');
+              }
+            }}
+          >
+            🎯 We're Hiring — Join our team →
+          </div>
           <h1 className="hero-heading leading-snug">
             <div>Let's make your business</div>
             <div className="highlighted-container">

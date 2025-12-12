@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 
 const SalesIntern = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -177,6 +179,14 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
 
   return (
     <section className="role-section">
+      <button
+        className="role-back-button"
+        type="button"
+        aria-label="Back to all openings"
+        onClick={() => navigate("/hiring")}
+      >
+        <span className="role-back-icon" aria-hidden="true">↩</span>
+      </button>
       <div className="role-container">
         <div className="role-card">
           <div className="role-text">
@@ -250,7 +260,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Sales%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"

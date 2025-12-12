@@ -1,4 +1,26 @@
 /* --- Hero, Marquee & Video --- */
+.hiring-announcement {
+  display: inline-block;
+  background: rgba(217, 4, 255, 0.1);
+  border: 1px solid rgba(217, 4, 255, 0.3);
+  color: #e4d4ff;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.hiring-announcement:hover {
+  background: rgba(217, 4, 255, 0.15);
+  border-color: rgba(217, 4, 255, 0.5);
+  transform: translateY(-1px);
+}
+
 .hero-marquee {
   width: 100%;
   height: 100%;

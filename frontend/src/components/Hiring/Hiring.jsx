@@ -55,6 +55,14 @@ const Hiring = () => {
 
   return (
     <section className="hiring-section">
+      <button
+        className="role-back-button"
+        type="button"
+        aria-label="Back to home"
+        onClick={() => navigate("/")}
+      >
+        <span className="role-back-icon" aria-hidden="true">↩</span>
+      </button>
       <div className="hiring-grid-overlay" aria-hidden="true"></div>
       <div className="hiring-container">
         <div className="hiring-intro">
@@ -62,7 +70,6 @@ const Hiring = () => {
           <p className="hiring-body">
             At PyroSynergy, we’re building with empathy — for founders, for users, and for the teams that bring ideas to life. We’re looking for interns who take ownership, communicate clearly, and care about the impact of their work. If you're passionate about learning, creating meaningful work, and contributing to early-stage brands, these roles are for you.
           </p>
-          <div className="openings-pill">Openings</div>
         </div>
 
         <div className="hiring-list">

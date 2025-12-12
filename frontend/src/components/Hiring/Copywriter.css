@@ -9,6 +9,37 @@
   --accent-2: #6e00ff;
 }
 
+.role-back-button {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: rgba(30, 40, 70, 0.6);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.role-back-button:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(40, 50, 80, 0.7);
+}
+
+.role-back-icon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 /* No global header/footer overrides here to avoid affecting other pages */
 
 /* Full page background */
@@ -71,7 +102,7 @@
 .role-heading {
   font-weight: 700;
   letter-spacing: 0.02em;
-  margin: 2.5rem 0 1rem;
+  margin: 1.5rem 0 1rem;
   font-size: 1.35rem;
   color: #ffffff;
   font-family: "Albert Sans", sans-serif;

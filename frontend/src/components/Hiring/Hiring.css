@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
 
+.role-back-button {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: rgba(30, 40, 70, 0.6);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.role-back-button:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(40, 50, 80, 0.7);
+}
+
+.role-back-icon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .hiring-section {
   position: relative;
   min-height: 100vh;
@@ -74,7 +105,8 @@
 
 .hiring-intro {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin: 0 auto 2.5rem;
+  max-width: 1040px;
 }
 
 .hiring-title {
@@ -82,7 +114,10 @@
   font-weight: 600;
   font-size: clamp(3rem, 3.6vw, 3.5rem);
   margin: 0.6rem 0 0.3rem;
-  background: linear-gradient(135deg, #ff3cf5 0%, #6b38ff 42%, #00d4ff 188%);
+  display: inline-block;
+  background: linear-gradient(135deg, #ff3cf5 0%, #6b38ff 45%, #00d4ff 100%);
+  background-size: 200% 100%;
+  background-position: 0 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -94,29 +129,39 @@
   line-height: 1.5;
   color: #e4e8ff;
   font-size: 1.2rem;
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: left;
 }
 
 .openings-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.4rem;
-  padding: 0.65rem 1.5rem;
-  border-radius: 999px;
-  background: linear-gradient(120deg, #00b0ff, #6e00ff);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  gap: 0.55rem;
+  margin-top: 1.6rem;
+  padding: 0.35rem 0;
+  color: #d8ddff;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  box-shadow: 0 14px 40px rgba(110, 0, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  letter-spacing: 0.4px;
+  border-bottom: 2px solid rgba(216, 221, 255, 0.55);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.openings-pill::after {
+  content: "→";
+  font-size: 1rem;
+  transition: transform 0.2s ease;
 }
 
 .openings-pill:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 18px 46px rgba(0, 176, 255, 0.35), 0 10px 28px rgba(110, 0, 255, 0.3);
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.openings-pill:hover::after {
+  transform: translateX(3px);
 }
 
 .hiring-list {
@@ -173,7 +218,8 @@
 }
 
 .card-header h3 {
-  font-size: 1.18rem;
+  font-size: 1.32rem;
+  font-weight: 700;
   margin: 0;
   color: #f4f6ff;
 }
@@ -187,12 +233,14 @@
   color: #dfe6ff;
   font-size: 1.12rem;
   line-height: 1.55;
+  font-style: italic;
 }
 
 .card-cta {
-  margin-top: 0.9rem;
-  display: flex;
-  justify-content: flex-start;
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
 }
 
 .hiring-cta {
@@ -215,5 +263,13 @@
 
   .card-header {
     align-items: flex-start;
+  }
+
+  .card-cta {
+    position: static;
+    transform: none;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
   }
 }

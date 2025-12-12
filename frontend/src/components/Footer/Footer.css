@@ -59,6 +59,26 @@
   color: #a5a5a5;
 }
 
+/* --- Footer Links --- */
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 15px;
+  color: #a5a5a5;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #3d72ff;
+}
+
 /* --- Social Icons --- */
 .social-icons {
   display: flex;

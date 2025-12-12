@@ -1,8 +1,35 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import grids from "../../assets/Frame 41.png";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    
+    if (targetId === 'hiring') {
+      navigate('/hiring');
+      window.scrollTo(0, 0);
+    } else {
+      // Navigate to home if not already there
+      navigate('/');
+      
+      // After navigating, scroll to the section
+      setTimeout(() => {
+        if (targetId !== 'home') {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 100);
+    }
+  };
+
   return (
     <>
       <div className="decorative-grid-container">
@@ -20,6 +47,14 @@ const Footer = () => {
             © Copyright 2025 Pyrosynergy AI Labs. All rights reserved.
           </span>
         </div>
+        
+        <div className="footer-links">
+          <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
+          <a href="#services" onClick={(e) => handleNavClick(e, 'services')}>Solutions</a>
+          <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
+          <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
+        </div>
+
         <div className="social-icons">
           <a
             href="https://www.instagram.com/pyrosynergy/"

@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 
 const Copywriter = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     // preserve original scroll behaviour only
     window.scrollTo(0, 0);
@@ -153,6 +155,14 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
 
   return (
     <section className="role-section">
+      <button
+        className="role-back-button"
+        type="button"
+        aria-label="Back to all openings"
+        onClick={() => navigate("/hiring")}
+      >
+        <span className="role-back-icon" aria-hidden="true">↩</span>
+      </button>
       <div className="role-container">
         <div className="role-card">
           <div className="role-text">
@@ -230,7 +240,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Copywriter%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"
