@@ -278,7 +278,7 @@
   }
 
   .hiring-body {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     line-height: 1.6;
   }
 
@@ -339,8 +339,9 @@
   }
 
   .hiring-body {
-    font-size: 0.88rem;
+    font-size: 0.8rem;
     line-height: 1.55;
+    text-align: center;
   }
 
   .hiring-card {

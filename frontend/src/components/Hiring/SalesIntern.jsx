@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
+import HiringFooter from "./HiringFooter";
 
 const SalesIntern = () => {
   const navigate = useNavigate();
@@ -280,6 +281,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           </div>
         </div>
       </div>
+      <HiringFooter />
     </section>
   );
 };

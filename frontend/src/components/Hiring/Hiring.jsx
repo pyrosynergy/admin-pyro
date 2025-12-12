@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Hiring.css";
+import HiringFooter from "./HiringFooter";
 
 const roles = [
   {
@@ -54,6 +55,7 @@ const Hiring = () => {
   }, []);
 
   return (
+    <>
     <section className="hiring-section">
       <button
         className="role-back-button"
@@ -110,6 +112,8 @@ const Hiring = () => {
         </div>
       </div>
     </section>
+    <HiringFooter />
+    </>
   );
 };
 

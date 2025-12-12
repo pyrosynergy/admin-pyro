@@ -45,12 +45,9 @@
 /* Full page background */
 .role-section {
   min-height: 100vh;
-  padding: 4rem 2rem 5rem;
+  padding: 4rem 0rem 0;
   background: linear-gradient(135deg, #101010 0%, #0d0d1a 50%, #101010 100%);
   color: #fff;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   box-sizing: border-box;
   font-family: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -317,7 +314,9 @@
 .role-card::after {
   display: none;
 }
-
+.role-container{
+  margin-bottom: 2rem ;
+}
 /* responsive tweaks */
 @media (max-width: 980px) {
   .role-container { padding: 0 1.5rem; }

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
+import HiringFooter from "./HiringFooter";
 
 const VisualDesigner = () => {
   const navigate = useNavigate();
@@ -252,6 +253,7 @@ We’ll only go through eye-catching submissions that show an emotion and tell a
           </div>
         </div>
       </div>
+      <HiringFooter />
     </section>
   );
 };

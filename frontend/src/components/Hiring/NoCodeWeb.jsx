@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
+import HiringFooter from "./HiringFooter";
 
 const NoCodeWeb = () => {
   const navigate = useNavigate();
@@ -251,6 +252,7 @@ We’ll only go through eye-catching submissions that tell a story through your 
           </div>
         </div>
       </div>
+      <HiringFooter />
     </section>
   );
 };

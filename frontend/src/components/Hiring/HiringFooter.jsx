@@ -1,10 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Footer.css';
-import grids from "../../assets/Frame 41.png";
+import './HiringFooter.css';
 import logo from '../../assets/Frame 2.svg';
 
-const Footer = () => {
+const HiringFooter = () => {
   const navigate = useNavigate();
 
   const handleNavClick = (e, targetId) => {
@@ -32,34 +31,28 @@ const Footer = () => {
   };
 
   return (
-    <>
-      <div className="decorative-grid-container">
-        <img
-          src={grids}
-          alt="Decorative grids"
-          className="decorative-grid-image"
-        />
-      </div>
-
-      <footer className="footer">
-        <div className="footer-names">
-          <img src={logo} alt="PuroSynergy" className="brand-logo-img" />
-          <span className="brand-copyright-text">
+    <footer className="hiring-footer">
+      <div className="hiring-footer-content">
+        <div className="hiring-footer-names">
+          <img src={logo} alt="PuroSynergy" className="hiring-brand-logo-img" />
+          <span className="hiring-brand-copyright-text">
             © Copyright 2025 Pyrosynergy LLP. All rights reserved.
           </span>
         </div>
-        
-        <div className="footer-links">
+
+        <div className="hiring-footer-links">
           <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
           <a href="#services" onClick={(e) => handleNavClick(e, 'services')}>Solutions</a>
           <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
           <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
         </div>
 
-        <div className="social-icons">
+        <div className="hiring-social-icons">
           <a
             href="https://www.instagram.com/pyrosynergy/"
             aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
@@ -69,6 +62,8 @@ const Footer = () => {
           <a
             href="https://www.linkedin.com/company/pyrosynergy/"
             aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
@@ -76,9 +71,9 @@ const Footer = () => {
             />
           </a>
         </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 };
 
-export default Footer;
+export default HiringFooter;

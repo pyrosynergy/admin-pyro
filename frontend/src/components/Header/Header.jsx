@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import logo from '../../assets/Frame 2.svg';
 
 const Header = ({ 
   isScrolled, 
@@ -44,10 +45,10 @@ const Header = ({
       {/* Logo - clicking goes to home */}
       <a 
         href="#home" 
-        className="brand-logo-text" 
+        className="brand-logo-link" 
         onClick={(e) => handleNavClick(e, 'home')}
       >
-        PyroSynergy
+        <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
       </a>
       
       <nav ref={navRef} className="main-navigation">

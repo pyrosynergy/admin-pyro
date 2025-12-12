@@ -34,6 +34,18 @@
 }
 
 /* --- Brand Logo & Navigation --- */
+.brand-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 35px;
+  width: auto;
+  margin-top: 0.5rem;
+}
+
 .brand-logo-text {
   margin: 0;
   font-family: "Bricolage Grotesque", sans-serif;
