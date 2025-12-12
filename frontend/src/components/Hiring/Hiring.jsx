@@ -77,11 +77,13 @@ const Hiring = () => {
                 <li>{role.start}</li>
               </ul>
               <div className="card-cta">
-                <button
+              <button
                   className="nav-button next-button hiring-cta"
                   onClick={() => {
                     if (role.title === "Copywriter Intern") {
                       navigate("/hiring/copywriter_intern_1");
+                    } else if (role.title === "Social Media Content Strategist Intern") {
+                      navigate("/hiring/content_intern_1");
                     }
                   }}
                 >

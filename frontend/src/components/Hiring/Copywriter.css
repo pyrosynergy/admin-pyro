@@ -14,10 +14,10 @@
 /* Full page background */
 .role-section {
   min-height: 100vh;
-  padding: 3.5rem 1.5rem 4rem;
-  background: radial-gradient(1200px 600px at 12% 12%, rgba(122,92,255,0.06), transparent 8%),
-              radial-gradient(900px 500px at 88% 88%, rgba(0,176,255,0.04), transparent 8%),
-              linear-gradient(135deg, #061028 0%, #0d1633 35%, #101a3a 70%, #071027 100%);
+  padding: 4rem 2rem 5rem;
+  background: radial-gradient(circle at 15% 20%, rgba(0, 165, 255, 0.12), transparent 32%),
+    radial-gradient(circle at 80% 0%, rgba(217, 4, 255, 0.10), transparent 36%),
+    linear-gradient(135deg, #0a1024 0%, #111a3f 40%, #151e48 70%, #0d132d 100%);
   color: #fff;
   display: flex;
   align-items: flex-start;
@@ -29,90 +29,212 @@
 /* Container centers the card and gives air */
 .role-container {
   width: 100%;
-  max-width: 1150px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2.4rem;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Big elevated glass card */
+/* Remove boxy card design - open layout */
 .role-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--glass-radius);
-  padding: 2rem;
-  box-shadow:
-    0 18px 60px rgba(4,6,20,0.66),
-    inset 0 1px 0 rgba(255,255,255,0.02);
-  backdrop-filter: blur(12px) saturate(1.05);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* subtle top-left fancy header band (purely visual, not touching content) */
+/* Remove decorative elements */
 .role-card::before {
-  content: "";
-  position: absolute;
-  left: -24px;
-  top: -60px;
-  width: 420px;
-  height: 220px;
-  transform: rotate(-12deg);
-  background: linear-gradient(90deg, rgba(110,0,255,0.06), rgba(0,176,255,0.04));
-  filter: blur(36px);
-  opacity: 0.95;
-  pointer-events: none;
+  display: none;
 }
 
 /* The exact text block: preserve newlines and characters */
 .role-text {
-  font-size: 15px;
-  line-height: 1.62;
+  font-size: 17px;
+  line-height: 1.7;
   color: #e4eaf9;
   white-space: pre-wrap; /* preserves line breaks exactly as in the provided content */
   letter-spacing: 0.01em;
-  max-height: calc(100vh - 280px);
-  overflow: auto;
-  padding-right: 10px;
+  max-height: none;
+  overflow: visible;
+  padding: 0;
   word-break: break-word;
-  margin-bottom: 1.6rem;
+  margin-bottom: 2.5rem;
 }
 
 /* Highlighted headings (without altering the underlying text) */
 .role-heading {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
-  margin: 1rem 0 0.4rem;
-  font-size: 1.05rem;
-  color: #f4f6ff;
+  margin: 2.5rem 0 1rem;
+  font-size: 1.35rem;
+  color: #ffffff;
   text-shadow: none;
+  background: linear-gradient(135deg, #00b0ff 0%, #6e00ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(0, 176, 255, 0.15);
 }
 
 /* Larger size only for the main page title heading */
 .role-heading-main {
-  font-size: 1.35rem;
+  font-size: 3.2rem;
   font-weight: 900;
   text-align: center;
+  margin: 0 0 3rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #d904ff 0%, #6e00ff 40%, #00c8ff 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+.role-heading-main::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 105%;
+  height: 110%;
+  background: linear-gradient(135deg, rgba(217, 4, 255, 0.15), rgba(110, 0, 255, 0.12), rgba(0, 200, 255, 0.15));
+  border-radius: 20px;
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.role-heading-main::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #00c8ff 20%, #6e00ff 50%, #d904ff 80%, transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(110, 0, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(0, 200, 255, 0.5));
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
 }
 
 /* Normal lines (kept subtle) */
 .role-line {
   color: #e4eaf9;
+  font-size: 17px;
+}
+
+/* Paragraph text with justified alignment */
+.role-paragraph {
+  color: #e4eaf9;
+  font-size: 17px;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.75;
+  margin: 0.5rem 0;
+}
+
+/* Bold labels for important fields */
+.role-label {
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: 0.3rem;
 }
 
 /* Visual spacer for blank lines to preserve vertical rhythm */
-.role-spacer { height: 0.6rem; }
+.role-spacer { height: 1rem; }
 
-/* NOTE box styling — emphasizes important notices */
+/* Better list formatting */
+.role-text > div {
+  transition: all 0.2s ease;
+}
+
+.role-line:hover,
+.role-paragraph:hover {
+  padding-left: 4px;
+}
+
+/* Bullet point items */
+.role-bullet-item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  color: #e4eaf9;
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0.4rem 0;
+  padding-left: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.role-bullet-item:hover {
+  padding-left: 1rem;
+}
+
+.role-bullet {
+  color: #00b0ff;
+  font-size: 1.3em;
+  line-height: 1.3;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.role-bullet-item span:last-child {
+  flex: 1;
+}
+
+/* NOTE box styling — emphasizes important notices with vibrant colors */
 .role-note {
   display: block;
-  margin: 0.8rem 0;
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
-  border: 1px solid var(--card-border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 10px 24px rgba(6,10,32,0.28);
-  color: #f0f4ff;
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 176, 255, 0.15), rgba(110, 0, 255, 0.12));
+  border: 1px solid rgba(0, 176, 255, 0.25);
+  box-shadow: 0 12px 35px rgba(110, 0, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.7;
+}
+
+.role-note strong {
+  font-weight: 800;
+  color: #00d4ff;
+  letter-spacing: 0.03em;
 }
 
 /* nicer scrollbar for long content */
@@ -127,49 +249,71 @@
   display: flex;
   justify-content: center;
   gap: 12px;
- 
+  margin-top: 2.5rem;
 }
 .role-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.76rem 1.5rem;
+  padding: 1rem 2.5rem;
   border-radius: 999px;
   background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
   color: #fff;
   font-weight: 700;
+  font-size: 18px;
   text-decoration: none;
-  box-shadow: 0 14px 44px rgba(110, 0, 255, 0.28);
-  transition: transform 180ms ease, filter 180ms ease;
+  box-shadow: 0 14px 44px rgba(110, 0, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .role-cta:hover {
-  transform: translateY(-3px);
-  filter: brightness(1.06);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 50px rgba(0, 176, 255, 0.4), 0 10px 30px rgba(110, 0, 255, 0.35);
 }
 
-/* subtle floating corner decor bottom-right (visual only) */
+/* Secondary CTA — outlined, opposite of primary */
+.role-cta-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.25);
+  font-weight: 700;
+}
+.role-cta-secondary:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Remove decorative corner */
 .role-card::after {
-  content: "";
-  position: absolute;
-  right: -60px;
-  bottom: -60px;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle at 30% 30%, rgba(110,0,255,0.04), rgba(0,176,255,0.02), transparent 50%);
-  filter: blur(36px);
-  pointer-events: none;
-  opacity: 0.9;
+  display: none;
 }
 
 /* responsive tweaks */
 @media (max-width: 980px) {
-  .role-container { padding: 1.1rem; }
-  .role-card { padding: 1.2rem; border-radius: 18px; }
-  .role-text { font-size: 15px; max-height: calc(100vh - 220px); }
+  .role-container { padding: 0 1.5rem; }
+  .role-card { padding: 0; }
+  .role-text { font-size: 16px; }
+  .role-heading-main { 
+    font-size: 2.2rem;
+    padding: 1.2rem 1.5rem;
+  }
+  .role-heading-main::after {
+    width: 140px;
+  }
 }
 
 @media (max-width: 520px) {
-  .role-section { padding: 2rem 0.8rem 3rem; }
-  .role-text { font-size: 14px; line-height: 1.5; }
-  .role-cta { padding: 0.68rem 1.1rem; font-size: 14px; }
+  .role-section { padding: 2.5rem 1.2rem 3.5rem; }
+  .role-text { font-size: 15px; line-height: 1.6; }
+  .role-heading-main { 
+    font-size: 1.8rem;
+    padding: 1rem 1.2rem;
+  }
+  .role-heading-main::after {
+    width: 100px;
+    height: 3px;
+  }
+  .role-heading { font-size: 1.15rem; }
+  .role-cta { padding: 0.85rem 1.8rem; font-size: 16px; }
 }

@@ -1,56 +1,52 @@
 import React, { useEffect } from "react";
 import "./Copywriter.css";
 
-const Copywriter = () => {
+const ContentStrategist = () => {
   useEffect(() => {
     // preserve original scroll behaviour only
     window.scrollTo(0, 0);
   }, []);
 
-  // No handler required; we link directly to Gmail compose
-
   // Keep the exact content as a single source of truth
-  const content = `Copywriter Intern
+  const content = `Social Media Content Strategist Intern
 Internship Details
 Start Date: January 2026 onwards
 Type: Unpaid + performance-based bonuses and opportunities for paid client work
 Minimum Duration: 3 months (extendable based on performance)
 Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
+NOTE: Apply only if you're comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
  
 
 About PyroSynergy
-PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with understanding of users, of founders, and of the story behind the product.
-As a Copywriter at PyroSynergy, you’ll help shape the voice and narrative of multiple brands. Your words will translate complex ideas into simple, engaging language that resonates with users and reflects the founder’s deeper intent. You’ll work closely with designers, strategists, and no-code developers to craft messaging that feels thoughtful, intentional, and empathetic from the very first line.
-What You’ll Do
-Write compelling website and landing-page copy tailored to different tones: professional, conversational, premium, or marketing-heavy.
-Translate client requirements into sharp, structured messaging that holds attention.
-Create headlines, subheads, value propositions, CTAs, and narrative-driven copy for websites.
-Support internal communication tasks, such as onboarding docs and emails when needed.
-Contribute ideas that improve user engagement and brand consistency across digital platforms.
+PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with an understanding of users, of founders, and of the story behind the product.
+As a Social Media Content Strategist, you will help translate brand stories into sharp, high-engagement content. You'll experiment with hooks, storytelling frameworks, and platform-specific formats that resonate emotionally with audiences. Your work will shape the personality of brands online, ensuring that every post, carousel, and reel script carries clarity, intention, and empathy.
+What You'll Do
+Write Instagram posts, carousels, captions, and short-form content with strong marketing intent.
+Develop scripts for reels using high-conversion structures (hook → body → CTA).
+Turn complex ideas into simple, attention-grabbing narratives.
+Support internal admin/writing tasks occasionally.
+Brainstorm content angles with designers and brand strategists.
 
 
 Required Skills
-Strong writing fundamentals: clarity, structure, message discipline
-Thorough understanding of how marketing works
-Ability to adapt tone for different audiences
-Comfort researching unfamiliar topics
-A naturally empathetic approach to understanding client intent, user needs, and communication context
-Openness to feedback and iterative improvements
+Strong understanding of social tone, hooks, and attention patterns
+Ability to write with structure and creativity
+Empathy-driven communication by understanding audience mindset and tailoring messages accordingly
+Adaptability and openness to rapid iteration
 
 
 Good-to-Have
-SEO basics (keywords, meta descriptions, structure).
-Experience writing copy for landing pages or brand messaging.
-Familiarity with AI writing assistants or prompt-based workflows.
+SEO basics
+Experience writing for Instagram or other social platforms
+Familiarity with AI tools for ideation or content generation
 
 
-What You’ll Gain
-Hands-on experience crafting real copy for clients and early-stage startups.
-Learn to write with precision in a variety of tones and formats.
-Exposure to brand strategy and AI-assisted content workflows.
-Opportunity to transition into paid client projects based on performance.
+What You'll Gain
+Build real portfolio work across multiple client industries.
+Learn high-performance content frameworks used in startups and agencies.
+Collaborate with design, branding, and strategy teams.
+Potential transition to paid client work.
 
 
 Internship Details
@@ -59,32 +55,34 @@ Type: Unpaid + performance-based bonuses and opportunities for paid client work
 Minimum Duration: 3 months (extendable based on performance)
 Work Mode: Remote-first; hybrid from Hyderabad, India is a plus
 Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
+NOTE: Apply only if you're comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
 
 
 How to Apply
-Send your resume + 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: “Copywriter Intern/Your Name”.
-We’ll only go through eye-catching submissions that aren’t too ChatGPT-like. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
+Send your resume + sample posts/scripts along with your mobile number to admin@pyrosynergy.com with subject line: "Social Media Content Strategist/Your Name".
+We'll only go through eye-catching submissions that aren't too ChatGPT-like. If qualified, you'll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
-    "Copywriter Intern",
+    "Social Media Content Strategist Intern",
     "Internship Details",
     "About PyroSynergy",
-    "What You’ll Do",
-    "Required Skills",
-    "Good-to-Have",
-    "What You’ll Gain",
-    "How to Apply",
-  ]);
-  const bulletPointSections = new Set([
-    // Support both straight and smart apostrophes to be safe
-    "What You’ll Do",
     "What You'll Do",
     "Required Skills",
     "Good-to-Have",
-    "What You’ll Gain",
+    "What You'll Gain",
+    "How to Apply",
+  ]);
+
+  const bulletPointSections = new Set([
+    // Support both straight and smart apostrophes to be safe
+    "What You'll Do",
+    "What You'll Do",
+    "Required Skills",
+    "Good-to-Have",
+    "What You'll Gain",
     "What You'll Gain",
   ]);
+
   const boldPatterns = [
     { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:)/, className: 'role-label' },
   ];
@@ -93,7 +91,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   const highlightTokens = (text) => {
     const tokens = [
       "admin@pyrosynergy.com",
-      "Copywriter Intern/Your Name",
+      "Social Media Content Strategist/Your Name",
     ];
     let remaining = text;
     const parts = [];
@@ -149,7 +147,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
             {lines.map((line, idx) => {
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
-                const isMainHeading = trimmed === "Copywriter Intern";
+                const isMainHeading = trimmed === "Social Media Content Strategist Intern";
                 return (
                   <div key={idx} className={`role-heading${isMainHeading ? " role-heading-main" : ""}`}>{line}</div>
                 );
@@ -210,7 +208,7 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           <div className="role-cta-wrap">
             <a
               className="role-cta"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Copywriter%20Intern%20Application"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com&su=Social%20Media%20Content%20Strategist%20Application"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apply Now"
@@ -231,4 +229,4 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
   );
 };
 
-export default Copywriter;
+export default ContentStrategist;

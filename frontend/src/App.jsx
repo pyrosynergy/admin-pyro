@@ -14,6 +14,7 @@ import Loading from "./components/Loading/Loading.jsx"; // Add this import
 import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
 import Hiring from "./components/Hiring/Hiring.jsx";
 import Copywriter from "./components/Hiring/Copywriter.jsx";
+import ContentStrategist from "./components/Hiring/ContentStrategist.jsx";
 
 // Asset Imports
 import logo1 from "./assets/viali.png";
@@ -96,9 +97,9 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname === '/realitycheck' ? 'questionnaire' : 'home';
   // Show header on reality check; hide only on specific pages
-  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1'].includes(location.pathname);
+  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1'].includes(location.pathname);
   // Hide footer on reality check, hiring, and copywriter intern pages
-  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1'].includes(location.pathname);
+  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -284,6 +285,7 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
           <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
+          <Route path="/hiring/content_intern_1" element={<ContentStrategist />} />
           <Route path="/" element={
             <>
               <Hero 
