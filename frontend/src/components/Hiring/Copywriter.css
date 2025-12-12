@@ -45,7 +45,7 @@
 /* Full page background */
 .role-section {
   min-height: 100vh;
-  padding: 4rem 2rem 2rem;
+  padding: 4rem 2rem 0;
   background: linear-gradient(135deg, #101010 0%, #0d0d1a 50%, #101010 100%);
   color: #fff;
   display: flex;
@@ -278,6 +278,7 @@
   justify-content: center;
   gap: 12px;
   margin-top: 2.5rem;
+  margin-bottom: 3rem;
 }
 .role-cta {
   display: inline-flex;
@@ -340,11 +341,14 @@
   .role-back-icon {
     font-size: 1.1rem;
   }
+  .role-section {
+    padding-bottom: 0;
+  }
 }
 
 @media (max-width: 520px) {
   .role-section { 
-    padding: 2rem 1rem 3rem; 
+    padding: 2rem 1rem 0; 
   }
   .role-container {
     padding: 0 1rem;
@@ -437,6 +441,6 @@
     font-size: 13px;
   }
   .role-section {
-    padding: 1.5rem 0.8rem 2.5rem;
+    padding: 1.5rem 0.8rem 0;
   }
 }
