@@ -12,6 +12,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
 import Loading from "./components/Loading/Loading.jsx"; // Add this import
 import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
+import Hiring from "./components/Hiring/Hiring.jsx";
 
 // Asset Imports
 import logo1 from "./assets/viali.png";
@@ -93,6 +94,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname === '/realitycheck' ? 'questionnaire' : 'home';
+  const hideChrome = ['/realitycheck', '/welcome', '/hiring'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -262,7 +264,7 @@ function App() {
 
       {/* Main Content */}
       <div className={isLoading ? 'main-content-hidden' : 'main-content-visible'}>
-        {location.pathname !== '/welcome' && (
+        {!hideChrome && (
           <Header 
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
@@ -276,6 +278,7 @@ function App() {
         <Routes>
           <Route path="/realitycheck" element={<Questionnaire />} />
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/hiring" element={<Hiring />} />
           <Route path="/" element={
             <>
               <Hero 
@@ -304,7 +307,7 @@ function App() {
             </>
           } />
         </Routes>
-        {location.pathname !== '/realitycheck' && location.pathname !== '/welcome' && <Footer />}
+        {!hideChrome && <Footer />}
       </div>
     </div>
   );
