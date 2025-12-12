@@ -13,6 +13,7 @@ import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
 import Loading from "./components/Loading/Loading.jsx"; // Add this import
 import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
 import Hiring from "./components/Hiring/Hiring.jsx";
+import Copywriter from "./components/Hiring/Copywriter.jsx";
 
 // Asset Imports
 import logo1 from "./assets/viali.png";
@@ -94,7 +95,10 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname === '/realitycheck' ? 'questionnaire' : 'home';
-  const hideChrome = ['/realitycheck', '/welcome', '/hiring'].includes(location.pathname);
+  // Show header on reality check; hide only on specific pages
+  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1'].includes(location.pathname);
+  // Hide footer on reality check, hiring, and copywriter intern pages
+  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -264,7 +268,7 @@ function App() {
 
       {/* Main Content */}
       <div className={isLoading ? 'main-content-hidden' : 'main-content-visible'}>
-        {!hideChrome && (
+        {!hideHeader && (
           <Header 
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
@@ -279,6 +283,7 @@ function App() {
           <Route path="/realitycheck" element={<Questionnaire />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
+          <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
           <Route path="/" element={
             <>
               <Hero 
@@ -307,7 +312,7 @@ function App() {
             </>
           } />
         </Routes>
-        {!hideChrome && <Footer />}
+  {!hideFooter && <Footer />}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Hiring.css";
 
 const roles = [
@@ -47,6 +48,7 @@ const roles = [
 ];
 
 const Hiring = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -75,7 +77,16 @@ const Hiring = () => {
                 <li>{role.start}</li>
               </ul>
               <div className="card-cta">
-                <button className="nav-button next-button hiring-cta">{role.cta}</button>
+                <button
+                  className="nav-button next-button hiring-cta"
+                  onClick={() => {
+                    if (role.title === "Copywriter Intern") {
+                      navigate("/hiring/copywriter_intern_1");
+                    }
+                  }}
+                >
+                  {role.cta}
+                </button>
               </div>
             </article>
           ))}
