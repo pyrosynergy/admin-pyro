@@ -253,16 +253,62 @@
 
 @media (max-width: 768px) {
   .hiring-section {
-    padding: 3rem 1.1rem 3.5rem;
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .role-back-button {
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .role-back-icon {
+    font-size: 1rem;
   }
 
   .hiring-container {
-    padding: 1.6rem 1.2rem 1.8rem;
-    border-radius: 22px;
+    padding: 1.5rem 1rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .hiring-intro {
+    margin-bottom: 2rem;
+  }
+
+  .hiring-title {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .hiring-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hiring-list {
+    gap: 1rem;
+  }
+
+  .hiring-card {
+    padding: 1.2rem;
+    border-radius: 16px;
   }
 
   .card-header {
     align-items: flex-start;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-header h3 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  .card-meta {
+    font-size: 0.9rem;
+    gap: 0.3rem;
   }
 
   .card-cta {
@@ -271,5 +317,51 @@
     margin-top: 1rem;
     display: flex;
     justify-content: flex-start;
+  }
+
+  .hiring-cta {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+    min-width: auto;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hiring-section {
+    padding: 2rem 0.8rem 2.5rem;
+  }
+
+  .hiring-container {
+    padding: 1.2rem 0.8rem 1.2rem;
+    border-radius: 18px;
+  }
+
+  .hiring-title {
+    font-size: 1.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .hiring-body {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .hiring-card {
+    padding: 1rem;
+  }
+
+  .card-header h3 {
+    font-size: 1rem;
+  }
+
+  .card-meta {
+    font-size: 0.85rem;
+  }
+
+  .hiring-cta {
+    padding: 0.65rem 1.1rem;
+    font-size: 0.85rem;
   }
 }

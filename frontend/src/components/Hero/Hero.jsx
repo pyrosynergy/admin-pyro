@@ -84,7 +84,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
               }
             }}
           >
-            🎯 We're Hiring — Join our team →
+            We're Hiring! — Join our team →
           </div>
           <h1 className="hero-heading leading-snug">
             <div>Let's make your business</div>
