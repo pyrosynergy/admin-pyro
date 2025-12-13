@@ -103,7 +103,7 @@ function App() {
   // Show header on reality check; hide only on specific pages
   const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
-  const hideFooter = ['/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
+  const hideFooter = ['/welcome', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
