@@ -6,6 +6,8 @@ import HiringFooter from "./HiringFooter";
 const Copywriter = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   useEffect(() => {
     // preserve original scroll behaviour only
@@ -53,6 +55,7 @@ Ability to adapt tone for different audiences
 Comfort researching unfamiliar topics
 A naturally empathetic approach to understanding client intent, user needs, and communication context
 Openness to feedback and iterative improvements
+**An entrepreneurial, empathy-first mindset with a strong sense of ownership; treating tasks and outcomes as if they were your own**
 
 
 Good-to-Have
@@ -78,7 +81,7 @@ NOTE: Apply only if you’re comfortable with the internship structure and are l
 
 
 How to Apply
-Send your resume + 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: “Copywriter Intern/Your Name”.
+Send us 2-3 catchy writing samples (bonus if you can explain your thought process for any one of the samples) or a small portfolio, along with your mobile number to admin@pyrosynergy.com with the subject line: "Copywriter Intern/Your Name".
 We’ll only go through eye-catching submissions that aren’t too ChatGPT-like. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
@@ -161,6 +164,29 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
         );
       }
     }
+    
+    // Handle **text** markdown bold syntax
+    const boldMarkdownRegex = /\*\*(.+?)\*\*/g;
+    if (boldMarkdownRegex.test(line)) {
+      const parts = [];
+      let lastIndex = 0;
+      const matches = line.matchAll(/\*\*(.+?)\*\*/g);
+      
+      for (const match of matches) {
+        if (match.index > lastIndex) {
+          parts.push(highlightTokens(line.substring(lastIndex, match.index)));
+        }
+        parts.push(<strong key={`bold-${match.index}`}>{match[1]}</strong>);
+        lastIndex = match.index + match[0].length;
+      }
+      
+      if (lastIndex < line.length) {
+        parts.push(highlightTokens(line.substring(lastIndex)));
+      }
+      
+      return parts;
+    }
+    
     return highlightTokens(line);
   };
 
@@ -254,15 +280,75 @@ We’ll only go through eye-catching submissions that aren’t too ChatGPT-like.
           </div>
 
           <div className="role-cta-wrap">
-            <a
-              className="role-cta"
-              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
-              target={isMobile ? undefined : "_blank"}
-              rel={isMobile ? undefined : "noopener noreferrer"}
-              aria-label="Apply Now"
-            >
-              Apply Now
-            </a>
+            <div className="role-cta-dropdown-container">
+              <button
+                className="role-cta"
+                onClick={() => setShowDropdown(!showDropdown)}
+                aria-label="Apply Now"
+              >
+                Apply Now
+              </button>
+              {showDropdown && (
+                <div className="role-cta-dropdown">
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      const email = 'admin@pyrosynergy.com';
+                      
+                      // Try modern clipboard API first
+                      if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(email).then(() => {
+                          setShowCopied(true);
+                          setShowDropdown(false);
+                          setTimeout(() => setShowCopied(false), 2000);
+                        }).catch(() => {
+                          // Fallback for mobile browsers
+                          fallbackCopyText(email);
+                        });
+                      } else {
+                        // Fallback for older browsers
+                        fallbackCopyText(email);
+                      }
+                      
+                      function fallbackCopyText(text) {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        textArea.style.top = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        try {
+                          document.execCommand('copy');
+                          setShowCopied(true);
+                          setShowDropdown(false);
+                          setTimeout(() => setShowCopied(false), 2000);
+                        } catch (err) {
+                          console.error('Failed to copy text:', err);
+                        }
+                        document.body.removeChild(textArea);
+                      }
+                    }}
+                  >
+                    Copy Email
+                  </button>
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      const url = isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com";
+                      window.open(url, isMobile ? "_self" : "_blank");
+                      setShowDropdown(false);
+                    }}
+                  >
+                    Open
+                  </button>
+                </div>
+              )}
+              {showCopied && (
+                <div className="role-copy-notification">Copied to clipboard</div>
+              )}
+            </div>
             <a
               className="role-cta role-cta-secondary"
               href="/hiring"

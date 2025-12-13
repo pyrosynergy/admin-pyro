@@ -6,6 +6,8 @@ import HiringFooter from "./HiringFooter";
 const SalesIntern = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,6 +52,7 @@ Research-oriented mindset
 Consistent follow-up habits and responsibility toward timelines
 A calm, professional tone when speaking to founders and decision-makers
 Ability to handle rejection and keep moving without losing quality
+**An entrepreneurial, empathy-first mindset with a strong sense of ownership; treating tasks and outcomes as if they were your own**
 
 
 Good-to-Have
@@ -88,11 +91,13 @@ NOTE: Apply only if you’re comfortable with a commission-based role and the ex
 
 How to Apply
 Send the following to admin@pyrosynergy.com with the subject line: “Sales Intern/Your Name”:
+
 Your background and short story
-A short note on why you’re interested in working with PyroSynergy
+A short note on why you're interested in working with PyroSynergy
 A brief explanation of any prior experience in outreach, communication, or sales (with proof, if any)
 A 30–60 second video (strongly preferred) introducing yourself and explaining how you approach conversations with prospects
 Your LinkedIn profile link and mobile number
+
 If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
@@ -115,7 +120,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
   ]);
 
   const boldPatterns = [
-    { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:|Compensation & Commission Structure|Option A:|Option B:|Bonuses)$/,
+    { regex: /^(Start Date:|Type:|Minimum Duration:|Work Mode:|Culture & Expectations:)/,
       className: 'role-label' },
   ];
 
@@ -184,6 +189,29 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
         );
       }
     }
+    
+    // Handle **text** markdown bold syntax
+    const boldMarkdownRegex = /\*\*(.+?)\*\*/g;
+    if (boldMarkdownRegex.test(line)) {
+      const parts = [];
+      let lastIndex = 0;
+      const matches = line.matchAll(/\*\*(.+?)\*\*/g);
+      
+      for (const match of matches) {
+        if (match.index > lastIndex) {
+          parts.push(highlightTokens(line.substring(lastIndex, match.index)));
+        }
+        parts.push(<strong key={`bold-${match.index}`}>{match[1]}</strong>);
+        lastIndex = match.index + match[0].length;
+      }
+      
+      if (lastIndex < line.length) {
+        parts.push(highlightTokens(line.substring(lastIndex)));
+      }
+      
+      return parts;
+    }
+    
     return highlightTokens(line);
   };
 
@@ -245,13 +273,22 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
                 }
               }
 
-              const isBulletLine = bulletPointSections.has(currentSection) &&
+              // Special handling for How to Apply section - only specific lines get bullets
+              const isHowToApplyBullet = currentSection === "How to Apply" &&
+                                         (trimmed.startsWith("Your background") ||
+                                          trimmed.startsWith("A short note") ||
+                                          trimmed.startsWith("A brief explanation") ||
+                                          trimmed.startsWith("A 30") ||
+                                          trimmed.startsWith("Your LinkedIn"));
+
+              const isBulletLine = (bulletPointSections.has(currentSection) &&
                                    trimmed.length > 10 &&
                                    !trimmed.startsWith("Start Date:") &&
                                    !trimmed.startsWith("Type:") &&
                                    !trimmed.startsWith("Minimum Duration:") &&
                                    !trimmed.startsWith("Work Mode:") &&
-                                   !trimmed.startsWith("Culture & Expectations:");
+                                   !trimmed.startsWith("Culture & Expectations:")) ||
+                                   isHowToApplyBullet;
 
               const isParagraph = trimmed.length > 80 && !isBulletLine;
 
@@ -273,15 +310,43 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           </div>
 
           <div className="role-cta-wrap">
-            <a
-              className="role-cta"
-              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
-              target={isMobile ? undefined : "_blank"}
-              rel={isMobile ? undefined : "noopener noreferrer"}
-              aria-label="Apply Now"
-            >
-              Apply Now
-            </a>
+            <div className="role-cta-dropdown-container">
+              <button
+                className="role-cta"
+                onClick={() => setShowDropdown(!showDropdown)}
+                aria-label="Apply Now"
+              >
+                Apply Now
+              </button>
+              {showDropdown && (
+                <div className="role-cta-dropdown">
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      navigator.clipboard.writeText('admin@pyrosynergy.com');
+                      setShowCopied(true);
+                      setShowDropdown(false);
+                      setTimeout(() => setShowCopied(false), 2000);
+                    }}
+                  >
+                    Copy Email
+                  </button>
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      const url = isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com";
+                      window.open(url, isMobile ? "_self" : "_blank");
+                      setShowDropdown(false);
+                    }}
+                  >
+                    Open
+                  </button>
+                </div>
+              )}
+              {showCopied && (
+                <div className="role-copy-notification">Copied to clipboard</div>
+              )}
+            </div>
             <a
               className="role-cta role-cta-secondary"
               href="/hiring"

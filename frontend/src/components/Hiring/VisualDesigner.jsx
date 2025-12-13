@@ -6,6 +6,8 @@ import HiringFooter from "./HiringFooter";
 const VisualDesigner = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,6 +52,7 @@ Good knowledge of UI/UX foundations
 Experience using AI generative tools (Gemini, SeedDance, Kling)
 An empathetic understanding of user perception, emotional cues, and visual accessibility
 Ability to adopt feedback quickly
+**An entrepreneurial, empathy-first mindset with a strong sense of ownership; treating tasks and outcomes as if they were your own**
 
 
 Good-to-Have
@@ -75,7 +78,7 @@ NOTE: Apply only if you’re comfortable with the internship structure and are l
 
 
 How to Apply
-Send your resume + portfolio link along with your mobile number to admin@pyrosynergy.com with subject line: “Visual Designer Intern/Your Name”.
+Send us your portfolio link along with your mobile number to admin@pyrosynergy.com with subject line: "Visual Designer Intern/Your Name".
 We’ll only go through eye-catching submissions that show an emotion and tell a story through your design. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.
 `;
 
@@ -156,6 +159,29 @@ We’ll only go through eye-catching submissions that show an emotion and tell a
         );
       }
     }
+    
+    // Handle **text** markdown bold syntax
+    const boldMarkdownRegex = /\*\*(.+?)\*\*/g;
+    if (boldMarkdownRegex.test(line)) {
+      const parts = [];
+      let lastIndex = 0;
+      const matches = line.matchAll(/\*\*(.+?)\*\*/g);
+      
+      for (const match of matches) {
+        if (match.index > lastIndex) {
+          parts.push(highlightTokens(line.substring(lastIndex, match.index)));
+        }
+        parts.push(<strong key={`bold-${match.index}`}>{match[1]}</strong>);
+        lastIndex = match.index + match[0].length;
+      }
+      
+      if (lastIndex < line.length) {
+        parts.push(highlightTokens(line.substring(lastIndex)));
+      }
+      
+      return parts;
+    }
+    
     return highlightTokens(line);
   };
 
@@ -245,15 +271,43 @@ We’ll only go through eye-catching submissions that show an emotion and tell a
           </div>
 
           <div className="role-cta-wrap">
-            <a
-              className="role-cta"
-              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
-              target={isMobile ? undefined : "_blank"}
-              rel={isMobile ? undefined : "noopener noreferrer"}
-              aria-label="Apply Now"
-            >
-              Apply Now
-            </a>
+            <div className="role-cta-dropdown-container">
+              <button
+                className="role-cta"
+                onClick={() => setShowDropdown(!showDropdown)}
+                aria-label="Apply Now"
+              >
+                Apply Now
+              </button>
+              {showDropdown && (
+                <div className="role-cta-dropdown">
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      navigator.clipboard.writeText('admin@pyrosynergy.com');
+                      setShowCopied(true);
+                      setShowDropdown(false);
+                      setTimeout(() => setShowCopied(false), 2000);
+                    }}
+                  >
+                    Copy Email
+                  </button>
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      const url = isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com";
+                      window.open(url, isMobile ? "_self" : "_blank");
+                      setShowDropdown(false);
+                    }}
+                  >
+                    Open
+                  </button>
+                </div>
+              )}
+              {showCopied && (
+                <div className="role-copy-notification">Copied to clipboard</div>
+              )}
+            </div>
             <a
               className="role-cta role-cta-secondary"
               href="/hiring"

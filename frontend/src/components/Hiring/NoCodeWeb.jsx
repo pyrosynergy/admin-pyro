@@ -6,6 +6,8 @@ import HiringFooter from "./HiringFooter";
 const NoCodeWeb = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,6 +51,7 @@ Good UI/UX sense (not basic; enough to make clear decisions)
 Performance optimization understanding
 Empathy toward user experience by thinking from the user's perspective when designing interactions or flows
 Fast learning and iterative execution skills
+**An entrepreneurial, empathy-first mindset with a strong sense of ownership; treating tasks and outcomes as if they were your own**
 
 
 Good-to-Have
@@ -75,7 +78,7 @@ NOTE: Apply only if you’re comfortable with the internship structure and are l
 
 
 How to Apply
-Send your resume + live portfolio links along with your mobile number to admin@pyrosynergy.com with subject line: “No-Code Web Developer Intern/Your Name”.
+Send us your portfolio link (preferably live) along with your mobile number to admin@pyrosynergy.com with subject line: "No-Code Web Developer Intern/Your Name".
 We’ll only go through eye-catching submissions that tell a story through your live designs. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
 
   const headingSet = new Set([
@@ -155,6 +158,29 @@ We’ll only go through eye-catching submissions that tell a story through your 
         );
       }
     }
+    
+    // Handle **text** markdown bold syntax
+    const boldMarkdownRegex = /\*\*(.+?)\*\*/g;
+    if (boldMarkdownRegex.test(line)) {
+      const parts = [];
+      let lastIndex = 0;
+      const matches = line.matchAll(/\*\*(.+?)\*\*/g);
+      
+      for (const match of matches) {
+        if (match.index > lastIndex) {
+          parts.push(highlightTokens(line.substring(lastIndex, match.index)));
+        }
+        parts.push(<strong key={`bold-${match.index}`}>{match[1]}</strong>);
+        lastIndex = match.index + match[0].length;
+      }
+      
+      if (lastIndex < line.length) {
+        parts.push(highlightTokens(line.substring(lastIndex)));
+      }
+      
+      return parts;
+    }
+    
     return highlightTokens(line);
   };
 
@@ -244,15 +270,43 @@ We’ll only go through eye-catching submissions that tell a story through your 
           </div>
 
           <div className="role-cta-wrap">
-            <a
-              className="role-cta"
-              href={isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com"}
-              target={isMobile ? undefined : "_blank"}
-              rel={isMobile ? undefined : "noopener noreferrer"}
-              aria-label="Apply Now"
-            >
-              Apply Now
-            </a>
+            <div className="role-cta-dropdown-container">
+              <button
+                className="role-cta"
+                onClick={() => setShowDropdown(!showDropdown)}
+                aria-label="Apply Now"
+              >
+                Apply Now
+              </button>
+              {showDropdown && (
+                <div className="role-cta-dropdown">
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      navigator.clipboard.writeText('admin@pyrosynergy.com');
+                      setShowCopied(true);
+                      setShowDropdown(false);
+                      setTimeout(() => setShowCopied(false), 2000);
+                    }}
+                  >
+                    Copy Email
+                  </button>
+                  <button
+                    className="role-cta-dropdown-item"
+                    onClick={() => {
+                      const url = isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com";
+                      window.open(url, isMobile ? "_self" : "_blank");
+                      setShowDropdown(false);
+                    }}
+                  >
+                    Open
+                  </button>
+                </div>
+              )}
+              {showCopied && (
+                <div className="role-copy-notification">Copied to clipboard</div>
+              )}
+            </div>
             <a
               className="role-cta role-cta-secondary"
               href="/hiring"
