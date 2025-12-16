@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
@@ -8,6 +8,7 @@ const SalesIntern = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +22,22 @@ const SalesIntern = () => {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const content = `Sales Intern (Commision-based)
 Internship Details
@@ -70,9 +87,9 @@ Potential to grow into a full-fledged Sales Associate role
 Significant earning potential through commissions
 Compensation & Commission Structure
 This role is fully commission-based, with two earning paths:
-Option A: {Lead Gen + Outreach + Qualification}
+**Option A: {Lead Gen + Outreach + Qualification}**
 Earns you 10%+ commission, depending on project size and negotiation
-Option B: {Lead Gen + Outreach + Qualification + Closing}
+**Option B: {Lead Gen + Outreach + Qualification + Closing}**
 Higher commission tier, negotiated per candidate and skill level
 Bonuses
 Additional bonuses for consistent closures
@@ -107,16 +124,15 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
     "What You’ll Do",
     "Required Skills",
     "Good-to-Have",
-    "What You’ll Gain",
-    "How to Apply",
+    "What You’ll Gain",    "Compensation & Commission Structure",
+    "Bonuses",    "How to Apply",
   ]);
   const bulletPointSections = new Set([
     "What You’ll Do",
-    "What You'll Do",
     "Required Skills",
     "Good-to-Have",
-    "What You’ll Gain",
     "What You'll Gain",
+    "Bonuses",
   ]);
 
   const boldPatterns = [
@@ -310,7 +326,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           </div>
 
           <div className="role-cta-wrap">
-            <div className="role-cta-dropdown-container">
+            <div className="role-cta-dropdown-container" ref={dropdownRef}>
               <button
                 className="role-cta"
                 onClick={() => setShowDropdown(!showDropdown)}

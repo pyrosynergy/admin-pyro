@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
@@ -8,6 +8,7 @@ const NoCodeWeb = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +22,22 @@ const NoCodeWeb = () => {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const content = `No-Code Web Developer Intern (Wix Studio Specialist)
 Internship Details
@@ -270,7 +287,7 @@ We’ll only go through eye-catching submissions that tell a story through your 
           </div>
 
           <div className="role-cta-wrap">
-            <div className="role-cta-dropdown-container">
+            <div className="role-cta-dropdown-container" ref={dropdownRef}>
               <button
                 className="role-cta"
                 onClick={() => setShowDropdown(!showDropdown)}

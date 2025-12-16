@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
@@ -8,6 +8,7 @@ const ContentStrategist = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     // preserve original scroll behaviour only
@@ -23,6 +24,22 @@ const ContentStrategist = () => {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   // Keep the exact content as a single source of truth
   const content = `Social Media Content Strategist Intern
@@ -287,7 +304,7 @@ We'll only go through eye-catching submissions that aren't too ChatGPT-like. If 
           </div>
 
           <div className="role-cta-wrap">
-            <div className="role-cta-dropdown-container">
+            <div className="role-cta-dropdown-container" ref={dropdownRef}>
               <button
                 className="role-cta"
                 onClick={() => setShowDropdown(!showDropdown)}
