@@ -12,10 +12,10 @@ const roles = [
     cta: "Know More",
   },
   {
-    title: "Social Media Content Strategist Intern",
-    duration: "Duration: 3 months minimum",
+    title: "Social Media Content & Strategy Intern",
+    duration: "Duration: 2 months minimum",
     location: "Location: Remote-first/Hybrid (Hyderabad, India)",
-    start: "Starts: January 2026",
+    start: "Starts: Immediate",
     cta: "Know More",
   },
   {
@@ -91,8 +91,8 @@ const Hiring = () => {
                   onClick={() => {
                     if (role.title === "Copywriter Intern") {
                       navigate("/hiring/copywriter_intern_1");
-                    } else if (role.title === "Social Media Content Strategist Intern") {
-                      navigate("/hiring/content_intern_1");
+                    } else if (role.title === "Social Media Content & Strategy Intern") {
+                      navigate("/hiring/social_intern_1");
                     } else if (role.title === "Visual Designer Intern") {
                       navigate("/hiring/videsign_intern_1");
                     } else if (role.title === "User Experience (UX) Designer Intern") {

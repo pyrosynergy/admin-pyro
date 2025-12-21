@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import "./App.css";
 
 // Component imports
@@ -19,6 +19,7 @@ import UXDesigner from "./components/Hiring/UXDesigner.jsx";
 import NoCodeWeb from "./components/Hiring/NoCodeWeb.jsx";
 import SalesIntern from "./components/Hiring/SalesIntern.jsx";
 import ContentStrategist from "./components/Hiring/ContentStrategist.jsx";
+import SocialIntern from "./components/Hiring/SocialIntern.jsx";
 
 // Asset Imports
 import logo1 from "./assets/viali.png";
@@ -101,9 +102,9 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname === '/realitycheck' ? 'questionnaire' : 'home';
   // Show header on reality check; hide only on specific pages
-  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
+  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
-  const hideFooter = ['/welcome', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
+  const hideFooter = ['/welcome', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -293,7 +294,8 @@ function App() {
           <Route path="/hiring/uxdesign_intern_1" element={<UXDesigner />} />
           <Route path="/hiring/nocodeweb_intern_1" element={<NoCodeWeb />} />
           <Route path="/hiring/sales_intern_1" element={<SalesIntern />} />
-          <Route path="/hiring/content_intern_1" element={<ContentStrategist />} />
+          <Route path="/hiring/content_intern_1" element={<Navigate to="/hiring" replace />} />
+          <Route path="/hiring/social_intern_1" element={<SocialIntern />} />
           <Route path="/" element={
             <>
               <Hero 
