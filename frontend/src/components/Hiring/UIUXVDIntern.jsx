@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
 
-const NoCodeWeb = () => {
+const UIUXVDIntern = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -39,81 +39,114 @@ const NoCodeWeb = () => {
     };
   }, [showDropdown]);
 
-  const content = `No-Code Web Developer Intern (Wix Studio Specialist)
+  const content = `UI/UX & Visual Designer Intern
 Internship Details
-Start Date: January 2026 onwards
-Type: Unpaid + performance-based bonuses and opportunities for paid client work
+Start Date: Immediately
+Type: ₹5000/month
 Minimum Duration: 3 months (extendable based on performance)
 Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
-Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
+Culture & Expectations: Flexible hours, deadline-driven
+NOTE: Apply only if you're comfortable with a fast-paced and dynamic structure, looking for serious experience, learning, and growth.
 
 About PyroSynergy
 PyroSynergy helps early-stage founders build meaningful brands with strategy, clarity, AI, and empathy. We believe every project should begin with understanding of users, of founders, and of the story behind the product.
-As a No-Code Web Developer, you will turn designs into fast, responsive, and aesthetic websites using Wix Studio and complementary tools. Your builds will reflect strong UX thinking and deep attention to user behaviour. You’ll collaborate closely with UI/UX and strategy teams, using empathy and technical clarity to create digital experiences that feel smooth, intuitive, and founder-centric.
-What You’ll Do
-Build responsive, clean, conversion-focused websites using Wix Studio.
-Implement interactions, layouts, and sections with strong UX thinking.
-Use basic or advanced Velo custom code (preferred) inside Wix Studio.
-Optimize websites for performance (speed, responsiveness, SEO basics).
-Collaborate with UI/UX designers to convert wireframes into functioning websites, like plugins like Figma to Studio (or equivalent)
-Occasionally, create quick prototypes, POCs, or MVPs with aesthetic clarity.
-Use no-code tools like Webflow or Framer (optional but valuable).
+As a UI/UX & Visual Designer, you'll sit at the intersection of user experience, interface design, and visual communication. You'll craft intuitive journeys and emotionally resonant brand expressions — from wireframes and design systems to motion graphics and AI-assisted creatives. Your work will directly shape how founders present their products to the world, with empathy guiding every decision.
+
+
+What You'll Do
+1. UX & Interface Design
+Create wireframes, user flows, and high-fidelity interfaces that make complex journeys feel natural and intuitive
+Conduct lightweight UX research through competitive analysis, heuristic evaluations, user behaviour insights, and requirement breakdowns to inform design decisions
+Build structured, organised Figma files suitable for both code-based and non-code-based (e.g., Figma to Studio plugin) development — with proper layer naming, auto-layout, responsive framing, grids, and component structuring
+Collaborate with the No-Code Web Dev team to ensure studio-ready outputs
+Use generative AI tools to ideate, generate design variations, and accelerate workflows
+
+
+2. Visual & Motion Design
+Design posts, carousels, marketing creatives, and lightweight animations for brand and social media
+Create simple to intermediate motion graphics and micro-animations for social media using tools like After Effects, Premiere Pro, Figma Smart Animate, or AI-based animation generators
+Apply visual hierarchy, layout clarity, colour theory, and typographic principles to produce aesthetically precise brand outputs
+Use AI generative tools (Gemini Veo, SeedDance, Kling, etc. for videos, and Gemini Nano Banana, OpenAI, etc. for photos) to ideate and generate visual assets
+Collaborate with content writers and UI/UX teammates to create cohesive, on-brand deliverables
 
 
 Required Skills
-Deep understanding of Wix Studio
-Experience using the Figma to Studio conversion plugin
-Good UI/UX sense (not basic; enough to make clear decisions)
-Performance optimization understanding
-Empathy toward user experience by thinking from the user's perspective when designing interactions or flows
-Fast learning and iterative execution skills
-**An entrepreneurial, empathy-first mindset with a strong sense of ownership; treating tasks and outcomes as if they were your own**
+Design & Research Foundations
+Strong Figma proficiency — component systems, auto-layout, file structuring for plugin compatibility
+Solid UX foundations: heuristics, information architecture, user flows, and design patterns
+Ability to conduct basic UX research: analysing competitors, identifying usability issues, interpreting user needs, and converting findings into actionable design inputs
+Empathy-driven design thinking — understanding user mental models, accessibility, micro-interactions, and emotional design
+
+
+Visual Communication & Motion
+Proficient in layout fundamentals — visual hierarchy, readability, balance, and colour
+Ability to create basic motion graphics or micro-animations for posts, reels, or website elements
+Good knowledge of UI/UX foundations applied to visual design decisions
+Experience using AI generative tools (Gemini, SeedDance, Kling) for creative asset production
+Empathetic understanding of user perception, emotional cues, and visual accessibility
+
+
+Mindset & Soft Skills
+An entrepreneurial, empathy-first mindset with a strong sense of ownership — treating tasks and outcomes as if they were your own
+Ability to adopt feedback quickly and iterate with speed
+Ability to articulate design decisions clearly to collaborators and stakeholders
 
 
 Good-to-Have
-Velo coding
-Experience with Webflow, Framer, and Bubble
-Knowledge of performance optimization techniques
-Familiarity with AI design tools for prototyping or asset generation
+Experience with AI design workflows and AI-assisted UI/UX processes
+Experience working with no-code web designers (Webflow, Wix Studio, Framer, etc.)
+Adobe Suite knowledge — Photoshop, Illustrator, After Effects, Premiere Pro
+Familiarity with AI image/video generation tools beyond those listed
+Knowledge of branding principles and visual identity systems
+Experience with prototyping tools beyond Figma
+Knowledge of motion design principles and storytelling through animation
 
 
-What You’ll Gain
-Experience building production-ready websites quickly.
-Exposure to client feedback loops and real startup workflows.
-Learn advanced no-code strategies and system design.
-Opportunity to take on paid client work based on performance.
+What You'll Gain
+Real-world experience building interfaces and brand visuals for early-stage startups
+Hands-on practice with state-of-the-art AI generation and design tools
+Learn how design, branding, motion, and development integrate in production workflows
+Exposure to startup design strategy and client-facing project environments
+Opportunity to lead small design projects independently
+Potential extension or future collaboration based on performance
 
 
 Internship Details
-Start Date: January 2026 onwards
-Type: Unpaid + bonuses and performance-based opportunities for paid client work
+Start Date: Immediately
+Type: ₹5000/month
 Minimum Duration: 3 months (extendable based on performance)
-Work Mode: Remote-first; hybrid from Hyderabad, India, is a plus
-Culture & Expectations: Flexible hours, deadline-driven, and student-friendly
-NOTE: Apply only if you’re comfortable with the internship structure and are looking for experience, learning, and growth over immediate compensation.
+Work Mode: Remote-first (hybrid from Hyderabad, India is a plus)
+Culture & Expectations: Flexible hours, deadline-driven
+NOTE: Apply only if you're comfortable with a fast-paced and dynamic structure, looking for serious experience, learning, and growth.
 
 
 How to Apply
-Send us your portfolio link (preferably live) along with your mobile number to py@pyrosynergy.com with subject line: "No-Code Web Developer Intern/Your Name".
-We’ll only go through eye-catching submissions that tell a story through your live designs. If qualified, you’ll receive a follow-up email with instructions for the interview process within one week.`;
+Send your resume + portfolio link along with your mobile number to py@pyrosynergy.com with subject line: "UI/UX & VD Intern/Your Name".
+We'll only go through eye-catching portfolios that show an emotion and tell a story through your design. If qualified, you'll receive a follow-up email with instructions for the assignment round and interview process within one week.`;
 
   const headingSet = new Set([
-    "No-Code Web Developer Intern (Wix Studio Specialist)",
+    "UI/UX & Visual Designer Intern",
     "Internship Details",
     "About PyroSynergy",
-    "What You’ll Do",
+    "What You'll Do",
+    "1. UX & Interface Design",
+    "2. Visual & Motion Design",
     "Required Skills",
+    "Design & Research Foundations",
+    "Visual Communication & Motion",
+    "Mindset & Soft Skills",
     "Good-to-Have",
-    "What You’ll Gain",
+    "What You'll Gain",
     "How to Apply",
   ]);
+
   const bulletPointSections = new Set([
-    "What You’ll Do",
-    "What You'll Do",
-    "Required Skills",
+    "1. UX & Interface Design",
+    "2. Visual & Motion Design",
+    "Design & Research Foundations",
+    "Visual Communication & Motion",
+    "Mindset & Soft Skills",
     "Good-to-Have",
-    "What You’ll Gain",
     "What You'll Gain",
   ]);
 
@@ -124,8 +157,8 @@ We’ll only go through eye-catching submissions that tell a story through your 
   const highlightTokens = (text) => {
     const tokens = [
       "py@pyrosynergy.com",
-      "No-Code Web Developer Intern/Your Name",
-      "Unpaid",
+      '"UI/UX & VD Intern/Your Name"',
+      "₹5000/month",
     ];
     let remaining = text;
     const parts = [];
@@ -147,12 +180,8 @@ We’ll only go through eye-catching submissions that tell a story through your 
       if (nextIndex > 0) {
         parts.push(remaining.slice(0, nextIndex));
       }
-      if (foundToken === "Unpaid") {
-        parts.push(
-          <em key={`emph-${k++}`}>
-            <strong className="role-emph role-emph-bold-italic">{foundToken}</strong>
-          </em>
-        );
+      if (foundToken === "₹5000/month") {
+        parts.push(<span key={`paid-${k++}`} className="role-highlight-paid">{foundToken}</span>);
       } else {
         parts.push(<strong key={`emph-${k++}`} className="role-emph">{foundToken}</strong>);
       }
@@ -165,7 +194,7 @@ We’ll only go through eye-catching submissions that tell a story through your 
     for (const pattern of boldPatterns) {
       const match = line.match(pattern.regex);
       if (match) {
-        const label = match[1];
+        const label = match[1] || match[0];
         const rest = line.substring(label.length);
         return (
           <>
@@ -219,7 +248,7 @@ We’ll only go through eye-catching submissions that tell a story through your 
             {lines.map((line, idx) => {
               const trimmed = line.trim();
               if (headingSet.has(trimmed)) {
-                const isMainHeading = trimmed === "No-Code Web Developer Intern (Wix Studio Specialist)";
+                const isMainHeading = trimmed === "UI/UX & Visual Designer Intern";
                 const isAboutHeading = trimmed === "About PyroSynergy";
                 if (isAboutHeading) {
                   return (
@@ -232,7 +261,7 @@ We’ll only go through eye-catching submissions that tell a story through your 
                 return (
                   <>
                     <div key={idx} className={`role-heading${isMainHeading ? " role-heading-main" : ""}`}>{line}</div>
-                    {isMainHeading && <div className="role-posted-date">Posted on 12th December 2025</div>}
+                    {isMainHeading && <div className="role-posted-date">Posted on 14th February 2026</div>}
                   </>
                 );
               }
@@ -339,4 +368,4 @@ We’ll only go through eye-catching submissions that tell a story through your 
   );
 };
 
-export default NoCodeWeb;
+export default UIUXVDIntern;

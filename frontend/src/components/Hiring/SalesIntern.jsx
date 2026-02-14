@@ -107,7 +107,7 @@ NOTE: Apply only if you’re comfortable with a commission-based role and the ex
 
 
 How to Apply
-Send the following to admin@pyrosynergy.com with the subject line: “Sales Intern/Your Name”:
+Send the following to py@pyrosynergy.com with the subject line: "Sales Intern/Your Name":
 
 Your background and short story
 A short note on why you're interested in working with PyroSynergy
@@ -142,7 +142,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
 
   const highlightTokens = (text) => {
     const tokens = [
-      "admin@pyrosynergy.com",
+      "py@pyrosynergy.com",
       "Sales Intern/Your Name",
     ];
     let remaining = text;
@@ -339,7 +339,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
                   <button
                     className="role-cta-dropdown-item"
                     onClick={() => {
-                      navigator.clipboard.writeText('admin@pyrosynergy.com');
+                      navigator.clipboard.writeText('py@pyrosynergy.com');
                       setShowCopied(true);
                       setShowDropdown(false);
                       setTimeout(() => setShowCopied(false), 2000);
@@ -350,7 +350,7 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
                   <button
                     className="role-cta-dropdown-item"
                     onClick={() => {
-                      const url = isMobile ? "mailto:admin@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=admin@pyrosynergy.com";
+                      const url = isMobile ? "mailto:py@pyrosynergy.com" : "https://mail.google.com/mail/?view=cm&fs=1&to=py@pyrosynergy.com";
                       window.open(url, isMobile ? "_self" : "_blank");
                       setShowDropdown(false);
                     }}

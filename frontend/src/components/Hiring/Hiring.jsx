@@ -5,31 +5,10 @@ import HiringFooter from "./HiringFooter";
 
 const roles = [
   {
-    title: "Copywriter Intern",
+    title: "UI/UX & Visual Designer Intern",
     duration: "Duration: 3 months minimum",
     location: "Location: Remote-first/Hybrid (Hyderabad, India)",
-    start: "Starts: January 2026",
-    cta: "Know More",
-  },
-  {
-    title: "Social Media Content & Strategy Intern",
-    duration: "Duration: 2 months minimum",
-    location: "Location: Remote-first/Hybrid (Hyderabad, India)",
-    start: "Starts: Immediate",
-    cta: "Know More",
-  },
-  {
-    title: "Visual Designer Intern",
-    duration: "Duration: 3 months minimum",
-    location: "Location: Remote-first/Hybrid (Hyderabad, India)",
-    start: "Starts: January 2026",
-    cta: "Know More",
-  },
-  {
-    title: "User Experience (UX) Designer Intern",
-    duration: "Duration: 3 months minimum",
-    location: "Location: Remote-first/Hybrid (Hyderabad, India)",
-    start: "Starts: January 2026",
+    start: "Starts: Immediately",
     cta: "Know More",
   },
   {
@@ -89,14 +68,8 @@ const Hiring = () => {
               <button
                   className="nav-button next-button hiring-cta"
                   onClick={() => {
-                    if (role.title === "Copywriter Intern") {
-                      navigate("/hiring/copywriter_intern_1");
-                    } else if (role.title === "Social Media Content & Strategy Intern") {
-                      navigate("/hiring/social_intern_1");
-                    } else if (role.title === "Visual Designer Intern") {
-                      navigate("/hiring/videsign_intern_1");
-                    } else if (role.title === "User Experience (UX) Designer Intern") {
-                      navigate("/hiring/uxdesign_intern_1");
+                    if (role.title === "UI/UX & Visual Designer Intern") {
+                      navigate("/hiring/uiuxvd_intern_1");
                     } else if (role.title === "Sales Intern (Commission-Based)") {
                       navigate("/hiring/sales_intern_1");
                     } else if (role.title === "No-Code Web Developer Intern (Wix Studio)") {
