@@ -6,7 +6,6 @@ import "./App.css";
 import Header from "./components/Header/Header.jsx";
 import Hero from "./components/Hero/Hero.jsx";
 import Services from "./components/Services/Services.jsx";
-// import About from "./components/About/About"; // Add this import
 import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
@@ -106,8 +105,8 @@ function App() {
   const currentPage = location.pathname;
   // Show header on reality check; hide only on specific pages
   const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy'].includes(location.pathname);
-  // Hide footer on reality check, hiring, and role-specific intern pages
-  const hideFooter = ['/welcome', '/realitycheck', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
+  // Hide footer on the decode questionnaire page, hiring, and role-specific intern pages
+  const hideFooter = ['/welcome', '/decode', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -231,7 +230,7 @@ function App() {
 
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
-    navigate('/realitycheck');
+    navigate('/decode');
   };
 
   const handleNavigateToHome = () => {
@@ -257,7 +256,8 @@ function App() {
           />
         )}
         <Routes>
-          <Route path="/realitycheck" element={<Questionnaire />} />
+          <Route path="/decode" element={<Questionnaire />} />
+          <Route path="/realitycheck" element={<Navigate to="/decode" replace />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
           <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
