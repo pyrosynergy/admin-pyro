@@ -7,6 +7,7 @@ const policyCards = [
   { id: 'privacy', title: 'Privacy Policy', route: '/policy-pages/privacy-policy' },
   { id: 'refund', title: 'Refund Policy', route: '/policy-pages/refund-policy' },
   { id: 'cancellation', title: 'Cancellation Policy', route: '/policy-pages/cancellation-policy' },
+  { id: 'terms', title: 'Terms And Conditions', route: '/policy-pages/terms-and-conditions' },
 ];
 
 const PolicyPages = () => {
