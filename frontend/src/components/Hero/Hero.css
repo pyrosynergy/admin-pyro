@@ -29,9 +29,13 @@
 .content-video-wrapper {
   position: relative;
   overflow: hidden;
+  border-radius: 0 0 50px 50px;
+  margin-bottom: -48px;
+  padding-bottom: 80px;
+  z-index: 2;
 }
 
-.content-video-bg {
+.content-image-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -39,7 +43,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(12px);
 }
 
 .content-video-fade-overlay {
@@ -58,30 +61,39 @@
   z-index: 2;
 }
 
-.marquee-outer-padding-container {
+.client-logos-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  gap: 4rem 3rem;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12rem; /* Increased from 10rem to 12rem for more space */
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
-  box-sizing: border-box;
-}
-
-.marquee-inner-content-container {
+  max-width: 1000px;
+  margin: 4rem auto 2rem auto;
+  padding: 0 1.5rem;
+  align-items: center;
   position: relative;
-  width: 100%;
-  max-width: 600px; /* Decreased from 800px to make it narrower */
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
+  z-index: 2;
 }
 
-.marquee-inner-content-container::before,
-.marquee-inner-content-container::after {
-  display: none; /* Completely hide the fade effects */
+@media (min-width: 768px) {
+  .client-logos-grid-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4rem 2.5rem;
+    margin-top: 6rem;
+    padding: 0 4rem;
+  }
+}
+
+.client-logo-grid-item {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 130px;
+  max-height: 40px;
+  object-fit: contain;
+  justify-self: center;
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%);
 }
 
 /* --- Typography & Text Styles --- */
@@ -90,7 +102,7 @@
   margin-top: 1rem; /* Changed from 0rem to 1rem to move heading down even more */
   font-family: "Albert Sans", sans-serif;
   font-size: 48px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.1;
   letter-spacing: -2px;
   color: #fff;
@@ -148,6 +160,16 @@
   font-weight: 500;
 }
 
+.purple-italic {
+  font-style: italic;
+  font-family: "Bricolage Grotesque", sans-serif;
+  background: linear-gradient(90deg, #c7b2ff 0%, #a27cf5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 .hero-button {
   display: block;
   margin: 0;
@@ -160,44 +182,39 @@
   white-space: nowrap;
 }
 
-/* Strategy button - smaller and dull */
-.strategy-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  min-width: 280px; /* Increased from 200px */
-  padding: 1rem 2rem; /* Increased padding */
-  font-size: 18px; /* Increased from 16px */
+/* Fit button - primary */
+.fit-button {
+  background: linear-gradient(90deg, #D6C7F5 0%, #9279C3 100%);
+  border: none;
+  color: #0d0b02;
+  font-weight: 600;
+  min-width: 280px;
+  padding: 1rem 2rem;
+  font-size: 18px;
 }
 
-.strategy-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+.fit-button:hover {
+  background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
+  color: #0d0b02;
 }
 
-.strategy-button .free-highlight {
+/* Discovery button - secondary */
+.discovery-button {
+  background: rgba(56, 32, 92, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 280px;
+  padding: 1rem 2rem;
+  font-size: 18px;
+}
+
+.discovery-button:hover {
+  background: rgba(56, 32, 92, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.discovery-button .free-highlight {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 20px; /* Increased from 18px */
-  font-weight: 700;
-}
-
-/* Questionnaire button - active and prominent */
-.questionnaire-button {
-  background: linear-gradient(135deg, #0046ff 0%, #002a99 100%);
-  border: 2px solid #3d72ff;
-  box-shadow: 0 4px 15px rgba(0, 70, 255, 0.3);
-  min-width: 380px; /* Increased from 320px */
-  padding: 1.2rem 2.5rem; /* Increased padding significantly */
-  font-size: 18px; /* Increased from 16px */
-}
-
-.questionnaire-button:hover {
-  background: linear-gradient(135deg, #002a99 0%, #001a66 100%);
-  box-shadow: 0 8px 25px rgba(0, 70, 255, 0.5);
-}
-
-.questionnaire-button .free-highlight {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 20px; /* Increased from 18px */
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -255,24 +272,14 @@
   }
   
   /* Mobile specific button sizes - SAME SIZE FOR BOTH */
-  .strategy-button {
-    min-width: 300px; /* Increased to match questionnaire button */
-    padding: 0.8rem 1.2rem; /* Increased to match questionnaire button */
-    font-size: 16px; /* Increased from 14px */
+  .fit-button, .discovery-button {
+    min-width: 300px;
+    padding: 0.8rem 1.2rem;
+    font-size: 16px;
   }
   
-  .questionnaire-button {
-    min-width: 300px; /* Keep same size */
-    padding: 0.8rem 1.2rem; /* Keep same size */
-    font-size: 16px; /* Increased from 14px */
-  }
-  
-  .strategy-button .free-highlight {
-    font-size: 18px; /* Increased from 16px */
-  }
-  
-  .questionnaire-button .free-highlight {
-    font-size: 18px; /* Increased from 16px */
+  .discovery-button .free-highlight {
+    font-size: 18px;
   }
 }
 
@@ -326,45 +333,25 @@
     animation: none;
   }
   
-  /* Desktop button sizes - SAME SIZE FOR BOTH BUT SMALLER */
-  .strategy-button {
-    min-width: 320px; /* Reduced from 400px */
-    padding: 0.9rem 1.5rem;
-    font-size: 16px; /* Increased from 14px */
+  /* Desktop button sizes */
+  .fit-button {
+    min-width: 260px;
+    padding: 1rem 2rem;
+    font-size: 16px;
   }
   
-  .questionnaire-button {
-    min-width: 320px; /* Reduced from 400px */
-    padding: 0.9rem 1.5rem;
-    font-size: 16px; /* Increased from 14px */
+  .discovery-button {
+    min-width: auto;
+    padding: 1rem 2rem;
+    font-size: 16px;
   }
   
-  .strategy-button .free-highlight {
-    font-size: 18px; /* Increased from 16px */
-  }
-  
-  .questionnaire-button .free-highlight {
-    font-size: 18px; /* Increased from 16px */
+  .discovery-button .free-highlight {
+    font-size: 18px;
   }
 }
 
-.client-logo {
-  height: 33px; /* Increased from 30px to make logos bigger */
-  width: auto;
-  max-width: 180px; /* Increased from 150px */
-  margin: 0rem 2.5rem; /* Increased margins for better spacing */
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
 
-/* Marquee hover effect to slow down instead of stopping */
-/* .hero-marquee:hover .rfm-marquee {
-  animation-duration: 40s !important;
-}
-
-.hero-marquee .rfm-marquee {
-  transition: animation-duration 0.3s ease;
-}
-  */
 @media (min-width: 1024px) {  
   .hero-heading {
     font-size: 4.375rem;
@@ -376,20 +363,9 @@
     font-size: 1.375rem;
   }
   
-  .marquee-outer-padding-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1.5rem;
-    margin-top: 6rem; /* Increased from 3rem to 5rem */
-  }
-  .marquee-inner-content-container {
-    max-width: 800px;
-  }
-  .client-logo {
-    height: 45px;
-    max-width: 200px;
-    margin: 1rem 3rem;
+  .client-logo-grid-item {
+    max-height: 50px;
+    max-width: 180px;
   }
 }
 

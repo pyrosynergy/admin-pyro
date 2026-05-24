@@ -46,14 +46,13 @@ const FAQ = ({ openCalendarPopup }) => {
 
   return (
     <section id="faq" className="faq-section">
-      {/* Decorative blurs */}
       <div className="faq-blur faq-blur-1"></div>
       <div className="faq-blur faq-blur-2"></div>
 
       <div className="faq-container">
         <div className="faq-left">
           <div className="faq-left-inner">
-            <h2 className="faq-title">FAQs</h2>
+            <h2 className="faq-title">Asked Questions</h2>
             <p className="faq-subtitle">
               Clear answers to help you understand how we work, what to expect, and whether this is the right fit for you.
             </p>
@@ -76,7 +75,7 @@ const FAQ = ({ openCalendarPopup }) => {
               <button className="faq-question" onClick={() => toggle(index)}>
                 <span className="faq-question-text">{faq.question}</span>
                 <span className="faq-icon">
-                  <span className="faq-icon-symbol">{openIndex === index ? '−' : '+'}</span>
+                  <span className="faq-icon-symbol">{openIndex === index ? '-' : '+'}</span>
                 </span>
               </button>
               <div className="faq-answer-wrapper">

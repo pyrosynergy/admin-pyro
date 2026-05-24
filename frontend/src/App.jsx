@@ -26,16 +26,20 @@ import PrivacyPolicy from "./components/PolicyPages/PrivacyPolicy.jsx";
 import RefundPolicy from "./components/PolicyPages/RefundPolicy.jsx";
 import CancellationPolicy from "./components/PolicyPages/CancellationPolicy.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
+import Founder from "./components/Founder/Founder.jsx";
+import DecodePath from "./components/decode-path/DecodePath.jsx";
+import PyroStack from "./components/pyrostack/PyroStack.jsx";
+import Testimonials from "./components/testimonials/Testimonials.jsx";
+import WhyUs from "./components/why-us/WhyUs.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 
 // Asset Imports
-import logo1 from "./assets/viali.png";
-import logo3 from "./assets/mih.png";
-import logo5 from "./assets/riMLand.png";
-import logo7 from "./assets/gro vnr.png";
-import logo8 from "./assets/nasa.png";
-import logo9 from "./assets/recens_logo.png";
-import logo10 from "./assets/acm.png";
+import logo1 from "./assets/logo_798.png";
+import logo2 from "./assets/logo_889.png";
+import logo3 from "./assets/logo_891.png";
+import logo4 from "./assets/logo_fb_the.png";
+import logo5 from "./assets/logo_brb.png";
+import logo6 from "./assets/logo_viali.png";
 import service1 from './assets/Thinking face-rafiki.svg';
 import service3 from "./assets/13107135_5143310.svg";
 import service2 from './assets/Kids Studying from Home-rafiki.svg'
@@ -71,7 +75,7 @@ const servicesData = [
 // Data for the animated hero heading
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
-const clientLogos = [logo1, logo3, logo5, logo7, logo8, logo9, logo10];
+const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6];
 
 const openCalendarPopup = () => {
   console.log('Opening calendar popup'); // Add for debugging
@@ -257,6 +261,7 @@ function App() {
             handleLinkClick={handleLinkClick}
             currentPage={currentPage} // Add this line
             handleNavigateToHome={handleNavigateToHome} // Add this line
+            openCalendarPopup={openCalendarPopup}
           />
         )}
         <Routes>
@@ -285,17 +290,11 @@ function App() {
                 handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
               />
   
-              <Services 
-                servicesData={servicesData}
-                expandedCardIndex={expandedCardIndex}
-                closingCardIndex={closingCardIndex} // Add this line
-                handleCardClick={handleCardClick}
-                handleCloseCard={handleCloseCard} // Add this line
-                openCalendarPopup={openCalendarPopup} // Make sure this is passed
-              />
-  
-              
-  
+              <WhyUs />
+              <Testimonials />
+              <PyroStack handleNavigateToQuestionnaire={handleNavigateToQuestionnaire} />
+              <DecodePath handleNavigateToQuestionnaire={handleNavigateToQuestionnaire} />
+              <Founder />
               <FAQ openCalendarPopup={openCalendarPopup} />
 
               <Contact />
@@ -303,7 +302,7 @@ function App() {
           } />
           <Route path="*" element={<NotFound />} />
         </Routes>
-  {!hideFooter && <Footer />}
+  {!hideFooter && <Footer openCalendarPopup={openCalendarPopup} />}
       </div>
     </div>
   );

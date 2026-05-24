@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Marquee from "react-fast-marquee";
 import './Hero.css';
-import bgvideo from "../../assets/bgvideo.mp4";
+import bgImage from "../../assets/hero_bg.png";
 
 const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPopup, handleNavigateToQuestionnaire }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
@@ -10,6 +9,23 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   const timeoutRef = useRef(null);
   const lastChangeTime = useRef(Date.now());
   const navigate = useNavigate();
+  const [logos, setLogos] = useState(clientLogos);
+
+  // Random shuffle effect for logos (instant change, no animation)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLogos(prevLogos => {
+        const shuffled = [...prevLogos];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      });
+    }, 4000); // Shuffle every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Carousel effect for buttons on mobile
   useEffect(() => {
@@ -61,9 +77,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   return (
     <section id="home" className="relative flex flex-col">
       <div className="content-video-wrapper">
-        <video autoPlay loop muted playsInline className="content-video-bg">
-          <source src={bgvideo} type="video/mp4" />
-        </video>
+        <img src={bgImage} alt="Hero Background" className="content-image-bg" />
         <div className="content-video-fade-overlay"></div>
         <div
           className="flex flex-col items-center justify-center flex-1 content-on-top"
@@ -73,43 +87,17 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
             paddingBottom: "0px",
           }}
         >
-          <div 
-            className="hiring-announcement"
-            onClick={() => navigate('/hiring')}
-            role="button"
-            tabIndex={0}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                navigate('/hiring');
-              }
-            }}
-          >
-            We're Hiring! — Join our team →
-          </div>
+
           <h1 className="hero-heading leading-snug">
-            <div>Let's make your business</div>
-            <div className="highlighted-container">
-              {highlightedWords.map((word, index) => (
-                <span
-                  key={index}
-                  className={`highlighted ${
-                    index === highlightedIndex ? "active" : ""
-                  }`}
-                >
-                  {word}
-                </span>
-              ))}
+            <div>Your Product is built,</div>
+            <div>
+              Your System <span className="purple-italic">isn't.</span>
             </div>
           </h1>
           <p className="hero-desc">
-            From strategy to scale, we rebuild and redesign your brand into
-            its most{" "}
-            <span className="desc-highlight">
-              efficient, effective, and elegant
-            </span>{" "}
-            form — empowering you to{" "}
-            <span className="desc-italic">outgrow</span> your competitors in
-            sales and success.
+            Most early-stage founders build their product and run<br/>
+            their business at the same time.<br/><br/>
+            Something always slips. PyroSynergy is here to help.
           </p>
           <div 
             className="hero-buttons-container"
@@ -117,37 +105,32 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`hero-button strategy-button mx-auto mt-4 mb-8 md:mb-12 ${
+              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
                 currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
-              }`}
-              onClick={openCalendarPopup}
-            >
-              schedule a <span className="free-highlight">FREE</span> strategy
-              call
-            </button>
-            <button
-              className={`hero-button questionnaire-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
               }`}
               onClick={handleNavigateToQuestionnaire}
             >
-              take <span className="free-highlight">3-minute</span> PyroReality Check
+              See if we're a Fit
+            </button>
+            <button
+              className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
+                currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
+              }`}
+              onClick={openCalendarPopup}
+            >
+              Book a <span className="free-highlight">FREE</span> discovery call
             </button>
           </div>
         </div>
-        <div className="marquee-outer-padding-container ">
-          <div className="marquee-inner-content-container hero-marquee">
-            <Marquee speed={100} pauseOnHover={true} pauseOnClick={false}>
-              {clientLogos.map((logo, idx) => (
-                <img
-                  key={idx}
-                  src={logo}
-                  alt={`client-${idx}`}
-                  className="client-logo"
-                />
-              ))}
-            </Marquee>
-          </div>
+        <div className="client-logos-grid-container">
+          {logos.map((logo, idx) => (
+            <img
+              key={logo} // Use logo source as key so React properly identifies it
+              src={logo}
+              alt={`client-logo`}
+              className="client-logo-grid-item"
+            />
+          ))}
         </div>
       </div>
     </section>

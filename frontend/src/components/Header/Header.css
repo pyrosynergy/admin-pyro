@@ -2,6 +2,7 @@
 /* --- Top Navigation Container --- */
 .top-nav {
   position: absolute;
+  background-color: #020207;
   top: 0;
   left: 0;
   right: 0;
@@ -20,17 +21,7 @@
 .main-navigation {
   display: flex;
   align-items: center;
-}
 
-.fixed-header {
-  position: fixed;
-  z-index: 1000;
-  padding: 15px 3.5rem;
-  background-color: rgba(13, 11, 2, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(151, 151, 151, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Brand Logo & Navigation --- */
@@ -61,17 +52,46 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
   font-family: "Albert Sans", sans-serif;
-  font-size: 18px;
-  color: #ccc;
+  font-size: 16px;
+  color: #fff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
+  color: #fff;
+}
+
+.book-call-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 6px 6px 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  background-color: transparent;
+  color: #fff !important;
+  transition: all 0.3s ease !important;
+}
+
+.book-call-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.arrow-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #9a7df3;
+  border-radius: 50%;
   color: #fff;
 }
 
@@ -147,14 +167,17 @@
 }
 
 @media (max-width: 767px) {
+
   .top-nav,
   .fixed-header {
     padding: 20px 1.5rem;
   }
+
   .brand-logo-text {
     padding-left: 0;
     font-size: 30px;
   }
+
   .hamburger-menu {
     width: 1.8rem;
   }
@@ -164,6 +187,7 @@
   .nav-links {
     display: flex;
   }
+
   .mobile-nav-wrapper {
     display: none;
   }

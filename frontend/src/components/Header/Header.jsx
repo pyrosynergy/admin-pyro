@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import logo from '../../assets/Frame 2.svg';
+import logo from '../../assets/Group 1.svg';
 
 const Header = ({ 
   isScrolled, 
@@ -9,7 +9,8 @@ const Header = ({
   navRef, 
   handleLinkClick, 
   currentPage, 
-  handleNavigateToHome 
+  handleNavigateToHome,
+  openCalendarPopup
 }) => {
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ const Header = ({
   };
 
   return (
-    <header className={`top-nav ${isScrolled ? "fixed-header" : ""}`}>
+    <header className="top-nav">
       {/* Logo - clicking goes to home */}
       <a 
         href="#home" 
@@ -55,31 +56,36 @@ const Header = ({
         <ul className="nav-links">
           <li>
             <a 
-              href="#home" 
-              onClick={(e) => handleNavClick(e, 'home')}
+              href="#pyrostack" 
+              onClick={(e) => handleNavClick(e, 'pyrostack')}
             >
-              Home
+              PyroStack
             </a>
           </li>
           <li>
             <a
-              href="#services"
-              onClick={(e) => handleNavClick(e, 'services')}
+              href="#work"
+              onClick={(e) => handleNavClick(e, 'work')}
             >
-              Solutions
+              Work
             </a>
           </li>
           <li>
-            <a
-              href="#faq"
-              onClick={(e) => handleNavClick(e, 'faq')}
+            <a 
+              href="#contact" 
+              className="book-call-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                if (openCalendarPopup) openCalendarPopup();
+                if (handleLinkClick) handleLinkClick();
+              }}
             >
-              FAQs
-            </a>
-          </li>
-          <li>
-            <a href="mailto:py@pyrosynergy.com">
-              Contact
+              Book a Call
+              <span className="arrow-icon-wrapper">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
             </a>
           </li>
         </ul>
@@ -99,31 +105,30 @@ const Header = ({
           <ul className={`mobile-nav ${isMenuOpen ? "is-active" : ""}`}>
             <li>
               <a 
-                href="#home" 
-                onClick={(e) => handleNavClick(e, 'home')}
+                href="#pyrostack" 
+                onClick={(e) => handleNavClick(e, 'pyrostack')}
               >
-                Home
+                PyroStack
               </a>
             </li>
             <li>
               <a
-                href="#services"
-                onClick={(e) => handleNavClick(e, 'services')}
+                href="#work"
+                onClick={(e) => handleNavClick(e, 'work')}
               >
-                Solutions
+                Work
               </a>
             </li>
             <li>
-              <a
-                href="#faq"
-                onClick={(e) => handleNavClick(e, 'faq')}
+              <a 
+                href="#contact" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (openCalendarPopup) openCalendarPopup();
+                  if (handleLinkClick) handleLinkClick();
+                }}
               >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a href="mailto:py@pyrosynergy.com" onClick={handleLinkClick}>
-                Contact
+                Book a Call
               </a>
             </li>
           </ul>

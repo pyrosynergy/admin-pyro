@@ -1,0 +1,252 @@
+.pyrostack-section {
+  background-color: #050505;
+  color: #ffffff;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 48px;
+  border-top-right-radius: 48px;
+  margin-top: -48px;
+}
+
+.pyrostack-container {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pyrostack-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.pyrostack-subtitle {
+  font-size: 1.05rem;
+  color: #a0a0a0;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 70px;
+  max-width: 650px;
+}
+
+.pyrostack-timeline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 10px;
+}
+
+/* Wavy-like vertical line effect */
+.timeline-line {
+  position: absolute;
+  left: 33px; /* Centers the line with the nodes */
+  top: 40px;
+  bottom: 80px;
+  width: 2px;
+  background: linear-gradient(180deg, 
+    rgba(59, 130, 246, 0.6) 0%, 
+    rgba(139, 92, 246, 0.4) 50%, 
+    rgba(15, 23, 42, 0) 100%);
+  z-index: 1;
+  /* Add subtle blur for glowing effect */
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: stretch; /* Align items nicely */
+  position: relative;
+  z-index: 2;
+  gap: 30px;
+  width: 100%;
+}
+
+.timeline-node-wrapper {
+  display: flex;
+  align-items: center;
+  padding-top: 40px; /* Aligns node with card center roughly, adjust if needed */
+}
+
+.timeline-node {
+  width: 48px;
+  height: 48px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  border: 4px solid #050505; /* Matches background */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.05);
+  flex-shrink: 0;
+  z-index: 3;
+}
+
+.timeline-card {
+  background: linear-gradient(145deg, #151515 0%, #0c0c0c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 40px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  min-height: 180px;
+}
+
+.timeline-card:hover {
+  transform: translateX(5px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.card-text-content {
+  position: relative;
+  z-index: 2;
+  max-width: 75%;
+}
+
+.timeline-card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.timeline-card-desc {
+  font-size: 0.95rem;
+  color: #a0a0a0;
+  line-height: 1.6;
+}
+
+.timeline-card-desc p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.timeline-card-desc p:last-child {
+  margin-bottom: 0;
+}
+
+/* Background number/icon styles */
+.timeline-card-bg-element {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bg-number {
+  font-size: 7rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.12); /* Large muted gray */
+  letter-spacing: -4px;
+  line-height: 1;
+}
+
+.flame-icon-wrapper {
+  width: 160px;
+  height: 160px;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.flame-icon-wrapper svg,
+.flame-icon-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.85);
+  transition: filter 0.4s ease;
+}
+
+.timeline-card:hover .flame-icon-wrapper img,
+.timeline-card:hover .flame-icon-wrapper svg {
+  filter: grayscale(0%) brightness(1) drop-shadow(0 0 14px rgba(255, 120, 40, 0.45));
+}
+
+.pyrostack-btn {
+  margin-top: 70px;
+  background: linear-gradient(90deg, #622bc7 0%, #1e3a8a 100%);
+  color: white;
+  border: none;
+  padding: 16px 50px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(98, 43, 199, 0.3);
+}
+
+.pyrostack-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(98, 43, 199, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pyrostack-title {
+    font-size: 2rem;
+  }
+  
+  .pyrostack-subtitle {
+    font-size: 0.95rem;
+    br {
+      display: none;
+    }
+  }
+
+  .timeline-item {
+    gap: 15px;
+  }
+
+  .timeline-node-wrapper {
+    padding-top: 20px;
+  }
+
+  .timeline-node {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+  }
+
+  .timeline-line {
+    left: 25px; /* Adjust line position for smaller node */
+  }
+
+  .timeline-card {
+    padding: 30px 20px;
+  }
+
+  .card-text-content {
+    max-width: 100%;
+  }
+
+  .timeline-card-bg-element {
+    right: 10px;
+  }
+
+  .bg-number {
+    font-size: 5rem;
+    opacity: 0.08; /* Make even more subtle so text can overlay on mobile */
+  }
+
+  .flame-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    opacity: 0.5;
+  }
+}

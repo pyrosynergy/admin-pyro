@@ -2,9 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import logo from '../../assets/Frame 2.svg';
-import { FaInstagram, FaLinkedin } from 'react-icons/fa';
+import footerVector from '../../assets/footer_vector.png';
+import iconInstagram from '../../assets/icon_instagram.png';
+import iconLinkedIn from '../../assets/icon_linkedin.png';
 
-const Footer = () => {
+const Footer = ({ openCalendarPopup }) => {
   const navigate = useNavigate();
 
   const handleNavClick = (e, targetId) => {
@@ -17,10 +19,7 @@ const Footer = () => {
       navigate('/policy-pages');
       window.scrollTo(0, 0);
     } else {
-      // Navigate to home if not already there
       navigate('/');
-
-      // After navigating, scroll to the section
       setTimeout(() => {
         if (targetId !== 'home') {
           const element = document.getElementById(targetId);
@@ -35,43 +34,65 @@ const Footer = () => {
   };
 
   return (
-    <>
+    <div className="footer-wrapper">
       <footer className="footer">
-        <div className="footer-names">
-          <img src={logo} alt="PuroSynergy" className="brand-logo-img" />
-          <span className="brand-copyright-text">
-            © Copyright 2025-26 PyroSynergy LLP. All rights reserved.
-          </span>
+        <div className="footer-left">
+          <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
+          <p className="footer-desc">
+            We build empathetic growth systems for early-stage startups and businesses, right from initial strategy to end-to-end execution via branding, tech, and AI.
+          </p>
+          <div className="social-icons">
+            <a
+              href="https://www.instagram.com/pyrosynergy/"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={iconInstagram} alt="Instagram" className="social-icon-img" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/pyrosynergy/"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={iconLinkedIn} alt="LinkedIn" className="social-icon-img" />
+            </a>
+          </div>
         </div>
 
-        <div className="footer-links">
-          <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
-          <a href="#services" onClick={(e) => handleNavClick(e, 'services')}>Solutions</a>
-          <a href="mailto:py@pyrosynergy.com">Contact</a>
-          <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
-          <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
-        </div>
-
-        <div className="social-icons">
-          <a
-            href="https://www.instagram.com/pyrosynergy/"
-            aria-label="Instagram"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram className="social-icon" />
-          </a>
-          <a
-            href="https://www.linkedin.com/company/pyrosynergy/"
-            aria-label="LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin className="social-icon" />
-          </a>
+        <div className="footer-links-grid">
+          <div className="footer-links-col">
+            <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
+            <a href="#why-us" onClick={(e) => handleNavClick(e, 'services')}>Why Us</a>
+          </div>
+          <div className="footer-links-col">
+            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>PyroStack</a>
+            <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
+          </div>
+          <div className="footer-links-col">
+            <a href="#work" onClick={(e) => handleNavClick(e, 'work')}>Case Studies</a>
+            <a
+              href="#book"
+              onClick={(e) => {
+                e.preventDefault();
+                if (openCalendarPopup) openCalendarPopup();
+              }}
+            >
+              Book A Call
+            </a>
+          </div>
         </div>
       </footer>
-    </>
+
+      <div className="footer-bottom">
+        <img src={footerVector} alt="" className="footer-vector" />
+        <div className="footer-bottom-row">
+          <span>&copy; 2025-26 PyroSynergy LLP. All rights reserved.</span>
+          <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+        </div>
+      </div>
+    </div>
   );
 };
 

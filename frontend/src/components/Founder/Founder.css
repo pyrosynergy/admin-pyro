@@ -1,0 +1,127 @@
+.founder-section {
+  width: 100%;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  /* matching app background */
+}
+
+.founder-container {
+  max-width: 650px;
+  width: 100%;
+  border: 1px solid white;
+  border-radius: 42px;
+  padding: 25px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: transparent;
+}
+
+.founder-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 14px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.founder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.founder-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 455px;
+  height: 252px;
+  background-color: #c6a0d6;
+  /* Light purple from the screenshot */
+  border-radius: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 21px;
+  margin-top: 21px;
+}
+
+.founder-photo {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  height: 125%;
+  /* Makes image break out of the top */
+  object-fit: cover;
+  object-position: bottom center;
+  z-index: 2;
+}
+
+.linkedin-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 31px;
+  height: 31px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+  /* in case icon is transparent */
+  border-radius: 7px;
+  z-index: 3;
+}
+
+.linkedin-link:hover {
+  transform: scale(1.05);
+}
+
+.linkedin-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.founder-description {
+  color: #a3a3a3;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.founder-description strong {
+  color: #e5e5e5;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .founder-container {
+    padding: 30px 20px;
+    border-radius: 30px;
+  }
+
+  .founder-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .founder-image-wrapper {
+    height: 250px;
+  }
+
+  .founder-description {
+    font-size: 0.95rem;
+  }
+}
