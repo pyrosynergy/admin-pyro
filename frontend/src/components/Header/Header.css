@@ -12,9 +12,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 260px;
+  padding-right: 60px;
+  padding-top: 30px;
   
   /* Safe desktop gutters */
-  padding: 24px 13%; 
+  
   box-sizing: border-box;
   transition: padding 0.3s ease-in-out;
 }
@@ -38,7 +41,7 @@
 }
 
 .brand-logo-img {
-  height: 40px !important;
+  height: 24px !important;
   width: auto !important;
   display: block;
   margin: 0;
