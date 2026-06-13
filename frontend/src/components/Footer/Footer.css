@@ -38,6 +38,17 @@
 .brand-logo-img {
   height: 56px;
   width: auto;
+  display: block;      /* Breaks out of regular inline text loops */
+  margin: 0;     
+  margin-left:-180px;      /* Prevents rogue parent offsets from pulling it right */
+}
+
+.brand-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Forces the internal image asset to the absolute left boundary */
+  text-decoration: none;
+  width: max-content;          /* Keeps the bounding box tight around the asset size */
 }
 
 .footer-desc {
@@ -86,12 +97,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem 2rem;
   padding-top: 1.8rem;
+  justify-items: center;
 }
 
 .footer-links-col {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
+  text-align: center;
 }
 
 .footer-links-col a {
@@ -116,6 +130,7 @@
   font-size: 13px;
   color: #cecbcb;
   overflow: hidden;
+  line-height: 0;
 }
 
 .footer-vector {

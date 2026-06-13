@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 .pyrostack-section {
   background-color: #050505;
   color: #ffffff;
   padding: 100px 20px;
   display: flex;
   justify-content: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
   position: relative;
   overflow: hidden;
   border-top-left-radius: 48px;
@@ -13,7 +14,7 @@
 }
 
 .pyrostack-container {
-  max-width: 800px;
+  max-width: 870px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -21,21 +22,29 @@
 }
 
 .pyrostack-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 500;
   margin-bottom: 24px;
   text-align: center;
   letter-spacing: -0.5px;
   color: #ffffff;
+  font-family: 'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Elegant and clean global resizing for your trademark superscript */
+.pyrostack-title sup {
+  font-size: 0.55em;
+  vertical-align: super;
+  margin-left: 2px;
 }
 
 .pyrostack-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   color: #a0a0a0;
   text-align: center;
   line-height: 1.6;
   margin-bottom: 70px;
-  max-width: 650px;
+  max-width: 720px;
 }
 
 .pyrostack-timeline {
@@ -43,7 +52,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
   padding-left: 10px;
 }
 
@@ -60,7 +69,7 @@
     rgba(15, 23, 42, 0) 100%);
   z-index: 1;
   /* Add subtle blur for glowing effect */
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
 }
 
 .timeline-item {
@@ -90,24 +99,82 @@
 }
 
 .timeline-card {
-  background: linear-gradient(145deg, #151515 0%, #0c0c0c 100%);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 20px;
-  padding: 40px;
+  position: relative; /* Essential for relative positioning layer alignment */
+  background: linear-gradient(135deg, #000000 0%, #111111 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 35px;
+  padding: 13px 65px 30px; ;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  overflow: hidden; /* Clips the background hover color overlay inside corner radius */
+  box-shadow: inset 0 1px 1px rgba(82, 80, 80, 0.25);
   min-height: 180px;
+  z-index: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Modern hardware-accelerated transitions */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s ease,
+              box-shadow 0.5s ease;
 }
 
-.timeline-card:hover {
-  transform: translateX(5px);
-  border-color: rgba(255, 255, 255, 0.08);
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.2);   
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Base structural states for typography transitions */
+.timeline-card-title,
+.timeline-card-desc,
+.bg-number {
+  transition: color 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), opacity 0.3s ease-in-out;
+}
+
+/* --- ACTIVE HOVER & ACTIVE STATE OVERRIDES --- */
+.timeline-card:hover,
+.timeline-card.is-hovered {
+  transform: scale(1.045);
+  border-color: transparent;
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+}
+
+/* Perfectly cross-fade background wrapper without flashing frames */
+.timeline-card:hover::before,
+.timeline-card.is-hovered::before {
+  opacity: 1;
+}
+
+/* Dynamic inward typography color changes */
+.timeline-card:hover .timeline-card-title,
+.timeline-card.is-hovered .timeline-card-title {
+  color: #4c1d95; /* Deep luxury purple */
+  opacity: 0.95;
+}
+
+.timeline-card:hover .timeline-card-desc,
+.timeline-card.is-hovered .timeline-card-desc {
+  color: #5b21b6; /* Middle-tone visible typography purple */
+  opacity: 0.9;
+}
+
+/* The dark contrast update for your structural watermarks */
+.timeline-card:hover .bg-number,
+.timeline-card.is-hovered .bg-number {
+  color: #760ec5; /* Saturated deep contrast hue */
+  opacity: 0.8  
 }
 
 .card-text-content {
@@ -117,8 +184,8 @@
 }
 
 .timeline-card-title {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 2.4rem;
+  font-weight: 600;
   margin-top: 0;
   margin-bottom: 16px;
   color: #ffffff;
@@ -126,8 +193,8 @@
 
 .timeline-card-desc {
   font-size: 0.95rem;
-  color: #a0a0a0;
-  line-height: 1.6;
+  color: #dfdcdc;
+  line-height: 1.4;
 }
 
 .timeline-card-desc p {
@@ -152,7 +219,7 @@
 .bg-number {
   font-size: 7rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.12); /* Large muted gray */
+  color: rgba(194, 190, 190, 0.37); /* Large muted gray base */
   letter-spacing: -4px;
   line-height: 1;
 }
@@ -173,13 +240,15 @@
 }
 
 .timeline-card:hover .flame-icon-wrapper img,
-.timeline-card:hover .flame-icon-wrapper svg {
+.timeline-card:hover .flame-icon-wrapper svg,
+.timeline-card.is-hovered .flame-icon-wrapper img,
+.timeline-card.is-hovered .flame-icon-wrapper svg {
   filter: grayscale(0%) brightness(1) drop-shadow(0 0 14px rgba(255, 120, 40, 0.45));
 }
 
 .pyrostack-btn {
   margin-top: 70px;
-  background: linear-gradient(90deg, #622bc7 0%, #1e3a8a 100%);
+  background: #3b0764;
   color: white;
   border: none;
   padding: 16px 50px;
@@ -204,9 +273,10 @@
   
   .pyrostack-subtitle {
     font-size: 0.95rem;
-    br {
-      display: none;
-    }
+  }
+  
+  .pyrostack-subtitle br {
+    display: none;
   }
 
   .timeline-item {

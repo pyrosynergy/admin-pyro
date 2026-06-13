@@ -111,7 +111,7 @@ const Testimonials = () => {
       </div>
 
       <div className="empathy-banner">
-        <h2>PyroSynergy is essentially your <br /> <strong>empathetic big brother.</strong></h2>
+        <h2>PyroSynergy is essentially your <br /> <span className="highlight-text">empathetic big brother.</span></h2>
         <p>
           We believe <strong>empathy</strong> is the most underrated ingredient in business. It&apos;s what separates partners who actually get it from agencies who just bill you for it. This is our moat at PyroSynergy: to understand your pressure, your stakes, and your vision before we touch your strategy. It&apos;s also the foundation of <strong>PyroStack<sup>TM</sup></strong>, our proprietary framework built to decode founder pain points and build strategy that resonates with your outlook.
         </p>

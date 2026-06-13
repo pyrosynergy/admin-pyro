@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
+
 .why-us-section {
   background: linear-gradient(180deg, #fafafe 0%, #f3eef8 50%, #eee8f5 100%);
   padding: 120px 20px 160px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Added sans-serif fallback so it NEVER drops back to a serif font */
+  font-family: 'DM Sans', sans-serif; 
   color: #333;
 }
 
@@ -14,29 +17,41 @@
 }
 
 .why-us-header h2 {
-  font-size: 2.6rem;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 3rem;
+  font-weight: 400;
+  color: #000000;
   margin: 0 0 20px 0;
   line-height: 1.3;
+  letter-spacing: 1.2px;
+}
+.highlight-text-ps {
+  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+}
+.highlight-text {
+  background: linear-gradient(90deg, #d84aee 0%,#af3cc1 20%, #875ceb 45%,#6d49c2 60%, #1c4fbd 80%,#2563e8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  display: inline-block; 
+  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
 }
 
-.highlight-text {
-  color: #8b3dff;
-  font-weight: 700;
-}
 
 .why-us-subtitle {
-  font-size: 1.15rem;
-  color: #555;
-  line-height: 1.6;
+  font-size: 1.4rem;
+  color: #1e1e1e;
+  margin-top:40px;
+  margin-bottom: -20px;
+  line-height: 1.5;
 }
 
 /* Timeline */
 .why-us-timeline {
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: 30px;
   width: 100%;
   max-width: 1100px;
 }
@@ -46,6 +61,7 @@
   display: flex;
   position: relative;
 }
+
 
 .why-us-item.left {
   align-self: flex-start;
@@ -59,8 +75,8 @@
 
 .whyus-bubble-dot {
   position: absolute;
-  right: -10px;
-  bottom: -30px;
+  right: 50px;
+  bottom: -40px;
   width: 36px;
   height: 36px;
   pointer-events: none;
@@ -68,8 +84,8 @@
 
 .whyus-bubble-dot-small {
   position: absolute;
-  right: -38px;
-  bottom: -58px;
+  right: 75px;
+  bottom: -68px;
   width: 18px;
   height: 18px;
   pointer-events: none;
@@ -77,8 +93,8 @@
 
 .whyus-bubble-dot-small-left {
   right: auto;
-  left: -38px;
-  bottom: -58px;
+  left: 50px;
+  bottom: -30px;
 }
 
 /* Outer bubble — uses the provided PNG/SVG image as background.
@@ -97,12 +113,13 @@
 /* Asymmetric padding to visually center content within the bubble BODY
    (the tail/dot occupy one side of the image, so we offset away from that side). */
 .why-us-item.left .whyus-bubble-container {
-  padding: 42px 60px 56px 90px;
+  padding: 60px 40px 100px 60px;
   background-size: 100% 100%;
+  align-items: flex-start;
 }
 
 .why-us-item.right .whyus-bubble-container {
-  padding: 42px 90px 56px 60px;
+  padding: 60px 70px 100px 60px;
   background-size: 100% 100%;
 }
 
@@ -119,14 +136,25 @@
 
 .whyus-bubble-quote p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #1f1f1f;
   font-style: italic;
   font-weight: 500;
   line-height: 1.5;
   text-align: center;
 }
+.whyus-bubble-response .highlight-words{
+  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size:1.2rem;
+}
+.why-us-item.left .whyus-bubble-response .highlight-words {
+  color: #d57ded;
+}
 
+.why-us-item.right .whyus-bubble-response .highlight-words {
+  color: #acb5ee;
+}
 /* Inner solid response pill */
 .whyus-bubble-response {
   border-radius: 60px;
@@ -137,6 +165,7 @@
   line-height: 1.55;
 }
 
+
 .why-us-item.left .whyus-bubble-response {
   background-color: #6d2e7e;
   text-align: left;
@@ -144,7 +173,7 @@
 
 .why-us-item.right .whyus-bubble-response {
   background-color: #3a4480;
-  text-align: center;
+  text-align: right;
 }
 
 .whyus-bubble-response p {

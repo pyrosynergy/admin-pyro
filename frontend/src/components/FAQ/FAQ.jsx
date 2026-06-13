@@ -52,10 +52,8 @@ const FAQ = ({ openCalendarPopup }) => {
       <div className="faq-container">
         <div className="faq-left">
           <div className="faq-left-inner">
-            <h2 className="faq-title">Asked Questions</h2>
-            <p className="faq-subtitle">
-              Clear answers to help you understand how we work, what to expect, and whether this is the right fit for you.
-            </p>
+            <h2 className="faq-title">Frequently <br />Asked Questions</h2>
+            
             <div className="faq-cta-box">
               <p className="faq-cta-heading">Still have questions?</p>
               <p className="faq-cta-desc">Our experts are ready to guide you through the transition.</p>

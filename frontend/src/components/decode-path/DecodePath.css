@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 .decode-path-section {
   background-color: #050505; /* Dark background matching image */
   color: #ffffff;
   padding: 100px 20px;
   display: flex;
   justify-content: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
 }
 
 .decode-path-container {
@@ -41,8 +43,8 @@
 }
 
 .decode-path-card {
-  background: linear-gradient(145deg, #dbcdfb 0%, #b89cfa 100%);
-  border-radius: 30px;
+  background: linear-gradient(145deg, #e4ddf3 0%, #b89cfa 100%);
+  border-radius: 50px;
   padding: 40px;
   position: relative;
   overflow: hidden;
@@ -67,24 +69,25 @@
   z-index: 2;
 }
 
-.card-title {
-  font-size: 1.5rem;
+.decode-path-card .card-title {
+  font-size: 1.7rem;
   font-weight: 700;
-  color: #723ce8;
+  color: #7029b3;
   margin: 0;
   line-height: 1.3;
+  font-family: 'Bricolage Grotesque', sans-serif;
 }
 
 .card-number {
-  background-color: #622bc7;
-  color: white;
-  width: 65px;
-  height: 65px;
+  background-color: #7029b3;
+  color: #ffffff;
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 700;
   flex-shrink: 0;
   box-shadow: 0 8px 20px rgba(98, 43, 199, 0.4);
@@ -92,12 +95,15 @@
 
 .card-description {
   color: #2d2d2d;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 500;
   position: relative;
   z-index: 2;
   margin: 0;
+  margin-top: -20px;
+  padding-right: 130px;
+  font-family: 'Plus Jakarta Sans',sans-serif;
 }
 
 /* Card icon (bottom-right decoration) */
@@ -113,9 +119,10 @@
 }
 
 .decode-path-btn {
-  background: linear-gradient(90deg, #622bc7 0%, #3e1b8c 100%);
+  background: #4a097b;
   color: white;
   border: none;
+  margin-top: 50px;
   padding: 18px 48px;
   border-radius: 30px;
   font-size: 1.15rem;

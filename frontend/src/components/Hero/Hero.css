@@ -1,3 +1,5 @@
+updated hero.css 
+
 /* --- Hero, Marquee & Video --- */
 .hiring-announcement {
   display: inline-block;
@@ -100,9 +102,9 @@
 .hero-heading {
   margin-bottom: 0.5rem; /* Keep this unchanged */
   margin-top: 1rem; /* Changed from 0rem to 1rem to move heading down even more */
-  font-family: "Albert Sans", sans-serif;
-  font-size: 48px;
-  font-weight: 600;
+  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -2px;
   color: #fff;
@@ -144,7 +146,7 @@
   margin: 0.5rem auto; /* Reduced from 1rem to bring content closer */
   padding: 2px;
   font-family: "Albert Sans", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.5;
   letter-spacing: -0.5px;
   color: #ccc;
@@ -163,7 +165,7 @@
 .purple-italic {
   font-style: italic;
   font-family: "Bricolage Grotesque", sans-serif;
-  background: linear-gradient(90deg, #c7b2ff 0%, #a27cf5 100%);
+  background: linear-gradient(90deg, #c7b2ff 0%, #9d79ea 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -324,30 +324,38 @@
   width: 100%;
   max-width: 1240px;
   margin-top: 92px;
-  padding: 74px 64px;
+  padding: 94px 64px;
   border-radius: 34px;
   background: linear-gradient(90deg, #7229B5 0%, #00278E 50%, #32124F 100%);
   color: #f7f2ff;
   text-align: center;
   box-shadow: 0 28px 60px rgba(34, 56, 128, 0.18);
+  
 }
 
 .empathy-banner h2 {
   margin: 0 0 22px;
-  font-size: clamp(2rem, 3.5vw, 3.35rem);
-  line-height: 1.18;
-  font-weight: 400;
+  padding-bottom:32px;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.25;
+  font-weight: 300;
 }
-
+.empathy-banner .highlight-text{
+  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+  color: #ffffff !important;
+  background:none !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
 .empathy-banner h2 strong {
   font-weight: 700;
 }
 
 .empathy-banner p {
-  max-width: 930px;
+  max-width: 100%;
   margin: 0 auto;
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 1.25rem;
+  padding:0 60px;
+  line-height: 1.7;
   color: rgba(247, 242, 255, 0.9);
 }
 

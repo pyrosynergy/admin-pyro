@@ -10,25 +10,25 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
     {
       number: '01',
       title: 'KyB\n(Know Your Business)',
-      description: "It starts with the KyB: a short 6-minute questionnaire designed to surface where your growth is stuck and whether we're the right team to fix it.",
+      description: "It starts with the KyB: a short <strong>6-minute questionnaire</strong> designed to surface where your growth is stuck and whether we're the right team to fix it.",
       icon: icon01
     },
     {
       number: '02',
       title: 'Discovery calls',
-      description: "Once we confirm the fit, we go deep. A series of focused conversations to understand exactly where you are, and what's holding you back. No assumptions made.",
+      description: "Once we confirm the fit, we go deep. A series of <strong>focused conversations</strong> to understand exactly where you are, and what's holding you back. No assumptions made.",
       icon: icon02
     },
     {
       number: '03',
       title: 'Strategy call',
-      description: "Everything we've learned comes together here. We map out a complete growth roadmap covering your key metrics and the specific levers we'll pull to move them.",
+      description: "Everything we've learned comes together here. We map out a complete <strong>growth roadmap</strong> covering your key metrics and the specific levers we'll pull to move them.",
       icon: icon03
     },
     {
       number: '04',
       title: 'Blueprint starts',
-      description: 'Upon alignment, we translate it into an execution blueprint with a clear timeline. Most founders move into the Blueprint phase within 48 hours of completing Decode.',
+      description: 'Upon alignment, we translate it into an <strong>execution blueprint</strong> with a clear timeline. Most founders move into the Blueprint phase within <strong>48 hours</strong> of completing Decode.',
       icon: icon04
     }
   ];
@@ -57,7 +57,7 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
                 </h3>
                 <div className="card-number">{card.number}</div>
               </div>
-              <p className="card-description">{card.description}</p>
+              <p className="card-description" dangerouslySetInnerHTML={{ __html: card.description }}></p>
               <img src={card.icon} alt="" className="card-icon" />
             </div>
           ))}

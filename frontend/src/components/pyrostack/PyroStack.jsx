@@ -1,6 +1,6 @@
 import React from 'react';
-import './PyroStack.css';
 import fireIcon from '../../assets/pyro-satck-fire.svg';
+import './PyroStack.css';
 
 const PyroStack = ({ handleNavigateToQuestionnaire }) => {
   const steps = [
@@ -41,7 +41,7 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
   return (
     <section id="pyrostack" className="pyrostack-section">
       <div className="pyrostack-container">
-        <h2 className="pyrostack-title">PyroStack<sup>TM</sup>: The Framework for Founders</h2>
+        <h2 className="pyrostack-title">PyroStack™: The Framework for Founders</h2>
         <p className="pyrostack-subtitle">
           We guide and help you right from breaking down the problem and laying<br />
           the foundation, to building and execution, all while keeping your goal and<br />
