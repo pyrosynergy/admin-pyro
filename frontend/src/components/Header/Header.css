@@ -1,63 +1,63 @@
 
-/* filepath: src/components/Header/Header.css */
 
 /* --- Top Navigation Container --- */
-
 .top-nav {
   position: absolute;
   background-color: #020207;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1001;
   width: 100%;
+  z-index: 1001;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 15.5rem;  
-  padding-right: 5rem;
+  
+  /* Safe desktop gutters */
+  padding: 24px 13%; 
   box-sizing: border-box;
   transition: padding 0.3s ease-in-out;
 }
+
+
 
 /* --- Main Navigation Wrapper --- */
 .main-navigation {
   display: flex;
   align-items: center;
-  flex-grow: 1;                     /* Stretches to fill available space */
-  justify-content: flex-end;        /* Pushes the nav links cleanly to the far right */
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
-/* --- Brand Logo --- */
+/* --- Brand Logo Wrapper --- */
 .brand-logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0; /* Prevents container layout engines from compressing the logo block */
 }
 
 .brand-logo-img {
-  height: 30px !important;                     /* Standard clean layout height */
-  width: auto !important;                     /* Maintains aspect ratio */
+  height: 40px !important;
+  width: auto !important;
   display: block;
-  margin: 0;                        /* Removes any layout-breaking default offsets */
+  margin: 0;
 }
 
 .brand-logo-text {
   margin: 0;
+  padding-left: 10px;
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: 33px;
   font-weight: 400;
   color: #fff;
   text-decoration: none;
+  white-space: nowrap; /* Prevents your brand name from breaking to a second row line */
 }
 
 /* --- Navigation Links Row --- */
 .nav-links {
-  display: none;                    /* Hidden on mobile, handled by media query below */
+  display: none; /* Managed cleanly via desktop layout display queries below */
   gap: 2.5rem;
   margin: 0;
   padding: 0;
@@ -74,7 +74,7 @@
 }
 
 .nav-links a:hover {
-  color: #9a7df3;                   /* Switched to accent color on hover for better UX feedback */
+  color: #9a7df3;
 }
 
 /* --- Call To Action Button --- */
@@ -180,28 +180,90 @@
 }
 
 /* --- Responsive Media Queries --- */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .top-nav {
-    padding: 20px 1.5rem;
+    padding: 20px 2.5rem !important;
   }
-
-  .brand-logo-img {
-    height: 26px;                   /* Marginally scaled down for packed mobile viewports */
-  }
-
   .brand-logo-text {
-    padding-left: 0;
-    font-size: 30px;
+    font-size: 28px; /* Gently scales down layout typography on compact laptops/tablets */
   }
 }
 
-@media (min-width: 768px) {
-  .nav-links {
-    display: flex;                  /* Show horizontal layout rules gracefully on desktop screens */
+@media (max-width: 767px) {
+  .top-nav {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    
+    /* Creates safe, balanced side gutters for small viewports */
+    padding: 16px 1.25rem !important; 
+    
+    /* Formats container to stick to opposite walls */
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
   }
 
+  /* --- FORCE LOGO TO RENDER ON THE FAR LEFT --- */
+  .brand-logo-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-decoration: none !important;
+    
+    /* Prevents right-aligned mobile blocks from squeezing this container out */
+    flex-shrink: 0 !important; 
+    width: auto !important;
+  }
+
+  .brand-logo-img {
+    height: 22px !important;       /* Clean, proportionate asset height for mobile lines */
+    width: auto !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+
+  .brand-logo-text {
+    display: block !important;
+    font-size: 20px !important;    /* Scaled down from 33px so it fits next to the hamburger */
+    padding-left: 8px !important;  /* Space between image and text */
+    color: #ffffff !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important; /* Prevents the logo text from splitting into two rows */
+  }
+
+  /* --- CLEAN UP MOBILE NAVIGATION WRAPPER POSITION --- */
   .mobile-nav-wrapper {
-    display: none;                  /* Destroy drawer buttons when viewport sizes expand */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+  /* CRITICAL MOBILE RESCUE RULES: */
+  .brand-logo-img {
+    height: 22px !important; /* Scales down image asset height so it doesn't challenge the navbar line constraints */
+  }
+
+  .brand-logo-text {
+    font-size: 22px; /* Pulls text scaling down cleanly so it easily fits within global view boundaries */
+    padding-left: 8px;
+  }
+
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+  
+
+  .mobile-nav-wrapper {
+    display: none;
   }
 }
 
