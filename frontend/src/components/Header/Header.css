@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 260px;
+  padding-left: 60px;
   padding-right: 60px;
   padding-top: 30px;
   
@@ -40,8 +40,8 @@
   flex-shrink: 0; /* Prevents container layout engines from compressing the logo block */
 }
 
-.brand-logo-img {
-  height: 24px !important;
+.top-nav .brand-logo-img {
+  height: 28px !important;
   width: auto !important;
   display: block;
   margin: 0;
@@ -192,6 +192,23 @@
   }
 }
 
+/* --- Responsive Media Queries --- */
+@media (max-width: 1024px) {
+  .top-nav {
+    /* Reduce the left padding from 260px to a safe 2.5rem (40px) so it fits on iPads */
+    padding: 20px 2.5rem !important; 
+  }
+  
+  .brand-logo-text {
+    font-size: 25px; /* Slightly smaller typography to guarantee a perfect layout fit */
+  }
+
+  /* Give your navigation links breathing room on smaller screens */
+  .nav-links {
+    gap: 1.5rem; 
+  }
+}
+
 @media (max-width: 767px) {
   .top-nav {
     position: absolute !important;
@@ -223,7 +240,7 @@
     width: auto !important;
   }
 
-  .brand-logo-img {
+  .top-nav .brand-logo-img {
     height: 22px !important;       /* Clean, proportionate asset height for mobile lines */
     width: auto !important;
     display: block !important;

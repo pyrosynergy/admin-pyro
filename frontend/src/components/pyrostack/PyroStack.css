@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 .pyrostack-section {
   background-color: #050505;
   color: #ffffff;
@@ -14,11 +15,13 @@
 }
 
 .pyrostack-container {
-  max-width: 870px;
+  max-width: 1400px;
   width: 100%;
+  padding: 0 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .pyrostack-title {
@@ -52,58 +55,72 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 15vh;
   padding-left: 10px;
+  margin-top:60px;
 }
 
-/* Wavy-like vertical line effect */
+/* Snake curve — position and viewBox are controlled dynamically via JS measurements */
 .timeline-line {
   position: absolute;
-  left: 33px; /* Centers the line with the nodes */
-  top: 40px;
-  bottom: 80px;
-  width: 2px;
-  background: linear-gradient(180deg, 
-    rgba(59, 130, 246, 0.6) 0%, 
-    rgba(139, 92, 246, 0.4) 50%, 
-    rgba(15, 23, 42, 0) 100%);
+  left: -10px;
+  top: 0;
+  width: 100px;
+  height: 100%;
   z-index: 1;
-  /* Add subtle blur for glowing effect */
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
 }
 
 .timeline-item {
   display: flex;
-  align-items: stretch; /* Align items nicely */
+  align-items: center;
   position: relative;
   z-index: 2;
-  gap: 30px;
+  gap: 0;
   width: 100%;
+}
+
+.timeline-item--wave-offset {
+  padding-left: 80px;
 }
 
 .timeline-node-wrapper {
   display: flex;
   align-items: center;
-  padding-top: 40px; /* Aligns node with card center roughly, adjust if needed */
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+  margin-right: -32px; /* pull card left so node center sits on card's left edge */
 }
 
 .timeline-node {
-  width: 48px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
   background-color: #1a1a1a;
   border-radius: 50%;
-  border: 4px solid #050505; /* Matches background */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.05);
+  border: 5px solid #050505;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.05);
   flex-shrink: 0;
   z-index: 3;
+  transition: background 0.6s ease, box-shadow 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scroll-driven highlight for the centered timeline node */
+.timeline-node.is-active {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.65), inset 0 2px 5px rgba(255,255,255,0.1);
+  transform: scale(1.01);
 }
 
 .timeline-card {
   position: relative; /* Essential for relative positioning layer alignment */
   background: linear-gradient(135deg, #000000 0%, #111111 100%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 35px;
-  padding: 13px 65px 30px; ;
+  border: 1px solid rgba(250, 244, 244, 0.07);
+  border-radius: 30px;
+  padding: 20px 65px 30px 80px;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -143,38 +160,55 @@
   transition: color 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), opacity 0.3s ease-in-out;
 }
 
-/* --- ACTIVE HOVER & ACTIVE STATE OVERRIDES --- */
-.timeline-card:hover,
-.timeline-card.is-hovered {
-  transform: scale(1.045);
-  border-color: transparent;
-  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+
+
+/* --- SCROLL-DRIVEN ACTIVE STATE (IntersectionObserver) --- */
+
+/* Separate overlay layer so it can cross-fade independently of the hover overlay */
+.timeline-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 40px rgba(168, 85, 247, 0.25);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.6s ease-in-out;
 }
 
-/* Perfectly cross-fade background wrapper without flashing frames */
-.timeline-card:hover::before,
-.timeline-card.is-hovered::before {
+.timeline-card.is-active {
+  transform: scale(1.02);
+  border-color: transparent;
+  box-shadow: 0 25px 60px rgba(168, 85, 247, 0.35);
+}
+
+.timeline-card.is-active::after {
+  opacity: 1;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 40px rgba(168, 85, 247, 0.25);
+}
+
+.timeline-card.is-active .timeline-card-title {
+  color: #4c1d95;
   opacity: 1;
 }
 
-/* Dynamic inward typography color changes */
-.timeline-card:hover .timeline-card-title,
-.timeline-card.is-hovered .timeline-card-title {
-  color: #4c1d95; /* Deep luxury purple */
-  opacity: 0.95;
+.timeline-card.is-active .timeline-card-desc {
+  color: #5b21b6;
+  opacity: 1;
 }
 
-.timeline-card:hover .timeline-card-desc,
-.timeline-card.is-hovered .timeline-card-desc {
-  color: #5b21b6; /* Middle-tone visible typography purple */
-  opacity: 0.9;
+.timeline-card.is-active .bg-number {
+  color: #760ec5;
+  opacity: 0.8;
 }
 
-/* The dark contrast update for your structural watermarks */
-.timeline-card:hover .bg-number,
-.timeline-card.is-hovered .bg-number {
-  color: #760ec5; /* Saturated deep contrast hue */
-  opacity: 0.8  
+.timeline-card.is-active .flame-icon-wrapper img,
+.timeline-card.is-active .flame-icon-wrapper svg {
+  filter: grayscale(0%) brightness(1) drop-shadow(0 0 14px rgba(255, 120, 40, 0.45));
 }
 
 .card-text-content {
@@ -184,7 +218,7 @@
 }
 
 .timeline-card-title {
-  font-size: 2.4rem;
+  font-size: 4rem;
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 16px;
@@ -247,12 +281,12 @@
 }
 
 .pyrostack-btn {
-  margin-top: 70px;
-  background: #3b0764;
+  margin-top: 100px;
+  background: linear-gradient(135deg, #9532ce 0%, #532ab4 30%, #341480 100%);
   color: white;
   border: none;
-  padding: 16px 50px;
-  border-radius: 30px;
+  padding: 17px 70px;
+  border-radius: 50px;
   font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;
@@ -280,25 +314,25 @@
   }
 
   .timeline-item {
-    gap: 15px;
+    gap: 0;
+  }
+
+  .timeline-item--wave-offset {
+    padding-left: 35px;
   }
 
   .timeline-node-wrapper {
-    padding-top: 20px;
+    margin-right: -20px;
   }
 
   .timeline-node {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-width: 3px;
   }
 
-  .timeline-line {
-    left: 25px; /* Adjust line position for smaller node */
-  }
-
   .timeline-card {
-    padding: 30px 20px;
+    padding: 25px 20px 25px 52px;
   }
 
   .card-text-content {

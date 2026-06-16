@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import fireIcon from '../../assets/pyro-satck-fire.svg';
 import './PyroStack.css';
 
 const PyroStack = ({ handleNavigateToQuestionnaire }) => {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [svgPath, setSvgPath] = useState('');
+  const [svgViewBox, setSvgViewBox] = useState('0 0 100 1000');
+  const cardRefs = useRef([]);
+  const nodeRefs = useRef([]);
+  const timelineRef = useRef(null);
+
   const steps = [
     {
       title: 'Decode',
@@ -38,6 +45,81 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     }
   ];
 
+  const computePath = useCallback(() => {
+    const timeline = timelineRef.current;
+    if (!timeline) return;
+
+    const validNodes = nodeRefs.current.filter(Boolean);
+    if (validNodes.length < 2) return;
+
+    const timelineRect = timeline.getBoundingClientRect();
+
+    // Measure each node center in timeline-relative coordinates
+    const points = validNodes.map(node => {
+      const rect = node.getBoundingClientRect();
+      return {
+        x: (rect.left + rect.width / 2) - timelineRect.left,
+        y: (rect.top + rect.height / 2) - timelineRect.top,
+      };
+    });
+
+    const height = timelineRect.height;
+    setSvgViewBox(`0 0 100 ${height}`);
+
+    // Build cubic-bezier snake: each segment curves to alternating sides
+    const amplitude = 30;
+    let d = `M ${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const dir = i % 2 === 0 ? 1 : -1;
+      const third = (p2.y - p1.y) / 3;
+
+      const cx1 = (p1.x + dir * amplitude).toFixed(1);
+      const cy1 = (p1.y + third).toFixed(1);
+      const cx2 = (p2.x + dir * amplitude).toFixed(1);
+      const cy2 = (p2.y - third).toFixed(1);
+
+      d += ` C ${cx1},${cy1} ${cx2},${cy2} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+    }
+
+    setSvgPath(d);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Number(entry.target.dataset.index);
+          if (entry.isIntersecting) {
+            setActiveIndex(index);
+          } else {
+            setActiveIndex((current) => (current === index ? null : current));
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -20% 0px', threshold: 0.1 }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    // Compute path after layout is painted
+    requestAnimationFrame(computePath);
+
+    const resizeObserver = new ResizeObserver(() => requestAnimationFrame(computePath));
+    if (timelineRef.current) {
+      resizeObserver.observe(timelineRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      resizeObserver.disconnect();
+    };
+  }, [computePath]);
+
   return (
     <section id="pyrostack" className="pyrostack-section">
       <div className="pyrostack-container">
@@ -48,16 +130,45 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
           vision intact throughout
         </p>
 
-        <div className="pyrostack-timeline">
-          <div className="timeline-line"></div>
+        <div className="pyrostack-timeline" ref={timelineRef}>
+          <svg
+            className="timeline-line"
+            viewBox={svgViewBox}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="pyrostackLineGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="rgba(99, 102, 241, 0.75)" />
+                <stop offset="50%" stopColor="rgba(139, 92, 246, 0.6)" />
+                <stop offset="100%" stopColor="rgba(192, 132, 252, 0.5)" />
+              </linearGradient>
+            </defs>
+            {svgPath && (
+              <path
+                d={svgPath}
+                fill="none"
+                stroke="url(#pyrostackLineGradient)"
+                strokeWidth="2"
+                vectorEffect="non-scaling-stroke"
+              />
+            )}
+          </svg>
 
           {steps.map((step, index) => (
             <div className="timeline-item" key={index}>
               <div className="timeline-node-wrapper">
-                <div className="timeline-node"></div>
+                <div
+                  ref={(el) => (nodeRefs.current[index] = el)}
+                  className={`timeline-node ${activeIndex === index ? 'is-active' : ''}`}
+                ></div>
               </div>
 
-              <div className="timeline-card">
+              <div
+                ref={(el) => (cardRefs.current[index] = el)}
+                data-index={index}
+                className={`timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+              >
                 <div className="card-text-content">
                   <h3 className="timeline-card-title">{step.title}</h3>
                   <div className="timeline-card-desc">

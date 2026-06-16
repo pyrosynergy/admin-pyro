@@ -40,7 +40,7 @@
   width: auto;
   display: block;      /* Breaks out of regular inline text loops */
   margin: 0;     
-  margin-left:-180px;      /* Prevents rogue parent offsets from pulling it right */
+  margin-left:-210px;      /* Prevents rogue parent offsets from pulling it right */
 }
 
 .brand-logo-link {
@@ -130,7 +130,6 @@
   font-size: 13px;
   color: #cecbcb;
   overflow: hidden;
-  line-height: 0;
 }
 
 .footer-vector {

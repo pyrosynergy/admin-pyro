@@ -119,11 +119,11 @@
 }
 
 .decode-path-btn {
-  background: #4a097b;
+  background: linear-gradient(135deg, #9532ce 0%, #532ab4 30%, #341480 100%);
   color: white;
   border: none;
   margin-top: 50px;
-  padding: 18px 48px;
+  padding: 17px 70px;
   border-radius: 30px;
   font-size: 1.15rem;
   font-weight: 600;
