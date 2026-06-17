@@ -411,8 +411,17 @@
   }
 
   .empathy-banner {
-    margin-top: 72px;
-    padding: 48px 24px;
+    margin: 72px 140px;
+    padding: 28px 4px;
     border-radius: 28px;
+  }
+  .empathy-banner h2 {
+    font-size: 1.5rem;
+    padding: 12px 55px;
+  }
+  .empathy-banner p{
+    font-size: 0.85rem;
+    padding: 0 17px;
+    padding-bottom: 12px;
   }
 }

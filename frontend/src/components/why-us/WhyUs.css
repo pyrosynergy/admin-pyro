@@ -186,31 +186,63 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  /* Force both left and right container wrappers to have the exact same width */
-  .why-us-item,
+ 
   .why-us-item.right {
-    width: 85%;
+    width: 100%;
   }
-  
   .why-us-item.left .whyus-bubble-container {
-    padding: 32px 36px 48px 56px;
+    padding: 30px 36px 60px 36px;
   }
+ 
   .why-us-item.right .whyus-bubble-container {
-    padding: 32px 56px 48px 36px;
+    padding: 30px 36px 60px 36px;
   }
   .whyus-bubble-response {
     padding: 18px 26px;
     margin: 0 6px;
   }
+  
 }
 
 @media (max-width: 600px) {
   .why-us-section {
     padding: 80px 16px 110px 16px;
   }
+
+  .why-us-header h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+  margin: 50px 0 20px 0;
+  line-height: 1.2;
+  letter-spacing: 1.4px;
+}
+  .why-us-subtitle {
+  font-size: 0.8rem;
+  color: #1e1e1e;
+  margin-top:40px;
+  margin-bottom: -20px;
+  line-height: 1.5;
+}
   
   .why-us-timeline {
     gap: 55px;
+  }
+  .whyus-bubble-dot{
+    display: none;
+  }
+  .whyus-bubble-dot-small {
+    right: 32px;
+    bottom: -22px;
+    width: 14px;
+    height: 14px;
+  }
+  .whyus-bubble-dot-small-left {
+    left: 32px;
+    right: auto;
+    bottom: -22px;
+    width: 14px;
+    height: 14px;
   }
   
   /* Force exact equal structural widths on mobile viewports */
@@ -229,11 +261,15 @@
     border-radius: 28px;
     padding: 16px 20px;
     margin: 0;
-    text-align: left !important;
+    text-align: center !important;
+    font-size: 0.7rem;
+  }
+  .highlight-words{
+    font-size: 0.9rem !important;
   }
   
   .whyus-bubble-quote p {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
   
   .why-us-header h2 {

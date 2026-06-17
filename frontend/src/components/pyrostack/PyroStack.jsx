@@ -3,11 +3,13 @@ import fireIcon from '../../assets/pyro-satck-fire.svg';
 import './PyroStack.css';
 
 const PyroStack = ({ handleNavigateToQuestionnaire }) => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [svgPath, setSvgPath] = useState('');
   const [svgViewBox, setSvgViewBox] = useState('0 0 100 1000');
+  const [isMobile, setIsMobile] = useState(false);
   const cardRefs = useRef([]);
   const nodeRefs = useRef([]);
+  const itemRefs = useRef([]);
   const timelineRef = useRef(null);
 
   const steps = [
@@ -41,6 +43,7 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
         'Ta-da! Your solution is now built. Before we ship it, we review performance metrics and make final adjustments and refinements, if required.',
         'Once delivered, you decide the next steps of our engagement; be it support or co-working on your next big project.'
       ],
+      number: '04',
       isFlame: true
     }
   ];
@@ -54,7 +57,6 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
 
     const timelineRect = timeline.getBoundingClientRect();
 
-    // Measure each node center in timeline-relative coordinates
     const points = validNodes.map(node => {
       const rect = node.getBoundingClientRect();
       return {
@@ -66,7 +68,6 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     const height = timelineRect.height;
     setSvgViewBox(`0 0 100 ${height}`);
 
-    // Build cubic-bezier snake: each segment curves to alternating sides
     const amplitude = 30;
     let d = `M ${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
 
@@ -87,7 +88,19 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     setSvgPath(d);
   }, []);
 
+  // Detect mobile breakpoint
   useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  // Desktop: IntersectionObserver on cards + SVG snake path
+  useEffect(() => {
+    if (isMobile) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -106,7 +119,6 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
       if (card) observer.observe(card);
     });
 
-    // Compute path after layout is painted
     requestAnimationFrame(computePath);
 
     const resizeObserver = new ResizeObserver(() => requestAnimationFrame(computePath));
@@ -118,7 +130,31 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
       observer.disconnect();
       resizeObserver.disconnect();
     };
-  }, [computePath]);
+  }, [computePath, isMobile]);
+
+  // Mobile: scroll-position listener on full timeline-item height
+  useEffect(() => {
+    if (!isMobile) return;
+
+    setActiveIndex(0);
+
+    const handleScroll = () => {
+      // Activate the last item whose top has crossed 55% of the viewport.
+      // At 55% the previous step's card is still on screen — overlap feels natural.
+      const trigger = window.innerHeight * 0.55;
+      let next = 0;
+      itemRefs.current.forEach((item, i) => {
+        if (item && item.getBoundingClientRect().top <= trigger) {
+          next = i;
+        }
+      });
+      setActiveIndex(next);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
 
   return (
     <section id="pyrostack" className="pyrostack-section">
@@ -156,12 +192,18 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
           </svg>
 
           {steps.map((step, index) => (
-            <div className="timeline-item" key={index}>
+            <div
+              className={`timeline-item ${activeIndex === index ? 'is-active' : ''}`}
+              ref={(el) => (itemRefs.current[index] = el)}
+              key={index}
+            >
               <div className="timeline-node-wrapper">
                 <div
                   ref={(el) => (nodeRefs.current[index] = el)}
                   className={`timeline-node ${activeIndex === index ? 'is-active' : ''}`}
-                ></div>
+                >
+                  <span className="node-number">{step.number}</span>
+                </div>
               </div>
 
               <div

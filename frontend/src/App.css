@@ -63,7 +63,10 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  /* "clip" (not "hidden") avoids forcing overflow-y to auto, which would
+     turn body into a phantom scroll container and break position:sticky
+     for descendants relying on the real page/viewport scroll. */
+  overflow-x: clip;
 }
 
 #root {

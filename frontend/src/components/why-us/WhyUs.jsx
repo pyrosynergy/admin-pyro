@@ -56,7 +56,7 @@ const WhyUs = () => {
             {card.type === 'right' && (
               <>
                 <img src={bubbleDot} alt="" className="whyus-bubble-dot" />
-                <img src={bubbleDotSmall} alt="" className="whyus-bubble-dot-small" />
+                <img src={bubbleDotSmall} alt="" className="whyus-bubble-dot-small whyus-bubble-dot-blue" />
               </>
             )}
             {card.type === 'left' && (

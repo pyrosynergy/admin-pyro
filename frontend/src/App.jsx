@@ -189,12 +189,14 @@ function App() {
     if (isLoading || (expandedCardIndex !== null && isMobile)) {
       document.body.style.overflow = "hidden";
     } else {
-      // Otherwise, ensure it's unlocked
-      document.body.style.overflow = "auto";
+      // Otherwise, ensure it's unlocked. Remove the inline override (rather than
+      // forcing "auto") so body doesn't become its own scroll container, which
+      // breaks position:sticky for descendants relying on the page scroll.
+      document.body.style.overflow = "";
     }
     // Cleanup function to ensure scroll is always restored on component unmount
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
     };
   }, [expandedCardIndex, isLoading]); // Add isLoading to dependencies
   // ======================================================================

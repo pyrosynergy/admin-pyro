@@ -145,17 +145,58 @@
   }
   
   .decode-path-title {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    padding: 0 20px;
   }
   
   .decode-path-subtitle {
-    font-size: 1rem;
+    font-size: 0.8rem;
     br {
       display: none;
     }
+    padding: 0 20px;
   }
   
+  /* Sticky stack scroll effect */
+  .decode-path-grid {
+    display: block;
+    padding-top: 4px;
+    --decode-peek: 86px;
+  }
+
   .decode-path-card {
-    min-height: auto;
+    position: sticky;
+    top: calc(var(--card-index, 0) * var(--decode-peek));
+    z-index: calc(var(--card-index, 0) + 1);
+    margin-bottom: 0;
+    border-radius: 30px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35);
+    /* Card's own box height is the sticky "pin" range — it must stay
+       in flow long enough for later cards to overlap it while pinned. */
+    min-height: 30vh;
+  }
+  .decode-path-card .card-description {
+    padding-right: 0;
+  }
+  .card-icon {
+    width: 90px;
+    height: 90px;
+    bottom: 16px;
+    right: 16px;
+    opacity: 0.85;
+  }
+
+  .decode-path-card:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  .decode-path-card:hover {
+    transform: none;
+  }
+
+  .decode-path-grid::after {
+    content: '';
+    display: block;
+    height: 20px;
   }
 }

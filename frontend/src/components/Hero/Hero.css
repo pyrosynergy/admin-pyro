@@ -283,6 +283,20 @@ updated hero.css
   .discovery-button .free-highlight {
     font-size: 18px;
   }
+
+  .client-logos-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  gap: 4rem 3rem;
+  width: 100%;
+  max-width: 280px;
+  margin: 3rem auto 3rem auto;
+  padding: 0 1.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
 }
 
 /* Keyframes for button carousel animations */

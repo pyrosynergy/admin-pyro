@@ -45,7 +45,11 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
 
         <div className="decode-path-grid">
           {cards.map((card, index) => (
-            <div className="decode-path-card" key={index}>
+            <div
+              className="decode-path-card"
+              key={index}
+              style={{ '--card-index': index }}
+            >
               <div className="card-header">
                 <h3 className="card-title">
                   {card.title.split('\n').map((line, lineIndex) => (
