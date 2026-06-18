@@ -361,10 +361,12 @@
   }
   .faq-cta-heading {
     font-size: 20px;
+    text-align: center;
   }
   .faq-cta-desc {
     font-size: 14px;
     padding:0 10px;
+    text-align: center;
   }
   .faq-cta-button {
     font-size: 14px;

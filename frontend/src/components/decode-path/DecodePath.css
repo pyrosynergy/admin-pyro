@@ -177,13 +177,16 @@
     min-height: 30vh;
   }
   .decode-path-card .card-title{
-    padding-top:25px;
+    padding-top:18px;
+    font-size:1.9rem;
+    margin:0;
+    line-height:1;
   }
   .decode-path-card .card-title-small {
-    font-size: 1.2rem;
-    padding-top: -10px;
-    margin-top: -10px;
-    
+    font-size: 1rem;
+    margin-top: 10px !important;
+    line-height: 1;
+    display: block;
   }
   .decode-path-card .card-description {
     padding-right: 0;
