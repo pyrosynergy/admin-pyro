@@ -74,6 +74,7 @@
   font-weight: 700;
   color: #7029b3;
   margin: 0;
+  padding-top: 25px;
   line-height: 1.3;
   font-family: 'Bricolage Grotesque', sans-serif;
 }
@@ -161,7 +162,7 @@
   .decode-path-grid {
     display: block;
     padding-top: 4px;
-    --decode-peek: 86px;
+    --decode-peek: 136px;
   }
 
   .decode-path-card {
@@ -174,6 +175,15 @@
     /* Card's own box height is the sticky "pin" range — it must stay
        in flow long enough for later cards to overlap it while pinned. */
     min-height: 30vh;
+  }
+  .decode-path-card .card-title{
+    padding-top:25px;
+  }
+  .decode-path-card .card-title-small {
+    font-size: 1.2rem;
+    padding-top: -10px;
+    margin-top: -10px;
+    
   }
   .decode-path-card .card-description {
     padding-right: 0;

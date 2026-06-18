@@ -9,7 +9,7 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
   const cards = [
     {
       number: '01',
-      title: 'KyB\n(Know Your Business)',
+      title: 'KyB\n<span class="card-title-small">(Know Your Business)</span>',
       description: "It starts with the KyB: a short <strong>6-minute questionnaire</strong> designed to surface where your growth is stuck and whether we're the right team to fix it.",
       icon: icon01
     },
@@ -51,14 +51,10 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
               style={{ '--card-index': index }}
             >
               <div className="card-header">
-                <h3 className="card-title">
-                  {card.title.split('\n').map((line, lineIndex) => (
-                    <React.Fragment key={lineIndex}>
-                      {line}
-                      {lineIndex === 0 && card.title.includes('\n') && <br />}
-                    </React.Fragment>
-                  ))}
-                </h3>
+                <h3 
+  className="card-title" 
+  dangerouslySetInnerHTML={{ __html: card.title.replace('\n', '<br />') }}
+/>
                 <div className="card-number">{card.number}</div>
               </div>
               <p className="card-description" dangerouslySetInnerHTML={{ __html: card.description }}></p>

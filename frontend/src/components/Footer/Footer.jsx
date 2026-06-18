@@ -36,29 +36,30 @@ const Footer = ({ openCalendarPopup }) => {
   return (
     <div className="footer-wrapper">
       <footer className="footer">
-        <div className="footer-left">
+        <div className="footer-brand">
           <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
           <p className="footer-desc">
             We build empathetic growth systems for early-stage startups and businesses, right from initial strategy to end-to-end execution via branding, tech, and AI.
           </p>
-          <div className="social-icons">
-            <a
-              href="https://www.instagram.com/pyrosynergy/"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={iconInstagram} alt="Instagram" className="social-icon-img" />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/pyrosynergy/"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={iconLinkedIn} alt="LinkedIn" className="social-icon-img" />
-            </a>
-          </div>
+        </div>
+
+        <div className="social-icons">
+          <a
+            href="https://www.instagram.com/pyrosynergy/"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={iconInstagram} alt="Instagram" className="social-icon-img" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/pyrosynergy/"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={iconLinkedIn} alt="LinkedIn" className="social-icon-img" />
+          </a>
         </div>
 
         <div className="footer-links-grid">
@@ -88,7 +89,7 @@ const Footer = ({ openCalendarPopup }) => {
       <div className="footer-bottom">
         <img src={footerVector} alt="" className="footer-vector" />
         <div className="footer-bottom-row">
-          <span>&copy; 2025-26 PyroSynergy LLP. All rights reserved.</span>
+          <span>&copy; 2025-26 PyroSynergy LLP.<br />All rights reserved.</span>
           <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
         </div>
       </div>

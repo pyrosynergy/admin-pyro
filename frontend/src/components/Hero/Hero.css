@@ -236,42 +236,25 @@ updated hero.css
 /* Button carousel animations for mobile */
 @media (max-width: 767px) {
   .hero-buttons-container {
-    min-height: 80px;
-    position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    gap: 1rem;             /* Adds spacing between the two buttons */
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 1.5rem auto 0 auto;
+    min-height: auto;       /* Reset the forced height */
+    overflow: visible;
   }
   
   .hero-button {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+   position: static;       /* Removes absolute stacking */
+    transform: none;        /* Resets centering offsets */
     width: 100%;
-    max-width: 280px;
+    max-width: 300px;       /* Keeps button width consistent */
+    margin: 0 !important;
   }
   
-  .hero-button.button-active {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-    pointer-events: auto;
-    z-index: 2;
-  }
-  
-  .hero-button.button-inactive {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px) scale(0.95);
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .hero-button.button-active {
-    animation: buttonSlideIn 0.8s ease-out forwards;
-  }
-  
-  .hero-button.button-inactive {
-    animation: buttonSlideOut 0.8s ease-out forwards;
-  }
   
   /* Mobile specific button sizes - SAME SIZE FOR BOTH */
   .fit-button, .discovery-button {
@@ -296,6 +279,9 @@ updated hero.css
   align-items: center;
   position: relative;
   z-index: 2;
+}
+.hero-desc{
+  font-size:0.95rem;
 }
 }
 
@@ -365,7 +351,16 @@ updated hero.css
   .discovery-button .free-highlight {
     font-size: 18px;
   }
+  
+  .hero-heading {
+    font-size: 4.375rem;
+    letter-spacing: -2.4px;
+  }
+  .hero-desc {
+    font-size: 0.85rem;
+  }
 }
+
 
 
 @media (min-width: 1024px) {  
@@ -376,7 +371,7 @@ updated hero.css
   }
   
   .hero-desc {
-    font-size: 1.375rem;
+    font-size: 0.85rem;
   }
   
   .client-logo-grid-item {
@@ -385,12 +380,3 @@ updated hero.css
   }
 }
 
-@media (min-width: 768px) {
-  .hero-heading {
-    font-size: 4.375rem;
-    letter-spacing: -2.4px;
-  }
-  .hero-desc {
-    font-size: 1.375rem;
-  }
-}

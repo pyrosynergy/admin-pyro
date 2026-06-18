@@ -290,13 +290,15 @@
   background: linear-gradient(135deg, #9532ce 0%, #532ab4 30%, #341480 100%);
   color: white;
   border: none;
+  margin-top: 50px;
   padding: 17px 70px;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 500;
+  border-radius: 30px;
+  font-size: 1.15rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(98, 43, 199, 0.3);
+  box-shadow: 0 6px 20px rgba(98, 43, 199, 0.4);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .pyrostack-btn:hover {
@@ -479,7 +481,7 @@
     background: #1d1225;
     border: 1px solid #5c3d6d;
     border-radius: 18px;
-    padding: 20px 18px 22px;
+    padding: 20px 18px 37px;
     box-shadow: 0 8px 36px rgba(100, 40, 200, 0.14);
     transform: none;
   }
@@ -511,6 +513,7 @@
   .pyrostack-btn {
     margin-top: 50px;
     padding: 14px 45px;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
+    font-family:'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
   }
 }

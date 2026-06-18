@@ -330,7 +330,7 @@
     width: 100%;
   }
   .faq-title::after {
-    content: "FAQ";
+    content: "FAQ's";
     font-size: 40px; /* Bring the font size back up for the new text */
     font-weight: 700;
     color: #1E102B;
