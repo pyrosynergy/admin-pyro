@@ -8,7 +8,7 @@ const faqs = [
       <>
         <p>We offer growth services (we like to comprehensively call them &ldquo;solutions&rdquo;), which cover both strategy and execution.</p>
         <ul>
-          <li><strong>Strategy:</strong><br />Involves getting a deep understanding of your business (and its bottlenecks) through our <strong>PyroStack <sup>TM</sup></strong> framework.</li>
+          <li><strong>Strategy:</strong><br />Involves getting a deep understanding of your business (and its bottlenecks) through our <strong>PyroStack<sup>TM</sup></strong> framework.</li>
           <li><strong>Execution:</strong><br />Involves everything needed to implement the strategy; including UI/UX design, brand identity, web development, content design, social media management, AI creatives, workflows and automations.</li>
         </ul>
       </>
@@ -27,8 +27,7 @@ const faqs = [
     question: 'How does the pricing work?',
     answer: (
       <>
-        <p>Every project is a custom solution, scoped and priced based on what's actually needed. Once we understand your goals and where you are, we put together a clear proposal.'</p>
-        <p>Engagements typically start at ₹25k, with most projects ranging from ₹50k-5L.</p>
+        <p>Every project is a custom solution, scoped and priced based on what's actually needed. Once we understand your goals and where you are, we put together a clear proposal. Engagements typically start at ₹25k, with most projects ranging from ₹50k-5L.</p>
       </>
     )
   },
@@ -36,7 +35,7 @@ const faqs = [
     question: 'What kind of founders does PyroSynergy work with?',
     answer: (
       <>
-        <p>Typically early-stage founders who\'ve pushed their product to the real world, regardless of industry or domain, and are receiving any form of market validation; be it recognition, revenue, or both.</p>
+        <p>Typically early-stage founders who've pushed their product to the real world, regardless of industry or domain, and are receiving any form of market validation; be it recognition, revenue, or both.</p>
       </>
     )
   },
