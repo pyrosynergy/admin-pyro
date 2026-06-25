@@ -83,7 +83,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
           className="flex flex-col items-center justify-center flex-1 content-on-top"
           style={{
             minHeight: "40vh",
-            paddingTop: "130px",
+            paddingTop: "100px",
             paddingBottom: "0px",
           }}
         >

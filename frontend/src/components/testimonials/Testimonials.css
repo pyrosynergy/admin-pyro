@@ -9,7 +9,6 @@
   align-items: center;
   font-family: "Albert Sans", sans-serif;
   color: #201d2a;
-  margin-bottom:30px;
 }
 
 .testimonials-header {
@@ -388,6 +387,10 @@
     padding: 88px 16px 140px;
   }
 
+  .testimonials-header h2{
+    letter-spacing: -4%;
+  }
+
   .testimonials-grid {
     display: flex;
     flex-direction: row;
@@ -445,7 +448,7 @@
   }
 
   .empathy-banner {
-    margin: 72px 140px;
+    margin: 0px 140px;
     padding: 50px 4px;
     border-radius: 28px;
   }

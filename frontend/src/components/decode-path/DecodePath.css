@@ -126,11 +126,12 @@
   margin-top: 50px;
   padding: 17px 70px;
   border-radius: 30px;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(98, 43, 199, 0.4);
+  font-family: 'Albert Sans';
 }
 
 .decode-path-btn:hover {
@@ -140,10 +141,6 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  .decode-path-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
   
   .decode-path-title {
     font-size: 1.8rem;
@@ -157,14 +154,19 @@
     }
     padding: 0 20px;
   }
-  
-  /* Sticky stack scroll effect */
+
   .decode-path-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
     display: block;
     padding-top: 4px;
-    --decode-peek: 136px;
+    /* Must clear the card's full header block (40px card padding-top +
+       85px card-number circle + 24px header margin-bottom = ~149px),
+       otherwise the next card's sticky position overlaps into the
+       previous card's title/number instead of sitting cleanly below it. */
+    --decode-peek: 130px;
   }
-
+  
   .decode-path-card {
     position: sticky;
     top: calc(var(--card-index, 0) * var(--decode-peek));
@@ -176,6 +178,16 @@
        in flow long enough for later cards to overlap it while pinned. */
     min-height: 30vh;
   }
+
+  .decode-path-grid::after {
+    content: '';
+    display: block;
+    /* Adjust this height value to control how long the 4th card 
+       stays pinned before the whole section moves away. */
+    height: 40vh; 
+    pointer-events: none;
+  }
+
   .decode-path-card .card-title{
     padding-top:18px;
     font-size:1.9rem;
@@ -196,20 +208,15 @@
     height: 90px;
     bottom: 16px;
     right: 16px;
-    opacity: 0.85;
+    filter: blur(1px);
+    opacity: 0.4;
   }
 
   .decode-path-card:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 120px;
   }
 
   .decode-path-card:hover {
     transform: none;
-  }
-
-  .decode-path-grid::after {
-    content: '';
-    display: block;
-    height: 20px;
   }
 }

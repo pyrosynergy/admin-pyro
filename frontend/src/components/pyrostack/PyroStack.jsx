@@ -107,12 +107,10 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
           const index = Number(entry.target.dataset.index);
           if (entry.isIntersecting) {
             setActiveIndex(index);
-          } else {
-            setActiveIndex((current) => (current === index ? null : current));
-          }
+          } 
         });
       },
-      { rootMargin: '-10% 0px -70% 0px', threshold: 0.1 }
+      { rootMargin: '-20% 0px -55% 0px', threshold: 0 }
     );
 
     cardRefs.current.forEach((card) => {
@@ -139,15 +137,22 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     setActiveIndex(0);
 
     const handleScroll = () => {
-      // Activate the last item whose top has crossed 55% of the viewport.
-      // At 55% the previous step's card is still on screen — overlap feels natural.
-      const trigger = window.innerHeight * 0.55;
+      // Keep step i active until its OWN card's bottom has scrolled past
+      // 30% of the viewport — not until step i+1's circle/top appears.
+      // This gives the user time to read the active card before it
+      // collapses back to its muted state.
+      const trigger = window.innerHeight * 0.30;
       let next = 0;
-      itemRefs.current.forEach((item, i) => {
-        if (item && item.getBoundingClientRect().top <= trigger) {
-          next = i;
+      for (let i = 0; i < cardRefs.current.length; i++) {
+        const card = cardRefs.current[i];
+        if (!card) continue;
+        if (card.getBoundingClientRect().bottom <= trigger) {
+          next = i + 1;
+        } else {
+          break;
         }
-      });
+      }
+      next = Math.min(next, cardRefs.current.length - 1);
       setActiveIndex(next);
     };
 

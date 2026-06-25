@@ -144,7 +144,7 @@
 .footer-vector {
   width: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: fill;
   height:120px;
   transform: scaleY(1.2);
   transform-origin: bottom;

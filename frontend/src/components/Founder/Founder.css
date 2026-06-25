@@ -1,6 +1,6 @@
 .founder-section {
   width: 100%;
-  padding: 80px 20px;
+  padding: 100px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .founder-container {
-  max-width: 650px;
+  max-width: 1400px;
   width: 100%;
   border: 1px solid white;
   border-radius: 42px;
@@ -23,9 +23,9 @@
 
 .founder-title {
   color: white;
-  font-size: 2.5rem;
+  font-size: 5rem;
   font-weight: 500;
-  margin-bottom: 14px;
+  margin-bottom: 74px;
   text-align: center;
   position: relative;
   z-index: 1;
@@ -43,8 +43,8 @@
 .founder-image-wrapper {
   position: relative;
   width: 100%;
-  max-width: 455px;
-  height: 252px;
+  max-width: 1200px;
+  height: 600px;
   background-color: #c6a0d6;
   /* Light purple from the screenshot */
   border-radius: 17px;
@@ -96,9 +96,9 @@
 .founder-description {
   color: #a3a3a3;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 1.5rem;
   line-height: 1.6;
-  max-width: 420px;
+  max-width: 900px;
 }
 
 .founder-description strong {

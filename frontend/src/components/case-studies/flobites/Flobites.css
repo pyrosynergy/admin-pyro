@@ -1,0 +1,1305 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+.flobites-section {
+  background-color: #fbf8f5;
+  padding: 60px 24px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ---- Hero card ---- */
+.flobites-hero-wrap {
+  height:944px;
+  width: 1327px;
+  padding: 48px;
+  margin-top:50px;
+}
+
+
+
+/* ---- Meta section ---- */
+.flobites-meta-label,
+.flobites-meta-heading {
+  margin-top: 0; /* Prevents default browser margins from pushing one side down */
+}
+
+.flobites-meta {  
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1440px;
+  gap: 300px; 
+  padding-top:250px;   
+  padding-bottom: 200px;
+}
+
+
+.flobites-meta-left {
+  flex: 0 0 28%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left:100px;
+}
+
+.flobites-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flobites-meta-label {
+  color: #000;
+font-family: "Bricolage Grotesque";
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.flobites-meta-value {
+  color: #FA3558;
+font-family: "Bricolage Grotesque";
+font-size: 36px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.flobites-meta-right {
+  flex: 1;
+}
+
+.flobites-meta-heading {
+  color: #000;
+font-family: "Bricolage Grotesque";
+font-size: 40px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+margin-top:-50px;
+}
+
+.flobites-meta-description {
+  color: #000;
+font-family: "Albert Sans";
+font-size: 18px;
+font-weight: 400;
+line-height: 35px;
+padding-right: 200px;
+}
+
+/* ---- Process / design language section ---- */
+.flobites-process {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flobites-process-title {
+  font-family: "Albert Sans";
+  font-weight: 600;
+  font-size: 3rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.3;
+  margin: 0 0 48px;
+  max-width: 640px;
+}
+
+.flobites-process-title-accent {
+  color: #FA3558;
+  font-family: "Bricolage Grotesque";
+}
+
+.flobites-process-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  margin-bottom: 64px;
+}
+
+.flobites-process-image {
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-process-image img {
+  width: 100%;
+  max-width: 700px;
+  transform: rotate(-1.72deg);
+  height: auto;
+  object-fit: contain;
+}
+
+.flobites-process-image--small img {
+  max-width: 300px !important;
+  width:100%;
+  transform: rotate(0);
+}
+
+.flobites-process-text {
+  flex: 1;
+}
+
+.flobites-process-lead {
+  font-family: "Albert Sans";
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: #000;
+  margin: 0 0 14px;
+  line-height: 1.4;
+  text-align: center;
+  line-height: 35px; /* 109.375% */
+}
+
+.flobites-process-subheading {
+  font-family: 'Albert sans';
+  font-weight: 500;
+  font-size: 2rem;
+  color: #000;
+  margin: 0 0 18px;
+  text-align: center;
+}
+
+.flobites-process-body {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #000;
+  text-align: center;
+  margin: 0 0 16px;
+  font-weight:400;
+}
+
+.flobites-process-text2
+{
+  padding:0px 120px;
+}
+
+.flobites-process-body strong {
+  color: #1a1a1a;
+}
+
+.flobites-process-body:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Refine / stats / quote section ---- */
+.flobites-refine {
+  width: 100%;
+  max-width: 1440px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flobites-refine-title {
+  font-family: "Albert Sans";
+  font-weight: 600;
+  font-size: 3rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.3;
+  margin: 0 0 16px;
+}
+
+.flobites-refine-title-accent {
+  color: #FA3558;
+  font-family: "Bricolage Grotesque";
+}
+
+.flobites-refine-subtitle {
+  font-size: 1.2rem;
+  color: #000;
+  font-weight:500;
+  text-align: center;
+  line-height: 1.65;
+  margin: 0 0 80px;
+
+}
+
+.flobites-refine-stats {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 180px;
+  margin-bottom: 86px;
+}
+
+.flobites-refine-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.flobites-refine-stat-number {
+  font-family: 'Albert sans';
+  font-weight: 400;
+  font-size: 6rem;
+  color:#FA3558;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.flobites-refine-stat-label {
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.flobites-refine-stat-sub {
+  font-size: 0.95rem;
+  color: #FA3558;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.flobites-refine-stat-sub::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 2px;
+  background-color: #FA3558;
+}
+
+.flobites-refine-quote {
+  width: 50%;
+  background-color: #FA3558;;
+  border-radius: 28px;
+  padding: 46px 90px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flobites-refine-quote-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 620px;
+  margin: 0;
+  padding:25px 70px;
+}
+
+.flobites-refine-quote-mark {
+  font-family: 'Albert sans';
+  font-size: 5rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  align-self: flex-start;
+}
+
+.flobites-refine-quote-mark--right {
+  align-self: flex-end;
+}
+
+/* ---- Shift / numbered story section ---- */
+.flobites-shift {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flobites-shift-title {
+  font-family: 'Albert sans';
+  font-weight: 600;
+  font-size: 2.5rem;
+  color: #000;
+  text-align: left;
+  width: 100%;
+  margin: 0 0 70px;
+}
+
+.flobites-shift-title-accent {
+  color: #FA3558;
+  font-family: "Bricolage Grotesque";
+}
+
+.flobites-shift-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 90px;
+}
+
+.flobites-shift-row--reverse {
+  flex-direction: row-reverse;
+}
+
+.flobites-shift-row:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-shift-text {
+  flex: 0 0 48%;
+  position: relative;
+}
+
+.flobites-shift-number {
+  display: block;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 400;
+  font-size: 10rem;
+  color: #F9DBD0;
+  line-height: 1;
+  margin-bottom: -36px;
+  position: absolute;       /* <-- ADD THIS: Removes it from the layout flow */
+  top: -80px;               /* <-- ADJUST THIS: Controls how high behind the text it sits */
+  left: 0;                  /* <-- Aligns it with the left margin */
+  z-index: 0;
+}
+
+
+
+.flobites-shift-number--standalone {
+  position: static !important;  /* Cancels the absolute positioning */
+  margin-bottom: 10px;
+}
+
+.flobites-shift-image--bowl {
+  position: relative;
+  width:100%;
+  max-width: 450px;
+}
+
+.flobites-shift-image--bowl .flobites-shift-curvy-dots {
+  position: absolute;
+  bottom: -50px;
+  left: 100%;
+  width: 200px;
+  max-width: none;
+  pointer-events: none;
+}
+
+.flobites-shift-heading {
+  font-family: 'Albert sans';
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  line-height: 1.25;
+  margin: 0 0 18px;
+  position: relative;
+  z-index: 1;
+  padding-left:80px;
+  max-width:250px;
+  width:100%;
+}
+
+.flobites-shift-heading-accent {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  color: #FA3558;
+  text-decoration: underline;
+  text-decoration-color: #FA3558;
+  text-underline-offset: 6px;
+}
+
+.flobites-shift-body {
+  font-size: 0.98rem;
+  font-weight:400;
+  line-height: 1.7;
+  color: #000;
+  margin: 0;
+  max-width: 300px;
+  padding-left:80px;
+}
+
+.flobites-shift-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-shift-image img {
+  width: 100%;
+  max-width: 1800px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+/* ---- Uncovering the Issues section ---- */
+/*
+  3-part overlapping structure (wrapper > dome-top + core + dome-bottom).
+  --issues-dome-depth is how far the dome's curve pokes ABOVE/BELOW the
+  core's flat edge (the visible "arch"). --issues-dome-overlap is a small
+  extra amount the dome extends back DOWN/UP into the core, so the two
+  same-colour layers always overlap by a few px and never leave a gap,
+  even under sub-pixel rounding on resize.
+*/
+.flobites-issues {
+  --issues-dome-depth: 240px;
+  --issues-dome-overlap: 6px;
+  position: relative;
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 100px;
+}
+
+.flobites-issues-dome {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(var(--issues-dome-depth) + var(--issues-dome-overlap));
+  background-color: #FA3558;
+}
+
+.flobites-issues-dome--top {
+  top: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.flobites-issues-dome--bottom {
+  bottom: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.flobites-issues-core {
+  position: relative;
+  width: 100%;
+  background-color: #FA3558;
+  margin-top: var(--issues-dome-depth);
+  margin-bottom: var(--issues-dome-depth);
+  padding: 40px 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-issues-inner {
+  width: 100%;
+  max-width: 1260px;
+}
+
+.flobites-issues-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 3.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin: -80px 0 80px;
+}
+
+.flobites-issues-item {
+  position: relative;
+  padding-top: 80px;
+  margin-bottom: 90px;
+}
+
+.flobites-issues-item:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-issues-number {
+  position: absolute;
+  top: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 7rem;
+  color: #ffffff;
+  line-height: 1;
+  z-index: 2;
+}
+
+.flobites-issues-number--left {
+  left: 0;
+  width: 402px;          /* same as note width */
+  text-align: center;
+  top:80px;
+}
+
+.flobites-issues-number--right {
+  right: 0;
+  width: 402px;          /* same as note width */
+  text-align: center;
+  top: 80px;
+}
+
+
+
+/*
+  Notched "L-shape" card: the note column starts lower (below the giant
+  number) while the shot column starts at the top, creating a stepped
+  top edge. The fillet element smooths the concave inner corner where
+  the two backgrounds meet, using a radial-gradient quarter-circle.
+*/
+:root {
+  --issues-notch-h: 125.5px;
+  --issues-fillet: 32px;
+  --issues-radius: 20px;
+  --issues-beige: #F9DBD0;
+}
+
+.flobites-issues-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.flobites-issues-card--reverse {
+  flex-direction: row-reverse;
+}
+
+.flobites-issues-note {
+  position: relative;
+  flex: 0 0 402px;
+  width: 402px;
+  min-height: 202px;
+  margin-top: var(--issues-notch-h);
+  background-color: var(--issues-beige);
+  border-radius: var(--issues-radius) 0 0 var(--issues-radius);
+  padding: 28px 28px 28px 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center; 
+}
+
+.flobites-issues-card--reverse .flobites-issues-note {
+  border-radius: 0 var(--issues-radius) var(--issues-radius) 0 ;
+  text-align: right;
+}
+
+
+.flobites-issues-note--center {
+  text-align: center;
+}
+
+.flobites-issues-note p {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: #1a1a1a;
+  padding:50px;
+}
+
+.flobites-issues-note p strong {
+  color: #FA3558;
+  font-weight: 700;
+}
+
+.flobites-issues-shot {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 3.8 / 2.8;
+  overflow: hidden;
+  background-color: var(--issues-beige);
+  padding: 22px 22px 22px 22px;
+  box-sizing: border-box;
+  z-index: 2;
+  border-radius: var(--issues-radius) var(--issues-radius) var(--issues-radius) 0;
+}
+
+.flobites-issues-card--reverse .flobites-issues-shot {
+  padding: 22px 22px 22px 22px;
+  border-radius: var(--issues-radius) var(--issues-radius) 0 var(--issues-radius);
+
+}
+
+.flobites-issues-shot--bleed-right {
+  margin-right: -100px;
+}
+
+.flobites-issues-shot--bleed-left {
+  margin-left: -100px;
+}
+
+.flobites-issues-shot--wide {
+  flex: 1.6;
+}
+
+.flobites-issues-shot img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center 50%;
+  border-radius: var(--issues-radius);
+}
+
+/* ---- PyroStack quadrant section ---- */
+.flobites-pyrostack {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+}
+
+.flobites-pyrostack-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.flobites-pyrostack-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #000;
+  margin: 0 0 10px;
+}
+
+.flobites-pyrostack-subtitle {
+  font-size: 0.95rem;
+  color: #000;
+  font-weight:400;
+  margin: 0;
+}
+
+.flobites-pyrostack-subtitle strong {
+  color: #000;
+  font-weight: 700;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size:1.2rem;
+}
+
+.flobites-pyrostack-btn {
+  flex-shrink: 0;
+  background-color: #f5a623;
+  color: #7F5044;;
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.flobites-pyrostack-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flobites-pyrostack-grid::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 50%;
+  width: 8px;
+  margin-left: -4px;
+  border-radius: 27px;
+  background: #FA3558;
+}
+
+.flobites-pyrostack-grid::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 27px;
+  background: #FA3558;
+}
+
+.flobites-pyrostack-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+}
+
+.flobites-pyrostack-number {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 10rem;
+  color: rgba(250, 53, 88, 0.50);
+  line-height: 1;
+}
+
+.flobites-pyrostack-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 2.3rem;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+/* ---- PyroStack detailed steps ---- */
+.flobites-pyrostack-details {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 80px;
+}
+
+.flobites-pyrostack-detail {
+  margin-bottom: 56px;
+}
+
+.flobites-pyrostack-detail:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-pyrostack-detail-number {
+  display: block;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 12rem;
+  color: rgba(250, 53, 88, 0.50);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.flobites-pyrostack-detail-heading {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  color: #FA3558;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px 30px;
+}
+
+.flobites-pyrostack-detail-body {
+  font-size: 1.3rem;
+  font-family:'Albert Sans';
+  line-height: 2;
+  font-weight:400;
+  color: #000;
+  max-width: 980px;
+  margin-left:70px;
+}
+
+/* ---- BUILD step visual ---- */
+.flobites-build-visual {
+  margin-top: 28px;
+  position: relative;
+}
+
+.flobites-build-screens {
+  display: flex;
+  gap: 24px;
+}
+
+.flobites-build-screen {
+  flex: 1;
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.flobites-build-screen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.flobites-build-stickies {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: -36px;
+  position: relative;
+  z-index: 2;
+}
+
+.flobites-sticky {
+  position: relative;
+  flex: 0 0 200px;
+  aspect-ratio: 1/1;
+  border-radius: 44px;
+  padding: 32px 24px 20px;
+  transform-origin: top center; 
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.flobites-sticky--pink {
+  background-color: #FFBDF2;
+  transform: rotate(14deg);
+}
+
+.flobites-sticky--yellow {
+  background-color: #FEDC7C;
+  transform: rotate(-14deg);
+  margin-left:50px;
+}
+
+.flobites-sticky-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #d62839;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.flobites-sticky-tag {
+  display: block;
+  font-family: 'Architects Daughter';
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.flobites-sticky p {
+  font-family: "Architects Daughter";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(38, 62, 14, 0.70);;
+  margin: 0;
+}
+
+/* ---- PYROS step visual ---- */
+.flobites-pyros-visual {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-top: 32px;
+  padding-left: max(120px, calc((100vw - 1140px) / 2 + 120px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.flobites-pyros-brand {
+  flex: 0 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.flobites-pyros-fruit {
+  width: 160px;
+  height: auto;
+}
+
+.flobites-pyros-eat {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 10rem;
+  color: #FA3558;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.flobites-pyros-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1920 / 1652;
+  background-color: #000;
+  border-radius: 28px 0px 0px 28px;
+  padding: 28px 0px 28px 28px;
+  overflow: hidden;
+  border: whitesmoke;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.flobites-pyros-screen img {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: block;
+  border-radius: 12px 0px 0px 12px;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* ---- Nourish section ---- */
+.flobites-nourish {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 100px;
+  background: radial-gradient(circle at 50% 30%, #8a1024 0%, #4a0810 100%);
+  display: flex;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.flobites-nourish-img {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---- Real Stories section ---- */
+.flobites-stories {
+  width: calc(100% + 24px);
+  margin-left: -24px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.flobites-stories-img {
+  flex: 0 1 620px;
+  width: 100%;
+  max-width: 820px;
+  height: auto;
+  object-fit: contain;
+  background-color: #000;
+  padding: 28px 28px 28px 0px;
+  border-radius: 0px 28px 28px 0px;
+}
+
+.flobites-stories-feel {
+  flex: 0 0 auto;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 10rem;
+  color:  #FA3558;;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  transform: rotate(360deg);
+  text-align: center;
+  padding-left:100px;
+}
+
+/* ---- Final showcase section ---- */
+.flobites-showcase {
+  width: 100%;
+  max-width: 900px;
+  margin: 120px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  position: relative;
+}
+
+.flobites-showcase-title {
+  color: #FA3558;
+  text-align: center;
+  font-family: 'Bricolage Grotesque';
+  font-weight: 800;
+  font-size: 12rem;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  z-index: 1;
+  position: absolute;
+  top:-270px;
+}
+
+.flobites-showcase-devices {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+}
+
+.flobites-showcase-tablet {
+  position: absolute;
+  bottom:10px;
+  left: 0px;
+  width: 35%;
+  z-index: 10;
+}
+
+.flobites-showcase-laptop {
+  position: relative;
+  width: 62%;
+  z-index: 20;
+}
+
+.flobites-showcase-phone {
+  position: absolute;
+  bottom: -10px;
+  right: 6%;
+  width: 22%;
+  z-index: 30;
+}
+
+/* ---- Closing CTA bar ---- */
+.flobites-cta {
+  width: calc(100% + 48px);
+  margin: 100px 0px -100px 0px;
+  background-color: #07070a;
+  padding: 36px 100px 36px 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flobites-cta-text {
+  color: #ffffff;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.flobites-cta-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #d6bdf5 0%, #9b7fe8 100%);
+  color: #1a1a1a;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 16px 24px;
+  border-radius: 30px;
+  white-space: nowrap;
+  margin-right: 200px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .flobites-hero-card {
+    flex-direction: column;
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+
+  .flobites-hero-left,
+  .flobites-hero-right {
+    flex: 1 1 auto;
+  }
+
+  .flobites-hero-right {
+    min-height: 360px;
+  }
+
+  .flobites-headline {
+    font-size: 1.8rem;
+    margin-top: 24px;
+  }
+
+  .flobites-meta {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .flobites-meta-left {
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  .flobites-process-title {
+    font-size: 1.6rem;
+  }
+
+  .flobites-process-row {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .flobites-process-image,
+  .flobites-process-image--small {
+    flex: 0 0 auto;
+  }
+
+  .flobites-refine-stats {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .flobites-refine-quote {
+    padding: 40px 32px;
+  }
+
+  .flobites-shift-row,
+  .flobites-shift-row--reverse {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .flobites-shift-text,
+  .flobites-shift-image {
+    flex: 1 1 auto;
+  }
+
+  .flobites-shift-number--standalone {
+    margin-bottom: -28px;
+  }
+
+  .flobites-shift-curvy-dots {
+    display: none;
+  }
+
+  .flobites-issues {
+    --issues-dome-depth: 60px;
+  }
+
+  .flobites-issues-core {
+    padding: 24px 20px;
+  }
+
+  .flobites-issues-number {
+    font-size: 4.5rem;
+  }
+
+  .flobites-issues-card,
+  .flobites-issues-card--reverse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .flobites-issues-note::before,
+  .flobites-issues-card--reverse .flobites-issues-note::before {
+    display: none;
+  }
+
+  .flobites-issues-note,
+  .flobites-issues-card--reverse .flobites-issues-note {
+    flex: 1 1 auto;
+    width: auto;
+    min-height: 0;
+    margin-top: 0;
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .flobites-issues-note--center {
+    text-align: left;
+  }
+
+  .flobites-issues-shot,
+  .flobites-issues-card--reverse .flobites-issues-shot {
+    padding: 10px;
+  }
+
+  .flobites-issues-shot--bleed-right,
+  .flobites-issues-shot--bleed-left {
+    margin: 0;
+  }
+
+  .flobites-pyrostack-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .flobites-pyrostack-grid {
+    max-width: 320px;
+  }
+
+  .flobites-pyrostack-number {
+    font-size: 3.2rem;
+  }
+
+  .flobites-pyrostack-label {
+    font-size: 0.95rem;
+  }
+
+  .flobites-build-screens {
+    flex-direction: column;
+  }
+
+  .flobites-build-stickies {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  .flobites-sticky {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .flobites-pyros-visual {
+    flex-direction: column;
+    width: calc(100% + 48px);
+    left: 0;
+    margin-left: -24px;
+    padding-left: 0;
+  }
+
+  .flobites-pyros-brand {
+    flex-direction: row;
+  }
+
+  .flobites-pyros-eat {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .flobites-pyros-screen {
+    width: 100%;
+    aspect-ratio: 1920 / 1652;
+    border-radius: 0;
+  }
+
+  .flobites-pyros-screen img {
+    border-radius: 0;
+  }
+
+  .flobites-stories {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .flobites-stories-feel {
+    font-size: 2.4rem;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .flobites-showcase {
+    margin-top: 80px;
+  }
+
+  .flobites-showcase-title {
+    font-size: 2.8rem;
+    margin-bottom: -16px;
+  }
+
+  .flobites-showcase-tablet {
+    top: 0;
+    left: -20px;
+    width: 50%;
+  }
+
+  .flobites-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+    gap: 18px;
+  }
+
+  .flobites-cta-btn {
+    align-self: flex-start;
+  }
+}
