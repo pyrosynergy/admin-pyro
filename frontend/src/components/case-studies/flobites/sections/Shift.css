@@ -1,0 +1,199 @@
+/* ----5. Shift / numbered story section ---- */
+.flobites-shift {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flobites-shift-title {
+  font-family: 'Albert sans';
+  font-weight: 600;
+  font-size: 2.5rem;
+  color: #000;
+  text-align: left;
+  width: 100%;
+  margin: 0 0 70px;
+}
+
+.flobites-shift-title-accent {
+  color: #FA3558;
+  font-family: "Bricolage Grotesque";
+}
+
+.flobites-shift-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 90px;
+}
+
+.flobites-shift-row--reverse {
+  flex-direction: row-reverse;
+}
+
+.flobites-shift-row:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-shift-text {
+  flex: 0 0 48%;
+  position: relative;
+}
+
+.flobites-shift-number {
+  display: block;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 400;
+  font-size: 10rem;
+  color: #F9DBD0;
+  line-height: 1;
+  margin-bottom: -36px;
+  position: absolute;
+  top: -80px;
+  left: 0;
+  z-index: 0;
+}
+
+.flobites-shift-number--standalone {
+  position: static !important;
+  margin-bottom: 10px;
+}
+
+.flobites-shift-image--bowl {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+}
+
+.flobites-shift-image--bowl .flobites-shift-curvy-dots {
+  position: absolute;
+  bottom: -50px;
+  left: 100%;
+  width: 200px;
+  max-width: none;
+  pointer-events: none;
+}
+
+.flobites-shift-heading {
+  font-family: 'Albert sans';
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  line-height: 1.25;
+  margin: 0 0 18px;
+  position: relative;
+  z-index: 1;
+  padding-left: 80px;
+  max-width: 250px;
+  width: 100%;
+}
+
+.flobites-shift-heading-accent {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  color: #FA3558;
+  text-decoration: underline;
+  text-decoration-color: #FA3558;
+  text-underline-offset: 6px;
+}
+
+.flobites-shift-body {
+  font-size: 0.98rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #000;
+  margin: 0;
+  max-width: 300px;
+  padding-left: 80px;
+}
+
+.flobites-shift-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-shift-image img {
+  width: 100%;
+  max-width: 1800px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .flobites-shift-title {
+    font-size: 1.6rem;
+  }
+
+  .flobites-shift-row,
+  .flobites-shift-row--reverse {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  /* --- The Magic Reordering Fix for Mobile --- */
+  .flobites-shift-number--standalone {
+    position: static;
+    top: auto;
+    left: auto;
+    font-size: 4rem;
+    display: block;
+    order: 1; /* Forces the number '02' to the top */
+    text-align: left !important;
+    align-self: flex-start !important;
+
+  }
+
+  .flobites-shift-row .flobites-shift-text {
+    order: 2; /* Forces the text section to the middle */
+    padding-left: 0;
+    max-width: 100%;
+  }
+
+  .flobites-shift-row .flobites-shift-image {
+    order: 3; /* Forces the image/bowl section to the bottom */
+  }
+
+  .flobites-shift-text,
+  .flobites-shift-image {
+    flex: 1 1 auto;
+  }
+
+  .flobites-shift-number {
+    position: static;
+    top: auto;
+    left: auto;
+    font-size: 4rem;
+    margin-bottom: 10px;
+  }
+
+
+  .flobites-shift-heading {
+    font-size: 1.5rem;
+    padding-left: 0;
+    max-width: 100%;
+  }
+
+  .flobites-shift-body {
+    padding-left: 0;
+    max-width: 100%;
+  }
+  
+  .flobites-shift-image img{
+    max-width:300px;
+    width:100%;
+  }
+
+  .flobites-shift-image--bowl {
+    max-width: 100%;
+  }
+
+  .flobites-shift-curvy-dots {
+    display: none;
+  }
+}

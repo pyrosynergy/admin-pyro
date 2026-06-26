@@ -1,0 +1,394 @@
+/* ---- PyroStack quadrant section ---- */
+.flobites-pyrostack {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+}
+
+.flobites-pyrostack-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.flobites-pyrostack-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #000;
+  margin: 0 0 10px;
+}
+
+.flobites-pyrostack-subtitle {
+  font-size: 0.95rem;
+  color: #000;
+  font-weight: 400;
+  margin: 0;
+}
+
+.flobites-pyrostack-subtitle strong {
+  color: #000;
+  font-weight: 700;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.2rem;
+}
+
+.flobites-pyrostack-btn {
+  flex-shrink: 0;
+  background-color: #f5a623;
+  color: #7F5044;
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.flobites-pyrostack-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flobites-pyrostack-grid::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 50%;
+  width: 8px;
+  margin-left: -4px;
+  border-radius: 27px;
+  background: #FA3558;
+}
+
+.flobites-pyrostack-grid::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 27px;
+  background: #FA3558;
+}
+
+.flobites-pyrostack-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+}
+
+.flobites-pyrostack-number {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 10rem;
+  color: rgba(250, 53, 88, 0.50);
+  line-height: 1;
+}
+
+.flobites-pyrostack-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 2.3rem;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+/* ---- PyroStack detailed steps ---- */
+.flobites-pyrostack-details {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 80px;
+}
+
+.flobites-pyrostack-detail {
+  margin-bottom: 56px;
+}
+
+.flobites-pyrostack-detail:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-pyrostack-detail-number {
+  display: block;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 12rem;
+  color: rgba(250, 53, 88, 0.50);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.flobites-pyrostack-detail-heading {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  color: #FA3558;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px 30px;
+}
+
+.flobites-pyrostack-detail-body {
+  font-size: 1.3rem;
+  font-family: 'Albert Sans';
+  line-height: 2;
+  font-weight: 400;
+  color: #000;
+  max-width: 980px;
+  margin-left: 70px;
+}
+
+/* ---- BUILD step visual ---- */
+.flobites-build-visual {
+  margin-top: 28px;
+  position: relative;
+}
+
+.flobites-build-screens {
+  display: flex;
+  gap: 24px;
+}
+
+.flobites-build-screen {
+  flex: 1;
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.flobites-build-screen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.flobites-build-stickies {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: -36px;
+  position: relative;
+  z-index: 2;
+}
+
+.flobites-sticky {
+  position: relative;
+  flex: 0 0 200px;
+  aspect-ratio: 1/1;
+  border-radius: 44px;
+  padding: 32px 24px 20px;
+  transform-origin: top center;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.flobites-sticky--pink {
+  background-color: #FFBDF2;
+  transform: rotate(14deg);
+}
+
+.flobites-sticky--yellow {
+  background-color: #FEDC7C;
+  transform: rotate(-14deg);
+  margin-left: 50px;
+}
+
+.flobites-sticky-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #d62839;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.flobites-sticky-tag {
+  display: block;
+  font-family: 'Architects Daughter';
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.flobites-sticky p {
+  font-family: "Architects Daughter";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(38, 62, 14, 0.70);
+  margin: 0;
+}
+
+/* ---- PYROS step visual ---- */
+.flobites-pyros-visual {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-top: 32px;
+  padding-left: max(120px, calc((100vw - 1140px) / 2 + 120px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.flobites-pyros-brand {
+  flex: 0 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.flobites-pyros-fruit {
+  width: 160px;
+  height: auto;
+}
+
+.flobites-pyros-eat {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 10rem;
+  color: #FA3558;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.flobites-pyros-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1920 / 1652;
+  background-color: #000;
+  border-radius: 28px 0px 0px 28px;
+  padding: 28px 0px 28px 28px;
+  overflow: hidden;
+  border: whitesmoke;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.flobites-pyros-screen img {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: block;
+  border-radius: 12px 0px 0px 12px;
+  object-fit: cover;
+  object-position: left top;
+}
+
+@media (max-width: 900px) {
+  /* ---- PyroStack grid ---- */
+  .flobites-pyrostack-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .flobites-pyrostack-title {
+    font-size: 1.4rem;
+  }
+
+  .flobites-pyrostack-subtitle{
+    padding: 10px;
+    line-height: 24px;
+  }
+
+  .flobites-pyrostack-grid {
+    max-width: 320px;
+  }
+
+  .flobites-pyrostack-number {
+    font-size: 3.2rem;
+  }
+
+  .flobites-pyrostack-label {
+    font-size: 1.3rem;
+  }
+
+  /* ---- PyroStack detailed steps ---- */
+  .flobites-pyrostack-detail-number {
+    font-size: 4rem;
+    margin-bottom: 4px;
+  }
+
+  .flobites-pyrostack-detail-heading {
+    font-size: 1.6rem;
+    margin: 0 0 12px;
+  }
+
+  .flobites-pyrostack-detail-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  /* ---- BUILD step visual ---- */
+  .flobites-build-screens {
+    flex-direction: column;
+  }
+
+  .flobites-build-stickies {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .flobites-sticky {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 200px;
+    margin-left: 0 !important;
+  }
+
+  /* ---- PYROS step visual ---- */
+    
+    .flobites-pyros-visual {
+    padding-left: max(40px, calc((100vw - 960px) / 2 + 40px));
+    gap: 16px;
+    margin-top: 56px;
+  }
+
+  .flobites-pyros-brand {
+    flex: 0 0 90px;
+    gap: 8px;
+  }
+
+  .flobites-pyros-fruit {
+    width: 80px;
+  }
+
+  .flobites-pyros-eat {
+    font-size: 4.5rem;
+  }
+
+  .flobites-pyros-screen {
+    border-radius: 22px 0 0 22px;
+    padding: 18px 0 18px 18px;
+  }
+
+  .flobites-pyros-screen img {
+    border-radius: 10px 0 0 10px;
+  }
+}
+

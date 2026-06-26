@@ -202,7 +202,9 @@
   }
   .decode-path-card .card-description {
     padding-right: 0;
+    margin-top: 10px;
   }
+  
   .card-icon {
     width: 90px;
     height: 90px;

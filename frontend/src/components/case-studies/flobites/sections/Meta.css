@@ -1,0 +1,148 @@
+/* ----2. Meta section ---- */
+.flobites-meta-label,
+.flobites-meta-heading {
+  margin-top: 0; /* Prevents default browser margins from pushing one side down */
+}
+
+.flobites-meta {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1440px;
+  gap: 300px;
+  padding-top: 250px;
+  padding-bottom: 200px;
+}
+
+.flobites-meta-left {
+  flex: 0 0 28%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left: 100px;
+}
+
+.flobites-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flobites-meta-label {
+  color: #000;
+  font-family: "Bricolage Grotesque";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.flobites-meta-value {
+  color: #FA3558;
+  font-family: "Bricolage Grotesque";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.flobites-meta-right {
+  flex: 1;
+}
+
+.flobites-meta-heading {
+  color: #000;
+  font-family: "Bricolage Grotesque";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: -50px;
+}
+
+.flobites-meta-description {
+  color: #000;
+  font-family: "Albert Sans";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 35px;
+  padding-right: 200px;
+}
+
+@media (max-width: 900px) {
+  .flobites-meta {
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 10px;
+    padding-top: 80px !important;
+  }
+
+  .flobites-meta-left {
+    flex-direction: column;
+    gap: 36px;
+    padding-left: 0;
+    width: 100%;
+  }
+ 
+  .flobites-meta-label{
+    font-size: 18px;
+  }
+
+  .flobites-meta-value{
+    font-size: 28px;
+  }
+
+  .flobites-meta-item {
+    width: 100%;
+  }
+
+  .flobites-meta-value {
+    word-break: break-word;
+  }
+
+  .flobites-meta-right{
+    padding-bottom: 0;
+  }
+
+  .flobites-meta-heading {
+    font-size: 1.6rem;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .flobites-meta-description {
+    padding-right: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    background-color: rgba(250, 53, 88, 0.7);
+    padding:30px 15px !important;
+    border-radius: 6px;
+    color:#000;
+    text-align: center;
+    font-weight: 500;
+  }
+}
+@media (max-width: 1200px) {
+  .flobites-meta {
+    gap: 80px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .flobites-meta-left {
+    flex: 0 0 32%;
+    padding-left: 30px;
+  }
+
+  .flobites-meta-heading {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  .flobites-meta-description {
+    padding-right: 40px;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+}

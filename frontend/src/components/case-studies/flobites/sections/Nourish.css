@@ -1,0 +1,18 @@
+/* ---- Nourish section ---- */
+.flobites-nourish {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 100px;
+  background: radial-gradient(circle at 50% 30%, #8a1024 0%, #4a0810 100%);
+  display: flex;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.flobites-nourish-img {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  object-fit: contain;
+}
