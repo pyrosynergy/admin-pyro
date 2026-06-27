@@ -9,6 +9,7 @@ import Services from "./components/Services/Services.jsx";
 // import About from "./components/About/About"; // Add this import
 import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import DecodeQuestionnaire from "./components/DecodeQuestionnaire/DecodeQuestionnaire.jsx";
 import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
 import Loading from "./components/Loading/Loading.jsx"; // Add this import
 import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
@@ -116,9 +117,9 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname;
   // Show header on reality check; hide only on specific pages
-  const knownPaths = ['/', '/welcome', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites'];
+  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites'];
   const is404 = !knownPaths.includes(location.pathname);
-  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
+  const hideHeader = ['/welcome', '/decode','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
   const hideFooter = is404 || ['/welcome','/realitycheck', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
 
@@ -274,6 +275,7 @@ function App() {
         )}
         <Routes>
           <Route path="/realitycheck" element={<Questionnaire />} />
+          <Route path="/decode" element={<DecodeQuestionnaire/>} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
           <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />

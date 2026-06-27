@@ -42,19 +42,19 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
           Decode is where we find it; from identifying the first big <br />
           chokepoint to strategizing a full blueprint to move past it.
         </p>
-
+      <div className="decode-path-stack-container" style={{ width: '100%' }}>
         <div className="decode-path-grid">
           {cards.map((card, index) => (
             <div
               className="decode-path-card"
               key={index}
-              style={{ '--card-index': index }}
+              style={{ '--card-index': String(index) }} // Coerces index reliably to a CSS string variable
             >
               <div className="card-header">
                 <h3 
-  className="card-title" 
-  dangerouslySetInnerHTML={{ __html: card.title.replace('\n', '<br />') }}
-/>
+                  className="card-title" 
+                  dangerouslySetInnerHTML={{ __html: card.title.replace('\n', '<br />') }}
+                />
                 <div className="card-number">{card.number}</div>
               </div>
               <p className="card-description" dangerouslySetInnerHTML={{ __html: card.description }}></p>
@@ -62,7 +62,7 @@ const DecodePath = ({ handleNavigateToQuestionnaire }) => {
             </div>
           ))}
         </div>
-
+      </div>
         <button className="decode-path-btn" onClick={handleNavigateToQuestionnaire}>
           See If We're A Fit
         </button>

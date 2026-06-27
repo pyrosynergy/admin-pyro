@@ -102,20 +102,34 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     if (isMobile) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.dataset.index);
-          if (entry.isIntersecting) {
-            setActiveIndex(index);
-          } 
-        });
-      },
-      { rootMargin: '-20% 0px -55% 0px', threshold: 0 }
-    );
+  () => {
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+    const viewportCenter = window.innerHeight * 0.4;
 
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
+    cardRefs.current.forEach((card, index) => {
+      if (!card) return;
+
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(cardCenter - viewportCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
     });
+
+    setActiveIndex(closestIndex);
+  },
+  {
+    threshold: [0, 0.25, 0.5, 0.75, 1],
+  }
+);
+
+cardRefs.current.forEach((card) => {
+  if (card) observer.observe(card);
+});
 
     requestAnimationFrame(computePath);
 
@@ -137,24 +151,24 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
     setActiveIndex(0);
 
     const handleScroll = () => {
-      // Keep step i active until its OWN card's bottom has scrolled past
-      // 30% of the viewport — not until step i+1's circle/top appears.
-      // This gives the user time to read the active card before it
-      // collapses back to its muted state.
-      const trigger = window.innerHeight * 0.30;
-      let next = 0;
-      for (let i = 0; i < cardRefs.current.length; i++) {
-        const card = cardRefs.current[i];
-        if (!card) continue;
-        if (card.getBoundingClientRect().bottom <= trigger) {
-          next = i + 1;
-        } else {
-          break;
-        }
-      }
-      next = Math.min(next, cardRefs.current.length - 1);
-      setActiveIndex(next);
-    };
+  const trigger = window.innerHeight * 0.30;
+  let next = 0;
+
+  for (let i = 0; i < cardRefs.current.length; i++) {
+    const card = cardRefs.current[i];
+    if (!card) continue;
+
+    if (card.getBoundingClientRect().bottom <= trigger) {
+      next = i + 1;
+    } else {
+      break;
+    }
+  }
+
+  next = Math.min(next, cardRefs.current.length - 1);
+  setActiveIndex(next);
+};
+     
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();

@@ -132,7 +132,7 @@
   .flobites-shift-row--reverse {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 0px;
     margin-bottom: 56px;
   }
 

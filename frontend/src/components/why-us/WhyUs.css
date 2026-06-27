@@ -232,13 +232,13 @@
     gap: 55px;
   }
   .whyus-bubble-dot{
-    display: none;
-  }
-  .whyus-bubble-dot-small {
     right: 32px;
     bottom: -22px;
     width: 14px;
     height: 14px;
+  }
+  .why-us-item.right .whyus-bubble-dot-small {
+    display:none;
   }
   .whyus-bubble-dot-small-left {
     left: 32px;

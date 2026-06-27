@@ -101,9 +101,7 @@
     word-break: break-word;
   }
 
-  .flobites-meta-right{
-    padding-bottom: 0;
-  }
+
 
   .flobites-meta-heading {
     font-size: 1.6rem;
@@ -132,7 +130,7 @@
 
   .flobites-meta-left {
     flex: 0 0 32%;
-    padding-left: 30px;
+    padding-left: 10px;
   }
 
   .flobites-meta-heading {

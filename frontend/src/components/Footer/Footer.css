@@ -145,7 +145,7 @@
   width: 100%;
   display: block;
   object-fit: fill;
-  height:120px;
+  height:70px;
   transform: scaleY(1.2);
   transform-origin: bottom;
 }
@@ -232,4 +232,9 @@
     justify-content: space-between;
     padding: 1rem 5rem;
   }
+
+  .footer-vector {
+   height: 120px !important;
+}
+  
 }

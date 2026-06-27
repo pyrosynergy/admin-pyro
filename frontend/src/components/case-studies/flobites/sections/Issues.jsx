@@ -27,7 +27,7 @@ const Issues = () => (
             </div>
             <div className="flobites-issues-shot flobites-issues-shot--framed">
               <img src={issueHeroScreenshot} alt="THE website hero screenshot reading Daily Support Made Simple" />
-              <img src={annotationOne} alt="" className="flobites-issues-annotation" />
+              
             </div>
           </div>
         </div>
@@ -45,7 +45,6 @@ const Issues = () => (
 
             <div className="flobites-issues-shot">
               <img src={issueNewArrivalGrid} alt="New Arrivals product grid screenshot showing FloBites pack of 1 and pack of 6" />
-              <img src={annotationTwo} alt="" className="flobites-issues-annotation" />
             </div>
           </div>
         </div>
