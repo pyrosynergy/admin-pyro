@@ -16,13 +16,21 @@
   padding-right: 60px;
   padding-top: 30px;
   padding-bottom: 20px;
-  
-  /* Safe desktop gutters */
-  
   box-sizing: border-box;
   transition: padding 0.3s ease-in-out;
 }
 
+.top-nav.scrolled {
+  position: fixed;
+  background: rgba(6, 6, 6, 0.6);
+  color: rgba(165, 165, 165, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+}
+
+.top-nav.hidden {
+    transform: translateY(-100%);
+}
 
 
 /* --- Main Navigation Wrapper --- */
@@ -42,7 +50,7 @@
 }
 
 .top-nav .brand-logo-img {
-  height: 28px !important;
+  height: 34px !important;
   width: auto !important;
   display: block;
   margin: 0;
@@ -71,7 +79,7 @@
 
 .nav-links a {
   font-family: "Albert Sans", sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: #fff;
   text-decoration: none;
   transition: color 0.3s ease;

@@ -13,19 +13,27 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
 
   // Random shuffle effect for logos (instant change, no animation)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLogos(prevLogos => {
-        const shuffled = [...prevLogos];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled;
-      });
-    }, 4000); // Shuffle every 4 seconds
+  const interval = setInterval(() => {
+    setLogos(prevLogos => {
+      const updated = [...prevLogos];
 
-    return () => clearInterval(interval);
-  }, []);
+      // Pick two different random indices
+      const first = Math.floor(Math.random() * updated.length);
+      let second = Math.floor(Math.random() * updated.length);
+
+      while (second === first) {
+        second = Math.floor(Math.random() * updated.length);
+      }
+
+      // Swap them
+      [updated[first], updated[second]] = [updated[second], updated[first]];
+
+      return updated;
+    });
+  }, 4000);
+
+  return () => clearInterval(interval);
+}, []);
 
   // Carousel effect for buttons on mobile
   useEffect(() => {

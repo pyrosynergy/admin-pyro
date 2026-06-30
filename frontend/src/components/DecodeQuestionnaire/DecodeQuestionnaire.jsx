@@ -2,19 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './DecodeQuestionnaire.css';
 import logo from '../../assets/Frame 2.svg';
 
-const QNavbar = () => (
-  <nav className="q-navbar">
-    <a href="/" className="q-navbar-brand">
-      <img src={logo} alt="PyroSynergy" className="q-navbar-logo" />
-    </a>
-    <ul className="q-navbar-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/#services">Solutions</a></li>
-      <li><a href="/#faq">FAQs</a></li>
-      <li><a href="/#contact">Contact</a></li>
-    </ul>
-  </nav>
-);
 
 const MIN_CHARS = 20;
 const CALENDAR_LINK = 'https://calendar.google.com/placeholder';
@@ -43,6 +30,7 @@ const DecodeQuestionnaire = () => {
   const [navHistory, setNavHistory] = useState([]);
   const [userName, setUserName] = useState('');
   const [nameInput, setNameInput] = useState('');
+  const [nameError, setNameError] = useState('');
   const [multiSel, setMultiSel] = useState({ q4: [], q4b: [] });
   const [textAnswer, setTextAnswer] = useState('');
   const [emailDirect, setEmailDirect] = useState('');
@@ -139,10 +127,18 @@ const DecodeQuestionnaire = () => {
 
   const openCalendar = () => window.open(CALENDAR_LINK, '_blank');
 
-  const submitName = () => {
-    setUserName(nameInput.trim() || 'there');
-    navigate('q1');
-  };
+ const submitName = () => {
+  const trimmedName = nameInput.trim();
+
+  if (!trimmedName) {
+    setNameError('Please enter a valid name.');
+    return;
+  }
+
+  setNameError('');
+  setUserName(trimmedName);
+  navigate('q1');
+};
 
   const submitEmailCalendar = () => {
     openCalendar();
@@ -228,9 +224,10 @@ const DecodeQuestionnaire = () => {
               Be honest. Your answers shape everything that comes next.
             </p>
             <p className="ds-sub">First, what can we call you?</p>
-            <input ref={nameRef} className="ds-name-input" type="text" placeholder="Enter your name"
-              value={nameInput} onChange={e => setNameInput(e.target.value)}
+            <input ref={nameRef} className={`ds-name-input${nameError ? ' ds-name-input--error' : ''}`} type="text" placeholder="Enter your name"
+              value={nameInput} onChange={e => { setNameInput(e.target.value); if (nameError) setNameError(''); }}
               onKeyDown={e => e.key === 'Enter' && submitName()} />
+            {nameError && <p className="ds-field-error">{nameError}</p>}
             <div className="ds-btn-row">
               <button className="ds-btn ds-btn--primary" onClick={submitName}>let's begin</button>
             </div>
@@ -409,10 +406,12 @@ const DecodeQuestionnaire = () => {
             <span className="ds-emoji">🔥</span>
             <h2 className="ds-outcome-title">You are exactly who we built this for.</h2>
             <p className="ds-outcome-desc">You showed up with honesty. That is rarer than you think.</p>
+            <div className="ds-content-grid">
             <div className="ds-brand-blurb">
               <p>PyroSynergy is a small, empathy-driven agency that helps early-stage founders build the brand, tech, and strategy foundation their idea actually deserves. We do not take every project. We take the right ones.</p>
             </div>
-            <p className="ds-sub" style={{ marginBottom: '20px' }}>Now let us figure out the best way to connect.</p>
+            <div className='ds-right-panel'>
+            <p className="ds-subs" style={{ marginBottom: '20px' }}>Let us figure out the best way to connect.</p>
             <div className="ds-cta-stack">
               <button className="ds-cta-primary" onClick={() => navigate('email_before_calendar')}>
                 Book your discovery call now
@@ -422,6 +421,8 @@ const DecodeQuestionnaire = () => {
                 Reach out to me instead
                 <span className="ds-cta-sub">Fill in your details and we will come to you.</span>
               </button>
+              </div>
+            </div>
             </div>
             <button className="ds-restart-link" onClick={doRestart}>Start over</button>
           </div>
@@ -552,7 +553,6 @@ const DecodeQuestionnaire = () => {
 
   return (
     <section id="questionnaire" className="ds-section">
-      <QNavbar />
       {toast.show && (
         <div className="ds-toast-wrap">
           <div className={`ds-toast ds-toast--${toast.type}`}>{toast.msg}</div>

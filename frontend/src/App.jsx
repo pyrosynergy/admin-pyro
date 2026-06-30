@@ -105,7 +105,7 @@ function App() {
     const isStaging = window.location.hostname.includes('staging') || window.location.hostname.includes('localhost');
     return !isStaging;
   });
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
   const [expandedCardIndex, setExpandedCardIndex] = useState(null); // Add this line
   const navRef = useRef(null);
@@ -119,7 +119,7 @@ function App() {
   // Show header on reality check; hide only on specific pages
   const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites'];
   const is404 = !knownPaths.includes(location.pathname);
-  const hideHeader = ['/welcome', '/decode','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
+  const hideHeader = ['/welcome','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
   const hideFooter = is404 || ['/welcome','/realitycheck', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
 
@@ -225,10 +225,31 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  let lastScrollY = window.scrollY;
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    // Always show at the top of the page
+    if (currentScrollY < 50) {
+      setIsScrolled(true);
+    }
+    // Scrolling UP -> show navbar
+    else if (currentScrollY < lastScrollY) {
+      setIsScrolled(true);
+    }
+    // Scrolling DOWN -> hide navbar
+    else {
+      setIsScrolled(false);
+    }
+
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
 
   // Handle escape key to close expanded card
@@ -247,7 +268,7 @@ function App() {
 
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
-    navigate('/realitycheck');
+    navigate('/decode');
   };
 
   const handleNavigateToHome = () => {

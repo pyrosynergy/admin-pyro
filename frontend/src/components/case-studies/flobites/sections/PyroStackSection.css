@@ -385,10 +385,13 @@
   .flobites-pyros-screen {
     border-radius: 22px 0 0 22px;
     padding: 18px 0 18px 18px;
+    aspect-ratio: auto;
   }
 
   .flobites-pyros-screen img {
     border-radius: 10px 0 0 10px;
+    height:auto;
+    object-fit: contain;
   }
 }
 

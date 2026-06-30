@@ -150,23 +150,26 @@ cardRefs.current.forEach((card) => {
 
     setActiveIndex(0);
 
-    const handleScroll = () => {
-  const trigger = window.innerHeight * 0.30;
-  let next = 0;
+  const handleScroll = () => {
+  const focusPoint = window.innerHeight * 0.4;
 
-  for (let i = 0; i < cardRefs.current.length; i++) {
-    const card = cardRefs.current[i];
-    if (!card) continue;
+  let closestIndex = 0;
+  let closestDistance = Infinity;
 
-    if (card.getBoundingClientRect().bottom <= trigger) {
-      next = i + 1;
-    } else {
-      break;
+  cardRefs.current.forEach((card, index) => {
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(cardCenter - focusPoint);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
     }
-  }
+  });
 
-  next = Math.min(next, cardRefs.current.length - 1);
-  setActiveIndex(next);
+  setActiveIndex(closestIndex);
 };
      
 

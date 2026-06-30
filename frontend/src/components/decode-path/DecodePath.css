@@ -214,9 +214,7 @@
     opacity: 0.4;
   }
 
-  .decode-path-card:not(:last-child) {
-    margin-bottom: 120px;
-  }
+  
 
   .decode-path-card:hover {
     transform: none;

@@ -42,7 +42,7 @@ const Header = ({
   };
 
   return (
-    <header className="top-nav">
+    <header className={`top-nav ${isScrolled ? "scrolled" : ""}`}>
       {/* Logo - clicking goes to home */}
       <a 
         href="#home" 

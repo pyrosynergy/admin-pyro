@@ -1,19 +1,27 @@
 /* ---- Closing CTA bar ---- */
+
 .flobites-cta {
-  width: calc(100% + 48px);
-  margin: 100px 0px -100px 0px;
-  background-color: #07070a;
-  padding: 36px 100px 0px 250px;
+  width: 100%;
+  max-width: 500px;
+  margin: 100px auto 10px auto;
+  background:rgba(255,255,255,0.3);
+  padding: 64px 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  border-radius: 20px;
+  gap:32px;
+  border: 1px solid #d1c0c0;
 }
 
 .flobites-cta-text {
-  color: #ffffff;
-  font-size: 1.05rem;
+  color: #211414;
+  font-size: 1.3rem;
   line-height: 1.5;
+  font-weight: 500;
   margin: 0;
+  text-align: center;
 }
 
 .flobites-cta-btn {
@@ -21,34 +29,34 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #d6bdf5 0%, #9b7fe8 100%);
-  color: #1a1a1a;
+  background: linear-gradient(135deg, #9532ce 0%, #532ab4 30%, #341480 100%);
+  color: white;
   font-size: 1.05rem;
   font-weight: 600;
   text-decoration: none;
   padding: 16px 24px;
   border-radius: 30px;
   white-space: nowrap;
-  margin-right: 200px;
 }
 
 @media (max-width: 900px) {
   .flobites-cta {
     flex-direction: column;
     align-items: center;
-    margin: 60px 0 -105px 0;
-    padding: 28px 24px;
+    margin: 100px 60px 10px 60px;
+    padding: 48px 5px;
     gap: 18px;
+    
   }
 
   .flobites-cta-text{
     padding: 0px 30px;
     text-align: center;
+    font-size: 1.3rem !important;
   }
 
   .flobites-cta-btn {
     align-self:center;
-    margin-right: 20px;
     padding: 14px 24px;
     font-size: 0.95rem;
     

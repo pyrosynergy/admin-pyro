@@ -1,281 +1,254 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
+/* ── Section ── */
 .why-us-section {
   background: linear-gradient(180deg, #fafafe 0%, #f3eef8 50%, #eee8f5 100%);
-  padding: 120px 20px 160px 20px;
+  padding: 120px 40px 100px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Added sans-serif fallback so it NEVER drops back to a serif font */
-  font-family: 'DM Sans', sans-serif; 
+  font-family: 'DM Sans', sans-serif;
   color: #333;
+  position: relative;
 }
 
+.whyus-carousel-wrapper {
+  position: relative;
+  cursor: none;
+}
+
+.whyus-cursor-indicator {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 50;
+  background:none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  font-size: 4rem;
+  color: rgba(25, 24, 24, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Don't show this custom cursor on mobile/touch devices */
+@media (max-width: 600px) {
+  .whyus-dots {
+    cursor: auto;
+  }
+  .whyus-cursor-indicator {
+    display: none;
+  }
+}
+
+/* ── Header ── */
 .why-us-header {
   text-align: center;
-  margin-bottom: 90px;
+  margin-bottom: 70px;
 }
-
 .why-us-header h2 {
   font-size: 3rem;
   font-weight: 400;
-  color: #000000;
+  color: #000;
   margin: 0 0 20px 0;
   line-height: 1.3;
-  letter-spacing: 1%;
-  padding:10px;
 }
 .highlight-text-ps {
-  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+  font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
   letter-spacing: -1.1px;
 }
 .highlight-text {
-  background: linear-gradient(90deg, #d84aee 0%,#af3cc1 20%, #875ceb 45%,#6d49c2 60%, #1c4fbd 80%,#2563e8 100%);
+  background: linear-gradient(90deg, #d84aee 0%, #af3cc1 20%, #875ceb 45%, #6d49c2 60%, #1c4fbd 80%, #2563e8 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
   font-weight: 600;
-  display: inline-block; 
-  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+  display: inline-block;
+  font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
   letter-spacing: -1px;
 }
-
-
 .why-us-subtitle {
-  font-size: 1rem !important;
+  font-size: 1.15rem;
   color: #1e1e1e;
-  margin-top:40px;
-  margin-bottom: -20px;
-  line-height: 1.5;
-}
-
-/* Timeline */
-.why-us-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  width: 100%;
-  max-width: 1100px;
-}
-
-.why-us-item {
-  width: 62%;
-  display: flex;
-  position: relative;
-}
-
-
-.why-us-item.left {
-  align-self: flex-start;
-  justify-content: flex-start;
-}
-
-.why-us-item.right {
-  align-self: flex-end;
-  justify-content: flex-end;
-}
-
-.whyus-bubble-dot {
-  position: absolute;
-  right: 60px;
-  bottom: -40px;
-  width: 36px;
-  height: 36px;
-  pointer-events: none;
-}
-
-.whyus-bubble-dot-small {
-  position: absolute;
-  right: 85px;
-  bottom: -68px;
-  width: 18px;
-  height: 18px;
-  pointer-events: none;
-}
-
-.whyus-bubble-dot-small-left {
-  right: auto;
-  left: 60px;
-  bottom: -30px;
-}
-
-/* Outer bubble — uses the provided PNG/SVG image as background.
-   The image already contains the tail and trailing dot, so we stretch
-   it to fill the container via background-size: 100% 100%.            */
-.whyus-bubble-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Asymmetric padding to visually center content within the bubble BODY
-   (the tail/dot occupy one side of the image, so we offset away from that side). */
-.why-us-item.left .whyus-bubble-container {
-  padding: 60px 70px 100px 60px;
-  background-size: 100% 100%;
-  align-items: flex-start;
-}
-
-.why-us-item.right .whyus-bubble-container {
-  padding: 60px 70px 100px 60px;
-  background-size: 100% 100%;
-}
-
-.why-us-item{
-  width: 72%;
-}
-
-/* Quote text on the outer bubble */
-.whyus-bubble-quote {
-  padding: 0 12px;
-}
-
-.whyus-bubble-quote p {
-  margin: 0;
-  font-size: 1.05rem;
-  color: #1f1f1f;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.5;
-  text-align: center;
-}
-.whyus-bubble-response .highlight-words{
-  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size:1.2rem;
-}
-.why-us-item.left .whyus-bubble-response .highlight-words {
-  color: #d57ded;
-}
-
-.why-us-item.right .whyus-bubble-response .highlight-words {
-  color: #acb5ee;
-}
-/* Inner solid response pill */
-.whyus-bubble-response {
-  border-radius: 60px;
-  padding: 22px 36px;
-  margin: 0 12px;
-  color: #ffffff;
-  font-size: 0.95rem;
-  line-height: 1.55;
-}
-
-
-.why-us-item.left .whyus-bubble-response {
-  background-color: #6d2e7e;
-  text-align: left;
-}
-
-.why-us-item.right .whyus-bubble-response {
-  background-color: #3a4480;
-  text-align: right;
-}
-
-.whyus-bubble-response p {
-  margin: 0;
-}
-
-.whyus-bubble-response strong {
-  font-weight: 700;
-  color: #ffffff;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
- 
-  .why-us-item.right {
-    width: 100%;
-  }
-  .why-us-item.left .whyus-bubble-container {
-    padding: 30px 36px 60px 36px;
-  }
- 
-  .why-us-item.right .whyus-bubble-container {
-    padding: 30px 36px 60px 36px;
-  }
-  .whyus-bubble-response {
-    padding: 18px 26px;
-    margin: 0 6px;
-  }
-  
-}
-
-@media (max-width: 600px) {
-  .why-us-section {
-    padding: 80px 16px 110px 16px;
-  }
-
-  .why-us-header h2 {
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000000;
-  margin: 50px 0 20px 0;
-  line-height: 1.2;
-  letter-spacing: -4%;
-}
-  .why-us-subtitle {
-  font-size: 0.8rem;
-  color: #1e1e1e;
-  margin-top:40px;
-  margin-bottom: -20px;
+  margin-top: 40px;
   line-height: 1.5;
   padding: 0px 20px;
 }
-  
-  .why-us-timeline {
-    gap: 55px;
+
+/* ── Carousel wrapper ── */
+.whyus-carousel-wrapper {
+  width: 100%;
+  max-width: 1200px;
+}
+.whyus-carousel-track {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Chat window ── */
+.whyus-chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+/* ── Chat rows ── */
+.whyus-chat-row {
+  display: flex;
+  width: 100%;
+}
+.whyus-chat-incoming {
+  justify-content: flex-start;
+}
+.whyus-chat-outgoing {
+  justify-content: flex-end;
+}
+
+/* ── Bubbles ── */
+.whyus-bubble {
+  max-width: 50%;
+  padding: 48px 36px;
+  border-radius: 22px;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  position: relative;
+}
+.whyus-bubble p {
+  margin: 0;
+}
+
+/* Question bubble — incoming, left */
+.whyus-bubble-q {
+  border-bottom-left-radius: 5px;
+}
+.q-purple {
+  background: #f0e4fa;
+  color: #3b0f5c;
+}
+.q-blue {
+  background: #e4eafc;
+  color: #0f1f5c;
+}
+
+/* Answer bubble — outgoing, right */
+.whyus-bubble-a {
+  border-bottom-right-radius: 5px;
+  color: #fff;
+}
+.a-purple {
+  background: #7c2d9e;
+}
+.a-blue {
+  background: #3a4480;
+}
+
+/* ── Highlight words ── */
+.hw {
+  font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.hw-p { color: #e8b4ff; }
+.hw-b { color: #b4c4ff; }
+
+/* ── Animations ── */
+@keyframes fromRight {
+  from { opacity: 0; transform: translateX(48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fromLeft {
+  from { opacity: 0; transform: translateX(-48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes outRight {
+  to { opacity: 0; transform: translateX(48px); }
+}
+@keyframes outLeft {
+  to { opacity: 0; transform: translateX(-48px); }
+}
+.phase-out-right { animation: outRight 0.15s ease both; }
+.phase-out-left  { animation: outLeft  0.15s ease both; }
+
+.anim-from-right { animation: fromRight 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-from-left  { animation: fromLeft  0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-from-right,
+  .anim-from-left { animation: none; }
+}
+
+/* ── Progress dots + arrows row ── */
+.whyus-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 100px;
+}
+.whyus-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #c9b8d8;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.25s, transform 0.25s;
+}
+.whyus-dot-active {
+  background: #7c3b9e;
+  transform: scale(1.35);
+}
+
+/* ── Arrow buttons ── */
+.whyus-arrow {
+  background:none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  font-size: 1.5rem;
+  color: rgba(211, 211, 211, 0.95);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: static;
+  transform: none;
+  transition: background 0.2s;
+}
+
+
+.whyus-arrow {
+  display: none;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .whyus-arrow {
+    display: flex;
   }
-  .whyus-bubble-dot{
-    right: 32px;
-    bottom: -22px;
-    width: 14px;
-    height: 14px;
+
+  .why-us-section {
+    cursor: default;
+    pointer-events: auto;
+    padding: 80px 20px 80px 20px;
+    margin-bottom: -1px;
   }
-  .why-us-item.right .whyus-bubble-dot-small {
-    display:none;
+
+  .whyus-carousel-wrapper {
+    min-height: 350px; /* adjust based on your longest card's height */
+    display: flex;
+    align-items: center;
   }
-  .whyus-bubble-dot-small-left {
-    left: 32px;
-    right: auto;
-    bottom: -22px;
-    width: 14px;
-    height: 14px;
-  }
-  
-  /* Force exact equal structural widths on mobile viewports */
-  .why-us-item,
-  .why-us-item.right {
-    width: 100%;
-  }
-  
-  /* Standardize padding across both boxes to give them equal content heights */
-  .why-us-item.left .whyus-bubble-container,
-  .why-us-item.right .whyus-bubble-container {
-    padding: 35px 35px 55px 35px; /* Unified padding balance for text scaling */
-  }
-  
-  .whyus-bubble-response {
-    border-radius: 28px;
-    padding: 16px 20px;
-    margin: 0;
-    text-align: center !important;
-    font-size: 0.7rem;
-  }
-  .highlight-words{
-    font-size: 0.9rem !important;
-  }
-  
-  .whyus-bubble-quote p {
-    font-size: 0.85rem;
-  }
-  
-  .why-us-header h2 {
-    font-size: 1.9rem;
-  }
+  .why-us-header h2 { font-size: 1.9rem; }
+  .why-us-subtitle { font-size: 0.85rem; }
+  .whyus-bubble { max-width: 75%; font-size: 1rem; padding: 28px 18px; }
+  .hw{font-size: 0.95rem !important;}
 }
