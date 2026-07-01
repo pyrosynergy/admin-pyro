@@ -18,6 +18,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
+@font-face {
+    font-family: "Arlette Heavy";
+    src: url("./assets/fonts/arlette-heavy.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 6px; /* Make scrollbar thinner - default is usually 16px */

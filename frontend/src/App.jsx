@@ -43,6 +43,9 @@ import logo3 from "./assets/logo_891.png";
 import logo4 from "./assets/logo_fb_the.png";
 import logo5 from "./assets/logo_brb.png";
 import logo6 from "./assets/logo_viali.png";
+import logo7 from "./assets/THElogopyro.png"; 
+import logo8 from "./assets/jrjplogopyro.png";
+import logo9 from "./assets/vnrlogo.png";
 import service1 from './assets/Thinking face-rafiki.svg';
 import service3 from "./assets/13107135_5143310.svg";
 import service2 from './assets/Kids Studying from Home-rafiki.svg'
@@ -78,7 +81,7 @@ const servicesData = [
 // Data for the animated hero heading
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
-const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6];
+const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
 
 const openCalendarPopup = () => {
   console.log('Opening calendar popup'); // Add for debugging

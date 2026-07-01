@@ -9,30 +9,81 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   const timeoutRef = useRef(null);
   const lastChangeTime = useRef(Date.now());
   const navigate = useNavigate();
-  const [logos, setLogos] = useState(clientLogos);
+  const [logos, setLogos] = useState(() => clientLogos.slice(0, 6));
+  const logosRef = useRef(clientLogos.slice(0, 6));
+
+  useEffect(() => {
+    logosRef.current = logos;
+  }, [logos]);
+
+  const [fadingOut, setFadingOut] = useState([]); // indices currently fading out
+  const [fadingIn, setFadingIn] = useState([]);   // indices currently fading in
 
   // Random shuffle effect for logos (instant change, no animation)
   useEffect(() => {
-  const interval = setInterval(() => {
-    setLogos(prevLogos => {
-      const updated = [...prevLogos];
+  let timeoutId;
+  let cancelled = false;
 
-      // Pick two different random indices
-      const first = Math.floor(Math.random() * updated.length);
-      let second = Math.floor(Math.random() * updated.length);
+  const shuffle = (arr) => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
 
-      while (second === first) {
-        second = Math.floor(Math.random() * updated.length);
-      }
+  const runSwap = () => {
+    if (cancelled) return;
 
-      // Swap them
-      [updated[first], updated[second]] = [updated[second], updated[first]];
+    const currentLogos = logosRef.current;
 
-      return updated;
-    });
-  }, 4000);
+    // logos NOT currently on screen — the bench
+    const bench = clientLogos.filter(logo => !currentLogos.includes(logo));
 
-  return () => clearInterval(interval);
+    // randomly swap 1 or 2, capped by bench size
+    const swapCount = Math.min(Math.random() < 0.5 ? 1 : 2, bench.length);
+    if (swapCount === 0) {
+      timeoutId = setTimeout(runSwap, 3500);
+      return;
+    }
+
+    // pick random slots from the displayed grid
+    const chosenIndices = shuffle(currentLogos.map((_, i) => i)).slice(0, swapCount);
+
+    // pick random incoming logos from bench (no duplicates guaranteed since bench has no current logos)
+    const incoming = shuffle(bench).slice(0, swapCount);
+
+    // Phase 1: fade out the chosen slots
+    setFadingOut(chosenIndices);
+
+    timeoutId = setTimeout(() => {
+      if (cancelled) return;
+
+      // swap in the new logos
+      setLogos(curr => {
+        const updated = [...curr];
+        chosenIndices.forEach((idx, i) => { updated[idx] = incoming[i]; });
+        return updated;
+      });
+      setFadingOut([]);
+      setFadingIn(chosenIndices);
+
+      timeoutId = setTimeout(() => {
+        if (cancelled) return;
+        setFadingIn([]);
+        // next swap only starts after this one is fully done
+        timeoutId = setTimeout(runSwap, 3500);
+      }, 450);
+    }, 450);
+  };
+
+  timeoutId = setTimeout(runSwap, 3500);
+
+  return () => {
+    cancelled = true;
+    clearTimeout(timeoutId);
+  };
 }, []);
 
   // Carousel effect for buttons on mobile
@@ -133,10 +184,12 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
         <div className="client-logos-grid-container">
           {logos.map((logo, idx) => (
             <img
-              key={logo} // Use logo source as key so React properly identifies it
+              key={logo}
               src={logo}
-              alt={`client-logo`}
-              className="client-logo-grid-item"
+              alt="client-logo"
+              className={`client-logo-grid-item
+                ${fadingOut.includes(idx) ? 'logo-fade-out' : ''}
+                ${fadingIn.includes(idx) ? 'logo-fade-in' : ''}`}
             />
           ))}
         </div>
