@@ -109,6 +109,21 @@ const WhyUs = () => {
   const card = cards[activeIndex];
   const isEven = activeIndex % 2 === 0;
 
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = useCallback((e) => {
+  touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+  if (touchStartX.current === null) return;
+  const diff = touchStartX.current - e.changedTouches[0].clientX;
+  if (Math.abs(diff) < 40) return; // ignore tiny taps
+  if (diff > 0) goTo(activeIndexRef.current + 1, 'right'); // swiped left → next
+  else goTo(activeIndexRef.current - 1, 'left'); // swiped right → prev
+  touchStartX.current = null;
+  }, [goTo]);
+
   return (
     <section
       id="services"
@@ -133,6 +148,9 @@ const WhyUs = () => {
         onClick={handleCarouselClick}
         onMouseMove={handleCarouselMouseMove}
         onMouseLeave={handleCarouselMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+
       >
         {hoverSide && (
           <div
