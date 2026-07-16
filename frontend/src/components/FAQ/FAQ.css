@@ -167,6 +167,19 @@
   border-bottom: 1px solid rgba(30, 16, 43, 0.25);
   border-radius: 0;
   box-sizing: border-box;
+  position: relative;
+}
+
+.faq-collapse-strip {
+  position: absolute;
+  top: 78px;
+  right: 0;
+  bottom: 0;
+  width: 72px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .faq-question {
@@ -286,6 +299,11 @@
   .faq-answer {
     padding: 0 80px 24px 28px;
   }
+
+  .faq-collapse-strip {
+    top: 72px;
+    width: 60px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -340,6 +358,11 @@
 
   .faq-answer li {
     line-height: 24px;
+  }
+
+  .faq-collapse-strip {
+    top: 64px;
+    width: 48px;
   }
 
   .faq-blur-1 {
