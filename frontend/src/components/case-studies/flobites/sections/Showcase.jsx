@@ -6,7 +6,7 @@ import devicePhoneMockup from '../../../../assets/flobites/device-phone-mockup.p
 
 const Showcase = () => (
   <div className="flobites-showcase">
-    <h2 className="flobites-showcase-title">FloBites</h2>
+    <h2 className="flobites-showcase-title">FlOBiTeS</h2>
     <div className="flobites-showcase-devices">
       <img src={deviceTabletMockup} alt="Tablet view of the FloBites page showing Why this combination works and Know What You Consume sections" className="flobites-showcase-tablet" />
       <img src={deviceLaptopMockup} alt="Laptop view of the FloBites page showing the Inside a Bite section" className="flobites-showcase-laptop" />

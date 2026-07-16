@@ -6,7 +6,9 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [svgPath, setSvgPath] = useState('');
   const [svgViewBox, setSvgViewBox] = useState('0 0 100 1000');
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 768px)').matches : false
+  );
   const cardRefs = useRef([]);
   const nodeRefs = useRef([]);
   const itemRefs = useRef([]);
@@ -188,73 +190,109 @@ cardRefs.current.forEach((card) => {
           vision intact throughout
         </p>
 
-        <div className="pyrostack-timeline" ref={timelineRef}>
-          <svg
-            className="timeline-line"
-            viewBox={svgViewBox}
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id="pyrostackLineGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="rgba(99, 102, 241, 0.75)" />
-                <stop offset="50%" stopColor="rgba(139, 92, 246, 0.6)" />
-                <stop offset="100%" stopColor="rgba(192, 132, 252, 0.5)" />
-              </linearGradient>
-            </defs>
-            {svgPath && (
-              <path
-                d={svgPath}
-                fill="none"
-                stroke="url(#pyrostackLineGradient)"
-                strokeWidth="2"
-                vectorEffect="non-scaling-stroke"
-              />
-            )}
-          </svg>
-
-          {steps.map((step, index) => (
-            <div
-              className={`timeline-item ${activeIndex === index ? 'is-active' : ''}`}
-              ref={(el) => (itemRefs.current[index] = el)}
-              key={index}
-            >
-              <div className="timeline-node-wrapper">
+        {isMobile ? (
+          <div className="pyrostack-mobile-timeline" ref={timelineRef}>
+            {steps.map((step, index) => (
+              <div
+                className={`mobile-timeline-item ${activeIndex === index ? 'is-active' : ''}`}
+                ref={(el) => (itemRefs.current[index] = el)}
+                key={index}
+              >
                 <div
                   ref={(el) => (nodeRefs.current[index] = el)}
-                  className={`timeline-node ${activeIndex === index ? 'is-active' : ''}`}
+                  className={`mobile-timeline-node ${activeIndex === index ? 'is-active' : ''}`}
                 >
                   <span className="node-number">{step.number}</span>
                 </div>
-              </div>
 
+                <div
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  data-index={index}
+                  className={`mobile-timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+                >
+                  <h3 className="mobile-timeline-card-title">{step.title}</h3>
+                  <div className="mobile-timeline-card-desc-wrap">
+                    <div className="mobile-timeline-card-desc-inner">
+                      <div className="mobile-timeline-card-desc">
+                        {step.content.map((paragraph, itemIndex) => (
+                          <p key={itemIndex}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="pyrostack-timeline" ref={timelineRef}>
+            <svg
+              className="timeline-line"
+              viewBox={svgViewBox}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="pyrostackLineGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(99, 102, 241, 0.75)" />
+                  <stop offset="50%" stopColor="rgba(139, 92, 246, 0.6)" />
+                  <stop offset="100%" stopColor="rgba(192, 132, 252, 0.5)" />
+                </linearGradient>
+              </defs>
+              {svgPath && (
+                <path
+                  d={svgPath}
+                  fill="none"
+                  stroke="url(#pyrostackLineGradient)"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                />
+              )}
+            </svg>
+
+            {steps.map((step, index) => (
               <div
-                ref={(el) => (cardRefs.current[index] = el)}
-                data-index={index}
-                className={`timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+                className={`timeline-item ${activeIndex === index ? 'is-active' : ''}`}
+                ref={(el) => (itemRefs.current[index] = el)}
+                key={index}
               >
-                <div className="card-text-content">
-                  <h3 className="timeline-card-title">{step.title}</h3>
-                  <div className="timeline-card-desc">
-                    {step.content.map((paragraph, itemIndex) => (
-                      <p key={itemIndex}>{paragraph}</p>
-                    ))}
+                <div className="timeline-node-wrapper">
+                  <div
+                    ref={(el) => (nodeRefs.current[index] = el)}
+                    className={`timeline-node ${activeIndex === index ? 'is-active' : ''}`}
+                  >
+                    <span className="node-number">{step.number}</span>
                   </div>
                 </div>
 
-                <div className="timeline-card-bg-element">
-                  {step.isFlame ? (
-                    <div className="flame-icon-wrapper">
-                      <img src={fireIcon} alt="" />
+                <div
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  data-index={index}
+                  className={`timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+                >
+                  <div className="card-text-content">
+                    <h3 className="timeline-card-title">{step.title}</h3>
+                    <div className="timeline-card-desc">
+                      {step.content.map((paragraph, itemIndex) => (
+                        <p key={itemIndex}>{paragraph}</p>
+                      ))}
                     </div>
-                  ) : (
-                    <span className="bg-number">{step.number}</span>
-                  )}
+                  </div>
+
+                  <div className="timeline-card-bg-element">
+                    {step.isFlame ? (
+                      <div className="flame-icon-wrapper">
+                        <img src={fireIcon} alt="" />
+                      </div>
+                    ) : (
+                      <span className="bg-number">{step.number}</span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <button className="pyrostack-btn" onClick={handleNavigateToQuestionnaire}>
           Get Started

@@ -27,8 +27,8 @@
   width: 24px;
   height: 24px;
   font-size: 4rem;
-  color: rgba(234, 226, 226, 0.55);
-  -webkit-text-stroke: 1px rgba(164, 155, 155, 0.25);
+  color:rgba(154, 125, 243);
+  -webkit-text-stroke: 1px rgba(130, 104, 210, 0.5);;
   display: flex;
   align-items: center;
   justify-content: center;
