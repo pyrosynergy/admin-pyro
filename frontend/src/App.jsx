@@ -6,7 +6,6 @@ import "./App.css";
 import Header from "./components/Header/Header.jsx";
 import Hero from "./components/Hero/Hero.jsx";
 import Services from "./components/Services/Services.jsx";
-// import About from "./components/About/About"; // Add this import
 import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
@@ -28,6 +27,12 @@ import CancellationPolicy from "./components/PolicyPages/CancellationPolicy.jsx"
 import TermsAndConditions from "./components/PolicyPages/TermsAndConditions.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
+import Admin from "./components/Admin/Admin.jsx";
+import Verify from "./components/Verify/Verify.jsx";
+
+// Tokenised admin route — not linked from anywhere; /admin itself 404s.
+// Override per deployment with VITE_ADMIN_PATH (must start with "/").
+const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || "/ROrnJSKyI6TTf4q1xnrNWmgd";
 
 // Asset Imports
 import logo1 from "./assets/viali.png";
@@ -107,11 +112,13 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname;
   // Show header on reality check; hide only on specific pages
-  const knownPaths = ['/', '/welcome', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'];
-  const is404 = !knownPaths.includes(location.pathname);
-  const hideHeader = ['/welcome', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
+  const knownPaths = ['/', '/welcome', '/realitycheck', '/decode', ADMIN_PATH, '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'];
+  // /verify/:token is dynamic, so it can't be listed in knownPaths
+  const isVerifyPage = location.pathname.startsWith('/verify/');
+  const is404 = !knownPaths.includes(location.pathname) && !isVerifyPage;
+  const hideHeader = isVerifyPage || ['/welcome', ADMIN_PATH, '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
-  const hideFooter = is404 || ['/welcome', '/realitycheck', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
+  const hideFooter = is404 || isVerifyPage || ['/welcome', '/decode', '/realitycheck', ADMIN_PATH, '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -235,7 +242,7 @@ function App() {
 
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
-    navigate('/realitycheck');
+    navigate('/decode');
   };
 
   const handleNavigateToHome = () => {
@@ -261,7 +268,8 @@ function App() {
           />
         )}
         <Routes>
-          <Route path="/realitycheck" element={<Questionnaire />} />
+          <Route path="/decode" element={<Questionnaire />} />
+          <Route path="/realitycheck" element={<Navigate to="/decode" replace />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/hiring" element={<Hiring />} />
           <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
@@ -277,6 +285,8 @@ function App() {
           <Route path="/policy-pages/refund-policy" element={<RefundPolicy />} />
           <Route path="/policy-pages/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/policy-pages/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path={ADMIN_PATH} element={<Admin />} />
+          <Route path="/verify/:token" element={<Verify />} />
           <Route path="/" element={
             <>
               <Hero 

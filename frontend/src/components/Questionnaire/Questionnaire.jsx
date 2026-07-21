@@ -1,1106 +1,531 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Questionnaire.css';
 
-// Utility function to detect mobile devices
-const isMobileDevice = () => {
-  return (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-    window.innerWidth <= 768
-  );
-};
+const MIN_CHARS = 20;
+const CALENDAR_LINK = 'https://calendar.google.com/placeholder';
 
-// Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    // Normalize base URL (remove trailing slash), then add path with leading slash
-    const rawBase = process.env.NODE_ENV === 'production'
+    const base = (process.env.NODE_ENV === 'production'
       ? 'https://admin-pyro-backend.vercel.app'
-      : 'http://localhost:5000';
-    const API_BASE_URL = rawBase.replace(/\/$/, '');
-    const endpoint = `${API_BASE_URL}/api/questionnaire/submit`;
-
-    const response = await fetch(endpoint, {
+      : 'http://localhost:5000').replace(/\/$/, '');
+    const res = await fetch(`${base}/api/questionnaire/submit`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
     });
-
-    let result;
-    try {
-      result = await response.json();
-    } catch (parseErr) {
-      throw new Error('Invalid JSON response from server');
-    }
-
-    if (!response.ok) {
-      throw new Error(result?.message || `Failed to submit questionnaire (status ${response.status})`);
-    }
+    const result = await res.json();
+    if (!res.ok) throw new Error(result?.message || `Error ${res.status}`);
     return result;
-  } catch (error) {
-    console.error('Error submitting questionnaire:', error);
-    throw error;
+  } catch (err) {
+    console.error('Backend submit error:', err);
+    throw err;
   }
 };
 
-// ThemeAlert component
-const ThemeAlert = ({ message, onClose }) => {
-  return (
-    <div className="alert-overlay">
-      <div className="alert-box">
-        <p className="alert-message">{message}</p>
-        <button onClick={onClose} className="alert-close-button">
-          OK
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// Loading component
-const LoadingScreen = ({ progress }) => {
-  return (
-    <div className="loading-container">
-      <div className="loading-particles">
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-      </div>
-      
-      <div className="loading-visual">
-        <div className="loading-ring"></div>
-        <div className="loading-inner">
-          <div className="loading-percentage">{progress}%</div>
-        </div>
-      </div>
-      
-      <h2 className="loading-title">Calculating Your Score</h2>
-      <p className="loading-subtitle">
-        Analyzing your responses and generating personalized insights...
-      </p>
-      
-      <div className="loading-dots">
-        <div className="loading-dot"></div>
-        <div className="loading-dot"></div>
-        <div className="loading-dot"></div>
-      </div>
-    </div>
-  );
-};
-
-// Main questionnaire component
 const Questionnaire = () => {
-  // FIXED: Clean state declarations
-  const [currentStep, setCurrentStep] = useState(-1);
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [cameFromAnalytics, setCameFromAnalytics] = useState(false); // Add this new state
-  const [formData, setFormData] = useState({
-    name: '', // Add name field
-    businessStage: '',
-    businessStageOther: '',
-    businessChallenge: '',
-    revenueSatisfaction: '',
-    successVision: '',
-    hiringConcern: '',
-    hiringConcernOther: '',
-    visionAlignment: '',
-    onepartnerAppeal: '',
-    improvementTimeline: '',
-    email: ''
-  });
-  const [showAnalytics, setShowAnalytics] = useState(false);
-  const [isCalculating, setIsCalculating] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false); // prevent duplicate submits
-  const [toastMessage, setToastMessage] = useState('');
-  const [showToast, setShowToast] = useState(false);
-  const [toastType, setToastType] = useState('success'); // 'success' | 'error'
+  const [currentId, setCurrentId] = useState('welcome');
+  const [navHistory, setNavHistory] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [multiSel, setMultiSel] = useState({ q4: [], q4b: [] });
+  const [textAnswer, setTextAnswer] = useState('');
+  const [emailDirect, setEmailDirect] = useState('');
+  const [emailA, setEmailA] = useState('');
+  const [linkedinA, setLinkedinA] = useState('');
+  const [reachA, setReachA] = useState('');
+  const [trackBEmail, setTrackBEmail] = useState('');
+  const [trackBRevealed, setTrackBRevealed] = useState(false);
+  const [toast, setToast] = useState({ show: false, msg: '', type: 'success' });
+  const nameRef = useRef(null);
 
-  // Key used for persisting progress between visits
-  const STORAGE_KEY = 'questionnaireProgress';
-
-  // Load saved progress on first mount
+  // Session reset on new tab/browser session
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return; // Nothing saved previously
-      const saved = JSON.parse(raw);
-      if (!saved || typeof saved !== 'object') return;
-
-      // Merge saved form data (keep new fields if added later)
-      if (saved.formData) {
-        setFormData(prev => ({ ...prev, ...saved.formData }));
-      }
-      if (typeof saved.currentStep === 'number') {
-        setCurrentStep(saved.currentStep);
-      }
-      if (saved.showAnalytics) {
-        setShowAnalytics(true);
-      }
-      if (saved.cameFromAnalytics) {
-        setCameFromAnalytics(true);
-      }
-    } catch (e) {
-      console.warn('Failed to restore questionnaire progress', e);
+    const key = 'ps_pipeline_session';
+    if (!sessionStorage.getItem(key)) {
+      sessionStorage.setItem(key, '1');
+      doRestart();
     }
   }, []);
 
-  // Persist progress whenever relevant state changes
+  // Auto-advance verifying screens
   useEffect(() => {
-    try {
-      // Don't persist if user has completed and been reset to welcome
-      const allEmpty = Object.values(formData).every(v => !v || String(v).trim() === '');
-      if (currentStep === -1 && !showAnalytics && allEmpty) {
-        // Nothing meaningful to persist
-        localStorage.removeItem(STORAGE_KEY);
-        return;
-      }
-      const payload = { formData, currentStep, showAnalytics, cameFromAnalytics };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    } catch (e) {
-      console.warn('Failed to save questionnaire progress', e);
+    if (currentId === 'verifying') {
+      const t = setTimeout(() => navigate('outcome_a'), 3200);
+      return () => clearTimeout(t);
     }
-  }, [formData, currentStep, showAnalytics, cameFromAnalytics]);
+    if (currentId === 'verifying_b') {
+      const t = setTimeout(() => navigate('outcome_b_first'), 1800);
+      return () => clearTimeout(t);
+    }
+  }, [currentId]);
 
-  // Reset progress and state
-  const handleReset = () => {
-    console.log('🔁 Restart button clicked — resetting questionnaire');
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    setFormData({
-      name: '',
-      businessStage: '',
-      businessStageOther: '',
-      businessChallenge: '',
-      revenueSatisfaction: '',
-      successVision: '',
-      hiringConcern: '',
-      hiringConcernOther: '',
-      visionAlignment: '',
-      onepartnerAppeal: '',
-      improvementTimeline: '',
-      email: ''
+  useEffect(() => {
+    if (currentId === 'welcome' && nameRef.current) nameRef.current.focus();
+  }, [currentId]);
+
+  const navigate = (id) => {
+    setNavHistory(prev => [...prev, currentId]);
+    setCurrentId(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goBack = () => {
+    setNavHistory(prev => {
+      if (!prev.length) return prev;
+      const copy = [...prev];
+      const prevId = copy.pop();
+      setCurrentId(prevId);
+      return copy;
     });
-    setCurrentStep(-1);
-    setShowAnalytics(false);
-    setCameFromAnalytics(false);
-    setIsAlertVisible(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const questions = [
-    {
-      id: 'businessStage',
-      type: 'button-select',
-      question: 'What stage best describes your business?',
-      required: true,
-      scoring: {
-        maxPoints: 8,
-        weights: {
-          'just-starting': 2,
-          'established-offline': 8,
-          'online-struggling': 6,
-          'growing-well': 8,
-          'other': 4
-        }
-      },
-      options: [
-        { value: 'just-starting', label: 'Just starting out (0-6 months)' },
-        { value: 'established-offline', label: 'Established offline, exploring online' },
-        { value: 'online-struggling', label: 'Online but struggling with growth' },
-        { value: 'growing-well', label: 'Growing well, seeking optimization' },
-        { value: 'other', label: 'Other' }
-      ]
-    },
-    {
-      id: 'businessChallenge',
-      type: 'tag-select',
-      question: 'What\'s your #1 business challenge right now?',
-      placeholder: 'Select challenges that apply to you or add your own',
-      required: true,
-      scoring: {
-        maxPoints: 3,
-        // Scoring logic will be handled in calculateDescriptiveScore function
-      },
-      predefinedTags: [
-        'Not enough customers',
-        'Cash flow issues',
-        'Too many manual processes',
-        'Marketing not working',
-        'Competition pressure',
-        'Team management'
-      ]
-    },
-    {
-      id: 'revenueSatisfaction',
-      type: 'scale',
-      question: 'How satisfied are you with your current monthly revenue?',
-      required: true,
-      scoring: {
-        maxPoints: 12,
-        weights: {
-          '1': 0,
-          '2': 3,
-          '3': 6,
-          '4': 9,
-          '5': 12
-        }
-      },
-      scaleLabels: {
-        1: 'Very unsatisfied',
-        5: 'Very satisfied'
-      }
-    },
-    {
-      id: 'successVision',
-      type: 'tag-select',
-      question: 'What would a successful next 12 months look like for you?',
-      placeholder: 'Select goals that resonate or add your own vision',
-      required: true,
-      scoring: {
-        maxPoints: 3,
-        // Scoring logic will be handled in calculateDescriptiveScore function
-      },
-      predefinedTags: [
-        'Double customer base',
-        'Streamline operations',
-        'Increase revenue by 50%',
-        'Build strong team',
-        'Expand to new markets',
-        'Achieve work-life balance'
-      ]
-    },
-    {
-      id: 'hiringConcern',
-      type: 'button-select',
-      question: 'What\'s your biggest concern about seeking outside help?',
-      required: true,
-      scoring: {
-        maxPoints: 8,
-        weights: {
-          'cost-budget': 4,
-          'not-sure-needs': 6,
-          'quality-results': 8,
-          'trust-communication': 6,
-          'no-concerns': 8,
-          'other': 4
-        }
-      },
-      options: [
-        { value: 'cost-budget', label: 'Cost/budget constraints' },
-        { value: 'not-sure-needs', label: 'Not sure what I actually need' },
-        { value: 'quality-results', label: 'Worried about quality/results' },
-        { value: 'trust-communication', label: 'Trust and communication issues' },
-        { value: 'no-concerns', label: 'No major concerns' },
-        { value: 'other', label: 'Other' }
-      ]
-    },
-    {
-      id: 'visionAlignment',
-      type: 'button-select',
-      question: 'Does your current business operations match your original vision?',
-      required: true,
-      scoring: {
-        maxPoints: 8,
-        weights: {
-          'mostly-aligned': 8,
-          'somewhat-aligned': 6,
-          'not-really': 4,
-          'completely-different': 2
-        }
-      },
-      options: [
-        { value: 'mostly-aligned', label: 'Yes, mostly aligned' },
-        { value: 'somewhat-aligned', label: 'Somewhat aligned' },
-        { value: 'not-really', label: 'Not really aligned' },
-        { value: 'completely-different', label: 'Completely different from vision' }
-      ]
-    },
-    {
-      id: 'onepartnerAppeal',
-      type: 'button-select',
-      question: 'How appealing is having one partner handle multiple business needs?',
-      required: true,
-      scoring: {
-        maxPoints: 10,
-        weights: {
-          'very-appealing': 10,
-          'somewhat-appealing': 7,
-          'not-appealing': 3,
-          'unsure': 5
-        }
-      },
-      options: [
-        { value: 'very-appealing', label: 'Very appealing - I prefer one-stop solutions' },
-        { value: 'somewhat-appealing', label: 'Somewhat appealing - depends on the needs' },
-        { value: 'not-appealing', label: 'Not appealing - I prefer specialists' },
-        { value: 'unsure', label: 'Unsure' }
-      ]
-    },
-    {
-      id: 'improvementTimeline',
-      type: 'button-select',
-      question: 'When do you want to start making improvements?',
-      required: true,
-      scoring: {
-        maxPoints: 10,
-        weights: {
-          'right-away': 10,
-          'soon': 8,
-          'later-this-year': 6,
-          'next-year': 3,
-          'just-exploring': 2
-        }
-      },
-      options: [
-        { value: 'right-away', label: 'Right away (within 1 month)' },
-        { value: 'soon', label: 'Soon (1-3 months)' },
-        { value: 'later-this-year', label: 'Later this year (3-6 months)' },
-        { value: 'next-year', label: 'Next year or later' },
-        { value: 'just-exploring', label: 'Just exploring options' }
-      ]
-    },
-    {
-      id: 'email',
-      type: 'email',
-      question: 'What\'s the best email to send your personalized business insights?',
-      placeholder: 'Enter your email address',
-      required: true
-    }
-  ];
-
-  const currentQuestion = questions[currentStep];
-  const isLastQuestion = currentStep === questions.length - 1;
-
-  const handleInputChange = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      [currentQuestion.id]: value
-    }));
+  const doRestart = () => {
+    setCurrentId('welcome');
+    setNavHistory([]);
+    setUserName('');
+    setNameInput('');
+    setMultiSel({ q4: [], q4b: [] });
+    setTextAnswer('');
+    setEmailDirect('');
+    setEmailA('');
+    setLinkedinA('');
+    setReachA('');
+    setTrackBEmail('');
+    setTrackBRevealed(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleOtherTextChange = (value) => {
-    const otherFieldId = currentQuestion.id + 'Other';
-    setFormData(prev => ({
-      ...prev,
-      [otherFieldId]: value
-    }));
-  };
-  const handleStartWithName = () => {
-    if (!formData.name || formData.name.trim() === '') {
-      setAlertMessage('Please enter your name to continue.');
-      setIsAlertVisible(true);
-      return;
-    }
-    setCurrentStep(0);
+  const toggleMulti = (id, idx) => {
+    setMultiSel(prev => {
+      const arr = [...prev[id]];
+      const pos = arr.indexOf(idx);
+      if (pos === -1) arr.push(idx); else arr.splice(pos, 1);
+      return { ...prev, [id]: arr };
+    });
   };
 
-  const handleNext = async (e) => {
-    e.preventDefault();
-    const value = formData[currentQuestion.id] || '';
-    
-    if (currentQuestion.required && (!value || value.trim() === '')) {
-      setAlertMessage('This question is required. Please provide an answer.');
-      setIsAlertVisible(true);
-      return;
-    }
-    
-    if (currentQuestion.type === 'button-select' && value === 'other') {
-      const otherValue = formData[currentQuestion.id + 'Other'] || '';
-      if (!otherValue || otherValue.trim() === '') {
-        setAlertMessage('Please specify your answer for "Other".');
-        setIsAlertVisible(true);
-        return;
-      }
-    }
-    
-    // If we just finished question 8 (improvementTimeline), show loading then analytics
-    if (currentQuestion.id === 'improvementTimeline') {
-      setIsCalculating(true);
-      
-      // Animate the progress from 0 to 100
-      const animateProgress = () => {
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += Math.random() * 15 + 5; // Random increment between 5-20
-          if (progress >= 100) {
-            progress = 100;
-            setLoadingProgress(progress);
-            clearInterval(interval);
-            
-            // Wait a moment at 100% then show analytics
-            setTimeout(() => {
-              setIsCalculating(false);
-              setLoadingProgress(0);
-              setShowAnalytics(true);
-            }, 800);
-          } else {
-            setLoadingProgress(Math.floor(progress));
-          }
-        }, 200); // Update every 200ms
-      };
-      
-      // Start the animation after a brief delay
-      setTimeout(animateProgress, 300);
-      return;
-    }
-    
-    // If we're on the last question (email), submit the form
-    if (isLastQuestion) {
-      if (isSubmitting) return; // guard
-      try {
-        setIsSubmitting(true);
-        const totalScoreData = calculateTotalScore(formData);
-        const scoreBand = getScoreBand(totalScoreData.totalPercentage);
-        
-        const submissionData = {
-          ...formData,
-          // Total scores
-          totalScore: totalScoreData.totalScore,
-          totalMaxScore: totalScoreData.totalMaxScore,
-          totalPercentage: totalScoreData.totalPercentage,
-          // MCQ scores
-          mcqScore: totalScoreData.mcqScore.score,
-          mcqMaxScore: totalScoreData.mcqScore.maxScore,
-          mcqPercentage: totalScoreData.mcqScore.percentage,
-          // Descriptive scores
-          descriptiveScore: totalScoreData.descriptiveScore.score,
-          descriptiveMaxScore: totalScoreData.descriptiveScore.maxScore,
-          descriptivePercentage: totalScoreData.descriptiveScore.percentage,
-          // Score band
-          scoreBand: scoreBand.zone,
-          scoreLabel: scoreBand.label
-        };
-
-  await submitToBackend(submissionData);
-  // Success toast
-  setToastType('success');
-  setToastMessage(`Insights sent to ${formData.email}`);
-  setShowToast(true);
-  setTimeout(() => setShowToast(false), 4000); // auto-dismiss
-        // Clear stored progress after successful submission
-        localStorage.removeItem(STORAGE_KEY);
-        
-        // Reset form and return to welcome
-        setFormData({
-          name: '', // Add name to reset
-          businessStage: '',
-          businessStageOther: '',
-          businessChallenge: '',
-          revenueSatisfaction: '',
-          successVision: '',
-          hiringConcern: '',
-          hiringConcernOther: '',
-          visionAlignment: '',
-          onepartnerAppeal: '',
-          improvementTimeline: '',
-          email: ''
-        });
-        setCurrentStep(-1);
-        setShowAnalytics(false);
-        setIsSubmitting(false);
-      } catch (error) {
-        // Error toast - show server message if available
-        setToastType('error');
-        setToastMessage('Failed to send insights. Please try again.');
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 6000);
-        setIsSubmitting(false);
-      }
-    } else {
-      setCurrentStep(prev => prev + 1);
-    }
+  const showToast = (msg, type = 'success') => {
+    setToast({ show: true, msg, type });
+    setTimeout(() => setToast(t => ({ ...t, show: false })), 4000);
   };
 
-  // Function to continue from analytics to email
-  const handleContinueFromAnalytics = () => {
-    setShowAnalytics(false);
-    setCameFromAnalytics(true); // Mark that we came from analytics
-    setCurrentStep(questions.length - 1); // Go to email question
+  const openCalendar = () => window.open(CALENDAR_LINK, '_blank');
+
+  const submitName = () => {
+    setUserName(nameInput.trim() || 'there');
+    navigate('q1');
   };
 
-  const handlePrevious = () => {
-    // If we're on the email question and came from analytics, go back to analytics
-    if (isLastQuestion && cameFromAnalytics) {
-      setCameFromAnalytics(false);
-      setShowAnalytics(true);
-      return;
-    }
-    
-    if (currentStep > 0) {
-      setCurrentStep(prev => prev - 1);
-    }
+  const submitQ8 = () => {
+    if (textAnswer.length < MIN_CHARS) return;
+    navigate('verifying');
   };
 
-  // THIS FUNCTION'S FORMATTING IS NOW PRESERVED
-  const renderInput = () => {
-    const value = formData[currentQuestion.id] || '';
-    switch (currentQuestion.type) {
-      case 'text':
+  const submitEmailCalendar = () => {
+    openCalendar();
+    navigate('queue_confirm');
+  };
+
+  const submitContactA = async () => {
+    try {
+      await submitToBackend({ name: userName, email: emailA, linkedin: linkedinA, reach: reachA, path: 'queue' });
+      showToast('Your spot is reserved!');
+    } catch (_) {}
+    navigate('queue_confirm');
+  };
+
+  const submitTrackB = async () => {
+    try {
+      await submitToBackend({ name: userName, email: trackBEmail, path: 'track_b' });
+    } catch (_) {}
+    navigate('outcome_b_confirmed');
+  };
+
+  const canGoBack = navHistory.length > 0;
+  const charLen = textAnswer.length;
+  const q4Sel = multiSel.q4;
+  const q4bSel = multiSel.q4b;
+
+  const ProgressRow = ({ pct, showBack }) => (
+    <div className="ds-progress-row">
+      <button
+        className={`ds-nav-icon${showBack ? '' : ' ds-nav-icon--hidden'}`}
+        onClick={goBack}
+        aria-label="Go back"
+      >←</button>
+      <div className="ds-progress-track">
+        <div className="ds-progress-fill" style={{ width: `${pct}%` }} />
+      </div>
+      <button className="ds-nav-icon" onClick={doRestart} aria-label="Restart">↺</button>
+    </div>
+  );
+
+  const MultiList = ({ id, options, sel }) => (
+    <div className="ds-multi-list">
+      {options.map((label, i) => (
+        <button
+          key={i}
+          className={`ds-multi-option${sel.includes(i) ? ' ds-multi-option--on' : ''}`}
+          onClick={() => toggleMulti(id, i)}
+        >
+          <span className="ds-multi-check">{sel.includes(i) ? '✓' : ''}</span>
+          <span>{label}</span>
+        </button>
+      ))}
+    </div>
+  );
+
+  const renderScreen = () => {
+    switch (currentId) {
+
+      case 'welcome':
         return (
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder={currentQuestion.placeholder}
-            className="question-input"
-            autoFocus={!isMobileDevice()}
-          />
-        );
-      case 'email':
-        return (
-          <input
-            type="email"
-            value={value}
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder={currentQuestion.placeholder}
-            className="question-input"
-            autoFocus={!isMobileDevice()}
-          />
-        );
-      case 'select':
-        return (
-          <select
-            value={value}
-            onChange={(e) => handleInputChange(e.target.value)}
-            className="question-select"
-            autoFocus={!isMobileDevice()}
-          >
-            {currentQuestion.options.map((option, index) => (
-              <option key={index} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        );
-      case 'button-select':
-        const hasOtherOption = currentQuestion.options.some(option => option.value === 'other');
-        const showOtherInput = hasOtherOption && value === 'other';
-        const otherFieldId = currentQuestion.id + 'Other';
-        return (
-          <div className="button-select-container">
-            <div className="button-options">
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => handleInputChange(option.value)}
-                  className={`option-button ${value === option.value ? 'selected' : ''}`}
-                >
-                  {option.label}
-                </button>
-              ))}
+          <div className="ds-card">
+            <h1 className="ds-title ds-title--warm">Welcome to the<br />Empathetic Pipeline</h1>
+            <p className="ds-welcome-label">
+              This is how we get to know you before we ever pitch you anything.<br />
+              Be honest. Your answers shape everything that comes next.
+            </p>
+            <p className="ds-sub">First, what can we call you?</p>
+            <input ref={nameRef} className="ds-name-input" type="text" placeholder="Enter your name"
+              value={nameInput} onChange={e => setNameInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && submitName()} />
+            <div className="ds-btn-row">
+              <button className="ds-btn ds-btn--primary" onClick={submitName}>let's begin</button>
             </div>
-            {showOtherInput && (
-              <div className="other-input-container">
-                <input
-                  type="text"
-                  value={formData[otherFieldId] || ''}
-                  onChange={(e) => handleOtherTextChange(e.target.value)}
-                  placeholder="Please specify..."
-                  className="other-input"
-                  autoFocus={!isMobileDevice()}
-                />
+          </div>
+        );
+
+      case 'q1':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={10} showBack={canGoBack} />
+            <h2 className="ds-title">Where is your business right now?</h2>
+            <p className="ds-sub">Be honest. There is no wrong answer, only the right fit.</p>
+            <div className="ds-grid ds-grid--2col">
+              <button className="ds-option" onClick={() => navigate('exit_prerevenue')}>Pre-revenue</button>
+              <button className="ds-option" onClick={() => navigate('q2')}>Early revenue</button>
+              <button className="ds-option ds-option--wide" onClick={() => navigate('q2')}>Trying to scale</button>
+            </div>
+          </div>
+        );
+
+      case 'q2':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={22} showBack={canGoBack} />
+            <h2 className="ds-title">What is not working the way you imagined?</h2>
+            <p className="ds-sub">Pick the one that hits closest.</p>
+            <div className="ds-grid ds-grid--2col">
+              <button className="ds-option" onClick={() => navigate('q3')}>My brand does not reflect what I actually built</button>
+              <button className="ds-option" onClick={() => navigate('q3')}>People do not understand what I do fast enough</button>
+              <button className="ds-option" onClick={() => navigate('q3')}>Growing but the foundation feels shaky</button>
+              <button className="ds-option ds-option--wide" onClick={() => navigate('q5')}>I just know something is off</button>
+            </div>
+          </div>
+        );
+
+      case 'q3':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={34} showBack={canGoBack} />
+            <h2 className="ds-title">Have you tried to fix this before?</h2>
+            <p className="ds-sub">An agency, a freelancer, an in-house hire, DIY. Anything counts.</p>
+            <div className="ds-grid ds-grid--1col">
+              <button className="ds-option" onClick={() => navigate('q4')}>Yes, and it did not work out</button>
+              <button className="ds-option" onClick={() => navigate('q5')}>Yes, partially, but I hit a wall</button>
+              <button className="ds-option" onClick={() => navigate('q5')}>No, this is my first real attempt</button>
+            </div>
+          </div>
+        );
+
+      case 'q4':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={45} showBack={canGoBack} />
+            <h2 className="ds-title">What do you think went wrong last time?</h2>
+            <p className="ds-sub">Be as honest as you like. Most founders have more than one reason.</p>
+            <p className="ds-hint">Select all that apply</p>
+            <MultiList id="q4" sel={q4Sel} options={[
+              'They did not listen. They just executed what they wanted.',
+              'I could not clearly explain what I needed',
+              'The cost was too high for what we got',
+              'We were just not aligned from the start',
+            ]} />
+            <div className="ds-btn-row">
+              <button className="ds-btn ds-btn--primary" onClick={() => navigate('q4b')} disabled={q4Sel.length === 0}>next</button>
+            </div>
+          </div>
+        );
+
+      case 'q4b':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={54} showBack={canGoBack} />
+            <h2 className="ds-title">What would make you feel confident trying again?</h2>
+            <p className="ds-sub">Think about what that version of working together would actually feel like.</p>
+            <p className="ds-hint">Select all that apply</p>
+            <MultiList id="q4b" sel={q4bSel} options={[
+              'Someone who actually listens before they pitch anything',
+              'A clear process I can see and follow from the start',
+              'Proof that they understand my specific business, not just the category',
+              'A lower barrier to start, so I can trust before committing',
+            ]} />
+            <div className="ds-btn-row">
+              <button className="ds-btn ds-btn--primary" onClick={() => navigate('q5')} disabled={q4bSel.length === 0}>next</button>
+            </div>
+          </div>
+        );
+
+      case 'q5':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={63} showBack={canGoBack} />
+            <h2 className="ds-title">Where do you feel you need the most support right now?</h2>
+            <p className="ds-sub">Not what you are bad at. Just where you feel the gap the most.</p>
+            <div className="ds-grid ds-grid--1col">
+              <button className="ds-option" onClick={() => navigate('q6')}>Telling my story. Brand, positioning, how I show up.</button>
+              <button className="ds-option" onClick={() => navigate('q6')}>The tech and systems side. Building the right infrastructure.</button>
+              <button className="ds-option" onClick={() => navigate('q6')}>Figuring out what the actual problem even is</button>
+              <button className="ds-option" onClick={() => navigate('q6')}>I know what I need. I just need the right people to build it.</button>
+            </div>
+          </div>
+        );
+
+      case 'q6':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={72} showBack={canGoBack} />
+            <h2 className="ds-title">When it comes to moving forward, who makes the call?</h2>
+            <p className="ds-sub">No right answer. This just helps us know who needs to be in the room.</p>
+            <div className="ds-grid ds-grid--1col">
+              <button className="ds-option" onClick={() => navigate('q7a')}>Me. I am the founder and I decide.</button>
+              <button className="ds-option" onClick={() => navigate('q7a')}>Me, but I want a co-founder or partner aligned first</button>
+              <button className="ds-option" onClick={() => navigate('q7b')}>There are stakeholders or investors involved</button>
+            </div>
+          </div>
+        );
+
+      case 'q7a':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={82} showBack={canGoBack} />
+            <h2 className="ds-title">What is your honest timeline on this?</h2>
+            <p className="ds-sub">No pressure either way. Knowing this helps us show up for you properly.</p>
+            <div className="ds-grid ds-grid--1col">
+              <button className="ds-option" onClick={() => navigate('q8')}>Urgent. I need to move in the next few weeks.</button>
+              <button className="ds-option" onClick={() => navigate('q8')}>Soon. Within the next month or two.</button>
+              <button className="ds-option" onClick={() => navigate('verifying_b')}>Just exploring for now</button>
+            </div>
+          </div>
+        );
+
+      case 'q7b':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={82} showBack={canGoBack} />
+            <h2 className="ds-title">Is there a timeline you are working toward?</h2>
+            <p className="ds-sub">A launch, a funding round, a pivot. Something that makes this real.</p>
+            <div className="ds-grid ds-grid--1col">
+              <button className="ds-option" onClick={() => navigate('q8')}>Yes. There is a hard deadline coming.</button>
+              <button className="ds-option" onClick={() => navigate('q8')}>No hard date, but I feel the internal urgency</button>
+              <button className="ds-option" onClick={() => navigate('verifying_b')}>No urgency right now. Still exploring.</button>
+            </div>
+          </div>
+        );
+
+      case 'q8': {
+        const isOk = charLen >= MIN_CHARS;
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={92} showBack={canGoBack} />
+            <h2 className="ds-title">Last one. What made you fill this in today instead of closing the tab?</h2>
+            <p className="ds-sub">Be honest. This tells us more than everything else combined.</p>
+            <textarea className="ds-textarea" placeholder="There is no right answer here. Just tell us what is true."
+              value={textAnswer} onChange={e => setTextAnswer(e.target.value)} />
+            <p className={`ds-char-count${isOk ? ' ds-char-count--ok' : ''}`}>
+              {isOk ? `${charLen} characters` : `${charLen} / ${MIN_CHARS} minimum`}
+            </p>
+            <p className="ds-insight-note">"The more honestly you fill this in, the more we can help you before we even speak."</p>
+            <div className="ds-btn-row">
+              <button className="ds-btn ds-btn--primary" onClick={submitQ8} disabled={!isOk}>next</button>
+            </div>
+          </div>
+        );
+      }
+
+      case 'verifying':
+      case 'verifying_b':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={96} showBack={false} />
+            <div className="ds-verify-wrap">
+              <div className="ds-spinner" />
+              <p className="ds-verify-text">Reviewing your answers...</p>
+              <div className="ds-dots"><span /><span /><span /></div>
+            </div>
+          </div>
+        );
+
+      case 'outcome_a':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={100} showBack={false} />
+            <span className="ds-emoji">🔥</span>
+            <h2 className="ds-outcome-title">You are exactly who we built this for.</h2>
+            <p className="ds-outcome-desc">You showed up with honesty. That is rarer than you think.</p>
+            <div className="ds-brand-blurb">
+              <p>PyroSynergy is a small, empathy-driven agency that helps early-stage founders build the brand, tech, and strategy foundation their idea actually deserves. We do not take every project. We take the right ones.</p>
+            </div>
+            <p className="ds-sub" style={{ marginBottom: '20px' }}>Now let us figure out the best way to connect.</p>
+            <div className="ds-cta-stack">
+              <button className="ds-cta-primary" onClick={() => navigate('email_before_calendar')}>
+                Book your discovery call now
+                <span className="ds-cta-sub">Pick a time that works for you. Instant confirmation.</span>
+              </button>
+              <button className="ds-cta-secondary" onClick={() => navigate('contact_a')}>
+                Reach out to me instead
+                <span className="ds-cta-sub">Fill in your details and we will come to you.</span>
+              </button>
+            </div>
+            <button className="ds-restart-link" onClick={doRestart}>Start over</button>
+          </div>
+        );
+
+      case 'email_before_calendar':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={99} showBack={canGoBack} />
+            <span className="ds-emoji" style={{ fontSize: '36px' }}>📅</span>
+            <h2 className="ds-title">One last thing before we open your calendar.</h2>
+            <p className="ds-sub">Drop your email so we have a way to follow up in case anything comes up.</p>
+            <div className="ds-field-group">
+              <label className="ds-field-label" htmlFor="emailDirect">Email address</label>
+              <input className="ds-field-input" id="emailDirect" type="email" placeholder="you@example.com"
+                value={emailDirect} onChange={e => setEmailDirect(e.target.value)} />
+            </div>
+            <p className="ds-privacy">We will only use this to confirm your booking and follow up once. That is it.</p>
+            <hr className="ds-divider" />
+            <button className="ds-cta-calendar" onClick={submitEmailCalendar}>
+              Take me to the calendar
+              <span className="ds-cta-sub">Opens in a new tab</span>
+            </button>
+          </div>
+        );
+
+      case 'contact_a':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={98} showBack={canGoBack} />
+            <h2 className="ds-title">Where should we reach you?</h2>
+            <p className="ds-sub">We will be in touch within 24 to 48 hours to confirm your spot.</p>
+            <div className="ds-field-group">
+              <label className="ds-field-label" htmlFor="emailA">Email address</label>
+              <input className="ds-field-input" id="emailA" type="email" placeholder="you@example.com"
+                value={emailA} onChange={e => setEmailA(e.target.value)} />
+            </div>
+            <div className="ds-field-group">
+              <label className="ds-field-label" htmlFor="linkedinA">LinkedIn profile URL</label>
+              <input className="ds-field-input" id="linkedinA" type="text" placeholder="linkedin.com/in/yourname"
+                value={linkedinA} onChange={e => setLinkedinA(e.target.value)} />
+            </div>
+            <div className="ds-field-group">
+              <label className="ds-field-label" htmlFor="reachA">Best way to reach you</label>
+              <input className="ds-field-input" id="reachA" type="text" placeholder="e.g. WhatsApp, morning calls, your time zone"
+                value={reachA} onChange={e => setReachA(e.target.value)} />
+            </div>
+            <p className="ds-privacy">Your details are only used to follow up on this conversation. We do not share them.</p>
+            <hr className="ds-divider" />
+            <div className="ds-btn-row">
+              <button className="ds-btn-reserve" onClick={submitContactA}>Reserve my spot</button>
+            </div>
+          </div>
+        );
+
+      case 'queue_confirm':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={100} showBack={false} />
+            <span className="ds-emoji">✅</span>
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <span className="ds-slots-badge"><span className="ds-slots-dot" /> Limited slots this week</span>
+            </div>
+            <h2 className="ds-outcome-title">Your spot is reserved.</h2>
+            <p className="ds-outcome-desc">
+              We are reviewing your answers personally and will reach out within 24 to 48 hours.<br /><br />
+              <strong style={{ color: '#fff' }}>Discovery slots this week are limited.</strong> We prioritise the founders whose answers show the clearest readiness.
+            </p>
+            <button className="ds-restart-link" onClick={doRestart}>Start over</button>
+          </div>
+        );
+
+      case 'outcome_b_first':
+        return (
+          <div className="ds-card">
+            <ProgressRow pct={100} showBack={false} />
+            <span className="ds-emoji">⏳</span>
+            <h2 className="ds-outcome-title">You are not ready to move yet. And that is okay.</h2>
+            <p className="ds-outcome-desc">
+              We would rather you come in when it is right than rush something that matters.<br /><br />
+              We have put together one honest, no-fluff resource on building a brand foundation that actually holds. No pitch. No follow-up sequence. Just something useful.
+            </p>
+            {!trackBRevealed ? (
+              <button className="ds-btn-track-b" onClick={() => setTrackBRevealed(true)}>Send me the resource</button>
+            ) : (
+              <div className="ds-reveal">
+                <div className="ds-field-group">
+                  <label className="ds-field-label" htmlFor="emailB">Your email address</label>
+                  <input className="ds-field-input" id="emailB" type="email" placeholder="you@example.com"
+                    value={trackBEmail} onChange={e => setTrackBEmail(e.target.value)} />
+                </div>
+                <button className="ds-btn-track-b" onClick={submitTrackB}>Send it over</button>
               </div>
             )}
+            <button className="ds-restart-link" onClick={doRestart}>Start over</button>
           </div>
         );
-      case 'scale':
+
+      case 'outcome_b_confirmed':
         return (
-          <div className="scale-container">
-            <div className="scale-labels">
-              <span className="scale-label-left">{currentQuestion.scaleLabels[1]}</span>
-              <span className="scale-label-right">{currentQuestion.scaleLabels[5]}</span>
-            </div>
-            <div className="scale-options">
-              {[1, 2, 3, 4, 5].map((scaleValue) => (
-                <label key={scaleValue} className="scale-option">
-                  <input
-                    type="radio"
-                    name={currentQuestion.id}
-                    value={scaleValue}
-                    checked={value == scaleValue}
-                    onChange={(e) => handleInputChange(e.target.value)}
-                  />
-                  <span className="scale-number">{scaleValue}</span>
-                </label>
-              ))}
-            </div>
+          <div className="ds-card">
+            <ProgressRow pct={100} showBack={false} />
+            <span className="ds-emoji">📬</span>
+            <h2 className="ds-outcome-title">It is on its way.</h2>
+            <p className="ds-outcome-desc">Check your inbox. When the timing shifts and you are ready to move, you will know where to find us.</p>
+            <button className="ds-restart-link" onClick={doRestart}>Start over</button>
           </div>
         );
-      case 'tag-select':
-        const selectedTags = value ? value.split(',').filter(tag => tag.trim()) : [];
+
+      case 'exit_prerevenue':
         return (
-          <div className="tag-select-container">
-            <div className="predefined-tags">
-              {currentQuestion.predefinedTags.map((tag, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => handleTagToggle(tag)}
-                  className={`tag-button ${selectedTags.includes(tag) ? 'selected' : ''}`}
-                >
-                  {tag}
-                  {selectedTags.includes(tag) && (
-                    <span className="tag-remove">×</span>
-                  )}
-                </button>
-              ))}
-            </div>
-            <div className="selected-tags">
-              {selectedTags.map((tag, index) => (
-                !currentQuestion.predefinedTags.includes(tag) && (
-                  <div key={index} className="custom-tag">
-                    {tag}
-                    <button
-                      type="button"
-                      onClick={() => handleTagRemove(tag)}
-                      className="tag-remove-btn"
-                    >
-                      ×
-                    </button>
-                  </div>
-                )
-              ))}
-            </div>
-            <input
-              type="text"
-              placeholder={currentQuestion.placeholder}
-              className="tag-input"
-              onKeyPress={(e) => handleTagInput(e)}
-              autoFocus={!isMobileDevice()}
-            />
+          <div className="ds-card">
+            <ProgressRow pct={100} showBack={false} />
+            <span className="ds-emoji">🌱</span>
+            <h2 className="ds-outcome-title">You are building something real. We are just not the right fit yet.</h2>
+            <p className="ds-outcome-desc">
+              PyroSynergy works best when there is already early traction and a paying customer or two. Right now, your energy belongs on validating the idea. Come back when that moment arrives. We will be here.
+            </p>
+            <p className="ds-privacy" style={{ marginBottom: '16px' }}>Bookmark this page. When you are ready, just fill it in again.</p>
+            <button className="ds-restart-link" onClick={doRestart}>Start over</button>
           </div>
         );
+
       default:
         return null;
     }
   };
 
-  const handleTagToggle = (tag) => {
-    const currentValue = formData[currentQuestion.id] || '';
-    const selectedTags = currentValue ? currentValue.split(',').filter(t => t.trim()) : [];
-    if (selectedTags.includes(tag)) {
-      // Remove tag
-      const newTags = selectedTags.filter(t => t !== tag);
-      setFormData(prev => ({
-        ...prev,
-        [currentQuestion.id]: newTags.join(',')
-      }));
-    } else {
-      // Add tag
-      const newTags = [...selectedTags, tag];
-      setFormData(prev => ({
-        ...prev,
-        [currentQuestion.id]: newTags.join(',')
-      }));
-    }
-  };
-
-  const handleTagRemove = (tagToRemove) => {
-    const currentValue = formData[currentQuestion.id] || '';
-    const selectedTags = currentValue ? currentValue.split(',').filter(t => t.trim()) : [];
-    const newTags = selectedTags.filter(tag => tag !== tagToRemove);
-    setFormData(prev => ({
-      ...prev,
-      [currentQuestion.id]: newTags.join(',')
-    }));
-  };
-
-  const handleTagInput = (e) => {
-    if (e.key === 'Enter' && e.target.value.trim()) {
-      e.preventDefault();
-      const newTag = e.target.value.trim();
-      const currentValue = formData[currentQuestion.id] || '';
-      const selectedTags = currentValue ? currentValue.split(',').filter(t => t.trim()) : [];
-      if (!selectedTags.includes(newTag)) {
-        const newTags = [...selectedTags, newTag];
-        setFormData(prev => ({
-          ...prev,
-          [currentQuestion.id]: newTags.join(',')
-        }));
-      }
-      e.target.value = '';
-    }
-  };
-
-  // Update the existing calculateMCQScore function
-  const calculateMCQScore = (formData) => {
-    let totalScore = 0;
-    let maxPossibleScore = 0;
-
-    questions.forEach(question => {
-      // Only calculate MCQ scores (exclude tag-select questions)
-      if (question.scoring && question.type !== 'tag-select' && formData[question.id]) {
-        const userAnswer = formData[question.id];
-        const questionScore = question.scoring.weights[userAnswer] || 0;
-        
-        totalScore += questionScore;
-        maxPossibleScore += question.scoring.maxPoints;
-      }
-    });
-
-    return {
-      score: totalScore,
-      maxScore: maxPossibleScore,
-      percentage: maxPossibleScore > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0
-    };
-  };
-
-  // Add new function to calculate total combined score
-  const calculateTotalScore = (formData) => {
-    const mcqScore = calculateMCQScore(formData);
-    const descriptiveScore = calculateDescriptiveScore(formData);
-    
-    const totalScore = mcqScore.score + descriptiveScore.score;
-    const totalMaxScore = mcqScore.maxScore + descriptiveScore.maxScore;
-    const totalPercentage = totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0;
-    
-    return {
-      totalScore,
-      totalMaxScore,
-      totalPercentage,
-      mcqScore,
-      descriptiveScore
-    };
-  };
-
-  // Add this new function after calculateMCQScore
-  const calculateDescriptiveScore = (formData) => {
-    let totalScore = 0;
-    let maxPossibleScore = 0;
-
-    const descriptiveQuestions = ['businessChallenge', 'successVision'];
-    
-    descriptiveQuestions.forEach(questionId => {
-      const userAnswer = formData[questionId] || '';
-      const selectedTags = userAnswer ? userAnswer.split(',').filter(tag => tag.trim()) : [];
-      
-      // Find the question definition to get predefined tags
-      const questionDef = questions.find(q => q.id === questionId);
-      if (!questionDef || !questionDef.predefinedTags) return;
-      
-      let questionScore = 0;
-      const maxQuestionScore = 3;
-      
-      // Check for predefined tags (1 point)
-      const hasPredefinedTag = selectedTags.some(tag => 
-        questionDef.predefinedTags.includes(tag)
-      );
-      
-      // Check for custom descriptions (2 points)
-      const hasCustomDescription = selectedTags.some(tag => 
-        !questionDef.predefinedTags.includes(tag) && tag.trim().length > 0
-      );
-      
-      // Calculate score based on combination
-      if (hasPredefinedTag && hasCustomDescription) {
-        questionScore = 3; // Both predefined tag + custom description
-      } else if (hasCustomDescription) {
-        questionScore = 2; // Only custom description
-      } else if (hasPredefinedTag) {
-        questionScore = 1; // Only predefined tag
-      } else {
-        questionScore = 0; // No meaningful input
-      }
-      
-      totalScore += questionScore;
-      maxPossibleScore += maxQuestionScore;
-    });
-
-    return {
-      score: totalScore,
-      maxScore: maxPossibleScore,
-      percentage: maxPossibleScore > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0
-    };
-  };
-
-  const getScoreBand = (percentage) => {
-    if (percentage >= 70) {
-      return {
-        zone: 'green',
-        label: 'Strong Foundation',
-        description: 'Ready to optimize and scale',
-        color: '#10B981'
-      };
-    } else if (percentage >= 40) {
-      return {
-        zone: 'yellow',
-        label: 'Room for Improvement',
-        description: 'Good potential with focused effort',
-        color: '#F59E0B'
-      };
-    } else {
-      return {
-        zone: 'red',
-        label: 'Needs Immediate Attention',
-        description: 'Significant opportunities for growth',
-        color: '#EF4444'
-      };
-    }
-  };
-
-  const AnalyticsSection = ({ formData, onContinue }) => {
-    const totalScoreData = calculateTotalScore(formData);
-    const scoreBand = getScoreBand(totalScoreData.totalPercentage);
-    
-    return (
-      <div className="analytics-container">
-        <div className="analytics-header">
-          <h2 className="analytics-title">Your Business Readiness Analysis</h2>
-          <p className="analytics-subtitle">
-            Based on your responses, here's what we discovered about your business
-          </p>
-        </div>
-
-        {/* Main content grid for side-by-side layout */}
-        <div className="analytics-main-content">
-          {/* Score Display Section - SIMPLIFIED */}
-          <div className="score-display">
-            <div className="score-circle-container">
-              <div className={`score-circle ${scoreBand.zone}`}>
-                <div className="score-percentage">
-                  {totalScoreData.totalPercentage}%
-                </div>
-                <div className="score-label">
-                  Business Readiness
-                </div>
-              </div>
-            </div>
-            
-            <div className="score-details">
-              <div className={`score-band ${scoreBand.zone}`}>
-                <h3 className="band-label">{scoreBand.label}</h3>
-                <p className="band-description">{scoreBand.description}</p>
-              </div>
-              
-              {/* REMOVED: Score breakdown section */}
-              {/* 
-              <div className="score-breakdown">
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Assessment Questions:</span>
-                  <span className="breakdown-score">{totalScoreData.mcqScore.score}/{totalScoreData.mcqScore.maxScore}</span>
-                </div>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Challenges & Vision:</span>
-                  <span className="breakdown-score">{totalScoreData.descriptiveScore.score}/{totalScoreData.descriptiveScore.maxScore}</span>
-                </div>
-                <div className="breakdown-item total">
-                  <span className="breakdown-label">Total Score:</span>
-                  <span className="breakdown-score">{totalScoreData.totalScore}/{totalScoreData.totalMaxScore}</span>
-                </div>
-              </div>
-              */}
-            </div>
-          </div>
-
-          {/* Insights Section */}
-          <div className="insights-section">
-            <h3 className="insights-title">Key Insights & Recommendations</h3>
-            <div className="insights-content">
-              {scoreBand.zone === 'green' && (
-                <div className="insight-item">
-                  <div className="insight-icon">🚀</div>
-                  <div className="insight-text">
-                    <h4>Ready for Growth</h4>
-                    <p>Your business shows strong fundamentals. You're positioned well for scaling and optimization initiatives.</p>
-                  </div>
-                </div>
-              )}
-              
-              {scoreBand.zone === 'yellow' && (
-                <div className="insight-item">
-                  <div className="insight-icon">⚡</div>
-                  <div className="insight-text">
-                    <h4>Growth Potential Identified</h4>
-                    <p>You have solid foundations with specific areas for improvement. Focused strategies could unlock significant growth.</p>
-                  </div>
-                </div>
-              )}
-              
-              {scoreBand.zone === 'red' && (
-                <div className="insight-item">
-                  <div className="insight-icon">🎯</div>
-                  <div className="insight-text">
-                    <h4>High-Impact Opportunities</h4>
-                    <p>Your business has tremendous potential for transformation. Strategic changes could yield dramatic improvements.</p>
-                  </div>
-                </div>
-              )}
-              
-              <div className="insight-item">
-                <div className="insight-icon">📊</div>
-                <div className="insight-text">
-                  <h4>Personalized Action Plan</h4>
-                  <p>We'll send you a detailed analysis with specific, actionable recommendations tailored to your responses.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Continue Button - spans both columns */}
-          <div className="analytics-actions">
-            <button
-              onClick={onContinue}
-              className="continue-analysis-btn"
-            >
-              Get My Detailed Report
-              <span className="btn-arrow">→</span>
-            </button>
-            <p className="privacy-note">
-              We'll send your personalized insights to your email - no spam, just value.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const handleStart = () => {
-    setCurrentStep(0);
-  };
-
-  const closeAlert = () => {
-    setIsAlertVisible(false);
-  };
-
-  // Show loading screen
-  if (isCalculating) {
-    return (
-      <section id="questionnaire" className="questionnaire-section">
-        <div className="questionnaire-container">
-          <LoadingScreen progress={loadingProgress} />
-        </div>
-      </section>
-    );
-  }
-
-  // Show analytics section
-  if (showAnalytics) {
-    return (
-      <section id="questionnaire" className="questionnaire-section">
-        <div className="questionnaire-container">
-          {showToast && (
-            <div className="toast-container">
-              <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
-            </div>
-          )}
-          <AnalyticsSection
-            formData={formData}
-            onContinue={handleContinueFromAnalytics}
-          />
-        </div>
-      </section>
-    );
-  }
-
-  // Main questionnaire section
   return (
-    <section id="questionnaire" className="questionnaire-section">
-      {isAlertVisible && <ThemeAlert message={alertMessage} onClose={() => setIsAlertVisible(false)} />}
-      <div className="questionnaire-container">
-        {showToast && (
-          <div className="toast-container">
-            <div className={`toast ${toastType === 'success' ? 'toast-success' : 'toast-error'}`}>{toastMessage}</div>
-          </div>
-        )}
-        {/* Welcome screen logic */} 
-        {currentStep === -1 ? (
-          <div className="welcome-container">
-            <h1 className="welcome-title">Welcome to the PyroReality Check!</h1>
-            <p className="welcome-description">
-              This quick 3-minute check-up helps us understand your business. Be honest—your answers provide the insights we need to tailor the perfect growth strategy for you.
-            </p>
-            
-            {/* Add name input field */}
-            <div className="name-input-container">
-              <label htmlFor="welcomeName" className="name-label">First, what can we call you?</label>
-              <div className="input-wrapper">
-                <input
-                  id="welcomeName"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Enter your name"
-                  className="welcome-name-input"
-                  autoFocus={!isMobileDevice()}
-                />
-              </div>
-            </div>
-            
-            <button
-              onClick={handleStartWithName}
-              className={`start-button ${!formData.name.trim() ? 'disabled' : ''}`}
-              disabled={!formData.name.trim()}
-            >
-              Let's Begin
-            </button>
-          </div>
-        ): (
-          <>
-            <div className={`progress-wrapper ${!isLastQuestion ? 'has-restart' : 'no-restart'}`}>
-              {/* Restart icon positioned to the left of the bar without affecting its width */}
-              {!isLastQuestion && (
-                <div><button
-                  type="button"
-                  onClick={handleReset}
-                  className="icon-button restart-button progress-restart-btn"
-                  aria-label="Restart questionnaire"
-                  title="Restart"
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M20 12a8 8 0 1 1-2.343-5.657" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M20 4v6h-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button></div>
-              )}
-              <div className="progress-container">
-                <div className="progress-bar">
-                  <div 
-                    className="progress-fill"
-                    style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-                  ></div>
-                </div>
-                {/* Only show progress text if it's not the last step */}
-                {!isLastQuestion && (
-                  <span className="progress-text">
-                    Question {currentStep + 1} of {questions.length - 1}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="questionnaire-header">
-              <h1 className="questionnaire-title">
-                {currentQuestion.question}
-              </h1>
-            </div>
-            <form className="questionnaire-form" onSubmit={handleNext}>
-              <div className="question-container">
-                {renderInput()}
-              </div>
-              <div className="navigation-buttons">
-                {currentStep > 0 && (
-                  <button
-                    type="button"
-                    onClick={handlePrevious}
-                    className="nav-button prev-button"
-                  >
-                    ← Previous
-                  </button>
-                )}
-                <button
-                  type="submit"
-                  className={`nav-button next-button ${isSubmitting && isLastQuestion ? 'submitting' : ''}`}
-                  disabled={isSubmitting && isLastQuestion}
-                >
-                  {isLastQuestion ? (isSubmitting ? 'Sending…' : 'Submit') : 'Next →'}
-                </button>
-              </div>
-            </form>
-          </>
-        )}
+    <section id="questionnaire" className="ds-section">
+      {toast.show && (
+        <div className="ds-toast-wrap">
+          <div className={`ds-toast ds-toast--${toast.type}`}>{toast.msg}</div>
+        </div>
+      )}
+      <div className="ds-shell">
+        {renderScreen()}
       </div>
     </section>
   );
