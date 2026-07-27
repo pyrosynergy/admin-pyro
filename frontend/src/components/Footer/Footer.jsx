@@ -39,7 +39,7 @@ const Footer = ({ openCalendarPopup }) => {
         <div className="footer-brand">
           <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
           <p className="footer-desc">
-            We build empathetic growth systems for early-stage startups and businesses, right from initial strategy to end-to-end execution via branding, tech, and AI.
+            Partnering with founders, startups, and businesses to build their growth systems.
           </p>
         </div>
 

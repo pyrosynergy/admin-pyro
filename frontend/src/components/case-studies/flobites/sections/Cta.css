@@ -18,12 +18,16 @@
   flex: 1;
   max-width: 520px;
 
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1.4;
   font-weight: 500;
 
   margin: 0;
   text-align: left;
+}
+.flobites-cta-text-accent {
+  font-weight: 500;
+  font-size: 1.75rem;
 }
 
 .flobites-cta-btn {
@@ -37,7 +41,7 @@
   font-weight: 600;
   text-decoration: none;
   padding: 32px 48px;
-  border-radius: 36px;
+  border-radius: 48px;
   white-space: nowrap;
    flex-shrink: 0;
 }

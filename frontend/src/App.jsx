@@ -32,6 +32,8 @@ import Founder from "./components/Founder/Founder.jsx";
 import DecodePath from "./components/decode-path/DecodePath.jsx";
 import PyroStack from "./components/pyrostack/PyroStack.jsx";
 import Testimonials from "./components/testimonials/Testimonials.jsx";
+import Banner from "./components/banner/banner.jsx";
+import EmpathyBanner from "./components/EmpathyBanner/EmpathyBanner.jsx";
 import WhyUs from "./components/why-us/WhyUs.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import Flobites from "./components/case-studies/flobites/Flobites.jsx";
@@ -46,6 +48,7 @@ import logo6 from "./assets/logo_viali.png";
 import logo7 from "./assets/THElogopyro.png"; 
 import logo8 from "./assets/jrjplogopyro.png";
 import logo9 from "./assets/vnrlogo.png";
+import logo10 from "./assets/logo_tog.png";
 import service1 from './assets/Thinking face-rafiki.svg';
 import service3 from "./assets/13107135_5143310.svg";
 import service2 from './assets/Kids Studying from Home-rafiki.svg'
@@ -81,7 +84,7 @@ const servicesData = [
 // Data for the animated hero heading
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
-const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
+const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
 
 const openCalendarPopup = () => {
   console.log('Opening calendar popup'); // Add for debugging
@@ -318,21 +321,25 @@ function App() {
           <Route path="/case-studies/flobites" element={<Flobites />} />
           <Route path="/" element={
             <>
-              <Hero 
+              <Hero
                 highlightedWords={highlightedWords}
                 highlightedIndex={highlightedIndex}
                 clientLogos={clientLogos}
                 openCalendarPopup={openCalendarPopup}
-                handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
               />
   
               <WhyUs />
               <Testimonials />
-              <PyroStack handleNavigateToQuestionnaire={handleNavigateToQuestionnaire} />
-              <DecodePath handleNavigateToQuestionnaire={handleNavigateToQuestionnaire} />
-              <Founder />
-              <FAQ openCalendarPopup={openCalendarPopup} />
+              <Banner />
 
+              <PyroStack
+                openCalendarPopup={openCalendarPopup}
+                handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
+              />        
+              <Founder />
+              <EmpathyBanner />
+              <FAQ openCalendarPopup={openCalendarPopup} />
+              
               <Contact />
             </>
           } />

@@ -12,17 +12,16 @@ const Issues = () => (
 
     <div className="flobites-issues-core">
       <div className="flobites-issues-inner">
-        <h2 className="flobites-issues-title">Uncovering the Issues</h2>
+        <h2 className="flobites-issues-title">Uncovering challenges users faced</h2>
 
         <div className="flobites-issues-item flobites-issues-item--one">
           <span className="flobites-issues-number flobites-issues-number--left">One</span>
           <div className="flobites-issues-card">
             <div className="flobites-issues-note">
               <p>
-                The <strong>THE</strong> and FloBites are both{' '}
-                <strong>combined into a single page website</strong> which
-                got cluttered and made it more confusing for users about
-                what to focus on.
+               Content about<strong> FloBites</strong> and its parent company
+                <strong>(THE)</strong> was added on a single page, which made it confusing for users to navigate and figure out what to read about.
+
               </p>
             </div>
             <div className="flobites-issues-shot flobites-issues-shot--framed">
@@ -37,9 +36,7 @@ const Issues = () => (
           <div className="flobites-issues-card flobites-issues-card--reverse">
             <div className="flobites-issues-note flobites-issues-note--center">
               <p>
-                <strong>Bad User experience</strong> brought no clear
-                navigation and accessibility for the users which further
-                drove no sales.
+                Misplaced cart buttons, a confusing checkout section, and <strong>overall bad user experience (UX)</strong> left no clear way for users to purchase the product, creating real buying friction.
               </p>
             </div>
 
@@ -54,10 +51,8 @@ const Issues = () => (
           <div className="flobites-issues-card">
             <div className="flobites-issues-note">
               <p>
-                The whole <strong>website's design and content</strong> felt
-                unrelated with the brand's emotion, packaging and intention.
-                It couldn't communicate the emotion exactly and drive the
-                user attention &amp; interest.
+                The website design did not match the brand’s vibe and <strong>failed to communicate its story</strong>, making it difficult for users to connect with FloBites.
+
               </p>
             </div>
             <div className="flobites-issues-shot flobites-issues-shot--wide">

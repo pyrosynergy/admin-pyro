@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import bgImage from "../../assets/hero_bg.png";
 
-const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPopup, handleNavigateToQuestionnaire }) => {
+const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPopup }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
@@ -125,6 +125,14 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
     };
   }, [isHovered]);
 
+  const handleNavClick = (e, targetId) => {
+    if (e) e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -147,37 +155,50 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
           }}
         >
 
-          <h1 className="hero-heading leading-snug">
-            <div>Your Product is built,</div>
-            <div>
-              Your System <span className="purple-italic">isn't.</span>
-            </div>
+          <h1 className="hero-heading max-w-5xl mx-auto text-center">
+          The growth partner <br></br>for founders who're <span className="purple-italic">done </span> <br></br> figuring it out alone.
           </h1>
           <p className="hero-desc">
-            Most early-stage founders build their product and run<br/>
-            their business at the same time.<br/><br/>
-            Something always slips. PyroSynergy is here to help.
+           We handle growth for your business early-on, right from <br/>
+            initial outreach strategy to market-level execution.
           </p>
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <h3>$300K+</h3>
+              <p>Partner Revenue<br />Generated</p>
+            </div>
+
+            <div className="hero-stat">
+              <h3>12+</h3>
+              <p>Industries<br />Served</p>
+            </div>
+
+            <div className="hero-stat">
+              <h3>90K+</h3>
+              <p>Partner Followers<br />Gained</p>
+            </div>
+         </div>
           <div 
             className="hero-buttons-container"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <button
-              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
-              }`}
-              onClick={handleNavigateToQuestionnaire}
-            >
-              See if we're a Fit
-            </button>
+            
             <button
               className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
                 currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
               }`}
               onClick={openCalendarPopup}
             >
-              Book a <span className="free-highlight">FREE</span> discovery call
+              Book a <span className="free-highlight">FREE</span> Audit call
+            </button>
+            <button
+              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
+                currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
+              }`}
+              onClick={() => handleNavClick(null, 'pyrostack')}
+            >
+              See How It Works
             </button>
           </div>
         </div>

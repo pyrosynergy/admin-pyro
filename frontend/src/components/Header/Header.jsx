@@ -56,18 +56,18 @@ const Header = ({
         <ul className="nav-links">
           <li>
             <a 
-              href="#pyrostack" 
+              href="#How It Works" 
               onClick={(e) => handleNavClick(e, 'pyrostack')}
             >
-              PyroStack
+              How It Works
             </a>
           </li>
           <li>
             <a
-              href="#work"
+              href="#What Founders Said"
               onClick={(e) => handleNavClick(e, 'work')}
             >
-              Work
+              What Founders Said
             </a>
           </li>
           <li>
@@ -131,18 +131,18 @@ const Header = ({
           <ul className={`mobile-nav ${isMenuOpen ? "is-active" : ""}`}>
             <li>
               <a
-                href="#pyrostack"
+                href="#How It Works"
                 onClick={(e) => handleNavClick(e, 'pyrostack')}
               >
-                PyroStack
+                How It Works
               </a>
             </li>
             <li>
               <a
-                href="#work"
+                href="#What Founders Said"
                 onClick={(e) => handleNavClick(e, 'work')}
               >
-                Work
+                What Founders Said
               </a>
             </li>
           </ul>

@@ -1,0 +1,77 @@
+.empathy-banner-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 90px 20px 170px;
+  box-sizing: border-box;
+  background: black;
+}
+
+.empathy-banner {
+  width: 100%;
+  max-width: 1240px;
+  padding: 94px 64px;
+  border-radius: 34px;
+  background: linear-gradient(90deg, #7229B5 0%, #00278E 50%, #32124F 100%);
+  color: #f7f2ff;
+  text-align: center;
+  box-shadow: 0 28px 60px rgba(34, 56, 128, 0.18);
+}
+
+.empathy-banner h2 {
+  margin: 0 0 22px;
+  padding-bottom: 32px;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.25;
+  font-weight: 300;
+}
+
+.empathy-banner .highlight-text {
+  font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.empathy-banner h2 strong {
+  font-weight: 700;
+}
+
+.empathy-banner p {
+  max-width: 100%;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  padding: 0 60px;
+  line-height: 1.7;
+  color: rgba(247, 242, 255, 0.9);
+}
+
+.empathy-banner p strong {
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .empathy-banner-section {
+    padding: 60px 20px 100px;
+  }
+
+  .empathy-banner {
+    margin: 0px 10px;
+    padding: 50px 4px;
+    border-radius: 28px;
+  }
+
+  .empathy-banner h2 {
+    font-size: 1.5rem;
+    padding: 12px 35px;
+  }
+  .empathy-banner .highlight-text {
+    letter-spacing: -0.5px;
+}
+
+  .empathy-banner p {
+    font-size: 0.85rem;
+    padding: 0 16px;
+    padding-bottom: 12px;
+  }
+}

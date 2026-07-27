@@ -1,0 +1,251 @@
+.banner-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 220px 20px;
+  background:#eee8f5;
+  /*background:  rgb(146, 67, 163);*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  
+}
+/* ── Live pill background ── */
+.banner-pills-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.banner-pill-row {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-pill-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation-name: banner-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* One copy of a row's labels. The gap here matches the track's own gap so
+   spacing is uniform whether two pills are in the same copy or adjacent
+   copies — this is what makes the seam between copies invisible. */
+.banner-pill-seq {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+@keyframes banner-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Shifts by exactly one measured sequence-copy width (set inline per
+       row as --pill-step), never a guessed percentage of the whole track —
+       correct regardless of how many buffer copies are rendered. */
+    transform: translateX(calc(-1 * var(--pill-step, 0px)));
+  }
+}
+
+.banner-pill {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c2438;
+}
+
+.banner-pill {
+  background: linear-gradient(
+  90deg,
+  #efd6fc 0%,
+  #ead0fb 25%,
+  #e5c9fa 50%,
+  #e2c5fa 75%,
+  #e9d0fc 100%
+);
+}
+
+/* ── Glass card ── */
+.banner-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 720px;
+  height:280px;
+  margin: 0 auto;
+  padding: 56px 64px;
+  border-radius: 32px;
+  text-align: center;
+  overflow: hidden;
+  /* Lower opacity than before so the moving pills read through the blur
+     rather than being fully masked by a near-solid tint. */
+  background: linear-gradient(
+    135deg,
+    rgba(183, 116, 205, 0.58) 0%,
+    rgba(173, 112, 206, 0.52) 30%,
+    rgba(160, 89, 200, 0.55) 55%,
+    rgba(185, 121, 219, 0.52) 75%,
+    rgba(188, 130, 217, 0.58) 100%
+  );
+
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  box-shadow:
+    0 30px 70px rgba(88, 28, 180, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 60px rgba(255, 255, 255, 0.1);
+}
+
+/* Soft diagonal sheen, the classic glass "light catching the surface" cue. */
+.banner-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 45%);
+  pointer-events: none;
+}
+
+.banner-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: rgba(255, 214, 235, 0.85);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.banner-heading {
+  margin: 0 0 20px;
+  font-family: 'albert sans', sans-serif;
+  font-size: 3.3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  color: #352d42;
+}
+
+.banner-heading em {
+  font-style: italic;
+}
+
+.banner-desc {
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-pill-track {
+    animation: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .banner-section {
+    padding: 110px 20px;
+    /* All 8 pill rows still render at this width, but the shorter padding
+       here (vs. desktop's 220px) left the row group taller than the
+       section's own box — overflow: hidden then clipped several rows and
+       squeezed/unevenly spaced the rest. Guarantee enough room instead of
+       trimming rows, so the marquee always has its full 8-row height. */
+    min-height: 900px;
+  }
+
+  .banner-pills-bg {
+    gap: 18px;
+  }
+
+  .banner-card {
+    /* The desktop card has a fixed height tuned for its large single/double
+       -line heading. At this width the same font-size wraps onto several
+       more lines, so the fixed height must give way to the real content
+       height instead of clipping it. */
+    height: auto;
+    padding: 46px 40px;
+  }
+
+  .banner-heading {
+    font-size: 2.3rem;
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+
+  .banner-eyebrow {
+    font-size: 1.05rem;
+  }
+
+  .banner-desc {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner-section {
+    padding: 100px 16px;
+    padding-bottom: 120px;
+    /* max-width: 1023px still applies below 767px too, so its min-height:
+       900px (sized for the full 8-row tablet marquee) was otherwise still
+       forcing this height here — on the reduced 5-row, smaller-pill mobile
+       layout that left a large empty gap above and below. Only 5 rows are
+       actually rendered at this width, so let the section size to its own
+       content again. */
+    min-height: 0;
+  }
+
+  .banner-card {
+    max-width: 340px;
+    padding: 24px 20px;
+    border-radius: 22px;
+    height: auto;
+  }
+
+  .banner-eyebrow {
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+
+  .banner-heading {
+    font-size: 1.6rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+
+  .banner-desc {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    max-width: 280px;
+  }
+
+  .banner-pills-bg {
+    gap: 8px;
+  }
+
+  .banner-pill {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+}

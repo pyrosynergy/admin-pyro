@@ -1,18 +1,19 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import './WhyUs.css';
 
 const cards = [
   {
-    quote: `"My business feels like chaos, and I can't navigate my way through it."`,
-    response: `We bring everything in one place, fixing both tech and business logic piece-by-piece; be it building custom <span class="hw hw-p">backend systems</span> or <span class="hw hw-p">business strategy.</span>`
+    quote: `"My business feels like chaos. Navigating through it seems impossible."`,
+    response: `Leave the <span class="hw hw-p"> decluttering</span> to us. We’ll convert all your business operations into defined <span class="hw hw-p"> backend systems</span>, with <span class="hw hw-p"> management training </span> for you and your team.`
   },
   {
-    quote: `"Everyone in my domain is posting online, but I really don't have the time and energy for it."`,
+    quote: `"Everyone is posting online, and I know it’s important but social media is something I never understood."`,
     response: `The task of growing your <span class="hw hw-b">social media presence</span> is on us, from planning & strategy → scripting → scheduling → uploading → performance tracking; end-to-end.`
   },
   {
-    quote: `"Everyone's talking about how AI can save my time and money, but I don't know where to even start."`,
-    response: `Integrating AI into your business can be overwhelming. We do the heavy lifting by setting up <span class="hw hw-p">AI workflows</span> and <span class="hw hw-p">automations</span> that fit right into your system.`
+    quote: `"How do founders finish tasks so easily with AI? The only AI I use is ChatGPT."`,
+    response: `Bringing AI tools to your business can feel overwhelming, so we do the heavy lifting by setting up <span class="hw hw-p">AI tools</span> and <span class="hw hw-p"> automations</span> for you.`
   },
   {
     quote: `"Most agencies I've worked with don't get me. What I ask is often not delivered."`,
@@ -157,7 +158,7 @@ const WhyUs = () => {
             className="whyus-cursor-indicator"
             style={{ left: cursorPos.x, top: cursorPos.y }}
           >
-            {hoverSide === 'left' ? '‹' : '›'}
+            {hoverSide === 'left' ? <FaArrowLeft /> : <FaArrowRight />}
           </div>
         )}
 

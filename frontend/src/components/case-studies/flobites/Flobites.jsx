@@ -19,8 +19,8 @@ const Flobites = () => {
       <Meta />
       <Process />
       <Refine />
-      <Shift />
       <Issues />
+      <Shift />
       <PyroStackSection />
       <Nourish />
       <Stories />

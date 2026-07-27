@@ -4,8 +4,8 @@ import './Cta.css';
 const Cta = () => (
   <div className="flobites-cta">
     <p className="flobites-cta-text">
-      Feeling connected already ? <br />
-      Wanna explore more ?
+      Want this revamp for your own brand?<br />
+      <span className="flobites-cta-text-accent">Lets Talk.</span>
     </p>
     <a href="#contact" className="flobites-cta-btn">
       Book a Call

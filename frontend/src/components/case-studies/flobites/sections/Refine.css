@@ -31,6 +31,8 @@
   text-align: center;
   line-height: 1.65;
   margin: 0 0 80px;
+  max-width: 600px;
+  width: 100%;
 }
 
 .flobites-refine-stats {
@@ -80,6 +82,13 @@
   width: 28px;
   height: 2px;
   background-color: #FA3558;
+}
+.flobites-refine-stat-number-sub {
+  font-size: 2rem;
+  color: #FA3558;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 8px;
 }
 
 .flobites-refine-quote {
@@ -138,8 +147,21 @@
   }
 
   .flobites-refine-stat-number {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
+
+  .flobites-refine-stat-number-sub {
+  font-size: 1rem;
+  color: #FA3558;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 8px;
+}
+.flobites-refine-stat-label .flobites-refine-stat-sub {
+  font-size: 0.75rem;
+ 
+}
+
 
   .flobites-refine-quote {
     width: 100%;

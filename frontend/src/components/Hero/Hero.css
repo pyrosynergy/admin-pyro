@@ -99,16 +99,17 @@ updated hero.css
 
 /* --- Typography & Text Styles --- */
 .hero-heading {
-  margin-bottom: 0.5rem; /* Keep this unchanged */
-  margin-top: 0rem; /* Changed from 0rem to 1rem to move heading down even more */
-  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
-  font-size: 32px;
+  margin-bottom: 0px; /* Keep this unchanged */
+  margin-top: 0px; /* Changed from 0rem to 1rem to move heading down even more */
+  font-family: "albert sans", sans-serif;
+  font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -2px;
   color: #fff;
   text-align: center;
-  padding: 60px 0px 30px 0px;
+  padding: 15px 0px 30px 0px;
+ 
 }
 
 
@@ -124,7 +125,7 @@ updated hero.css
   top: 100%;
   left: 0;
   right: 0;
-  font-family: "Bricolage Grotesque", sans-serif;
+  font-family: "Albert Sans", sans-serif;
   font-size: inherit;
   font-weight: 500;
   background: linear-gradient(90deg, #d904ff 42.35%, #003cff 56.08%);
@@ -145,7 +146,7 @@ updated hero.css
   width: 95%;
   max-width: 700px;
   margin: 0.5rem auto; /* Reduced from 1rem to bring content closer */
-  padding: 2px;
+  padding: 0px 2px;
   font-family: "Albert Sans", sans-serif;
   font-size: 20px;
   line-height: 1.5;
@@ -165,12 +166,40 @@ updated hero.css
 
 .purple-italic {
   font-style: italic;
-  font-family: "Bricolage Grotesque", sans-serif;
+  font-family: "albert sans", sans-serif;
   background: linear-gradient(90deg, #c7b2ff 0%, #9d79ea 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4.5rem;
+  margin: 0rem auto 1.5rem;
+  max-width: 900px;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat h3 {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.hero-stat p {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.35;
 }
 
 .hero-button {
@@ -185,37 +214,37 @@ updated hero.css
   white-space: nowrap;
 }
 
-/* Fit button - primary */
-.fit-button {
+/* Discovery button - primary */
+.discovery-button {
   background: linear-gradient(90deg, #D6C7F5 0%, #9279C3 100%);
   border: none;
   color: #0d0b02;
   font-weight: 600;
-  min-width: 280px;
+  min-width: 500px;
   padding: 1rem 2rem;
-  font-size: 18px;
+  font-size: 28px;
 }
 
-.fit-button:hover {
+.-button:hover {
   background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
   color: #0d0b02;
 }
 
-/* Discovery button - secondary */
-.discovery-button {
+/* fit button - secondary */
+.fit-button {
   background: rgba(56, 32, 92, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  min-width: 280px;
+  min-width: 500px;
   padding: 1rem 2rem;
-  font-size: 18px;
+  font-size: 28px;
 }
 
-.discovery-button:hover {
+.fit-button:hover {
   background: rgba(56, 32, 92, 0.6);
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-.discovery-button .free-highlight {
+.fit-button .free-highlight {
   font-family: "Space Grotesk", sans-serif;
   font-size: 20px;
   font-weight: 700;
@@ -229,10 +258,10 @@ updated hero.css
   align-items: center;
   width: 100%;
   max-width: 600px;
-  margin: 1.5rem auto 0 auto; /* Added 1.5rem top margin */
+  margin: 0rem auto 0 auto; /* Added 1.5rem top margin */
   position: relative;
   min-height: 80px;
-  padding:30px 0px 40px 0px;
+  padding:0px 0px 40px 0px;
 }
 
 .client-logo-grid-item.logo-fade-out {
@@ -257,7 +286,23 @@ updated hero.css
 @media (max-width: 767px) {
   .hero-heading{
     padding-top:40px;
+     font-size: 2.t3rem 
   }
+  
+  .hero-stats {
+    gap: 1.5rem;
+    margin: 1.5rem auto 0rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat h3 {
+    font-size: 1.6rem;
+  }
+
+  .hero-stat p {
+    font-size: 0.8rem;
+  }
+
   .hero-buttons-container {
     display: flex;
     flex-direction: column; /* Stacks items vertically */
@@ -265,7 +310,7 @@ updated hero.css
     align-items: center;
     width: 100%;
     max-width: 600px;
-    margin: 3.5rem auto 4.5rem auto;
+    margin: 2.5rem auto 4.5rem auto;
     min-height: auto;       /* Reset the forced height */
     overflow: visible;
     padding: 0px;
@@ -379,8 +424,11 @@ updated hero.css
   }
   
   .hero-heading {
-    font-size: 5rem !important;
+    font-size: 4.3rem !important;
     letter-spacing: -2.4px;
+    max-width: 780px;
+    width: 100%;
+    margin-top: 20px!important;
   }
   .hero-desc {
     font-size: 1.15rem !important;

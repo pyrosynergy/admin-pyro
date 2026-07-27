@@ -15,23 +15,40 @@
 .whyus-carousel-wrapper {
   position: relative;
   cursor: none;
+  width: 100vw;
 }
 
 .whyus-cursor-indicator {
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  z-index: 50;
-  background:none;
-  border: none;
-  width: 24px;
-  height: 24px;
-  font-size: 4rem;
-  color:rgba(154, 125, 243);
-  -webkit-text-stroke: 1px rgba(130, 104, 210, 0.5);;
+  z-index: 100;
+
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: rgba(255,255,255,.68);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border: 1px solid rgba(255,255,255,.35);
+
+  box-shadow:
+    0 12px 35px rgba(18,18,18,.10),
+    inset 0 1px 1px rgba(255,255,255,.45);
+
+  transition: transform .18s ease;
+}
+
+.whyus-cursor-indicator svg{
+    width:22px;
+    height:22px;
+    color:#8E63F6;
 }
 
 /* Don't show this custom cursor on mobile/touch devices */
@@ -58,7 +75,7 @@
 }
 .highlight-text-ps {
   font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
-  letter-spacing: -1.1px;
+  letter-spacing: -2.5px;
 }
 .highlight-text {
   background: linear-gradient(90deg, #d84aee 0%, #af3cc1 20%, #875ceb 45%, #6d49c2 60%, #1c4fbd 80%, #2563e8 100%);
@@ -66,10 +83,10 @@
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  font-weight: 600;
+  font-weight: 450;
   display: inline-block;
   font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -2.5px;
 }
 .why-us-subtitle {
   font-size: 1.15rem;
@@ -81,12 +98,39 @@
 
 /* ── Carousel wrapper ── */
 .whyus-carousel-wrapper {
-  width: 100%;
-  max-width: 1200px;
+  position: relative;
+  cursor: none;
+
+  width: 100vw;
+  max-width: none;
+
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 .whyus-carousel-track {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   overflow: hidden;
+}
+
+/*
+ * .whyus-carousel-wrapper is a 100vw full-bleed element, breaking out of
+ * the section's own side padding. Above ~1210px that's fine — the
+ * viewport is wider than the track's 1200px cap, so a natural gutter
+ * appears on its own. Below 600px, the mobile rule further down forces
+ * the wrapper back to width: 100%, so it inherits the section's own
+ * padding instead. Between those two, the viewport is narrower than
+ * 1200px but the mobile override hasn't kicked in yet, so the track (and
+ * the chat bubbles inside it) filled the full width with zero gutter —
+ * hence bubbles touching the browser edge. This range adds that gutter
+ * back without touching the mobile or desktop rules at all.
+ */
+@media (min-width: 601px) and (max-width: 1210px) {
+  .whyus-carousel-track {
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
 }
 
 /* ── Chat window ── */
@@ -247,6 +291,7 @@
     min-height: 350px; /* adjust based on your longest card's height */
     display: flex;
     align-items: center;
+    width:100%  !important;
   }
   .why-us-header h2 { font-size: 1.9rem; }
   .why-us-subtitle { font-size: 0.85rem; }

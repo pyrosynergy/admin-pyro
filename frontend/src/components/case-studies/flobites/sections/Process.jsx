@@ -6,7 +6,7 @@ import nothingExtraPhone from '../../../../assets/flobites/nothing-extra-phone.p
 const Process = () => (
   <div className="flobites-process">
     <h2 className="flobites-process-title">
-      Turning consistency into <span className="flobites-process-title-accent">visual experience.</span>
+      Turning nutrition into <span className="flobites-process-title-accent">digital experience.</span>
     </h2>
 
     <div className="flobites-process-row">
@@ -18,25 +18,18 @@ const Process = () => (
           A palette that felt as balanced as the product itself.
         </p>
         <p className="flobites-process-body">
-          The colours were chosen to match the product and packaging.
-          Soft pinks made the brand feel friendly, while earthy tones
-          gave a natural and balanced feel.
+          Colours were chosen to match the product and packaging. Soft pinks made the brand feel friendly, while earthy tones gave a natural and balanced feel.
+
         </p>
       </div>
     </div>
 
     <div className="flobites-process-row">
       <div className="flobites-process-text flobites-process-text2">
-        <h3 className="flobites-process-subheading">The Design Language We Built.</h3>
+        <h3 className="flobites-process-subheading">The digital brand language we built.</h3>
         <p className="flobites-process-body ">
-          <strong>Typography</strong> — Different type styles were used to
-          improve readability, create clear hierarchy, and match the
-          brand's playful personality.
-        </p>
-        <p className="flobites-process-body">
-          <strong>CTAs &amp; Buttons</strong> — Rounded shapes and varied
-          button styles helped the interface feel cleaner, softer, and
-          less repetitive across sections.
+          Intentional typography choices helped improve readability and kept the brand’s playful tone intact. Consistent design elements made the interface feel more cohesive and less repetitive across sections.
+
         </p>
       </div>
       <div className="flobites-process-image flobites-process-image--small">

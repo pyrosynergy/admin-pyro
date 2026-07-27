@@ -8,7 +8,7 @@ import womenPolaroid from '../../../../assets/flobites/women-polaroid.png';
 const Shift = () => (
   <div className="flobites-shift">
     <h2 className="flobites-shift-title">
-      The shift <span className="flobites-shift-title-accent">FloBites</span> actually needed.
+      The shift <span className="flobites-shift-title-accent">FloBites</span> actually needed:
     </h2>
 
     <div className="flobites-shift-row">
@@ -19,9 +19,8 @@ const Shift = () => (
           <span className="flobites-shift-heading-accent">recognition.</span>
         </h3>
         <p className="flobites-shift-body">
-          The product needed its own clear presence and personality. We
-          created a more playful and recognisable experience while still
-          keeping the connection with The Hormone Essentials.
+          The product needed clear presence and its own personality. We created a playful yet memorable user experience while keeping the connection with the parent brand intact.
+
         </p>
       </div>
       <div className="flobites-shift-image">
@@ -36,10 +35,8 @@ const Shift = () => (
           <span className="flobites-shift-heading-accent">Value.</span>
         </h3>
         <p className="flobites-shift-body">
-          Instead of placing important details inside heavy sections, we
-          made the product strengths more visible. Ingredients, hormonal
-          wellness support, and the food-first approach became a bigger
-          part of the experience.
+          Description: We identified and built a narrative that included several overlooked product strengths, such as the Super Seeds formula and the use of Myo-Inositol, helping buyers see value early on.
+
         </p>
       </div>
       <div className="flobites-shift-image flobites-shift-image--bowl">
@@ -57,9 +54,8 @@ const Shift = () => (
           <span className="flobites-shift-heading-accent">real stories.</span>
         </h3>
         <p className="flobites-shift-body">
-          The product needed its own clear presence and personality. We
-          created a more playful and recognisable experience while still
-          keeping the connection with The Hormone Essentials.
+          Real reviews from first-time buyers, along with active feedback cycles from potential customers, helped shape FloBites’ digital experience.
+
         </p>
       </div>
       <div className="flobites-shift-image">

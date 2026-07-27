@@ -25,11 +25,12 @@ const faqs = [
   },
   {
     question: 'How does the pricing work?',
-    answer: 'Every project is a custom solution, scoped and priced based on what\'s actually needed. Once we understand your goals and where you are, we put together a clear proposal. Engagements typically start at ₹25k, with most projects ranging from ₹50k-5L.'
+    answer: 'Every project is a custom solution, scoped and priced based on what\'s actually needed. Once we understand your goals and where you are, we put together a clear proposal.  Engagements typically start at $1k, with most projects ranging from $3k-$15k.',
+
   },
   {
     question: 'What kind of founders does PyroSynergy work with?',
-    answer: 'Typically early-stage founders who\'ve pushed their product to the real world, regardless of industry or domain, and are receiving and are receiving any form of market validation; be it recognition, revenue, or both.'
+    answer: 'Typically early-stage founders who\'ve pushed their product to the real world, regardless of industry or domain, and are receiving any form of market validation; be it recognition, revenue, or both.'
   },
   {
     question: 'How does a typical engagement work?',
@@ -56,7 +57,7 @@ const FAQ = ({ openCalendarPopup }) => {
             
             <div className="faq-cta-box">
               <p className="faq-cta-heading">Still have questions?</p>
-              <p className="faq-cta-desc">Our experts are ready to guide you through the transition.</p>
+              <p className="faq-cta-desc">Our growth team is ready to guide you through the process.</p>
               <button className="faq-cta-button" onClick={openCalendarPopup}>
                 Book a FREE discovery call
               </button>

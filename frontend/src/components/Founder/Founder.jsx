@@ -12,9 +12,6 @@ const Founder = () => {
         <div className="founder-content">
           <div className="founder-image-wrapper">
             <img src={founderImage} alt="Prachet Yerramalla" className="founder-photo" />
-            <a href="https://www.linkedin.com/in/prachetyerr/" target="_blank" rel="noopener noreferrer" className="linkedin-link">
-              <img src={linkedinIcon} alt="LinkedIn" className="linkedin-icon" />
-            </a>
           </div>
 
           <div className="founder-description">
@@ -25,6 +22,16 @@ const Founder = () => {
               vision to PyroSynergy.
             </p>
           </div>
+
+          <a
+            href="https://www.linkedin.com/in/prachetyerr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="founder-cta"
+          >
+
+            More About PY
+          </a>
         </div>
       </div>
     </section>

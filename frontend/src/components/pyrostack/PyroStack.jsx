@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import fireIcon from '../../assets/pyro-satck-fire.svg';
 import './PyroStack.css';
 
-const PyroStack = ({ handleNavigateToQuestionnaire }) => {
+const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [svgPath, setSvgPath] = useState('');
   const [svgViewBox, setSvgViewBox] = useState('0 0 100 1000');
@@ -16,37 +16,35 @@ const PyroStack = ({ handleNavigateToQuestionnaire }) => {
 
   const steps = [
     {
-      title: 'Decode',
+      title: 'founder & product audit',
       content: [
-        'Before we propose anything, we need to understand where you actually are',
-        "We ask the questions most people skip. If you're a fit, we'll both know it by the end"
+        'through several audits and discussions, we get an end-to end understanding of how your product works, what markets it serves, and how your current team operates.',
+
       ],
       number: '01'
     },
     {
-      title: 'Blueprint',
+      title: 'PyroStack™',
       content: [
-        'We work on a blueprint - so nothing is based on assumptions but structure',
-        "You decide what makes sense and what doesn't. We move ahead accordingly"
+        'once all information is gathered, we put it together using PyroStackTM, our proprietary growth evaluation framework with 35+ technical and business logical touchpoints, determining the next steps for your business’ growth.',
+
       ],
       number: '02'
     },
     {
-      title: 'Build',
+      title: 'strategy + execution plan',
       content: [
-        'Once the inputs are clear and direction is set, we build your exact requirements',
-        'Nothing goes unchecked and without your feedback, in every step'
+        'post evaluation using PyroStackTM, we carefully curate a strategic execution plan, and structure a timeline that works best for your audience in the market',
       ],
       number: '03'
     },
     {
-      title: 'Pyros',
+      title: 'build & launch',
       content: [
-        'Ta-da! Your solution is now built. Before we ship it, we review performance metrics and make final adjustments and refinements, if required.',
-        'Once delivered, you decide the next steps of our engagement; be it support or co-working on your next big project.'
+        'our team of developers and growth experts start building according to the strategic execution plan, utilising the structured timeline for testing, building, and launching.',
+
       ],
       number: '04',
-      isFlame: true
     }
   ];
 
@@ -183,12 +181,8 @@ cardRefs.current.forEach((card) => {
   return (
     <section id="pyrostack" className="pyrostack-section">
       <div className="pyrostack-container">
-        <h2 className="pyrostack-title">PyroStack™: The Framework for Founders</h2>
-        <p className="pyrostack-subtitle">
-          We guide and help you right from breaking down the problem and laying<br />
-          the foundation, to building and execution, all while keeping your goal and<br />
-          vision intact throughout
-        </p>
+        <h2 className="pyrostack-title">How It Works</h2>
+        
 
         {isMobile ? (
           <div className="pyrostack-mobile-timeline" ref={timelineRef}>
@@ -294,9 +288,20 @@ cardRefs.current.forEach((card) => {
           </div>
         )}
 
-        <button className="pyrostack-btn" onClick={handleNavigateToQuestionnaire}>
-          Get Started
-        </button>
+        <div className="pyrostack-buttons-container">
+          <button
+            className="pyrostack-cta pyrostack-cta-primary"
+            onClick={openCalendarPopup}
+          >
+            Book a <span className="pyrostack-cta-highlight">FREE</span> Audit call
+          </button>
+          <button
+            className="pyrostack-cta pyrostack-cta-secondary"
+            onClick={handleNavigateToQuestionnaire}
+          >
+            Take the Decode Quiz
+          </button>
+        </div>
       </div>
     </section>
   );

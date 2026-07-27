@@ -7,25 +7,24 @@ const Refine = () => (
       Refining what users <span className="flobites-refine-title-accent">actually felt.</span>
     </h2>
     <p className="flobites-refine-subtitle">
-      Every small refinement helped make the experience <br />
-      feel more clear and connected.
+      Every refinement was shaped by real feedback, until the experience felt clear and easy to understand
     </p>
 
     <div className="flobites-refine-stats">
       <div className="flobites-refine-stat">
-        <span className="flobites-refine-stat-number">3</span>
-        <span className="flobites-refine-stat-label">Clear product</span>
-        <span className="flobites-refine-stat-sub">recognisable.</span>
+        <span className="flobites-refine-stat-number"> 109%</span>
+        <span className="flobites-refine-stat-label">increase in online</span>
+        <span className="flobites-refine-stat-sub">searchability score (44 - 92)</span>
       </div>
       <div className="flobites-refine-stat">
-        <span className="flobites-refine-stat-number">3%</span>
-        <span className="flobites-refine-stat-label">Stronger emotional</span>
-        <span className="flobites-refine-stat-sub">connection.</span>
+        <span className="flobites-refine-stat-number">8<span className="flobites-refine-stat-number-sub">out of</span>10</span>
+        <span className="flobites-refine-stat-label">users understand what FloBites is</span>
+        <span className="flobites-refine-stat-sub">in the first 10 seconds of visiting the website</span>
       </div>
       <div className="flobites-refine-stat">
-        <span className="flobites-refine-stat-number">3</span>
-        <span className="flobites-refine-stat-label">More ingredient</span>
-        <span className="flobites-refine-stat-sub">exploration.</span>
+        <span className="flobites-refine-stat-number">97<span className="flobites-refine-stat-number-sub">/100</span></span>
+        <span className="flobites-refine-stat-label">load speed score</span>
+        <span className="flobites-refine-stat-sub"> (up from 66)</span>
       </div>
     </div>
 
@@ -36,7 +35,10 @@ const Refine = () => (
         into a digital experience that finally felt aligned with the
         product.
       </p>
+      
       <span className="flobites-refine-quote-mark flobites-refine-quote-mark--right">&rdquo;</span>
+      <p className="flobites-refine-quote-author">– Santosh Parachuri<br></br>Co-founder, The Hormone Essentials
+      </p>
     </div>
   </div>
 );

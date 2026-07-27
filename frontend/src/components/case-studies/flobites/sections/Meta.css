@@ -40,7 +40,7 @@
 
 .flobites-meta-value {
   color: #FA3558;
-  font-family: "Bricolage Grotesque";
+  font-family: "bricolage grotesque";
   font-size: 36px;
   font-style: normal;
   font-weight: 600;
@@ -64,7 +64,7 @@
 .flobites-meta-description {
   color: #000;
   font-family: "Albert Sans";
-  font-size: 18px;
+  font-size: 1.3rem;
   font-weight: 400;
   line-height: 35px;
   padding-right: 200px;

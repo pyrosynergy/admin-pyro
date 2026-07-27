@@ -14,9 +14,9 @@
 }
 
 .flobites-pyrostack-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'albert sans', sans-serif;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 3.5rem;
   color: #000;
   margin: 0 0 10px;
 }
@@ -37,13 +37,13 @@
 
 .flobites-pyrostack-btn {
   flex-shrink: 0;
-  background-color: #f5a623;
-  color: #7F5044;
-  font-size: 0.75rem;
-  font-weight: 400;
+  background-color: #9a7df3;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
   text-decoration: none;
-  padding: 10px 22px;
-  border-radius: 20px;
+  padding: 20px 30px;
+  border-radius: 40px;
   white-space: nowrap;
 }
 
@@ -97,11 +97,11 @@
 }
 
 .flobites-pyrostack-label {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800;
-  font-size: 2.3rem;
+  font-family: 'albert sans', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
   color: #000;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.5px;
   margin-top: 8px;
 }
 
@@ -133,7 +133,7 @@
 .flobites-pyrostack-detail-heading {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700;
-  font-size: 4rem;
+  font-size: 3rem;
   color: #FA3558;
   letter-spacing: 0.5px;
   margin: 0 0 14px 30px;
@@ -187,11 +187,13 @@
 
 .flobites-sticky {
   position: relative;
-  flex: 0 0 200px;
+  flex: 0 0 100px;
   aspect-ratio: 1/1;
   border-radius: 44px;
-  padding: 32px 24px 20px;
-  transform-origin: top center;
+  padding: 20px;
+  align-items: center;
+  display: flex;
+  transform-origin: center;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 

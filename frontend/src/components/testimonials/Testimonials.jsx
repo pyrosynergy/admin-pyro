@@ -1,120 +1,225 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaQuoteLeft, FaArrowRight, FaUser } from 'react-icons/fa';
 import './Testimonials.css';
 
-const caseStudies = [
+import logoViali from '../../assets/logo_viali.png';
+import logoFlobites from '../../assets/logo_fb_the.png';
+import logoJrjp from '../../assets/jrjplogopyro.png';
+import logoMih from '../../assets/mih.png';
+import logoTog from '../../assets/logo_tog.png';
+
+/*
+ * Single source of truth for every testimonial. `variant` drives which
+ * flavor of TestimonialCard renders: 'A' (featured, photo + heading quote),
+ * 'B' (metric / case study), 'C' (compact quote). Order here matches the
+ * wireframe's reading order: B centered on top, then the upper row
+ * (A, C, C, A), then the lower row (C, A, C).
+ */
+const testimonials = [
   {
-    brand: 'Viali Hair Care',
-    tag: 'hair care',
-    className: 'case-card-viali'
+    id: 'jrjp',
+    variant: 'B',
+    label: 'Jai Rajendra Jewel Palace',
+    metric: '30.2K+',
+    metricLabel: 'Instagram followers',
+    description: 'AI brand ambassador built from zero, scaling organic reach profitably.',
+    cta: 'VIEW CASE STUDY',
+    logo: logoJrjp,
+    logoAlt: 'Jai Rajendra Jewel Palace logo',
   },
   {
-    brand: 'YourBest',
-    tag: 'personal brand',
-    className: 'case-card-yourbest'
+    id: 'viali',
+    variant: 'A',
+    accent: 'viali',
+    quote: '"This was literally a blessing in disguise! Finally an agency who I can rely on with my business now."',
+    name: 'Rosemay J. Martelly',
+    role: 'Founder & CEO, Viali Hair Care',
+    logo: logoViali,
+    logoAlt: 'Viali Hair Care logo',
   },
   {
-    brand: 'riMLand',
-    tag: 'real estate',
-    className: 'case-card-rimland'
-  }
+    id: 'vj',
+    variant: 'C',
+    quote: "\"Sharp, fast, and refreshingly honest about what would and wouldn't work for us.\"",
+    name: 'Vishal Jain',
+    role: 'Founder, VJ',
+    logo: null,
+    initials: 'VJ',
+  },
+  {
+    id: 'mih',
+    variant: 'C',
+    quote: '"Every deliverable felt like it was built for our business, not templated for anyone else\'s."',
+    name: 'Aditi Rao',
+    role: 'Founder, MIH',
+    logo: logoMih,
+    logoAlt: 'MIH logo',
+  },
+  {
+    id: 'flobites',
+    variant: 'A',
+    accent: 'flobites',
+    quote: "\"They didn't just design a website, they translated exactly how we think about nutrition into every pixel.\"",
+    name: 'Aanya Kapoor',
+    role: 'Co-Founder, FloBites',
+    logo: logoFlobites,
+    logoAlt: 'FloBites logo',
+    caseStudyPath: '/case-studies/flobites',
+  },
+  {
+    id: 'tog',
+    variant: 'C',
+    quote: "\"The team understood our product and requirements, and I'm happy with how the website turned out.\"",
+    name: 'Grace Anderson',
+    role: 'Founder, Touch of Grace',
+    logo: logoTog,
+    logoAlt: 'Touch of Grace logo',
+  },
+  {
+    id: 'delicacy',
+    variant: 'A',
+    accent: 'delicacy',
+    quote: '"They work in collaboration with me, are open for input, and encourage me to expand my ideas."',
+    name: 'Myriam Joseph-Raymond',
+    role: 'Founder, Delicacy of Haiti',
+    logo: null,
+    logoAlt: 'Delicacy of Haiti logo',
+    initials: 'DH',
+  },
+  {
+    id: 'elytrix',
+    variant: 'C',
+    quote: "\"PyroSynergy became the technical co-founder we didn't have the bandwidth to hire.\"",
+    name: 'Rohan Mehta',
+    role: 'Founder, Elytrix',
+    logo: null,
+    initials: 'EX',
+  },
 ];
 
+const TestimonialCard = ({ item }) => {
+  const navigate = useNavigate();
+
+  if (item.variant === 'B') {
+    return (
+      <article className="pt-card pt-card--b">
+        <span className="pt-b-label">{item.label}</span>
+
+        <div className="pt-b-metric">
+          <span className="pt-b-number">{item.metric}</span>
+          <span className="pt-b-metric-label">{item.metricLabel}</span>
+        </div>
+
+        <p className="pt-b-desc">{item.description}</p>
+
+        <footer className="pt-b-footer">
+          <button type="button" className="pt-b-cta">
+            {item.cta}
+            <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
+          </button>
+          <div className="pt-b-logo">
+            <img src={item.logo} alt={item.logoAlt} />
+          </div>
+        </footer>
+      </article>
+    );
+  }
+
+  const isFeatured = item.variant === 'A';
+
+  return (
+    <article
+      className={`pt-card ${isFeatured ? 'pt-card--a' : 'pt-card--c'}${
+        item.accent ? ` pt-accent-${item.accent}` : ''
+      }`}
+    >
+      {isFeatured && (
+        <div className="pt-a-media">
+          <FaUser className="pt-a-media-icon" aria-hidden="true" />
+        </div>
+      )}
+
+      <blockquote className={isFeatured ? 'pt-a-quote' : 'pt-c-quote'}>
+        {isFeatured && <FaQuoteLeft className="pt-quote-mark" aria-hidden="true" />}
+        <p>{item.quote}</p>
+      </blockquote>
+
+      {isFeatured && (
+        <button
+          type="button"
+          className="pt-b-cta pt-a-cta"
+          onClick={() => item.caseStudyPath && navigate(item.caseStudyPath)}
+        >
+          VIEW CASE STUDY
+          <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
+        </button>
+      )}
+
+      <footer className={isFeatured ? 'pt-a-footer' : 'pt-c-footer'}>
+        <div className={isFeatured ? 'pt-a-person' : 'pt-c-person'}>
+          <span className={isFeatured ? 'pt-a-name' : 'pt-c-name'}>{item.name}</span>
+          <span className={isFeatured ? 'pt-a-role' : 'pt-c-role'}>{item.role}</span>
+        </div>
+        <div className={isFeatured ? 'pt-a-logo' : 'pt-c-logo'}>
+          {item.logo ? (
+            <img src={item.logo} alt={item.logoAlt} />
+          ) : (
+            <span className="pt-logo-fallback">{item.initials}</span>
+          )}
+        </div>
+      </footer>
+    </article>
+  );
+};
+
+const findById = (id) => testimonials.find((item) => item.id === id);
+
 const Testimonials = () => {
+  const featured = findById('jrjp');
+  const viali = findById('viali');
+  
+  const vj = findById('vj');
+  const mih = findById('mih');
+  const flobites = findById('flobites');
+  const tog = findById('tog');
+  const delicacy = findById('delicacy');
+  const elytrix = findById('elytrix');
+
   return (
     <section id="work" className="testimonials-section">
       <div className="testimonials-header">
-        <h2>What they said after <br /> <span className="highlight-purple">working with us</span></h2>
+        <h2>What founders said <br /> <span className="highlight-purple">after working with us</span></h2>
       </div>
 
-      <div className="testimonials-grid">
-        <div className="testi-col">
-          <article className="testi-card story-card-primary">
-            <div className="story-avatar story-avatar-mint"></div>
-            <div className="story-copy">
-              <p>One of the best services we ever got to build my brand&apos;s system. Truly impeccable work all the way through.</p>
-            </div>
-            <div className="story-footer story-footer-plum">
-              <h4>Millon Zahino</h4>
-              <span>Behavioral Science</span>
-            </div>
-          </article>
-
-          <article className={`testi-card case-card ${caseStudies[0].className}`}>
-            <div className="case-card-copy">
-              <h4>{caseStudies[0].brand}</h4>
-              <span className="case-badge">{caseStudies[0].tag}</span>
-              <span className="case-link">View case study -&gt;</span>
-            </div>
-          </article>
-
-          <article className="testi-card story-card-bubble">
-            <div className="bookmark-ribbon"></div>
-            <p>One of the best services we ever got to build my brand&apos;s system. Truly impeccable work served.</p>
-            <div className="bubble-footer">
-              <div className="story-avatar story-avatar-sky"></div>
-              <div className="bubble-pill">
-                <h4>Mary Schnader</h4>
-                <span>CEO, DoH</span>
-              </div>
-            </div>
-            <div className="bubble-tail"></div>
-          </article>
+      {/*
+        Three independent masonry columns sharing one top edge — B lives
+        inside the center column instead of its own full-width row above
+        everything. That's what lets the outer A cards start at the same
+        height as B (not below it), giving the section a staggered outline
+        instead of a flat rectangular one, and what lets the center column's
+        second card (Delicacy) start right after the short VJ/MIH pair
+        rather than waiting for the tall outer A cards. Each outer C card
+        sits directly beneath its own column's A card.
+      */}
+      <div className="pt-bento-columns">
+        <div className="pt-bento-col">
+          <TestimonialCard item={viali} />
+          <TestimonialCard item={tog} />
         </div>
 
-        <div className="testi-col col-center">
-          <article className={`testi-card case-card ${caseStudies[1].className}`}>
-            <div className="case-card-copy">
-              <h4>{caseStudies[1].brand}</h4>
-              <span className="case-badge">{caseStudies[1].tag}</span>
-              <span className="case-link">View case study -&gt;</span>
-            </div>
-          </article>
-
-          <article className="testi-card story-card-spotlight">
-            <div className="story-avatar story-avatar-ring"></div>
-            <div className="spotlight-copy">
-              <h5>&quot;What a work!&quot;</h5>
-              <p>One of the best services we ever got to build my brand&apos;s system. Truly impeccable work served.</p>
-              <h4>- Jonathan</h4>
-            </div>
-          </article>
-
-          <article className={`testi-card case-card ${caseStudies[2].className}`}>
-            <div className="case-card-copy">
-              <h4>{caseStudies[2].brand}</h4>
-              <span className="case-badge">{caseStudies[2].tag}</span>
-              <span className="case-link">View case study -&gt;</span>
-            </div>
-          </article>
+        <div className="pt-bento-col pt-bento-col-center">
+          <TestimonialCard item={featured} />
+          <div className="pt-bento-pair">
+            <TestimonialCard item={vj} />
+            <TestimonialCard item={mih} />
+          </div>
+          <TestimonialCard item={delicacy} />
         </div>
 
-        <div className="testi-col">
-          <article className="testi-card story-card-profile">
-            <div className="profile-square"></div>
-            <div className="profile-header">
-              <h4>John Mary</h4>
-              <span>CEO, Delicacy of Haiti</span>
-            </div>
-            <p>One of the best services we ever got to build my brand&apos;s system. Truly impeccable work served.</p>
-          </article>
-
-          <article className="testi-card story-card-center">
-            <div className="story-avatar story-avatar-blush"></div>
-            <div className="center-copy">
-              <h3>Excellent!</h3>
-              <p>One of the best services we ever got to build my brand&apos;s system. Truly impeccable work served.</p>
-              <h4>Millon Zahino</h4>
-              <span>Behavioral Science</span>
-            </div>
-          </article>
+        <div className="pt-bento-col">
+          <TestimonialCard item={flobites} />
+          <TestimonialCard item={elytrix} />
         </div>
-      </div>
-
-      <div className="empathy-banner">
-        <h2>PyroSynergy is essentially your <br /> <span className="highlight-text">empathetic big brother.</span></h2>
-        <p>
-          We believe <strong>empathy</strong> is the most underrated ingredient in business. It&apos;s what separates partners who actually get it from agencies who just bill you for it. This is our moat at PyroSynergy: to understand your pressure, your stakes, and your vision before we touch your strategy. It&apos;s also the foundation of <strong>PyroStack<sup>TM</sup></strong>, our proprietary framework built to decode founder pain points and build strategy that resonates with your outlook.
-        </p>
       </div>
     </section>
   );
