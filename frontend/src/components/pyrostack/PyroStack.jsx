@@ -26,7 +26,7 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
     {
       title: 'PyroStack™',
       content: [
-        'once all information is gathered, we put it together using PyroStackTM, our proprietary growth evaluation framework with 35+ technical and business logical touchpoints, determining the next steps for your business’ growth.',
+        'once all information is gathered, we put it together using PyroStack™, our proprietary growth evaluation framework with 35+ technical and business logical touchpoints, determining the next steps for your business’ growth.',
 
       ],
       number: '02'
@@ -34,7 +34,7 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
     {
       title: 'strategy + execution plan',
       content: [
-        'post evaluation using PyroStackTM, we carefully curate a strategic execution plan, and structure a timeline that works best for your audience in the market',
+        'post evaluation using PyroStack™, we carefully curate a strategic execution plan, and structure a timeline that works best for your audience in the market',
       ],
       number: '03'
     },

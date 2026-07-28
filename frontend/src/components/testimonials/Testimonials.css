@@ -1,6 +1,6 @@
 .testimonials-section {
   background:#eee8f5 ;
-  padding: 110px 20px 100px;
+  padding: 50px 20px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,7 +253,7 @@
 .pt-a-role {
   margin-top: 4px;
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* ── Category B: metric / case study ── */
@@ -431,11 +431,11 @@
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
-    height: 400px;
+    min-height: 400px;
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
-    height: 190px;
+    min-height: 190px;
   }
 
   .pt-bento-col-center {
@@ -534,11 +534,11 @@
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
-    height: 360px;
+    min-height: 360px;
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
-    height: 160px;
+    min-height: 160px;
   }
 
   .pt-a-media {

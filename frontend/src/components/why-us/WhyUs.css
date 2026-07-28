@@ -65,7 +65,7 @@
 /* ── Header ── */
 .why-us-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .why-us-header h2 {
   font-size: 3rem;
@@ -234,7 +234,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 100px;
+  margin-top: 60px;
 }
 .whyus-dot {
   width: 10px;
