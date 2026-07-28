@@ -213,6 +213,7 @@
        actually rendered at this width, so let the section size to its own
        content again. */
     min-height: 0;
+    margin-bottom: 0px;
   }
 
   .banner-card {

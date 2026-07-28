@@ -329,8 +329,9 @@ function App() {
               />
   
               <WhyUs />
-              <Testimonials />
               <Banner />
+              <Testimonials />
+              
 
               <PyroStack
                 openCalendarPopup={openCalendarPopup}

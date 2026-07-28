@@ -4,7 +4,7 @@
   width: min(1200px, 90%);
   margin: 100px auto;
   padding: 100px 100px;
-
+  
   display: flex;
   align-items: center;
   justify-content: space-between; /* <-- important */
@@ -26,8 +26,10 @@
   text-align: left;
 }
 .flobites-cta-text-accent {
-  font-weight: 500;
-  font-size: 1.75rem;
+  font-weight: 600;
+  font-size: 2.7rem;
+  font-family: "albert sans", sans-serif;
+  letter-spacing: -2px;
 }
 
 .flobites-cta-btn {
@@ -45,7 +47,10 @@
   white-space: nowrap;
    flex-shrink: 0;
 }
-
+.call-icon {
+  width: 32px;
+  height: 32px;
+}
 @media (max-width: 900px) {
   .flobites-cta {
     flex-direction: column;
@@ -57,15 +62,23 @@
   }
 
   .flobites-cta-text{
-    padding: 0px 30px;
+    padding: 10px 30px;
     text-align: center;
     font-size: 1.3rem !important;
+  }
+  .flobites-cta-text-accent {
+    font-size: 2rem !important;
+    font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+    padding-top:20px;
   }
 
   .flobites-cta-btn {
     align-self:center;
     padding: 14px 24px;
     font-size: 0.95rem;
-    
   }
+  .call-icon {
+    width: 20px;
+    height: 20px;
+}
 }

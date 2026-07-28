@@ -1,6 +1,6 @@
 .testimonials-section {
   background:#eee8f5 ;
-  padding: 110px 20px 10px;
+  padding: 110px 20px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,14 +62,14 @@
   flex-direction: column;
   gap: 20px;
   flex: 1 1 300px;
-  max-width: 320px;
+  max-width: 420px;
 }
 
 .pt-bento-col-center {
   /* ~13% narrower than the old standalone B row (620px), so B reads less
      dominant and the center column sits comfortably between the two A's. */
   flex: 1 1 480px;
-  max-width: 540px;
+  max-width: 340px;
   margin-top:-70px;
 }
 
@@ -90,7 +90,7 @@
   height: 100%;
   box-sizing: border-box;
   padding: 32px;
-  border-radius: 28px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: white;
   backdrop-filter: blur(18px);
@@ -259,7 +259,7 @@
 /* ── Category B: metric / case study ── */
 .pt-b-label {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -274,6 +274,13 @@
   gap: 16px;
 }
 
+/* No CTA button (e.g. JRJP has no caseStudyPath) means the logo is the
+   only child left in this row — explicit flex-start rather than relying
+   on how a lone flex child happens to resolve under space-between. */
+.pt-b-footer--logo-left {
+  justify-content: flex-start;
+}
+
 .pt-b-metric {
   margin-top: 26px;
   display: flex;
@@ -282,7 +289,7 @@
 
 
 .pt-b-number {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
   font-size: clamp(3rem, 5vw, 4.2rem);
   font-weight: 700;
   line-height: 1;
@@ -316,7 +323,7 @@
   border: none;
   background: none;
   cursor: pointer;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family:"bricolage grotesque", "Plus Jakarta Sans", sans-serif;
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -379,93 +386,65 @@
 }
 
 /*
- * ── Responsive reflow, below 1170px ──
- * Desktop's 3-column masonry (≥1170px, untouched) relies on flex-wrap to
- * fit three columns side by side. Below that width there isn't room for
- * all three, and flex-wrap's automatic reflow wraps them unpredictably —
- * sometimes two columns per row, sometimes one, with uneven gaps that
- * shift depending on the exact width. Instead of letting that happen,
- * every card is flattened out of its column wrapper below 1170px (via
- * display: contents on .pt-bento-col / .pt-bento-col-center) into one
- * explicit CSS Grid, so each card gets a deliberate column span at every
- * width instead of an emergent one from wrapping. JRJP (B) is pulled to
- * the very top via `order`, regardless of its DOM position inside the old
- * center column. align-items: start (not the grid/flex default of
- * stretch) keeps every card at its own natural height — a shorter C card
- * never gets stretched to match a taller A card sharing its row.
+ * ── Proportional scale-down, 992–1169px ──
+ * This range sits above where <TestimonialsMobile /> takes over (≤991px,
+ * see Testimonials.jsx), so the desktop 3-column masonry is still what's
+ * rendered here — same DOM, same flex-wrap row, same column order, same
+ * A>B>C hierarchy. Nothing here changes display mode, reorders cards, or
+ * reflows columns; every value is just the desktop one scaled down
+ * (~0.8×) so the identical composition fits a narrower viewport without
+ * wrapping to a second row, rather than becoming a different tablet
+ * layout.
  */
 @media (max-width: 1169px) {
   .pt-bento-columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    max-width: 820px;
-    margin: 0 auto;
-    gap: 24px;
+    max-width: 960px;
+    gap: 16px;
   }
 
-  .pt-bento-col,
+  .pt-bento-col {
+    flex-basis: 235px;
+    max-width: 250px;
+    gap: 16px;
+  }
+
+  /*
+   * Left column (Viali A, ToG C) and right column (FloBites A, Elytrix C)
+   * only — :not(.pt-bento-col-center) excludes the middle column (JRJP,
+   * VJ/MIH pair, Delicacy). Width was already equal (flex's default
+   * align-items: stretch fills each column's resolved width). Height is
+   * NOT forced to match between A and C — an A card (photo + quote + CTA +
+   * footer) genuinely has more content than a C card (quote + footer
+   * only), and giving them the same height left the C cards with a large
+   * dead gap above the footer.
+   *
+   * Instead, A matches A and C matches C, each fixed to its own shared
+   * height: Viali and FloBites's quotes are different lengths, so without
+   * this their two columns drift out of alignment by however many extra
+   * lines one quote wraps to — everything below (the C card) inherits
+   * that offset. Fixing both A cards to one height keeps the two columns
+   * level, and ToG/Elytrix then start at the same row in both columns too.
+   */
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card {
+    width: 100%;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
+    height: 400px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
+    height: 190px;
+  }
+
   .pt-bento-col-center {
-    display: contents;
+    flex-basis: 400px;
+    max-width: 420px;
+    margin-top: -56px;
   }
 
   .pt-bento-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    grid-column: 1 / -1;
-    gap: 20px;
-  }
-
-  /* Featured card: always first, full width, regardless of DOM order. */
-  .pt-card--b {
-    order: -1;
-    grid-column: 1 / -1;
-  }
-
-  /* A cards stay full width — the richer photo + quote + CTA content needs
-     the room, and it keeps them a visual tier above the compact C's. */
-  .pt-card--a {
-    grid-column: 1 / -1;
-  }
-
-  /* C cards pair up two-per-row — both the standalone ones in the outer
-     grid (ToG, Elytrix) and VJ/MIH inside their own nested pair-grid. */
-  .pt-card--c {
-    grid-column: span 1;
-  }
-
-  .pt-card {
-    padding: 28px;
-  }
-
-  .pt-a-quote p {
-    font-size: 1.35rem;
-  }
-}
-
-@media (max-width: 991px) {
-  .testimonials-section {
-    padding: 90px 20px 90px;
-  }
-
-  .testimonials-header {
-    margin-bottom: 70px;
-  }
-
-  .pt-bento-columns {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-    gap: 20px;
-  }
-
-  .pt-bento-pair {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .pt-card--c {
-    grid-column: 1 / -1;
+    gap: 16px;
   }
 
   .pt-card {
@@ -473,79 +452,92 @@
   }
 
   .pt-a-media {
-    height: 108px;
+    height: 104px;
     margin-bottom: 20px;
   }
 
   .pt-a-quote p {
-    font-size: 1.2rem;
+    font-size: 1.12rem;
   }
 
-  .pt-b-number {
-    font-size: 2.6rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .testimonials-section {
-    padding: 80px 16px 2px;
+  .pt-a-footer {
+    margin-top: 20px;
+    padding-top: 14px;
   }
 
-  .testimonials-header {
-    margin-bottom: 56px;
-  }
-
-  .testimonials-header h2 {
-    letter-spacing: -4%;
-  }
-
-  .pt-bento-columns {
-    max-width: 480px;
-    gap: 18px;
-  }
-
-  .pt-bento-pair {
-    gap: 18px;
-  }
-
-  .pt-card {
-    padding: 22px;
-  }
-
-  .pt-a-media {
-    height: 88px;
-    margin-bottom: 16px;
-  }
-
-  .pt-a-quote p {
-    font-size: 1.1rem;
+  .pt-b-metric {
+    margin-top: 20px;
   }
 
   .pt-b-number {
     font-size: 2.3rem;
   }
 
+  .pt-b-desc {
+    font-size: 0.82rem;
+  }
+
   .pt-c-quote p {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
 }
 
-@media (max-width: 575px) {
+/*
+ * ── Further scale-down, 767–991px ──
+ * The 1169px tier's column widths (250 + 420 + 250 + 2×16 gap ≈ 952px)
+ * only just fit at 992px and don't fit a 768px viewport (~730px available
+ * after section padding) — with flex-wrap still active, that pushed the
+ * third column onto its own row. This tier scales everything down further
+ * (not reordered, not stacked) and, unlike the tier above, drops
+ * flex-grow entirely (flex: 0 1 …) so each column is deterministically
+ * its stated width and can never expand to fill leftover space — no
+ * dependency on how the browser resolves flex-grow once one column hits
+ * its max-width cap.
+ */
+@media (max-width: 991px) {
   .testimonials-section {
-    padding: 70px 14px 70px;
+    padding: 80px 16px 10px;
+  }
+
+  .testimonials-header {
+    margin-bottom: 70px;
   }
 
   .pt-bento-columns {
-    max-width: 100%;
-    gap: 16px;
+    max-width: 660px;
+    gap: 10px;
+  }
+
+  .pt-bento-col {
+    flex: 0 1 170px;
+    max-width: 170px;
+    gap: 10px;
+  }
+
+  .pt-bento-col-center {
+    flex: 0 1 280px;
+    max-width: 280px;
+    margin-top: -36px;
   }
 
   .pt-bento-pair {
-    gap: 16px;
+    gap: 10px;
   }
 
   .pt-card {
-    padding: 20px;
+    padding: 18px;
+  }
+
+  .pt-card--c {
+    padding: 16px 14px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
+    height: 360px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
+    height: 160px;
   }
 
   .pt-a-media {
@@ -554,14 +546,28 @@
   }
 
   .pt-a-quote p {
-    font-size: 1.02rem;
+    font-size: 0.88rem;
+  }
+
+  .pt-a-footer {
+    margin-top: 14px;
+    padding-top: 10px;
+  }
+
+  .pt-b-metric {
+    margin-top: 14px;
   }
 
   .pt-b-number {
-    font-size: 2.05rem;
+    font-size: 1.7rem;
+  }
+
+  .pt-b-desc {
+    font-size: 0.7rem;
   }
 
   .pt-c-quote p {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
   }
 }
+

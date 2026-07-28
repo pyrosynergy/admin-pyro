@@ -379,7 +379,7 @@ updated hero.css
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 668px) {
   .hero-buttons-container {
     flex-direction: row;
     justify-content: center;

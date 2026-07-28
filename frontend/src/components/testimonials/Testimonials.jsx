@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaQuoteLeft, FaArrowRight, FaUser } from 'react-icons/fa';
 import './Testimonials.css';
+import TestimonialsMobile from './TestimonialsMobile.jsx';
 
 import logoViali from '../../assets/logo_viali.png';
 import logoFlobites from '../../assets/logo_fb_the.png';
@@ -36,24 +38,7 @@ const testimonials = [
     role: 'Founder & CEO, Viali Hair Care',
     logo: logoViali,
     logoAlt: 'Viali Hair Care logo',
-  },
-  {
-    id: 'vj',
-    variant: 'C',
-    quote: "\"Sharp, fast, and refreshingly honest about what would and wouldn't work for us.\"",
-    name: 'Vishal Jain',
-    role: 'Founder, VJ',
-    logo: null,
-    initials: 'VJ',
-  },
-  {
-    id: 'mih',
-    variant: 'C',
-    quote: '"Every deliverable felt like it was built for our business, not templated for anyone else\'s."',
-    name: 'Aditi Rao',
-    role: 'Founder, MIH',
-    logo: logoMih,
-    logoAlt: 'MIH logo',
+    caseStudyPath: '/case-studies/viali',
   },
   {
     id: 'flobites',
@@ -111,12 +96,18 @@ const TestimonialCard = ({ item }) => {
         </div>
 
         <p className="pt-b-desc">{item.description}</p>
+        <footer className={`pt-b-footer${!item.caseStudyPath ? ' pt-b-footer--logo-left' : ''}`}>
+          {item.caseStudyPath && (
+            <button
+              type="button"
+              className="pt-b-cta"
+              onClick={() => navigate(item.caseStudyPath)}
+            >
+              {item.cta}
+              <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
+            </button>
+          )}
 
-        <footer className="pt-b-footer">
-          <button type="button" className="pt-b-cta">
-            {item.cta}
-            <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
-          </button>
           <div className="pt-b-logo">
             <img src={item.logo} alt={item.logoAlt} />
           </div>
@@ -144,11 +135,11 @@ const TestimonialCard = ({ item }) => {
         <p>{item.quote}</p>
       </blockquote>
 
-      {isFeatured && (
+      {isFeatured && item.caseStudyPath && (
         <button
           type="button"
           className="pt-b-cta pt-a-cta"
-          onClick={() => item.caseStudyPath && navigate(item.caseStudyPath)}
+          onClick={() => navigate(item.caseStudyPath)}
         >
           VIEW CASE STUDY
           <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
@@ -175,11 +166,22 @@ const TestimonialCard = ({ item }) => {
 const findById = (id) => testimonials.find((item) => item.id === id);
 
 const Testimonials = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   const featured = findById('jrjp');
   const viali = findById('viali');
   
-  const vj = findById('vj');
-  const mih = findById('mih');
+  
   const flobites = findById('flobites');
   const tog = findById('tog');
   const delicacy = findById('delicacy');
@@ -191,36 +193,36 @@ const Testimonials = () => {
         <h2>What founders said <br /> <span className="highlight-purple">after working with us</span></h2>
       </div>
 
-      {/*
-        Three independent masonry columns sharing one top edge — B lives
-        inside the center column instead of its own full-width row above
-        everything. That's what lets the outer A cards start at the same
-        height as B (not below it), giving the section a staggered outline
-        instead of a flat rectangular one, and what lets the center column's
-        second card (Delicacy) start right after the short VJ/MIH pair
-        rather than waiting for the tall outer A cards. Each outer C card
-        sits directly beneath its own column's A card.
-      */}
-      <div className="pt-bento-columns">
-        <div className="pt-bento-col">
-          <TestimonialCard item={viali} />
-          <TestimonialCard item={tog} />
-        </div>
-
-        <div className="pt-bento-col pt-bento-col-center">
-          <TestimonialCard item={featured} />
-          <div className="pt-bento-pair">
-            <TestimonialCard item={vj} />
-            <TestimonialCard item={mih} />
+      {isMobile ? (
+        <TestimonialsMobile />
+      ) : (
+        /*
+          Three independent masonry columns sharing one top edge — B lives
+          inside the center column instead of its own full-width row above
+          everything. That's what lets the outer A cards start at the same
+          height as B (not below it), giving the section a staggered outline
+          instead of a flat rectangular one, and what lets the center
+          column's second card (Delicacy) start right after the short
+          VJ/MIH pair rather than waiting for the tall outer A cards. Each
+          outer C card sits directly beneath its own column's A card.
+        */
+        <div className="pt-bento-columns">
+          <div className="pt-bento-col">
+            <TestimonialCard item={tog} />
+            <TestimonialCard item={viali} />
           </div>
-          <TestimonialCard item={delicacy} />
-        </div>
 
-        <div className="pt-bento-col">
-          <TestimonialCard item={flobites} />
-          <TestimonialCard item={elytrix} />
+          <div className="pt-bento-col pt-bento-col-center">
+            <TestimonialCard item={featured} />
+            <TestimonialCard item={delicacy} />
+          </div>
+
+          <div className="pt-bento-col">
+            <TestimonialCard item={flobites} />
+            <TestimonialCard item={elytrix} />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

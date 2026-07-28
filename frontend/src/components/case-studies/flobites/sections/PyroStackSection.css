@@ -37,14 +37,21 @@
 
 .flobites-pyrostack-btn {
   flex-shrink: 0;
-  background-color: #9a7df3;
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
   color: #ffffff;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 20px 30px;
-  border-radius: 40px;
+  padding: 26px 46px;
+  border-radius: 44px;
   white-space: nowrap;
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flobites-pyrostack-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(124, 58, 237, 0.36);
 }
 
 .flobites-pyrostack-grid {
@@ -59,8 +66,8 @@
 .flobites-pyrostack-grid::before {
   content: '';
   position: absolute;
-  top: 10%;
-  bottom: 10%;
+  top: 5%;
+  bottom: 5%;
   left: 50%;
   width: 8px;
   margin-left: -4px;
@@ -71,8 +78,8 @@
 .flobites-pyrostack-grid::after {
   content: '';
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 5%;
+  right: 5%;
   top: 50%;
   height: 8px;
   margin-top: -4px;
@@ -299,10 +306,34 @@
 
 @media (max-width: 900px) {
   /* ---- PyroStack grid ---- */
-  .flobites-pyrostack-header {
+
+  /* Flatten the header wrapper so the title block, the grid, and the
+     button can be reordered as siblings: button moves to after the
+     grid and centers itself, instead of sitting above it inside the
+     header. */
+  .flobites-pyrostack {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  }
+
+  .flobites-pyrostack-header {
+    display: contents;
+  }
+
+  .flobites-pyrostack-header > div {
+    order: 1;
+  }
+
+  .flobites-pyrostack-grid {
+    order: 2;
+  }
+
+  .flobites-pyrostack-btn {
+    order: 3;
+    align-self: center;
+    margin-top: 32px;
+    font-size: 1rem;
+    padding: 16px 30px;
   }
 
   .flobites-pyrostack-title {
@@ -345,21 +376,46 @@
   }
 
   /* ---- BUILD step visual ---- */
-  .flobites-build-screens {
-    flex-direction: column;
-  }
-
-  .flobites-build-stickies {
+  .flobites-build-visual {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    margin-top: 16px;
+  }
+
+  /* Flatten the screens/stickies wrapper divs so each sticky can be
+     reordered to sit directly under its matching mockup on mobile,
+     instead of both mockups then both stickies. */
+  .flobites-build-screens,
+  .flobites-build-stickies {
+    display: contents;
+  }
+
+  .flobites-build-screen {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .flobites-build-screen:nth-child(1) {
+    order: 1;
+  }
+
+  .flobites-sticky--pink {
+    order: 2;
+  }
+
+  .flobites-build-screen:nth-child(2) {
+    order: 3;
+  }
+
+  .flobites-sticky--yellow {
+    order: 4;
   }
 
   .flobites-sticky {
     flex: 0 0 auto;
     width: 100%;
-    max-width: 220px;
+    max-width: 140px;
     margin-left: 0 !important;
   }
 

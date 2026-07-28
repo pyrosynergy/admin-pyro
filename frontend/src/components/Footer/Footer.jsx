@@ -68,7 +68,7 @@ const Footer = ({ openCalendarPopup }) => {
             <a href="#why-us" onClick={(e) => handleNavClick(e, 'services')}>Why Us</a>
           </div>
           <div className="footer-links-col">
-            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>PyroStack</a>
+            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>How it works</a>
             <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
           </div>
           <div className="footer-links-col">

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import './WhyUs.css';
 
 const cards = [
@@ -190,7 +191,9 @@ const WhyUs = () => {
           className="whyus-arrow"
           onClick={() => goTo(activeIndex - 1, 'left')}
           aria-label="Previous"
-        >&lt;</button>
+        >
+          <FaChevronLeft aria-hidden="true" />
+        </button>
 
         {cards.map((_, i) => (
           <button
@@ -207,7 +210,9 @@ const WhyUs = () => {
           className="whyus-arrow"
           onClick={() => goTo(activeIndex + 1, 'right')}
           aria-label="Next"
-        >&gt;</button>
+        >
+          <FaChevronRight aria-hidden="true" />
+        </button>
       </div>
     </section>
   );

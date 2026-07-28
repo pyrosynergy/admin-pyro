@@ -23,9 +23,8 @@ const Flobites = () => {
       <Shift />
       <PyroStackSection />
       <Nourish />
-      <Stories />
-      <Showcase />
       <Cta />
+      <Showcase />
     </section>
   );
 };

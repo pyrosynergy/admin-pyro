@@ -18,8 +18,8 @@ const Refine = () => (
       </div>
       <div className="flobites-refine-stat">
         <span className="flobites-refine-stat-number">8<span className="flobites-refine-stat-number-sub">out of</span>10</span>
-        <span className="flobites-refine-stat-label">users understand what FloBites is</span>
-        <span className="flobites-refine-stat-sub">in the first 10 seconds of visiting the website</span>
+        <span className="flobites-refine-stat-label">users understand what FloBites is in the</span>
+        <span className="flobites-refine-stat-sub">first 10 seconds of visiting the website</span>
       </div>
       <div className="flobites-refine-stat">
         <span className="flobites-refine-stat-number">97<span className="flobites-refine-stat-number-sub">/100</span></span>

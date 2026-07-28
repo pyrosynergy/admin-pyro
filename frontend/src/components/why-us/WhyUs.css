@@ -10,6 +10,7 @@
   font-family: 'DM Sans', sans-serif;
   color: #333;
   position: relative;
+  margin-top:20px;
 }
 
 .whyus-carousel-wrapper {
@@ -64,7 +65,7 @@
 /* ── Header ── */
 .why-us-header {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 .why-us-header h2 {
   font-size: 3rem;
@@ -138,7 +139,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 8px 0;
+  padding:0;
 }
 
 /* ── Chat rows ── */
@@ -253,20 +254,24 @@
 
 /* ── Arrow buttons ── */
 .whyus-arrow {
-  background:none;
-  border: none;
-  width: 24px;
-  height: 24px;
-  font-size: 1.5rem;
-  color: rgba(211, 211, 211, 0.95);
-  cursor: pointer;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  position: static;
-  transform: none;
-  transition: background 0.2s;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.whyus-arrow:active {
+  transform: scale(0.92);
+  background: rgba(124, 58, 237, 0.18);
 }
 
 
