@@ -1,0 +1,153 @@
+/* ---- Quote / testimonial section ---- */
+.viali-quote {
+  width: 100%;
+  max-width: 1440px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.viali-quote-card {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  background: linear-gradient(115deg, #f4b8d6 0%, #ddbfe0 50%, #a3cdea 100%);
+  border: 2px solid #64a9da ;
+  border-radius: 18px;
+  padding: 126px 124px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+}
+
+.viali-quote-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.viali-quote-mark {
+  flex-shrink: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+}
+
+.viali-quote-mark--open {
+  align-self: flex-start;
+  font-size: 70px;
+}
+
+.viali-quote-mark--close {
+  align-self: flex-end;
+  font-size: 70px;
+}
+
+.viali-quote-text {
+  flex: 1;
+  margin: 0;
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.35;
+  text-align: center;
+  color: #000;
+}
+
+.viali-quote-person {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.viali-quote-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.viali-quote-person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.viali-quote-name {
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #000;
+}
+
+.viali-quote-role {
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 900px) {
+  .viali-quote {
+    margin-top: 56px;
+  }
+
+  .viali-quote-card {
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .viali-quote-mark {
+    font-size: 1.8rem;
+  }
+
+  .viali-quote-text {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .viali-quote-card {
+    padding: 24px 18px;
+    gap: 18px;
+  }
+
+  .viali-quote-top {
+    gap: 8px;
+  }
+
+  .viali-quote-mark {
+    font-size: 1.5rem;
+  }
+
+  .viali-quote-text {
+    font-size: 0.95rem;
+  }
+
+  .viali-quote-person {
+    gap: 12px;
+  }
+
+  .viali-quote-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .viali-quote-name {
+    font-size: 0.9rem;
+  }
+
+  .viali-quote-role {
+    font-size: 0.78rem;
+  }
+}

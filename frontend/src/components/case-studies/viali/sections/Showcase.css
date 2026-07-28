@@ -1,0 +1,46 @@
+/* ---- Final showcase section ---- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700;1,800&display=swap');
+
+.viali-showcase {
+  width: 100%;
+  max-width: 1140px;
+  margin: 40px auto 100px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.viali-showcase-title {
+  color: #000;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  margin: 0 0 24px;
+}
+
+.viali-showcase-devices {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.viali-showcase-image {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .viali-showcase {
+    margin: 20px auto 60px;
+  }
+
+  .viali-showcase-title {
+    margin-bottom: 16px;
+  }
+}

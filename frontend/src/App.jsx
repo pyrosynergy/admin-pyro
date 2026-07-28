@@ -37,6 +37,7 @@ import EmpathyBanner from "./components/EmpathyBanner/EmpathyBanner.jsx";
 import WhyUs from "./components/why-us/WhyUs.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import Flobites from "./components/case-studies/flobites/Flobites.jsx";
+import Viali from "./components/case-studies/viali/Viali.jsx";
 
 // Asset Imports
 import logo1 from "./assets/logo_798.png";
@@ -123,7 +124,7 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname;
   // Show header on reality check; hide only on specific pages
-  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites'];
+  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites', '/case-studies/viali'];
   const is404 = !knownPaths.includes(location.pathname);
   const hideHeader = ['/welcome','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
@@ -289,7 +290,7 @@ function App() {
       {/* Main Content */}
       <div className={isLoading ? 'main-content-hidden' : 'main-content-visible'}>
         {!hideHeader && (
-          <Header 
+          <Header
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
@@ -319,6 +320,7 @@ function App() {
           <Route path="/policy-pages/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/policy-pages/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/case-studies/flobites" element={<Flobites />} />
+          <Route path="/case-studies/viali" element={<Viali />} />
           <Route path="/" element={
             <>
               <Hero

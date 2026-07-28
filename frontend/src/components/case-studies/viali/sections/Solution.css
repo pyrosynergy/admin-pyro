@@ -1,0 +1,163 @@
+/* ---- Solution / rebuild section ---- */
+.viali-solution {
+  width: 100%;
+  max-width: 1140px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.viali-solution-title {
+  font-family: "Albert Sans";
+  font-weight: 600;
+  font-size: 2.5rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.35;
+  margin: 0 0 64px;
+  max-width: 640px;
+}
+
+.viali-solution-title-accent {
+  color: #4a8fd8;
+  font-family: "Bricolage Grotesque";
+}
+
+.viali-solution-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  margin-bottom: 90px;
+}
+
+.viali-solution-row:last-child {
+  margin-bottom: 0;
+}
+
+.viali-solution-image {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.viali-solution-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+.viali-solution-image--small {
+  flex: 0 0 34%;
+}
+
+.viali-solution-image--small img {
+  max-width: 260px;
+}
+
+.viali-solution-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.viali-solution-subheading {
+  font-family: "Albert Sans";
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #000;
+  text-align: center;
+  margin: 0 0 4px;
+  letter-spacing: -1px;
+ 
+}
+.viali-solution-subheading.sub2{
+   max-width: 400px;
+  margin: 0 auto 4px;
+  padding: 0;
+}
+
+.viali-solution-strike {
+  color: #9a9a9a;
+  text-decoration: line-through;
+}
+
+.viali-solution-body {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #000;
+  text-align: center;
+  margin: 0;
+  font-weight: 400;
+  max-width: 600px;
+  width: 100%;
+
+}
+.viali-solution-body.body2{
+  max-width:500px;
+  width:100%;
+}
+
+
+@media (max-width: 1200px) {
+  .viali-solution-row {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .viali-solution {
+    margin-top: 40px;
+  }
+
+  .viali-solution-title {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    max-width: 100%;
+  }
+
+  .viali-solution-row {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .viali-solution-row--reverse {
+    flex-direction: column-reverse;
+  }
+
+  .viali-solution-image,
+  .viali-solution-image--small {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .viali-solution-image img {
+    max-width: 380px !important;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .viali-solution-image--small img {
+    max-width: 200px !important;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .viali-solution-subheading {
+    font-size: 1.2rem;
+  }
+  .viali-solution-subheading.sub2{
+    padding: 0px 100px! important;
+  }
+
+  .viali-solution-body {
+    font-size: 0.95rem;
+  }
+}

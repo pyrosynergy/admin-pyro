@@ -126,6 +126,9 @@ const Banner = () => {
 if (window.innerWidth < 765) {
   rows.push(...pillRows.slice(0, 4));
 }
+if (window.innerWidth < 594) {
+  rows.push(...pillRows.slice(1, 5));
+}
 
 
 

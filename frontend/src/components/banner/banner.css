@@ -248,16 +248,16 @@
 @media (max-width: 594px) {
   .banner-card {
     max-width: 300px;
-    padding: 96px 24px;
+    padding: 126px 28px;
   }
   .banner-pills-bg {
     gap: 12px;
   }
   .banner-pill{
-    font-size: 1.3rem;;
+    font-size: 1rem;;
   }
   .banner-heading {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     line-height: 1.15;
     letter-spacing: -0.5px;
     margin-bottom: 14px;

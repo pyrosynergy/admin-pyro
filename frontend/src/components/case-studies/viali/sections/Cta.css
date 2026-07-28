@@ -1,0 +1,84 @@
+/* ---- Closing CTA bar ---- */
+
+.viali-cta {
+  width: min(1200px, 90%);
+  margin: 100px auto;
+  padding: 100px 100px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* <-- important */
+  color:rgba(27, 26, 29, 0.9);
+  background: rgba(154, 125, 243, 0.5);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(154, 125, 243, 0.2);
+}
+
+.viali-cta-text {
+  flex: 1;
+  max-width: 520px;
+
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 500;
+
+  margin: 0;
+  text-align: left;
+}
+.viali-cta-text-accent {
+  font-weight: 600;
+  font-size: 2.7rem;
+  font-family: "albert sans", sans-serif;
+  letter-spacing: -2px;
+}
+
+.viali-cta-btn {
+    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #9532ce 0%, #532ab4 30%, #341480 100%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 32px 48px;
+  border-radius: 48px;
+  white-space: nowrap;
+   flex-shrink: 0;
+}
+.call-icon {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 900px) {
+  .viali-cta {
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 60px 10px 60px;
+    padding: 48px 5px;
+    gap: 18px;
+
+  }
+
+  .viali-cta-text{
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 1.3rem !important;
+  }
+  .viali-cta-text-accent {
+    font-size: 2rem !important;
+    font-family: "albert sans";
+    padding-top:20px;
+  }
+
+  .viali-cta-btn {
+    align-self:center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+  .call-icon {
+    width: 20px;
+    height: 20px;
+}
+}
