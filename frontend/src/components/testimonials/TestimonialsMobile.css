@@ -8,6 +8,7 @@
 .tm-slide-frame {
   width: 100%;
   margin-bottom: 0px;
+  min-height: 52vh;
 }
 
 /* ── Case study (Type I) ── */

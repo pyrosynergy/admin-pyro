@@ -25,7 +25,6 @@ const pillRows = [
   ['hiring support', 'research & development', 'content strategy', 'founder advisory', 'website development'],
   ['market study', 'AI automations', 'landing page development', 'systems building', 'QA & testing'],
   ['brand identity & guidelines design', 'technical consulting', 'customer acquisition strategy', 'business modeling'],
-  ['social media strategy', 'email marketing', 'investor pitch decks', 'onboarding flows', 'community building'],
 ];
 
 const MIN_SEQUENCE_COPIES = 3;
@@ -77,6 +76,8 @@ const PillRow = ({ labels, rowNumber, isMobile }) => {
     return () => resizeObserver.disconnect();
   }, [labels]);
 
+  
+
   return (
     <div className={`banner-pill-row ${isOdd ? 'banner-pill-row--dark' : 'banner-pill-row--light'}`} ref={rowRef}>
       <div
@@ -117,11 +118,22 @@ const Banner = () => {
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   }, []);
+  
+
+  const rows = [...pillRows];
+
+
+if (window.innerWidth < 765) {
+  rows.push(...pillRows.slice(0, 4));
+}
+
+
+
 
   return (
     <section className="banner-section">
       <div className="banner-pills-bg" aria-hidden="true">
-        {pillRows.map((labels, i) => (
+        {rows.map((labels, i) => (
           <PillRow key={i} labels={labels} rowNumber={i + 1} isMobile={isMobile} />
         ))}
       </div>

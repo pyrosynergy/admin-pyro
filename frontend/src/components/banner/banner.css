@@ -61,10 +61,10 @@
 .banner-pill {
   flex-shrink: 0;
   white-space: nowrap;
-  padding: 12px 24px;
+  padding: 18px 36px;
   border-radius: 999px;
   font-family: "Albert Sans", sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: #2c2438;
 }
@@ -88,7 +88,7 @@
   max-width: 720px;
   height:280px;
   margin: 0 auto;
-  padding: 56px 64px;
+  padding: 56px 126px;
   border-radius: 32px;
   text-align: center;
   overflow: hidden;
@@ -183,70 +183,84 @@
        more lines, so the fixed height must give way to the real content
        height instead of clipping it. */
     height: auto;
-    padding: 46px 40px;
+    padding: 76px 40px;
+    max-width:600px;
   }
 
   .banner-heading {
-    font-size: 2.3rem;
+    font-size: 2.8rem;
     line-height: 1.15;
     letter-spacing: -1px;
   }
 
   .banner-eyebrow {
-    font-size: 1.05rem;
+    font-size: 1.7rem;
   }
 
   .banner-desc {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     line-height: 1.5;
   }
 }
 
 @media (max-width: 767px) {
-  .banner-section {
-    padding: 100px 16px;
-    padding-bottom: 120px;
-    /* max-width: 1023px still applies below 767px too, so its min-height:
-       900px (sized for the full 8-row tablet marquee) was otherwise still
-       forcing this height here — on the reduced 5-row, smaller-pill mobile
-       layout that left a large empty gap above and below. Only 5 rows are
-       actually rendered at this width, so let the section size to its own
-       content again. */
-    min-height: 0;
-    margin-bottom: 0px;
+   .banner-section {
+    min-height: 90svh;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner-pills-bg {
+    gap: 16px;
   }
 
   .banner-card {
-    max-width: 340px;
-    padding: 24px 20px;
-    border-radius: 22px;
-    height: auto;
+    max-width: 500px;
+    padding: 96px 24px;
   }
+
 
   .banner-eyebrow {
     margin-bottom: 8px;
-    font-size: 0.85rem;
+    font-size: 1.5rem;
   }
 
   .banner-heading {
-    font-size: 1.6rem;
+    font-size: 2.8rem;
     line-height: 1.15;
     letter-spacing: -0.5px;
     margin-bottom: 14px;
   }
 
   .banner-desc {
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1.4;
-    max-width: 280px;
+    max-width: 380px;
   }
-
-  .banner-pills-bg {
-    gap: 8px;
-  }
-
   .banner-pill {
     padding: 8px 16px;
-    font-size: 0.75rem;
+    font-size: 1.1rem;
   }
+}
+
+@media (max-width: 594px) {
+  .banner-card {
+    max-width: 300px;
+    padding: 96px 24px;
+  }
+  .banner-pills-bg {
+    gap: 12px;
+  }
+  .banner-pill{
+    font-size: 1.3rem;;
+  }
+  .banner-heading {
+    font-size: 2.2rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+
 }
