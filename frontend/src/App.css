@@ -67,6 +67,12 @@ html {
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* Prevents the browser from silently re-adjusting scrollY to compensate
+     for layout shift when large below-the-fold images (case-study hero
+     assets, etc.) finish loading after a route change — which otherwise
+     fights the explicit reset in ScrollToTop and can drag the page away
+     from the top on slower connections. */
+  overflow-anchor: none;
 }
 
 body {

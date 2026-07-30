@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import "./App.css";
 
@@ -9,6 +9,7 @@ import Services from "./components/Services/Services.jsx";
 // import About from "./components/About/About"; // Add this import
 import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
 import DecodeQuestionnaire from "./components/DecodeQuestionnaire/DecodeQuestionnaire.jsx";
 import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
 import Loading from "./components/Loading/Loading.jsx"; // Add this import
@@ -38,6 +39,7 @@ import WhyUs from "./components/why-us/WhyUs.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import Flobites from "./components/case-studies/flobites/Flobites.jsx";
 import Viali from "./components/case-studies/viali/Viali.jsx";
+import CaseStudies from "./components/case-studies/CaseStudies.jsx";
 
 // Asset Imports
 import logo1 from "./assets/logo_798.png";
@@ -124,7 +126,7 @@ function App() {
   const location = useLocation();
   const currentPage = location.pathname;
   // Show header on reality check; hide only on specific pages
-  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites', '/case-studies/viali'];
+  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies', '/case-studies/flobites', '/case-studies/viali'];
   const is404 = !knownPaths.includes(location.pathname);
   const hideHeader = ['/welcome','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
   // Hide footer on reality check, hiring, and role-specific intern pages
@@ -258,6 +260,18 @@ function App() {
   return () => window.removeEventListener("scroll", handleScroll);
 }, []);
 
+  // isScrolled is only otherwise updated by the scroll listener above, so
+  // on a client-side route change it stays at whatever value the previous
+  // page left it at. Reset it here so every new route's first paint always
+  // renders the header in its translucent/fixed state, instead of
+  // occasionally flashing the stale dark/absolute one for a frame.
+  // useLayoutEffect (not useEffect) so this runs before the browser paints
+  // the new route — useEffect fires after paint, which still let that
+  // first frame render with the stale value.
+  useLayoutEffect(() => {
+    setIsScrolled(true);
+  }, [location.pathname]);
+
 
   // Handle escape key to close expanded card
   useEffect(() => {
@@ -284,6 +298,8 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollToTop />
+
       {/* Loading Screen */}
       {isLoading && <Loading />}
 
@@ -319,6 +335,7 @@ function App() {
           <Route path="/policy-pages/refund-policy" element={<RefundPolicy />} />
           <Route path="/policy-pages/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/policy-pages/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/case-studies/flobites" element={<Flobites />} />
           <Route path="/case-studies/viali" element={<Viali />} />
           <Route path="/" element={

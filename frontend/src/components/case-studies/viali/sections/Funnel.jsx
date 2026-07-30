@@ -10,51 +10,72 @@ const Funnel = () => (
     <div className="viali-funnel-row">
       <div className="viali-funnel-diagram">
         <svg
-          viewBox="0 0 340 440"
+          viewBox="0 0 460 640"
           className="viali-funnel-svg"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
           aria-label="Sales funnel diagram showing top, mid, and bottom of funnel stages"
         >
-         <polygon
-            points="0,10 340,10 260,112 80,112"
+          {/* Top Funnel */}
+          <polygon
+            points="10,15 450,15 390,145 70,145"
             className="viali-funnel-shape viali-funnel-shape--pink"
           />
-          <text x="170" y="68" className="viali-funnel-label">Top of Funnel</text>
+          <text x="230" y="85" className="viali-funnel-label">
+            Top of Funnel
+          </text>
 
+          {/* Mid Funnel */}
           <polygon
-            points="50,142 290,142 235,222 105,222"
+            points="60,195 400,195 340,315 120,315"
             className="viali-funnel-shape viali-funnel-shape--blue"
           />
-          <text x="170" y="188" className="viali-funnel-label">Mid Funnel</text>
+          <text x="230" y="255" className="viali-funnel-label">
+            Mid Funnel
+          </text>
 
+          {/* Bottom Funnel */}
           <polygon
-            points="100,252 240,252 212,342 128,342"
+            points="135,365 325,365 290,485 170,485"
             className="viali-funnel-shape viali-funnel-shape--pink"
           />
           <text className="viali-funnel-label">
-            <tspan x="170" y="278">Bottom</tspan>
-            <tspan x="170" y="300">of</tspan>
-            <tspan x="170" y="322">Funnel</tspan>
+            <tspan x="230" y="410">Bottom of</tspan>
+            <tspan x="230" y="445">Funnel</tspan>
           </text>
 
+          {/* Tip */}
           <polygon
-            points="140,372 200,372 200,426 165,426 140,406"
+            points="195,530 255,530 255,590 195,620 195,530"
             className="viali-funnel-shape viali-funnel-shape--blue"
           />
-        </svg>
+          </svg>
       </div>
 
       <div className="viali-funnel-text">
-        <p>
-          The product’s visibility lived entirely on the founder’s personal channel, with no dedicated channel strategy or way to convert followers into customers.
-        </p>
-        <p>
-          With no site to actually showcase the product range, what existed was a barebones landing page that didn’t reflect the brand or support real product discovery.
-        </p>
-        <p>
-          Underneath all of it, the founder was running inventory, orders, and fulfillment entirely by hand.
-        </p>
+        <div className="viali-funnel-point viali-funnel-point--top">
+          <h3 className="viali-funnel-point-heading">Top of Funnel</h3>
+          <span className="viali-funnel-connector viali-funnel-connector--pink" aria-hidden="true"></span>
+          <p>
+            The product’s visibility lived entirely on the founder’s personal channel, with no dedicated channel strategy or way to convert followers into customers.
+          </p>
+        </div>
+
+        <div className="viali-funnel-point viali-funnel-point--mid">
+          <h3 className="viali-funnel-point-heading">Mid Funnel</h3>
+          <span className="viali-funnel-connector viali-funnel-connector--blue" aria-hidden="true"></span>
+          <p>
+            With no site to actually showcase the product range, what existed was a barebones landing page that didn’t reflect the brand or support real product discovery.
+          </p>
+        </div>
+
+        <div className="viali-funnel-point viali-funnel-point--bottom">
+          <h3 className="viali-funnel-point-heading">Bottom of Funnel</h3>
+          <span className="viali-funnel-connector viali-funnel-connector--pink" aria-hidden="true"></span>
+          <p>
+            Underneath all of it, the founder was running inventory, orders, and fulfillment entirely by hand.
+          </p>
+        </div>
       </div>
     </div>
   </div>

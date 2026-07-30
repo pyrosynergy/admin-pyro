@@ -6,7 +6,7 @@ import nothingExtraPhone from '../../../../assets/flobites/nothing-extra-phone.p
 const Process = () => (
   <div className="flobites-process">
     <h2 className="flobites-process-title">
-      Turning nutrition into <span className="flobites-process-title-accent">digital experience.</span>
+      Turning nutrition into <div className="flobites-process-title-accent">a digital experience.</div>
     </h2>
 
     <div className="flobites-process-row">
@@ -14,7 +14,7 @@ const Process = () => (
         <img src={phoneCollage} alt="FloBites app screens shown on tilted phone mockups" />
       </div>
       <div className="flobites-process-text flobites-process-text1">
-        <p className="flobites-process-lead">
+        <p className="flobites-process-lead lead1">
           A palette that felt as balanced as the product itself.
         </p>
         <p className="flobites-process-body">

@@ -52,7 +52,7 @@
 }
 
 .flobites-issues-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'albert sans';
   font-weight: 600;
   font-size: 3.5rem;
   color: #ffffff;
@@ -269,5 +269,14 @@
   .flobites-issues-shot--bleed-right,
   .flobites-issues-shot--bleed-left {
     margin: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .flobites-issues-title{
+    margin-top: -70px;
+    font-size: 1.7rem;
+    padding:0px 20px;
+    margin-bottom: 48px;
   }
 }

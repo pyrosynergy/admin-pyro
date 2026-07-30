@@ -23,7 +23,6 @@
 
 .viali-solution-title-accent {
   color: #4a8fd8;
-  font-family: "Bricolage Grotesque";
 }
 
 .viali-solution-row {
@@ -113,7 +112,9 @@
 
 @media (max-width: 900px) {
   .viali-solution {
-    margin-top: 40px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    padding:0px 10px;
   }
 
   .viali-solution-title {
@@ -125,7 +126,7 @@
   .viali-solution-row {
     flex-direction: column;
     gap: 24px;
-    margin-bottom: 56px;
+    margin-bottom: 76px;
   }
 
   .viali-solution-row--reverse {
@@ -154,10 +155,11 @@
     font-size: 1.2rem;
   }
   .viali-solution-subheading.sub2{
-    padding: 0px 100px! important;
+    padding: 0px 50px! important;
   }
 
   .viali-solution-body {
     font-size: 0.95rem;
+    line-height: 1.7;
   }
 }

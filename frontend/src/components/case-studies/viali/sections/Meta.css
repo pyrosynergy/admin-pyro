@@ -73,7 +73,7 @@
 
 @media (max-width: 900px) {
   .viali-meta {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 32px;
     padding-bottom: 10px;
     padding-top: 80px !important;
@@ -130,9 +130,9 @@
 
 @media (max-width: 1200px) {
   .viali-meta {
-    gap: 80px;
+    gap: 40px;
     padding-top: 120px;
-    padding-bottom: 120px;
+    padding-bottom: 60px;
   }
 
   .viali-meta-left {

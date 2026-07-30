@@ -13,15 +13,18 @@
   position: relative;
   width: 100%;
   max-width: 1440px;
-  background: linear-gradient(115deg, #f4b8d6 0%, #ddbfe0 50%, #a3cdea 100%);
-  border: 2px solid #64a9da ;
-  border-radius: 18px;
-  padding: 126px 124px;
+  background: linear-gradient(
+  180deg,
+  #ECC4D6 0%,
+  #EA80A8 100%
+);
+border-radius: 18px;
+  padding: 106px 124px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 48px;
 
 }
 
@@ -56,21 +59,22 @@
   margin: 0;
   font-family: "Albert Sans", sans-serif;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   line-height: 1.35;
   text-align: center;
   color: #000;
+  padding:0px 100px;
 }
 
 .viali-quote-person {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 56px;
 }
 
 .viali-quote-avatar {
-  width: 72px;
-  height: 72px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -86,14 +90,16 @@
 .viali-quote-name {
   font-family: "Albert Sans", sans-serif;
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 2.2rem;
   color: #000;
+  text-align: center;
 }
 
 .viali-quote-role {
   font-family: "Albert Sans", sans-serif;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.7rem;
+  text-align: center;
   color: rgba(0, 0, 0, 0.6);
 }
 
@@ -132,6 +138,7 @@
 
   .viali-quote-text {
     font-size: 0.95rem;
+    padding:0px;
   }
 
   .viali-quote-person {
@@ -144,10 +151,10 @@
   }
 
   .viali-quote-name {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .viali-quote-role {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 }

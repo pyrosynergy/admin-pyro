@@ -105,13 +105,13 @@
 
 .flobites-refine-quote-text {
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 500;
   line-height: 1.7;
   text-align: center;
   max-width: 620px;
   margin: 0;
-  padding: 10px 20px;
+  padding: 0px 20px;
 }
 
 .flobites-refine-quote-mark {
@@ -134,14 +134,15 @@
   padding: 0;
   margin: 0;
   line-height: 1.5;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   text-align: right;
 }
 
 @media (max-width: 1048px) {
 
   .flobites-refine{
-    margin-bottom:24px;
+    margin-bottom:48px;
+    margin-top: 50px;
   }
 
   .flobites-refine-title {
@@ -173,17 +174,17 @@
   font-size: 0.75rem;
  
 }
-
-
   .flobites-refine-quote {
-    width: 100%;
+    width: 90%;
     padding: 32px 24px;
-    width:90%;
   }
 
   .flobites-refine-quote-text {
-    font-size: 1.1rem;
-    padding: 10px 10px;
+    font-size: 1.3rem;
+    padding: 0px 10px;
+  }
+  .flobites-refine-quote-author{
+    font-size:1.1rem;
   }
 }
 

@@ -19,8 +19,8 @@ const Issues = () => (
           <div className="flobites-issues-card">
             <div className="flobites-issues-note">
               <p>
-               Content about<strong> FloBites</strong> and its parent company
-                <strong>(THE)</strong> was added on a single page, which made it confusing for users to navigate and figure out what to read about.
+               Content about FloBites and its parent company
+                 (THE) was added on a single page, which made it <strong>confusing for users to navigate</strong> and figure out what to read about.
 
               </p>
             </div>

@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&display=swap');
+
+/* ---- Page shell ---- */
+.cs-section {
+  background: linear-gradient(290.63deg, #ECCEFF 0.93%, #FCF7FF 46.2%, #ECCEFF 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 180px 24px 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Albert Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+/* ---- Header ---- */
+.cs-header {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.cs-title {
+  margin: 0 0 20px;
+  font-family: 'albert sans';
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color:black;
+}
+
+.cs-title-accent {
+  background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Bricolage Grotesque';
+}
+
+.cs-subtitle {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: black;
+  font-weight: 400;
+  padding: 0px 70px;
+}
+
+/* ---- Card grid ---- */
+.cs-grid {
+  width: 100%;
+  max-width: 1160px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* ---- Card ---- */
+.cs-card {
+  all: unset;
+  box-sizing: border-box;
+  flex: 1 1 480px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 28px;
+  background: #0f0318;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+.cs-card:hover,
+.cs-card:focus-visible {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.12);
+}
+
+/* ---- Card media (~70%) ---- */
+.cs-card-media {
+  position: relative;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cs-card--flobites .cs-card-media {
+  background: linear-gradient(135deg, #cf738c 0%, #e2466d 45%, #fa3558 100%);
+}
+
+.cs-card--viali .cs-card-media {
+  background: linear-gradient(135deg, #f6c8db 0%, #dcc9ea 50%, #aecdf0 100%);
+}
+
+.cs-card-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cs-card:hover .cs-card-glow {
+  opacity: 1;
+}
+
+.cs-card-logo-badge {
+  position: relative;
+  z-index: 1;
+  width: 168px;
+  height: 168px;
+  border-radius: 32px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  box-sizing: border-box;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-card:hover .cs-card-logo-badge {
+  transform: scale(1.06);
+}
+
+.cs-card-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ---- Card info (~30%) ---- */
+.cs-card-info {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 32px 36px;
+}
+
+.cs-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.cs-card-subtitle {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #a855f7;
+}
+
+.cs-card-name {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #ffffff;
+}
+
+.cs-card-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 340px;
+}
+
+.cs-card-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  color: #ffffff;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-card:hover .cs-card-arrow {
+  transform: translateX(6px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .cs-grid {
+    max-width: 620px;
+  }
+
+  .cs-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .cs-section {
+    padding: 130px 20px 90px;
+  }
+
+  .cs-header {
+    margin-bottom: 56px;
+  }
+
+  .cs-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .cs-card {
+    /* flex-basis is a length along the main axis — once the grid switches
+       to a column, that axis is height, not width, so the desktop
+       "480px" basis would otherwise force every card to a 480px-tall
+       minimum regardless of its actual content. */
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .cs-card-media {
+    height: 240px;
+  }
+
+  .cs-card-logo-badge {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .cs-card-info {
+    padding: 26px 24px;
+  }
+
+  .cs-card-name {
+    font-size: 1.4rem;
+  }
+
+  .cs-card-desc {
+    font-size: 0.88rem;
+  }
+
+  .cs-card-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-card-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .cs-card-arrow {
+    align-self: flex-end;
+  }
+  .cs-subtitle{
+    padding: 0px 50px;
+  }
+}

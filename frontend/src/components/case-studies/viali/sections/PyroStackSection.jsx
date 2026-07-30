@@ -25,13 +25,13 @@ const PyroStackSection = () => {
           <h2 className="viali-pyrostack-title">How did we pull this off?</h2>
 
         </div>
-        <a href="/#pyrostack" className="viali-pyrostack-btn" onClick={handleViewMoreClick}>View More</a>
+        <a href="/#pyrostack" className="viali-pyrostack-btn" onClick={handleViewMoreClick}>Learn More About Our Framework</a>
       </div>
 
       <div className="viali-pyrostack-grid">
         <div className="viali-pyrostack-cell">
           <span className="viali-pyrostack-number">1</span>
-          <span className="viali-pyrostack-label">founder & product audit</span>
+          <span className="viali-pyrostack-label">Founder & Product Audit</span>
         </div>
         <div className="viali-pyrostack-cell">
           <span className="viali-pyrostack-number">2</span>
@@ -39,11 +39,11 @@ const PyroStackSection = () => {
         </div>
         <div className="viali-pyrostack-cell">
           <span className="viali-pyrostack-number">3</span>
-          <span className="viali-pyrostack-label">strategy + execution plan</span>
+          <span className="viali-pyrostack-label">Strategy + Execution Plan</span>
         </div>
         <div className="viali-pyrostack-cell">
           <span className="viali-pyrostack-number">4</span>
-          <span className="viali-pyrostack-label">build & launch</span>
+          <span className="viali-pyrostack-label">Build & Launch</span>
         </div>
       </div>
     </div>
@@ -51,26 +51,26 @@ const PyroStackSection = () => {
     <div className="viali-pyrostack-details">
       <div className="viali-pyrostack-detail">
         <span className="viali-pyrostack-detail-number">1</span>
-        <h3 className="viali-pyrostack-detail-heading">founder & product audit</h3>
+        <h3 className="viali-pyrostack-detail-heading">Founder & Product Audit</h3>
         <p className="viali-pyrostack-detail-body">
-          through in-depth conversations with the founder and a full audit of the barebones landing page and manual sales process, we identified exactly where Viali Hair Care's brand story and buying journey were breaking down.
-        </p>
+          The Pyro along with the founder went through a series of discussions about the product and an in-depth analysis of its competitive market. Several gaps were identified, the primary one being users unable to purchase the product online.</p>
       </div>
 
       <div className="viali-pyrostack-detail">
         <span className="viali-pyrostack-detail-number">2</span>
         <h3 className="viali-pyrostack-detail-heading">PyroStack<sup>TM</sup></h3>
         <p className="viali-pyrostack-detail-body">
-           we used our proprietary 35+ touchpoint framework, PyroStackTM, to map the path from a personal-network business to a fully operational storefront - starting with the e-commerce foundation and booking experience.
+           Our proprietary 35+ touchpoint framework PyroStack<sup>TM</sup> was used to map and evaluate the next steps for Viali’s growth. Through this, a roadmap was made for the new e-commerce platform.
         </p>
       </div>
 
       <div className="viali-pyrostack-detail">
         <span className="viali-pyrostack-detail-number">3</span>
-        <h3 className="viali-pyrostack-detail-heading">strategy + execution plan</h3>
+        <h3 className="viali-pyrostack-detail-heading">Strategy + Execution Plan</h3>
         <p className="viali-pyrostack-detail-body">
-           a full Wix Studio rebuild plan was mapped out: a new landing page, shop with color, size, and price variants, consultation booking, multi-gateway checkout, and an execution timeline to get it all live.</p>
-        <div className="viali-build-visual">
+            Along with the e-commerce platform, strategies for developing and promoting online hair consultation and offline events booking pages were made, along with a detailed execution timeline.
+        </p>
+        {/* <div className="viali-build-visual">
           <div className="viali-build-screens">
             <div className="viali-build-screen">
               <img src={buildShopScreen} alt="Viali Hair Care shop page with product grid and filters" />
@@ -92,14 +92,14 @@ const PyroStackSection = () => {
 
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="viali-pyrostack-detail">
         <span className="viali-pyrostack-detail-number">4</span>
-        <h3 className="viali-pyrostack-detail-heading">build & launch</h3>
+        <h3 className="viali-pyrostack-detail-heading">Build & Launch</h3>
         <p className="viali-pyrostack-detail-body">
-          our team designed and built the new site end-to-end on Wix Studio, then handed the founder a self-serve mobile app to manage inventory, orders, and appointments without touching a spreadsheet again.
+          The first 2-3 weeks were used for exploring different designs. Once the design language was finalized, our team spent the next 6 weeks developing the entire website, including inventory and revenue management systems. Right after launching, another 4 weeks were spent on creating and uploading marketing material for Viali’s socials.
         </p>
       </div>
     </div>

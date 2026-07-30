@@ -37,9 +37,9 @@
 
 .viali-pyrostack-btn {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #ec4899 0%, #9d174d 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-decoration: none;
   padding: 26px 46px;
@@ -306,7 +306,8 @@
   }
 
   .viali-pyrostack-label {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    text-align: center;
   }
 
   /* ---- PyroStack detailed steps ---- */

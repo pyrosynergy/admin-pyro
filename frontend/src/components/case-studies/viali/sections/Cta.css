@@ -1,7 +1,7 @@
 /* ---- Closing CTA bar ---- */
 
 .viali-cta {
-  width: min(1200px, 90%);
+   width: min(1200px, 90%);
   margin: 100px auto;
   padding: 100px 100px;
   

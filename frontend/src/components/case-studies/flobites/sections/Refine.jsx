@@ -4,7 +4,7 @@ import './Refine.css';
 const Refine = () => (
   <div className="flobites-refine">
     <h2 className="flobites-refine-title">
-      Refining what users <span className="flobites-refine-title-accent">actually felt.</span>
+      Refining what users <div className="flobites-refine-title-accent">actually felt.</div>
     </h2>
     <p className="flobites-refine-subtitle">
       Every refinement was shaped by real feedback, until the experience felt clear and easy to understand
