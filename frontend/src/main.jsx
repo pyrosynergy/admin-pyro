@@ -11,24 +11,26 @@ import App from './App.jsx';
  * fires `vite:preloadError` for exactly this, and a reload is the fix: the
  * fresh index.html points at the chunks that do exist.
  *
- * Rate-limited to one reload per 10s via sessionStorage, so a genuinely
- * missing chunk (rather than a stale one) can't put the tab in a reload loop.
+ * Limited to one reload per session via sessionStorage. A cooldown window only
+ * slowed a reload loop down; if the fresh index.html still can't find the
+ * chunk, the file is genuinely gone rather than stale and reloading again will
+ * never fix it. After the first attempt we let the error through to
+ * RouteErrorBoundary, which offers the user a retry.
  */
-const RELOAD_KEY = 'chunk-reload-at';
-const RELOAD_COOLDOWN_MS = 10_000;
+const RELOAD_KEY = 'chunk-reload-attempted';
 
 window.addEventListener('vite:preloadError', (event) => {
-  let last = 0;
+  let alreadyReloaded = false;
   try {
-    last = Number(sessionStorage.getItem(RELOAD_KEY)) || 0;
+    alreadyReloaded = sessionStorage.getItem(RELOAD_KEY) === '1';
   } catch {
     // Private mode / storage disabled — fall through and allow one reload.
   }
 
-  if (Date.now() - last < RELOAD_COOLDOWN_MS) return;
+  if (alreadyReloaded) return;
 
   try {
-    sessionStorage.setItem(RELOAD_KEY, String(Date.now()));
+    sessionStorage.setItem(RELOAD_KEY, '1');
   } catch {
     // Non-fatal: without storage we just lose the loop guard.
   }

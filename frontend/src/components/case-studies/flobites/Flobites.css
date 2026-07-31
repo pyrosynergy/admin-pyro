@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+/* Bricolage Grotesque, Plus Jakarta Sans, Caveat and Architects Daughter all
+   come from the single preconnected <link> in index.html. A CSS @import is
+   render-blocking, and in a lazy-route stylesheet it made this route's chunk
+   wait on a third-party request — a blocked or slow fonts.googleapis.com took
+   the whole page down with it. Same rule as App.css and CaseStudies.css. */
 
 .flobites-section {
   background-color: #fbf8f5;
