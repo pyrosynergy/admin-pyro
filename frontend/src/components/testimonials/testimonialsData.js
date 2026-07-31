@@ -36,7 +36,7 @@ export const testimonials = [
     variant: 'A',
     accent: 'delicacy',
     company: 'Jai Rajendra Jewel Palace',
-    quote: 'We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. that\'s superb.',
+    quote: '"We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. that\'s superb."',
     // Credited to the brand rather than a person, so the company name takes
     // the bold name line and there's no role beneath it.
     name: 'Jai Rajendra Jewel Palace',

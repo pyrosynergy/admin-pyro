@@ -77,7 +77,6 @@ const PillRow = ({ labels, rowNumber, isMobile }) => {
   }, [labels]);
 
 
-
   return (
     <div className={`banner-pill-row ${isOdd ? 'banner-pill-row--dark' : 'banner-pill-row--light'}`} ref={rowRef}>
       <div

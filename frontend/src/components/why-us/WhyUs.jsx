@@ -136,7 +136,7 @@ const WhyUs = () => {
         <h2>
           You build the product, while{' '}
           <span className="highlight-text-ps">PyroSynergy</span>
-          <br />handles <span className="highlight-text">everything</span> around it.
+          <br /> handles <span className="highlight-text">everything</span> around it.
         </h2>
         <p className="why-us-subtitle">
           Your idea deserves more than a half-built system and a stretched team.<br />

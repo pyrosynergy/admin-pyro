@@ -181,9 +181,16 @@
   text-align: center;
 }
 
-.mobile-nav li:first-child {
+.mobile-nav li {
+  padding: 0;
+  text-align: center;
   border-bottom: 1px solid rgba(89, 47, 168, 0.25);
 }
+
+.mobile-nav li:last-child {
+  border-bottom: none;
+}
+
 
 .mobile-nav a {
   display: block;

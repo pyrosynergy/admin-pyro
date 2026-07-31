@@ -193,8 +193,35 @@
     margin-bottom: 30px;
   }
 
+  /* Desktop sizes the photo off the card's fixed height and lets it run past
+     the midpoint, trusting the cut-out's transparent right edge to sit
+     harmlessly under the name. The card narrows with the screen but a
+     height-driven photo doesn't, so by this width the opaque subject was
+     wider than the whole card and covered the name outright. Sizing the card
+     and the photo off the card's *width* keeps the figure in its own half at
+     every screen size, and still works out to ~124% of the card's height, so
+     it breaks out over the top edge exactly like the desktop one. */
   .founder-image-wrapper {
-    height: 250px;
+    height: auto;
+    aspect-ratio: 100 / 46;
+  }
+
+  .founder-photo {
+    width: 64%;
+    height: auto;
+  }
+
+  .founder-identity {
+    width: 38%;
+    padding-right: 10px;
+  }
+
+  .founder-name {
+    font-size: clamp(0.95rem, 4.2vw, 1.4rem);
+  }
+
+  .founder-role {
+    font-size: clamp(0.7rem, 2.4vw, 0.9rem);
   }
 
   .founder-description {

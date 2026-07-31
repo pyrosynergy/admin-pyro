@@ -16,25 +16,53 @@ import { testimonials, stripQuoteMarks } from './testimonialsData.js';
  */
 const REVIEWS_PER_SLIDE = 2;
 
+/*
+ * Entries that share a slide here no matter what the desktop grid does with
+ * them — each inner array is one reviews slide, and every entry named in one
+ * renders as a compact review card even if `variant` would otherwise feature
+ * it. JRJP is a desktop 'A', but its quote credits the brand rather than a
+ * person and carries no role line, so it reads fine compact; pairing it with
+ * Elytrix also means neither is left holding a slide on its own. `variant`
+ * stays untouched, so the desktop bento grid is unaffected.
+ */
+const PAIRED_SLIDES = [['jrjp', 'elytrix']];
+
 const buildMobileSlides = (items) => {
   const slides = [];
   let pending = [];
 
-  const flushReviews = () => {
-    if (!pending.length) return;
+  const pushReviewSlide = (reviews) => {
     slides.push({
       type: 'reviews',
-      id: `reviews-${pending.map((r) => r.id).join('-')}`,
-      reviews: pending.map((item, i) => ({
+      id: `reviews-${reviews.map((r) => r.id).join('-')}`,
+      reviews: reviews.map((item, i) => ({
         ...item,
         // Alternate which side the media sits on down the stack.
         layout: i % 2 === 0 ? 'text-left' : 'image-left',
       })),
     });
+  };
+
+  const flushReviews = () => {
+    if (!pending.length) return;
+    pushReviewSlide(pending);
     pending = [];
   };
 
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const paired = new Set();
+
   items.forEach((item) => {
+    const pair = PAIRED_SLIDES.find((ids) => ids.includes(item.id));
+    if (pair) {
+      // The slide lands where the pair's first member sits in the data, so
+      // slide order still reads off testimonialsData.js.
+      if (paired.has(item.id)) return;
+      pair.forEach((id) => paired.add(id));
+      pushReviewSlide(pair.map((id) => byId.get(id)).filter(Boolean));
+      return;
+    }
+
     if (item.variant === 'C') {
       pending.push(item);
       if (pending.length === REVIEWS_PER_SLIDE) flushReviews();
@@ -125,7 +153,9 @@ const ReviewCard = ({ data }) => (
       <div className="tm-review-person">
         <div className="tm-person-copy">
           <span className="tm-person-name">{data.name}</span>
-          <span className="tm-person-role">{data.role}</span>
+          {/* Brand-credited entries (JRJP) carry no role — same guard the
+              case-study card's footer uses. */}
+          {data.role && <span className="tm-person-role">{data.role}</span>}
         </div>
       </div>
     </div>

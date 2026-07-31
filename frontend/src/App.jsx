@@ -398,7 +398,7 @@ function App() {
       {/* Main Content */}
       <div className={isLoading ? 'main-content-hidden' : 'main-content-visible'}>
         {!hideHeader && (
-          <Header 
+          <Header
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
