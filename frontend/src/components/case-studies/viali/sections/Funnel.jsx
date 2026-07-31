@@ -27,7 +27,7 @@ const Funnel = () => (
 
           {/* Mid Funnel */}
           <polygon
-            points="60,195 400,195 340,315 120,315"
+            points="70,195 390,195 340,315 120,315"
             className="viali-funnel-shape viali-funnel-shape--blue"
           />
           <text x="230" y="255" className="viali-funnel-label">
