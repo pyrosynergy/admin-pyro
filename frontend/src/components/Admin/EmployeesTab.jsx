@@ -112,15 +112,13 @@ const EmployeesTab = ({ onSessionExpired }) => {
     }
   };
 
-  // `kind` is 'full' (tokenised link) or 'short' (QR link, e.g. .../verify/e4);
-  // it also keys the "Copied!" label so only the clicked button flips.
-  const copyLink = async (employee, kind, link) => {
+  const copyLink = async (employee) => {
     try {
-      await navigator.clipboard.writeText(link);
-      setCopiedId(`${employee._id}:${kind}`);
+      await navigator.clipboard.writeText(employee.verifyLink);
+      setCopiedId(employee._id);
       setTimeout(() => setCopiedId(null), 1500);
     } catch {
-      window.prompt('Copy the verify link:', link);
+      window.prompt('Copy the verify link:', employee.verifyLink);
     }
   };
 
@@ -174,23 +172,9 @@ const EmployeesTab = ({ onSessionExpired }) => {
                     <span className={`admin-badge ${employee.validity}`}>{validityLabel(employee.validity)}</span>
                   </td>
                   <td>
-                    <div className="admin-actions">
-                      <button
-                        className="admin-btn admin-btn-small"
-                        onClick={() => copyLink(employee, 'full', employee.verifyLink)}
-                      >
-                        {copiedId === `${employee._id}:full` ? 'Copied!' : 'Copy link'}
-                      </button>
-                      {employee.shortVerifyLink && (
-                        <button
-                          className="admin-btn admin-btn-small admin-btn-ghost"
-                          title={`QR link — ${employee.shortVerifyLink}`}
-                          onClick={() => copyLink(employee, 'short', employee.shortVerifyLink)}
-                        >
-                          {copiedId === `${employee._id}:short` ? 'Copied!' : 'Copy QR link'}
-                        </button>
-                      )}
-                    </div>
+                    <button className="admin-btn admin-btn-small" onClick={() => copyLink(employee)}>
+                      {copiedId === employee._id ? 'Copied!' : 'Copy link'}
+                    </button>
                   </td>
                   <td>
                     <div className="admin-actions">

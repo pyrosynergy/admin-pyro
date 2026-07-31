@@ -5,50 +5,32 @@ import "./App.css";
 // --- Eager imports: chrome + above-the-fold homepage content (part of the entry chunk) ---
 import Header from "./components/Header/Header.jsx";
 import Hero from "./components/Hero/Hero.jsx";
+import Services from "./components/Services/Services.jsx";
+import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import Loading from "./components/Loading/Loading.jsx";
-import SEO from "./components/SEO/SEO.jsx";
-// Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
-import { openCalendarPopup } from "./lib/calendar.js";
-// Must be eager: it exists to catch lazy chunks failing to load.
-import RouteErrorBoundary from "./components/RouteErrorBoundary/RouteErrorBoundary.jsx";
+import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
+import Loading from "./components/Loading/Loading.jsx"; // Add this import
+import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
+import Hiring from "./components/Hiring/Hiring.jsx";
+import Copywriter from "./components/Hiring/Copywriter.jsx";
+import VisualDesigner from "./components/Hiring/VisualDesigner.jsx";
+import UXDesigner from "./components/Hiring/UXDesigner.jsx";
+import NoCodeWeb from "./components/Hiring/NoCodeWeb.jsx";
+import SalesIntern from "./components/Hiring/SalesIntern.jsx";
+import ContentStrategist from "./components/Hiring/ContentStrategist.jsx";
+import SocialIntern from "./components/Hiring/SocialIntern.jsx";
+import UIUXVDIntern from "./components/Hiring/UIUXVDIntern.jsx";
+import PolicyPages from "./components/PolicyPages/PolicyPages.jsx";
+import PrivacyPolicy from "./components/PolicyPages/PrivacyPolicy.jsx";
+import RefundPolicy from "./components/PolicyPages/RefundPolicy.jsx";
+import CancellationPolicy from "./components/PolicyPages/CancellationPolicy.jsx";
+import TermsAndConditions from "./components/PolicyPages/TermsAndConditions.jsx";
+import FAQ from "./components/FAQ/FAQ.jsx";
+import NotFound from "./components/NotFound/NotFound.jsx";
+import Admin from "./components/Admin/Admin.jsx";
+import Verify from "./components/Verify/Verify.jsx";
 
-// --- Lazy: below-the-fold homepage sections ---
-const WhyUs = lazy(() => import("./components/why-us/WhyUs.jsx"));
-const Banner = lazy(() => import("./components/banner/banner.jsx"));
-const Testimonials = lazy(() => import("./components/testimonials/Testimonials.jsx"));
-const PyroStack = lazy(() => import("./components/pyrostack/PyroStack.jsx"));
-const Founder = lazy(() => import("./components/Founder/Founder.jsx"));
-const EmpathyBanner = lazy(() => import("./components/EmpathyBanner/EmpathyBanner.jsx"));
-const FAQ = lazy(() => import("./components/FAQ/FAQ.jsx"));
-const Contact = lazy(() => import("./components/Contact/Contact.jsx"));
-
-// --- Lazy: separate routes, each becomes its own chunk ---
-const DecodeQuestionnaire = lazy(() => import("./components/DecodeQuestionnaire/DecodeQuestionnaire.jsx"));
-const Questionnaire = lazy(() => import("./components/Questionnaire/Questionnaire.jsx"));
-const Welcome = lazy(() => import("./components/Welcome/Welcome.jsx"));
-const Hiring = lazy(() => import("./components/Hiring/Hiring.jsx"));
-const Copywriter = lazy(() => import("./components/Hiring/Copywriter.jsx"));
-const VisualDesigner = lazy(() => import("./components/Hiring/VisualDesigner.jsx"));
-const UXDesigner = lazy(() => import("./components/Hiring/UXDesigner.jsx"));
-const NoCodeWeb = lazy(() => import("./components/Hiring/NoCodeWeb.jsx"));
-const SalesIntern = lazy(() => import("./components/Hiring/SalesIntern.jsx"));
-const SocialIntern = lazy(() => import("./components/Hiring/SocialIntern.jsx"));
-const UIUXVDIntern = lazy(() => import("./components/Hiring/UIUXVDIntern.jsx"));
-const PolicyPages = lazy(() => import("./components/PolicyPages/PolicyPages.jsx"));
-const PrivacyPolicy = lazy(() => import("./components/PolicyPages/PrivacyPolicy.jsx"));
-const RefundPolicy = lazy(() => import("./components/PolicyPages/RefundPolicy.jsx"));
-const CancellationPolicy = lazy(() => import("./components/PolicyPages/CancellationPolicy.jsx"));
-const TermsAndConditions = lazy(() => import("./components/PolicyPages/TermsAndConditions.jsx"));
-const NotFound = lazy(() => import("./components/NotFound/NotFound.jsx"));
-const Flobites = lazy(() => import("./components/case-studies/flobites/Flobites.jsx"));
-const Viali = lazy(() => import("./components/case-studies/viali/Viali.jsx"));
-const CaseStudies = lazy(() => import("./components/case-studies/CaseStudies.jsx"));
-const Admin = lazy(() => import("./components/Admin/Admin.jsx"));
-const Verify = lazy(() => import("./components/Verify/Verify.jsx"));
-
-// The admin console lives behind an unguessable path rather than a linked one.
+// Tokenised admin route — not linked from anywhere; /admin itself 404s.
 // Override per deployment with VITE_ADMIN_PATH (must start with "/").
 const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || "/ROrnJSKyI6TTf4q1xnrNWmgd";
 
@@ -275,13 +257,14 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname;
-  // Header/footer visibility now comes from the ROUTES config above rather than
-  // three separate hand-maintained path arrays. Unknown paths render the 404,
-  // which shows neither.
-  const route = ROUTES[location.pathname];
-  const is404 = !route;
-  const hideHeader = is404 || !route.header;
-  const hideFooter = is404 || !route.footer;
+  // Show header on reality check; hide only on specific pages
+  const knownPaths = ['/', '/welcome', '/realitycheck', '/decode', ADMIN_PATH, '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'];
+  // /verify/:token is dynamic, so it can't be listed in knownPaths
+  const isVerifyPage = location.pathname.startsWith('/verify/');
+  const is404 = !knownPaths.includes(location.pathname) && !isVerifyPage;
+  const hideHeader = isVerifyPage || ['/welcome', ADMIN_PATH, '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
+  // Hide footer on reality check, hiring, and role-specific intern pages
+  const hideFooter = is404 || isVerifyPage || ['/welcome', '/decode', '/realitycheck', ADMIN_PATH, '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -403,27 +386,24 @@ function App() {
         <RouteErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
         <Routes>
-          <Route path="/realitycheck" element={<Page path="/realitycheck"><Questionnaire /></Page>} />
-          <Route path="/decode" element={<Page path="/decode"><DecodeQuestionnaire /></Page>} />
-          <Route path="/welcome" element={<Page path="/welcome"><Welcome /></Page>} />
-          <Route path="/hiring" element={<Page path="/hiring"><Hiring /></Page>} />
-          <Route path="/hiring/copywriter_intern_1" element={<Page path="/hiring/copywriter_intern_1"><Copywriter /></Page>} />
-          <Route path="/hiring/videsign_intern_1" element={<Page path="/hiring/videsign_intern_1"><VisualDesigner /></Page>} />
-          <Route path="/hiring/uxdesign_intern_1" element={<Page path="/hiring/uxdesign_intern_1"><UXDesigner /></Page>} />
-          <Route path="/hiring/nocodeweb_intern_1" element={<Page path="/hiring/nocodeweb_intern_1"><NoCodeWeb /></Page>} />
-          <Route path="/hiring/sales_intern_1" element={<Page path="/hiring/sales_intern_1"><SalesIntern /></Page>} />
+          <Route path="/decode" element={<Questionnaire />} />
+          <Route path="/realitycheck" element={<Navigate to="/decode" replace />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/hiring" element={<Hiring />} />
+          <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
+          <Route path="/hiring/videsign_intern_1" element={<VisualDesigner />} />
+          <Route path="/hiring/uxdesign_intern_1" element={<UXDesigner />} />
+          <Route path="/hiring/nocodeweb_intern_1" element={<NoCodeWeb />} />
+          <Route path="/hiring/sales_intern_1" element={<SalesIntern />} />
           <Route path="/hiring/content_intern_1" element={<Navigate to="/hiring" replace />} />
-          <Route path="/hiring/social_intern_1" element={<Page path="/hiring/social_intern_1"><SocialIntern /></Page>} />
-          <Route path="/hiring/uiuxvd_intern_1" element={<Page path="/hiring/uiuxvd_intern_1"><UIUXVDIntern /></Page>} />
-          <Route path="/policy-pages" element={<Page path="/policy-pages"><PolicyPages /></Page>} />
-          <Route path="/policy-pages/privacy-policy" element={<Page path="/policy-pages/privacy-policy"><PrivacyPolicy /></Page>} />
-          <Route path="/policy-pages/refund-policy" element={<Page path="/policy-pages/refund-policy"><RefundPolicy /></Page>} />
-          <Route path="/policy-pages/cancellation-policy" element={<Page path="/policy-pages/cancellation-policy"><CancellationPolicy /></Page>} />
-          <Route path="/policy-pages/terms-and-conditions" element={<Page path="/policy-pages/terms-and-conditions"><TermsAndConditions /></Page>} />
-          <Route path="/case-studies" element={<Page path="/case-studies"><CaseStudies /></Page>} />
-          <Route path="/case-studies/flobites" element={<Page path="/case-studies/flobites"><Flobites /></Page>} />
-          <Route path="/case-studies/viali" element={<Page path="/case-studies/viali"><Viali /></Page>} />
-          <Route path={ADMIN_PATH} element={<Page path={ADMIN_PATH}><Admin /></Page>} />
+          <Route path="/hiring/social_intern_1" element={<SocialIntern />} />
+          <Route path="/hiring/uiuxvd_intern_1" element={<UIUXVDIntern />} />
+          <Route path="/policy-pages" element={<PolicyPages />} />
+          <Route path="/policy-pages/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/policy-pages/refund-policy" element={<RefundPolicy />} />
+          <Route path="/policy-pages/cancellation-policy" element={<CancellationPolicy />} />
+          <Route path="/policy-pages/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path={ADMIN_PATH} element={<Admin />} />
           <Route path="/verify/:token" element={<Verify />} />
           <Route path="/" element={
             <>

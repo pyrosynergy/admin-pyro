@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { buildShortVerifyLink } = require('../utils/links');
 
 const employeeSchema = new mongoose.Schema(
   {
@@ -61,14 +60,7 @@ const employeeSchema = new mongoose.Schema(
       required: true,
     },
   },
-  // Virtuals are serialised so the admin UI sees shortVerifyLink.
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { timestamps: true }
 );
-
-// Derived, never stored: it must follow empId when a record is edited.
-// null for legacy non-numeric IDs, which have no short form.
-employeeSchema.virtual('shortVerifyLink').get(function () {
-  return buildShortVerifyLink(this.empId);
-});
 
 module.exports = mongoose.model('Employee', employeeSchema);

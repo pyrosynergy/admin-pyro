@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const { ALLOWED_ORIGINS } = require('./config/origins');
-const connectDb = require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;

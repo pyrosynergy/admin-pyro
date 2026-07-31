@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Verify.css';
 
-// VITE_API_BASE overrides the default, so a local production build
-// (npm run preview) can be pointed at http://localhost:5000 instead of the
-// deployed API. Without it, any PROD build talks to the deployed backend.
-const API_BASE =
-  import.meta.env.VITE_API_BASE ||
-  (import.meta.env.PROD ? 'https://admin-pyro-backend.vercel.app' : 'http://localhost:5000');
+const API_BASE = import.meta.env.PROD
+  ? 'https://admin-pyro-backend.vercel.app'
+  : 'http://localhost:5000';
 
 const formatDate = (value) => {
   if (!value) return '—';
@@ -84,16 +81,12 @@ const Verify = () => {
 
         {loading && <p className="verify-muted">Verifying…</p>}
 
-        {/* A failed request is NOT a missing employee: showing "Not found" for
-            both hides API outages behind an invalid-link message. */}
         {!loading && (notFound || error) && (
           <>
-            <div className={`verify-status ${error ? 'under-process' : 'invalid'}`}>
-              {error ? 'Unavailable' : 'Not found'}
-            </div>
+            <div className="verify-status invalid">Not found</div>
             <p className="verify-muted">
               {error
-                ? 'Verification is temporarily unavailable — the service could not be reached. Please try again later.'
+                ? 'Something went wrong while verifying. Please try again later.'
                 : 'This verification link is invalid. Check the link and try again.'}
             </p>
           </>

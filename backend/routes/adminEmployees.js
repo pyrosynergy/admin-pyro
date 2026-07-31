@@ -14,13 +14,17 @@ const {
   validateDate,
   validateValidity,
 } = require('../utils/validators');
-const { buildVerifyLink } = require('../utils/links');
 
 // Every route in this router requires an authenticated admin.
 router.use(csrfGuard, requireAuth, requireRole('admin'));
 
 function generateToken() {
   return crypto.randomBytes(24).toString('hex');
+}
+
+function buildVerifyLink(token) {
+  const base = (process.env.VERIFY_BASE_URL || 'https://pyrosynergy.com').replace(/\/$/, '');
+  return `${base}/verify/${token}`;
 }
 
 function findValidationError(checks) {

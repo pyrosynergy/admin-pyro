@@ -5,9 +5,7 @@ const Employee = require('../models/Employee');
 // @route   GET /api/verify/:token
 // @desc    Public employee verification, by token or by short employee-id
 //          form "e<digits>" (e.g. /api/verify/e17 -> empId 00017), which QR
-//          codes can encode instead of the full 48-char token. The canonical
-//          short form drops leading zeros (empId 00004 -> /api/verify/e4, see
-//          utils/links.js), but padded variants like /e04 also resolve.
+//          codes can encode instead of the full 48-char token.
 // @access  Public
 router.get('/:token', async (req, res) => {
   try {
