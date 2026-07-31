@@ -1,6 +1,6 @@
 .testimonials-section {
   background:#eee8f5 ;
-  padding: 110px 20px 100px;
+  padding: 50px 20px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,6 +32,7 @@
   display: inline-block;
   font-family:'bricolage grotesque', 'DM Sans', sans-serif;
   letter-spacing: -2.5px;
+  padding-right: 1px;
 }
 
 /*
@@ -116,14 +117,14 @@
 }
 
 .pt-card:hover {
-  transform: translateY(-8px);
+  /* transform: translateY(-8px); */
   border-color: rgba(168, 85, 247, 0.35);
-  box-shadow: 0 30px 60px rgba(88, 28, 180, 0.28), 0 0 0 1px rgba(168, 85, 247, 0.10);
+  box-shadow: 0 10px 40px rgba(88, 28, 180, 0.28), 0 0 0 1px rgba(168, 85, 247, 0.10);
 }
 
-.pt-card:hover::before {
+/* .pt-card:hover::before {
   opacity: 1;
-}
+} */
 
 .pt-logo-fallback {
   display: inline-flex;
@@ -167,6 +168,45 @@
   opacity: 1;
 }
 
+/* Footer with a founder portrait instead of a logo: the photo and the name
+   sit together on the left rather than being pushed to opposite edges. Needs
+   both classes to outrank .pt-a-footer's space-between further down. */
+.pt-a-footer.pt-footer--photo,
+.pt-c-footer.pt-footer--photo {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.pt-founder-photo {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.pt-founder-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* The 32px height cap suits the wide wordmarks, but JRJP's mark is nearly
+   square (127x114) — under that cap it lands at ~36x32 and its detail is
+   unreadable, so it gets a taller allowance. */
+.pt-logo--jrjp {
+  height: 58px;
+}
+
+.pt-logo--jrjp img {
+  max-height: 58px;
+  max-width: 70px;
+}
+
 /* ── Category A: large testimonial ── */
 .pt-a-media {
   position: relative;
@@ -196,6 +236,171 @@
 
 .pt-accent-flobites .pt-a-media {
   background: linear-gradient(135deg, rgba(255, 138, 178, 0.28), rgba(255, 196, 140, 0.18));
+}
+
+/* JRJP: Ira, the AI brand ambassador. The portrait holds the left half of the
+   media box and feathers out across the right, so the name can sit over the
+   faded end without a scrim behind it. */
+.jrjp-ambassador {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Owns the left half outright — the copy is a sibling flex item, not an
+   overlay, so the two never sit on top of each other. `contain` keeps the
+   whole portrait in view instead of cropping it to the box. */
+.jrjp-ambassador-img {
+  /* Sized off its own aspect rather than a share of the box: full height,
+     width follows. That is the largest the portrait can be with nothing
+     cropped, and it makes the element exactly as wide as the image, so the
+     fade below lands on the picture instead of on empty letterbox. */
+  flex: 0 0 auto;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  /* Fully opaque through the first half, then a linear ramp to nothing. */
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 100%);
+}
+
+.jrjp-ambassador-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 16px;
+}
+
+.jrjp-ambassador-name {
+  font-family: 'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.4px;
+  color: #12101a;
+}
+
+.jrjp-ambassador-role {
+  margin-top: 5px;
+  font-family: 'albert sans', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(18, 16, 26, 0.6);
+}
+
+/* Flobites Collage */
+.flobites-collage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flobites-collage img {
+  position: absolute;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+/* Left: three phones mockup */
+.flobites-collage .img-three-phones {
+  left: -2%;
+  bottom: -20px;
+  height: 100%;
+  z-index: 3;
+  transform-origin: bottom left;
+}
+
+/* Center: laptop mockup */
+.flobites-collage .img-laptop {
+  left: 32%;
+  bottom: -5px;
+  height: 90%;
+  z-index: 2;
+  transform-origin: bottom center;
+}
+
+/* Right: phone collage (tab) */
+.flobites-collage .img-phone-collage {
+  right: 2%;
+  bottom: 15px;
+  height: 90%;
+  z-index: 1;
+  transform-origin: bottom right;
+}
+
+/* Hover effects */
+.pt-card:hover .flobites-collage .img-three-phones {
+  transform: translateY(-6px) rotate(-1deg) scale(1.02);
+}
+
+.pt-card:hover .flobites-collage .img-laptop {
+  transform: translateY(-8px) scale(1.03);
+}
+
+.pt-card:hover .flobites-collage .img-phone-collage {
+  transform: translateY(-4px) rotate(1deg) scale(1.02);
+}
+
+/* Viali Collage */
+.viali-collage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.viali-collage img {
+  position: absolute;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+/* Right: showcase devices mockup */
+.viali-collage .viali-devices {
+  right: 2%;
+  bottom: 1px;
+  height: 95%;
+  z-index: 1;
+  transform-origin: bottom right;
+}
+
+/* Left: glass-morphic viali logo container */
+.viali-collage .viali-logo {
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: 50px;
+  max-width: 100px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transform-origin: center center;
+}
+
+/* Hover effects */
+.pt-card:hover .viali-collage .viali-devices {
+  transform: translateY(-5px) rotate(-1deg) scale(1.03);
+}
+
+.pt-card:hover .viali-collage .viali-logo {
+  transform: translateY(-50%) translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .pt-accent-delicacy .pt-a-media {
@@ -253,7 +458,7 @@
 .pt-a-role {
   margin-top: 4px;
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* ── Category B: metric / case study ── */
@@ -303,14 +508,16 @@
 
 .pt-b-metric-label {
   margin-top: 10px;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 1.05rem;
   color: black;
 }
 
 .pt-b-desc {
   flex: 1;
   margin: 18px 0 0;
-  font-size: 0.9rem;
+  font-weight: 600;
+  font-size: 1.05rem;
   line-height: 1.55;
   color: black;
 }
@@ -319,23 +526,37 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0;
-  border: none;
-  background: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: white;
   cursor: pointer;
-  font-family:"bricolage grotesque", "Plus Jakarta Sans", sans-serif;
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: black;
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background 0.3s ease,
+              filter 0.3s ease;
+}
+
+.pt-b-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5), 0 0 12px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.08);
 }
 
 .pt-b-cta-arrow {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  color: white;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pt-card:hover .pt-b-cta-arrow {
-  transform: translateX(6px);
+.pt-card:hover .pt-b-cta-arrow,
+.pt-b-cta:hover .pt-b-cta-arrow {
+  transform: translateX(4px);
 }
 
 /* ── Category C: small quote ── */
@@ -400,6 +621,7 @@
   .pt-bento-columns {
     max-width: 960px;
     gap: 16px;
+    padding-bottom:50px;
   }
 
   .pt-bento-col {
@@ -430,11 +652,11 @@
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
-    height: 400px;
+    min-height: 400px;
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
-    height: 190px;
+    min-height: 190px;
   }
 
   .pt-bento-col-center {
@@ -501,6 +723,7 @@
 
   .testimonials-header {
     margin-bottom: 70px;
+    padding-right: 5px;
   }
 
   .pt-bento-columns {
@@ -533,11 +756,11 @@
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
-    height: 360px;
+    min-height: 360px;
   }
 
   .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
-    height: 160px;
+    min-height: 160px;
   }
 
   .pt-a-media {

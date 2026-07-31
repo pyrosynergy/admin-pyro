@@ -2,9 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import logo from '../../assets/Frame 2.svg';
-import footerVector from '../../assets/footer_vector.png';
-import iconInstagram from '../../assets/icon_instagram.png';
-import iconLinkedIn from '../../assets/icon_linkedin.png';
+import footerVector from '../../assets/footer_vector.webp';
+import iconInstagram from '../../assets/icon_instagram.webp';
+import iconLinkedIn from '../../assets/icon_linkedin.webp';
 
 const Footer = ({ openCalendarPopup }) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Footer = ({ openCalendarPopup }) => {
     <div className="footer-wrapper">
       <footer className="footer">
         <div className="footer-brand">
-          <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
+          <img loading="lazy" decoding="async" src={logo} alt="PyroSynergy" className="brand-logo-img" />
           <p className="footer-desc">
             Partnering with founders, startups, and businesses to build their growth systems.
           </p>
@@ -50,7 +50,7 @@ const Footer = ({ openCalendarPopup }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={iconInstagram} alt="Instagram" className="social-icon-img" />
+            <img loading="lazy" decoding="async" src={iconInstagram} alt="Instagram" className="social-icon-img" />
           </a>
           <a
             href="https://www.linkedin.com/company/pyrosynergy/"
@@ -58,7 +58,7 @@ const Footer = ({ openCalendarPopup }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={iconLinkedIn} alt="LinkedIn" className="social-icon-img" />
+            <img loading="lazy" decoding="async" src={iconLinkedIn} alt="LinkedIn" className="social-icon-img" />
           </a>
         </div>
 
@@ -68,7 +68,7 @@ const Footer = ({ openCalendarPopup }) => {
             <a href="#why-us" onClick={(e) => handleNavClick(e, 'services')}>Why Us</a>
           </div>
           <div className="footer-links-col">
-            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>How it works</a>
+            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>How It Works</a>
             <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
           </div>
           <div className="footer-links-col">
@@ -87,7 +87,7 @@ const Footer = ({ openCalendarPopup }) => {
       </footer>
 
       <div className="footer-bottom">
-        <img src={footerVector} alt="" className="footer-vector" />
+        <img loading="lazy" decoding="async" src={footerVector} alt="" className="footer-vector" />
         <div className="footer-bottom-row">
           <span>&copy; 2025-26 PyroSynergy LLP.<br />All rights reserved.</span>
           <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>

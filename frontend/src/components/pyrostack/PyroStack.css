@@ -9,9 +9,9 @@
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   position: relative;
   overflow: hidden;
-  border-top-left-radius: 48px;
-  border-top-right-radius: 48px;
-  margin-top: -48px;
+  /* The rounded top edge now lives on .founder-section, which opens the
+     black run above this one — the two sections share #050505 and read as
+     one continuous panel, so a curve here would cut it in half. */
 }
 
 .pyrostack-container {
@@ -24,14 +24,18 @@
   box-sizing: border-box;
 }
 
+/* Typography mirrors the "What founders said" heading (Testimonials.css)
+   so both section titles read as one system — only the colour differs,
+   since this section sits on black. */
 .pyrostack-title {
-  font-size: 5rem;
-  font-weight: 500;
+  font-size: clamp(2.15rem, 4.65vw, 4.65rem);
+  font-weight: 450;
+  line-height: 1.14;
   margin-bottom: 24px;
   text-align: center;
-  letter-spacing: -0.5px;
+  letter-spacing: -2.5px;
   color: #ffffff;
-  font-family: 'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
+  font-family: "Albert Sans", sans-serif;
 }
 
 /* Elegant and clean global resizing for your trademark superscript */
@@ -341,8 +345,6 @@
 @media (max-width: 768px) {
   .pyrostack-section {
     padding: 70px 20px;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
   }
 
   .pyrostack-container {
@@ -350,7 +352,10 @@
   }
 
   .pyrostack-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    /* -2.5px is tuned for the desktop size; scale it to keep the same
+       optical tightness as the founders heading at this size. */
+    letter-spacing: -1.45px;
     text-align: center;
     margin-bottom: 14px;
     padding: 0 10px;

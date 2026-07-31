@@ -1,17 +1,17 @@
 import React from 'react';
 import './Process.css';
-import phoneCollage from '../../../../assets/flobites/phone-collage.png';
-import nothingExtraPhone from '../../../../assets/flobites/nothing-extra-phone.png';
+import phoneCollage from '../../../../assets/flobites/phone-collage.webp';
+import nothingExtraPhone from '../../../../assets/flobites/nothing-extra-phone.webp';
 
 const Process = () => (
   <div className="flobites-process">
     <h2 className="flobites-process-title">
-      Turning nutrition into <span className="flobites-process-title-accent">digital experience.</span>
+      Turning nutrition into <div className="flobites-process-title-accent">digital experience.</div>
     </h2>
 
     <div className="flobites-process-row">
       <div className="flobites-process-image">
-        <img src={phoneCollage} alt="FloBites app screens shown on tilted phone mockups" />
+        <img loading="lazy" decoding="async" src={phoneCollage} alt="FloBites app screens shown on tilted phone mockups" />
       </div>
       <div className="flobites-process-text flobites-process-text1">
         <p className="flobites-process-lead">
@@ -33,7 +33,7 @@ const Process = () => (
         </p>
       </div>
       <div className="flobites-process-image flobites-process-image--small">
-        <img src={nothingExtraPhone} alt="FloBites app screen showing the Nothing Extra ingredient checklist" />
+        <img loading="lazy" decoding="async" src={nothingExtraPhone} alt="FloBites app screen showing the Nothing Extra ingredient checklist" />
       </div>
     </div>
   </div>

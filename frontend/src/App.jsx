@@ -1,108 +1,273 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import "./App.css";
 
-// Component imports
+// --- Eager imports: chrome + above-the-fold homepage content (part of the entry chunk) ---
 import Header from "./components/Header/Header.jsx";
 import Hero from "./components/Hero/Hero.jsx";
-import Services from "./components/Services/Services.jsx";
-// import About from "./components/About/About"; // Add this import
-import Contact from "./components/Contact/Contact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import DecodeQuestionnaire from "./components/DecodeQuestionnaire/DecodeQuestionnaire.jsx";
-import Questionnaire from "./components/Questionnaire/Questionnaire.jsx";
-import Loading from "./components/Loading/Loading.jsx"; // Add this import
-import Welcome from "./components/Welcome/Welcome.jsx"; // Add this import
-import Hiring from "./components/Hiring/Hiring.jsx";
-import Copywriter from "./components/Hiring/Copywriter.jsx";
-import VisualDesigner from "./components/Hiring/VisualDesigner.jsx";
-import UXDesigner from "./components/Hiring/UXDesigner.jsx";
-import NoCodeWeb from "./components/Hiring/NoCodeWeb.jsx";
-import SalesIntern from "./components/Hiring/SalesIntern.jsx";
-import ContentStrategist from "./components/Hiring/ContentStrategist.jsx";
-import SocialIntern from "./components/Hiring/SocialIntern.jsx";
-import UIUXVDIntern from "./components/Hiring/UIUXVDIntern.jsx";
-import PolicyPages from "./components/PolicyPages/PolicyPages.jsx";
-import PrivacyPolicy from "./components/PolicyPages/PrivacyPolicy.jsx";
-import RefundPolicy from "./components/PolicyPages/RefundPolicy.jsx";
-import CancellationPolicy from "./components/PolicyPages/CancellationPolicy.jsx";
-import TermsAndConditions from "./components/PolicyPages/TermsAndConditions.jsx";
-import FAQ from "./components/FAQ/FAQ.jsx";
-import Founder from "./components/Founder/Founder.jsx";
-import DecodePath from "./components/decode-path/DecodePath.jsx";
-import PyroStack from "./components/pyrostack/PyroStack.jsx";
-import Testimonials from "./components/testimonials/Testimonials.jsx";
-import Banner from "./components/banner/banner.jsx";
-import EmpathyBanner from "./components/EmpathyBanner/EmpathyBanner.jsx";
-import WhyUs from "./components/why-us/WhyUs.jsx";
-import NotFound from "./components/NotFound/NotFound.jsx";
-import Flobites from "./components/case-studies/flobites/Flobites.jsx";
+import Loading from "./components/Loading/Loading.jsx";
+import SEO from "./components/SEO/SEO.jsx";
+// Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
+
+// --- Lazy: below-the-fold homepage sections ---
+const WhyUs = lazy(() => import("./components/why-us/WhyUs.jsx"));
+const Banner = lazy(() => import("./components/banner/banner.jsx"));
+const Testimonials = lazy(() => import("./components/testimonials/Testimonials.jsx"));
+const PyroStack = lazy(() => import("./components/pyrostack/PyroStack.jsx"));
+const Founder = lazy(() => import("./components/Founder/Founder.jsx"));
+const EmpathyBanner = lazy(() => import("./components/EmpathyBanner/EmpathyBanner.jsx"));
+const FAQ = lazy(() => import("./components/FAQ/FAQ.jsx"));
+const Contact = lazy(() => import("./components/Contact/Contact.jsx"));
+
+// --- Lazy: separate routes, each becomes its own chunk ---
+const DecodeQuestionnaire = lazy(() => import("./components/DecodeQuestionnaire/DecodeQuestionnaire.jsx"));
+const Questionnaire = lazy(() => import("./components/Questionnaire/Questionnaire.jsx"));
+const Welcome = lazy(() => import("./components/Welcome/Welcome.jsx"));
+const Hiring = lazy(() => import("./components/Hiring/Hiring.jsx"));
+const Copywriter = lazy(() => import("./components/Hiring/Copywriter.jsx"));
+const VisualDesigner = lazy(() => import("./components/Hiring/VisualDesigner.jsx"));
+const UXDesigner = lazy(() => import("./components/Hiring/UXDesigner.jsx"));
+const NoCodeWeb = lazy(() => import("./components/Hiring/NoCodeWeb.jsx"));
+const SalesIntern = lazy(() => import("./components/Hiring/SalesIntern.jsx"));
+const SocialIntern = lazy(() => import("./components/Hiring/SocialIntern.jsx"));
+const UIUXVDIntern = lazy(() => import("./components/Hiring/UIUXVDIntern.jsx"));
+const PolicyPages = lazy(() => import("./components/PolicyPages/PolicyPages.jsx"));
+const PrivacyPolicy = lazy(() => import("./components/PolicyPages/PrivacyPolicy.jsx"));
+const RefundPolicy = lazy(() => import("./components/PolicyPages/RefundPolicy.jsx"));
+const CancellationPolicy = lazy(() => import("./components/PolicyPages/CancellationPolicy.jsx"));
+const TermsAndConditions = lazy(() => import("./components/PolicyPages/TermsAndConditions.jsx"));
+const NotFound = lazy(() => import("./components/NotFound/NotFound.jsx"));
+const Flobites = lazy(() => import("./components/case-studies/flobites/Flobites.jsx"));
+const Viali = lazy(() => import("./components/case-studies/viali/Viali.jsx"));
+const CaseStudies = lazy(() => import("./components/case-studies/CaseStudies.jsx"));
+const Admin = lazy(() => import("./components/Admin/Admin.jsx"));
+const Verify = lazy(() => import("./components/Verify/Verify.jsx"));
+
+// The admin console lives behind an unguessable path rather than a linked one.
+// Override per deployment with VITE_ADMIN_PATH (must start with "/").
+const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || "/ROrnJSKyI6TTf4q1xnrNWmgd";
 
 // Asset Imports
-import logo1 from "./assets/logo_798.png";
-import logo2 from "./assets/logo_889.png";
-import logo3 from "./assets/logo_891.png";
-import logo4 from "./assets/logo_fb_the.png";
-import logo5 from "./assets/logo_brb.png";
-import logo6 from "./assets/logo_viali.png";
-import logo7 from "./assets/THElogopyro.png"; 
-import logo8 from "./assets/jrjplogopyro.png";
-import logo9 from "./assets/vnrlogo.png";
-import logo10 from "./assets/logo_tog.png";
-import service1 from './assets/Thinking face-rafiki.svg';
-import service3 from "./assets/13107135_5143310.svg";
-import service2 from './assets/Kids Studying from Home-rafiki.svg'
-// --- UPDATED Data for Services Section (Based on sketches) ---
-const servicesData = [
-  {
-    title: '"My business is solid. Now I want to bring it online."',
-    shortStatement:
-      "Isn't this the best time to turn your offline hustle into a digital experience?",
-     
-    ctaText: "Let's go ",
-    Image: service1, // Added image for visual context
-  },
-  {
-    title:
-      '"I\'m up and running online, but I\'m not reaching the right audience."',
-    shortStatement:
-      "Your products is great, no doubt. But have you positioned it right?",
-   
-    ctaText: "Let's grow ",
-    Image: service2, // Added image for visual context
-  },
-  {
-    title:
-      '"My company is picking up, and I want to scale without the burnout."',
-    shortStatement:
-      "You've figured out the fundamentals. How about streaming your operations?",
-    ctaText: "Let's optimize ", // Slightly adjusted CTA for clarity
-    Image: service3, // Added image for visual context
-  },
-];
+import logo1 from "./assets/logo_798.webp";
+import logo2 from "./assets/logo_889.webp";
+import logo3 from "./assets/logo_891.webp";
+import logo4 from "./assets/logo_fb_the.webp";
+import logo5 from "./assets/logo_brb.webp";
+import logo6 from "./assets/logo_viali.webp";
+import logo7 from "./assets/THElogopyro.webp"; 
+import logo8 from "./assets/jrjplogopyro.webp";
+import logo9 from "./assets/vnrlogo.webp";
+import logo10 from "./assets/logo_tog.webp";
 
 // Data for the animated hero heading
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
 const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
 
+const CALENDAR_URL = "https://cal.com/pyrosynergy/founder-audit";
+
 const openCalendarPopup = () => {
-  console.log('Opening calendar popup'); // Add for debugging
-  const calendarUrl =
-    "https://cal.com/pyrosynergy/founder-audit";
-  const popupFeatures = "width=1000,height=700,scrollbars=yes,resizable=yes,location=yes,menubar=no,toolbar=no,status=no";
-  
- // Opens in a new tab (or a new window, depending on browser settings)
-window.open(calendarUrl, "_blank");
-  
-  if (!popup || popup.closed || typeof popup.closed == 'undefined') {
-    // Popup was blocked, show alternative
-    alert('Popup blocked! Please allow popups for this site or visit: ' + calendarUrl);
-    // Alternative: open in same tab
-    // window.location.href = calendarUrl;
+  // Opens in a new tab (or a new window, depending on browser settings)
+  const popup = window.open(CALENDAR_URL, "_blank", "noopener,noreferrer");
+
+  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+    // Popup was blocked — fall back to same-tab navigation
+    window.location.href = CALENDAR_URL;
   } else {
     popup.focus();
   }
+};
+
+// --- Single source of truth for route chrome + per-page metadata ---
+// `header`/`footer` replace the three hand-maintained path arrays this file used
+// to carry; `meta` drives the <SEO> tag rendered for each route.
+const ROUTES = {
+  '/': { header: true, footer: true },
+  '/realitycheck': {
+    header: true,
+    footer: false,
+    meta: {
+      title: 'Reality Check — PyroSynergy',
+      description: 'Take the PyroSynergy reality check and find out where your business actually stands before you scale.',
+    },
+  },
+  '/decode': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Decode Your Business — PyroSynergy',
+      description: 'Answer a few questions and get a clear read on the gaps between where your business is and where you want it to go.',
+    },
+  },
+  '/welcome': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Welcome — PyroSynergy',
+      description: 'Welcome to PyroSynergy.',
+      noindex: true,
+    },
+  },
+  '/hiring': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Careers & Internships — PyroSynergy',
+      description: 'Open internship and full-time roles at PyroSynergy. Work on real growth problems for founders across 12+ industries.',
+    },
+  },
+  '/hiring/copywriter_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Copywriter Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Copywriter Intern and write the words that move founders, brands and their audiences.',
+    },
+  },
+  '/hiring/videsign_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Visual Designer Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Visual Designer Intern and shape the visual identity of growing brands.',
+    },
+  },
+  '/hiring/uxdesign_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'UX Designer Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a UX Designer Intern and design experiences that turn visitors into customers.',
+    },
+  },
+  '/hiring/nocodeweb_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'No-Code Web Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a No-Code Web Intern and ship fast, polished websites for founder-led brands.',
+    },
+  },
+  '/hiring/sales_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Sales Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Sales Intern and learn founder-level outreach, positioning and closing.',
+    },
+  },
+  '/hiring/content_intern_1': { header: false, footer: false },
+  '/hiring/social_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Social Media Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Social Media Intern and grow real audiences for real businesses.',
+    },
+  },
+  '/hiring/uiuxvd_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'UI/UX & Visual Design Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a UI/UX & Visual Design Intern and own design end to end, from wireframe to launch.',
+    },
+  },
+  '/policy-pages': {
+    header: true,
+    footer: false,
+    meta: {
+      title: 'Policies — PyroSynergy',
+      description: 'Privacy, refund, cancellation and terms of service policies for PyroSynergy.',
+    },
+  },
+  '/policy-pages/privacy-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Privacy Policy — PyroSynergy',
+      description: 'How PyroSynergy collects, uses and protects your personal data.',
+    },
+  },
+  '/policy-pages/refund-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Refund Policy — PyroSynergy',
+      description: 'PyroSynergy refund terms and eligibility.',
+    },
+  },
+  '/policy-pages/cancellation-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Cancellation Policy — PyroSynergy',
+      description: 'PyroSynergy cancellation terms for engagements and subscriptions.',
+    },
+  },
+  '/policy-pages/terms-and-conditions': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Terms & Conditions — PyroSynergy',
+      description: 'The terms governing your use of PyroSynergy services.',
+    },
+  },
+  '/case-studies/flobites': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Flobites Case Study — PyroSynergy',
+      description: 'How PyroSynergy helped Flobites sharpen its positioning, rebuild its digital experience and reach the right audience.',
+    },
+  },
+  '/case-studies': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Case Studies — PyroSynergy',
+      description: 'How PyroSynergy helps early-stage founders turn strategy into execution — the work, the decisions and the results.',
+    },
+  },
+  '/case-studies/viali': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Viali Hair Care Case Study — PyroSynergy',
+      description: 'How PyroSynergy helped Viali Hair Care grow its social reach and bring down customer acquisition cost.',
+    },
+  },
+  // Admin console: renders its own Header, so the global chrome stays off, and
+  // it must never be indexed. /verify/:token is deliberately absent — it is a
+  // dynamic path, so it falls through to the no-chrome default below.
+  [ADMIN_PATH]: {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Admin — PyroSynergy',
+      description: 'PyroSynergy internal admin console.',
+      noindex: true,
+    },
+  },
+};
+
+const NOT_FOUND_META = {
+  title: 'Page Not Found — PyroSynergy',
+  description: 'The page you are looking for does not exist.',
+  noindex: true,
+};
+
+/** Wraps a route element with its per-page metadata. */
+const Page = ({ path, children }) => {
+  const meta = ROUTES[path]?.meta;
+  return (
+    <>
+      {meta && <SEO path={path} {...meta} />}
+      {children}
+    </>
+  );
 };
 
 function App() {
@@ -113,21 +278,19 @@ function App() {
   });
   const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
-  const [expandedCardIndex, setExpandedCardIndex] = useState(null); // Add this line
   const navRef = useRef(null);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const [closingCardIndex, setClosingCardIndex] = useState(null);
-  const closeTimerRef = useRef(null); // To manage the timeout
 
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname;
-  // Show header on reality check; hide only on specific pages
-  const knownPaths = ['/', '/welcome','/decode', '/realitycheck', '/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/case-studies/flobites'];
-  const is404 = !knownPaths.includes(location.pathname);
-  const hideHeader = ['/welcome','/hiring', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions'].includes(location.pathname);
-  // Hide footer on reality check, hiring, and role-specific intern pages
-  const hideFooter = is404 || ['/welcome','/realitycheck', '/hiring', '/policy-pages', '/policy-pages/privacy-policy', '/policy-pages/refund-policy', '/policy-pages/cancellation-policy', '/policy-pages/terms-and-conditions', '/hiring/copywriter_intern_1', '/hiring/content_intern_1', '/hiring/social_intern_1', '/hiring/videsign_intern_1', '/hiring/uxdesign_intern_1', '/hiring/nocodeweb_intern_1', '/hiring/sales_intern_1', '/hiring/uiuxvd_intern_1'].includes(location.pathname);
+  // Header/footer visibility now comes from the ROUTES config above rather than
+  // three separate hand-maintained path arrays. Unknown paths render the 404,
+  // which shows neither.
+  const route = ROUTES[location.pathname];
+  const is404 = !route;
+  const hideHeader = is404 || !route.header;
+  const hideFooter = is404 || !route.footer;
 
   // Effect to cycle through the highlighted words
   useEffect(() => {
@@ -139,79 +302,37 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Add loading effect
+  // Dismiss the loading screen as soon as the page has actually finished loading,
+  // rather than after a fixed delay. The timeout is only a safety cap so a slow
+  // third-party asset can never hold the splash screen up indefinitely.
   useEffect(() => {
-    // Simulate loading time - adjust as needed
-    const loadingTimer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1800); // Reduced from probably 3000-5000ms to 1000ms (1 second)
+    if (!isLoading) return;
 
-    // Cleanup
-    return () => clearTimeout(loadingTimer);
-  }, []);
+    const done = () => setIsLoading(false);
 
-  // --- EVENT HANDLERS FOR INTERACTIVE SERVICES ---
-  const handleCardClick = (index) => {
-     // Clear any pending instant-close state if a new card is clicked
-    if (closeTimerRef.current) {
-        clearTimeout(closeTimerRef.current);
-        closeTimerRef.current = null;
-    }
-    if (closingCardIndex !== null) {
-        setClosingCardIndex(null); // Explicitly turn off the instant-close state for the previous card
+    if (document.readyState === "complete") {
+      done();
+      return;
     }
 
-    if (expandedCardIndex !== index) {
-      setExpandedCardIndex(index);
-    }
-    // If clicking the already expanded card, the click is on the wrapper behind the modal,
-    // which should probably just keep the modal open. The close button handles closing.
-  };
+    const capTimer = setTimeout(done, 1800);
+    window.addEventListener("load", done);
 
-  // Wrap handleCloseCard in useCallback to maintain reference stability
-  const handleCloseCard = useCallback((e) => {
-    if (e) e.stopPropagation(); // Prevents the click from bubbling up to the card's onClick
+    return () => {
+      clearTimeout(capTimer);
+      window.removeEventListener("load", done);
+    };
+  }, [isLoading]);
 
-    // Only trigger close if a card is actually expanded
-    if (expandedCardIndex !== null) {
-        // Clear any existing timeout before starting a new one
-        if (closeTimerRef.current) {
-            clearTimeout(closeTimerRef.current);
-        }
-
-        // Set the currently expanded card as the one that should close instantly
-        setClosingCardIndex(expandedCardIndex);
-        setExpandedCardIndex(null); // This will remove the 'expanded' class from the card
-
-        // Set a timeout to remove the 'closing-instant' class after a minimal delay
-        // The delay needs to be just enough for React to render the state change
-        closeTimerRef.current = setTimeout(() => {
-            setClosingCardIndex(null); // Remove the closing-instant class
-            closeTimerRef.current = null; // Clean up the ref
-        }, 50); // 50ms should be sufficient for the browser to register the change
-    }
-  }, [expandedCardIndex]); // Add expandedCardIndex as a dependency
-  
-  // ======================================================================
-  // ========== NEW: EFFECT TO HANDLE BODY SCROLL ON MOBILE MODAL =========
-  // ======================================================================
+  // Lock body scroll while the loading screen is up. Remove the inline override
+  // (rather than forcing "auto") so body doesn't become its own scroll container,
+  // which breaks position:sticky for descendants relying on the page scroll.
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    // Lock body scroll when loading or when a card is expanded on mobile
-    if (isLoading || (expandedCardIndex !== null && isMobile)) {
-      document.body.style.overflow = "hidden";
-    } else {
-      // Otherwise, ensure it's unlocked. Remove the inline override (rather than
-      // forcing "auto") so body doesn't become its own scroll container, which
-      // breaks position:sticky for descendants relying on the page scroll.
-      document.body.style.overflow = "";
-    }
-    // Cleanup function to ensure scroll is always restored on component unmount
+    document.body.style.overflow = isLoading ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [expandedCardIndex, isLoading]); // Add isLoading to dependencies
-  // ======================================================================
+  }, [isLoading]);
 
   // Click handler for mobile nav links
   const handleLinkClick = () => {
@@ -230,47 +351,32 @@ function App() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Hide/show the navbar on scroll. Throttled to one state update per animation
+  // frame and registered as passive so it never blocks scrolling.
   useEffect(() => {
-  let lastScrollY = window.scrollY;
+    let lastScrollY = window.scrollY;
+    let ticking = false;
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
+    const update = () => {
+      const currentScrollY = window.scrollY;
 
-    // Always show at the top of the page
-    if (currentScrollY < 50) {
-      setIsScrolled(true);
-    }
-    // Scrolling UP -> show navbar
-    else if (currentScrollY < lastScrollY) {
-      setIsScrolled(true);
-    }
-    // Scrolling DOWN -> hide navbar
-    else {
-      setIsScrolled(false);
-    }
+      // Show at the top of the page, or when scrolling up; hide when scrolling down.
+      setIsScrolled(currentScrollY < 50 || currentScrollY < lastScrollY);
 
-    lastScrollY = currentScrollY;
-  };
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
 
-  window.addEventListener("scroll", handleScroll);
-
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
-
-
-  // Handle escape key to close expanded card
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === "Escape") {
-        if (expandedCardIndex !== null) { // Only close if a card is expanded
-             handleCloseCard(event); // Use the modified handler
-        }
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
       }
     };
-    // The useEffect now has a stable reference to handleCloseCard
-    window.addEventListener("keydown", handleEscKey);
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [expandedCardIndex, handleCloseCard]);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
@@ -283,6 +389,9 @@ function App() {
 
   return (
     <div className="App">
+      {/* Resets scroll on route change; skips hash links. Renders nothing. */}
+      <ScrollToTop />
+
       {/* Loading Screen */}
       {isLoading && <Loading />}
 
@@ -300,52 +409,66 @@ function App() {
             openCalendarPopup={openCalendarPopup}
           />
         )}
+        <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
         <Routes>
-          <Route path="/realitycheck" element={<Questionnaire />} />
-          <Route path="/decode" element={<DecodeQuestionnaire/>} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/hiring" element={<Hiring />} />
-          <Route path="/hiring/copywriter_intern_1" element={<Copywriter />} />
-          <Route path="/hiring/videsign_intern_1" element={<VisualDesigner />} />
-          <Route path="/hiring/uxdesign_intern_1" element={<UXDesigner />} />
-          <Route path="/hiring/nocodeweb_intern_1" element={<NoCodeWeb />} />
-          <Route path="/hiring/sales_intern_1" element={<SalesIntern />} />
+          <Route path="/realitycheck" element={<Page path="/realitycheck"><Questionnaire /></Page>} />
+          <Route path="/decode" element={<Page path="/decode"><DecodeQuestionnaire /></Page>} />
+          <Route path="/welcome" element={<Page path="/welcome"><Welcome /></Page>} />
+          <Route path="/hiring" element={<Page path="/hiring"><Hiring /></Page>} />
+          <Route path="/hiring/copywriter_intern_1" element={<Page path="/hiring/copywriter_intern_1"><Copywriter /></Page>} />
+          <Route path="/hiring/videsign_intern_1" element={<Page path="/hiring/videsign_intern_1"><VisualDesigner /></Page>} />
+          <Route path="/hiring/uxdesign_intern_1" element={<Page path="/hiring/uxdesign_intern_1"><UXDesigner /></Page>} />
+          <Route path="/hiring/nocodeweb_intern_1" element={<Page path="/hiring/nocodeweb_intern_1"><NoCodeWeb /></Page>} />
+          <Route path="/hiring/sales_intern_1" element={<Page path="/hiring/sales_intern_1"><SalesIntern /></Page>} />
           <Route path="/hiring/content_intern_1" element={<Navigate to="/hiring" replace />} />
-          <Route path="/hiring/social_intern_1" element={<SocialIntern />} />
-          <Route path="/hiring/uiuxvd_intern_1" element={<UIUXVDIntern />} />
-          <Route path="/policy-pages" element={<PolicyPages />} />
-          <Route path="/policy-pages/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/policy-pages/refund-policy" element={<RefundPolicy />} />
-          <Route path="/policy-pages/cancellation-policy" element={<CancellationPolicy />} />
-          <Route path="/policy-pages/terms-and-conditions" element={<TermsAndConditions />} />
-          <Route path="/case-studies/flobites" element={<Flobites />} />
+          <Route path="/hiring/social_intern_1" element={<Page path="/hiring/social_intern_1"><SocialIntern /></Page>} />
+          <Route path="/hiring/uiuxvd_intern_1" element={<Page path="/hiring/uiuxvd_intern_1"><UIUXVDIntern /></Page>} />
+          <Route path="/policy-pages" element={<Page path="/policy-pages"><PolicyPages /></Page>} />
+          <Route path="/policy-pages/privacy-policy" element={<Page path="/policy-pages/privacy-policy"><PrivacyPolicy /></Page>} />
+          <Route path="/policy-pages/refund-policy" element={<Page path="/policy-pages/refund-policy"><RefundPolicy /></Page>} />
+          <Route path="/policy-pages/cancellation-policy" element={<Page path="/policy-pages/cancellation-policy"><CancellationPolicy /></Page>} />
+          <Route path="/policy-pages/terms-and-conditions" element={<Page path="/policy-pages/terms-and-conditions"><TermsAndConditions /></Page>} />
+          <Route path="/case-studies" element={<Page path="/case-studies"><CaseStudies /></Page>} />
+          <Route path="/case-studies/flobites" element={<Page path="/case-studies/flobites"><Flobites /></Page>} />
+          <Route path="/case-studies/viali" element={<Page path="/case-studies/viali"><Viali /></Page>} />
+          <Route path={ADMIN_PATH} element={<Page path={ADMIN_PATH}><Admin /></Page>} />
+          <Route path="/verify/:token" element={<Verify />} />
           <Route path="/" element={
             <>
+              <SEO
+                title="PyroSynergy — The Framework for Founders"
+                description="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly."
+                path="/"
+              />
               <Hero
                 highlightedWords={highlightedWords}
                 highlightedIndex={highlightedIndex}
                 clientLogos={clientLogos}
                 openCalendarPopup={openCalendarPopup}
               />
-  
+
               <WhyUs />
               <Banner />
               <Testimonials />
-              
 
+
+              <Founder />
               <PyroStack
                 openCalendarPopup={openCalendarPopup}
                 handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
-              />        
-              <Founder />
-              <EmpathyBanner />
-              <FAQ openCalendarPopup={openCalendarPopup} />
-              
+              />
+              {/* One gradient across both — see .empathy-faq-panel in App.css */}
+              <div className="empathy-faq-panel">
+                <EmpathyBanner />
+                <FAQ openCalendarPopup={openCalendarPopup} />
+              </div>
+
               <Contact />
             </>
           } />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<><SEO path={location.pathname} {...NOT_FOUND_META} /><NotFound /></>} />
         </Routes>
+        </Suspense>
   {!hideFooter && <Footer openCalendarPopup={openCalendarPopup} />}
       </div>
     </div>

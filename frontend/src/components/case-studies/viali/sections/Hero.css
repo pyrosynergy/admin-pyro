@@ -1,0 +1,23 @@
+/* ---- Hero card ---- */
+.viali-hero-wrap {
+  width: 95%;
+  max-width: 1440px;
+  height: auto;
+  padding: 86px 48px 48px 48px;
+  margin-top: 50px;
+  box-sizing: border-box;
+}
+
+.viali-hero-static-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .viali-hero-wrap {
+    padding: 0px;
+    margin-top: 100px;
+  
+  }
+}

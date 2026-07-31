@@ -1,56 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Welcome.css';
-import { FaInstagram, FaLinkedin, FaGlobe, FaCalendarAlt, FaWpforms } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin } from 'react-icons/fa';
+
+// Same booking link the site's "Book a FREE Audit call" CTAs use (see
+// CALENDAR_URL in App.jsx) — this page previously pointed at the retired
+// Google Calendar appointment schedule.
+const CALENDAR_URL = 'https://cal.com/pyrosynergy/founder-audit';
+
+const SOCIAL_LINKS = [
+  {
+    label: 'Instagram',
+    icon: <FaInstagram />,
+    url: 'https://www.instagram.com/pyrosynergy'
+  },
+  {
+    label: 'LinkedIn',
+    icon: <FaLinkedin />,
+    url: 'https://www.linkedin.com/company/pyrosynergy/posts/?feedView=all'
+  }
+];
 
 const Welcome = () => {
   const navigate = useNavigate();
 
-  const links = [
-    {
-      title: 'PyroReality Check',
-      description: 'The 3-minute business debrief',
-      icon: <FaWpforms />,
-      url: '/realitycheck',
-      isExternal: false
-    },
-    {
-      title: 'Website',
-      description: 'Visit our main website',
-      icon: <FaGlobe />,
-      url: '/',
-      isExternal: false
-    },
-    {
-      title: 'Book a Call',
-      description: 'Schedule a strategy call',
-      icon: <FaCalendarAlt />,
-      url: 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0iZ6GBUpEp6xEXcYQ0wZLryUc6bprkId2iHVJjJF88E3JTJGM917FiwtH6mwtuwUuyOVr2Whwm?gv=true',
-      isExternal: true
-    },
-    {
-      title: 'Instagram',
-      description: 'Follow us on Instagram',
-      icon: <FaInstagram />,
-      url: 'https://www.instagram.com/pyrosynergy',
-      isExternal: true
-    },
-    {
-      title: 'LinkedIn',
-      description: 'Connect with us professionally',
-      icon: <FaLinkedin />,
-      url: 'https://www.linkedin.com/company/pyrosynergy/posts/?feedView=all',
-      isExternal: true
-    }
-  ];
-
-  const handleLinkClick = (link) => {
-    if (link.isExternal) {
-      window.open(link.url, '_blank', 'noopener,noreferrer');
-    } else {
-      // Use navigate instead of window.location.href to avoid page reload
-      navigate(link.url);
-    }
+  const openExternal = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -58,10 +33,15 @@ const Welcome = () => {
       <div className="pyro-landing-main">
         {/* Profile Section */}
         <div className="pyro-company-info">
-          <div className="pyro-logo-container">
-            <img 
-              src="/Mainlogo3.png" 
-              alt="PyroSynergy Logo" 
+          <button
+            type="button"
+            className="pyro-logo-container"
+            onClick={() => navigate('/')}
+            aria-label="Go to the PyroSynergy home page"
+          >
+            <img loading="lazy" decoding="async"
+              src="/Mainlogo3.webp"
+              alt="PyroSynergy Logo"
               className="pyro-logo-img"
               onError={(e) => {
                 e.target.style.display = 'none';
@@ -69,39 +49,55 @@ const Welcome = () => {
               }}
             />
             <div className="pyro-logo-fallback" style={{display: 'none'}}>PS</div>
-          </div>
+          </button>
           <h1 className="pyro-company-title">PyroSynergy</h1>
           <p className="pyro-company-tagline">
-            Empathy-first Digital Partner • Business Growth • Strategy Consulting
+            Your growth partner, right from strategy to execution.
           </p>
           <p className="pyro-company-description">
-            Are you an early-stage founder, post-MVP and revenue-making, but struggle to align your business to the vision and mission you had? <br/>
+            <span className="pyro-company-description-lead">
+              PyroSynergy is for founders who&rsquo;re done figuring it alone.
+            </span>
+            We&rsquo;re a strategic execution studio handling design, product,
+            and growth for early-stage founders ready to scale.
           </p>
         </div>
 
         {/* Links Section */}
         <div className="pyro-navigation-menu">
-          <div className="pyro-cta-text">
-            Want to get aligned? Take our FREE PyroReality Check!
+          <button
+            type="button"
+            className="pyro-cta pyro-cta-primary"
+            onClick={() => openExternal(CALENDAR_URL)}
+          >
+            <span className="pyro-cta-title">Book a Call</span>
+            <span className="pyro-cta-subtitle">Schedule a FREE audit call</span>
+          </button>
+
+          <button
+            type="button"
+            className="pyro-cta pyro-cta-secondary"
+            onClick={() => navigate('/')}
+          >
+            <span className="pyro-cta-title">Website</span>
+            <span className="pyro-cta-subtitle">Visit our website</span>
+          </button>
+
+          {/* Instagram left, LinkedIn right — the two social boxes collapsed
+              into icon-only links sitting under the CTAs. */}
+          <div className="pyro-social-row">
+            {SOCIAL_LINKS.map((social) => (
+              <button
+                key={social.label}
+                type="button"
+                className="pyro-social-link"
+                onClick={() => openExternal(social.url)}
+                aria-label={social.label}
+              >
+                {social.icon}
+              </button>
+            ))}
           </div>
-          {links.map((link, index) => (
-            <button
-              key={index}
-              className="pyro-nav-item"
-              onClick={() => handleLinkClick(link)}
-            >
-              <div className="pyro-nav-content">
-                <div className="pyro-nav-icon">
-                  {link.icon}
-                </div>
-                <div className="pyro-nav-text">
-                  <h3 className="pyro-nav-title">{link.title}</h3>
-                  <p className="pyro-nav-subtitle">{link.description}</p>
-                </div>
-              </div>
-              {/* <div className="pyro-nav-arrow">→</div> */}
-            </button>
-          ))}
         </div>
       </div>
     </div>

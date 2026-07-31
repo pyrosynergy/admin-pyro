@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Hero.css';
-import bgImage from "../../assets/hero_bg.png";
+import bgImage from "../../assets/hero_bg.webp";
 
-const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPopup }) => {
+const Hero = ({ clientLogos, openCalendarPopup }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
   const lastChangeTime = useRef(Date.now());
-  const navigate = useNavigate();
   const [logos, setLogos] = useState(() => clientLogos.slice(0, 6));
   const logosRef = useRef(clientLogos.slice(0, 6));
 
@@ -84,7 +82,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
     cancelled = true;
     clearTimeout(timeoutId);
   };
-}, []);
+}, [clientLogos]);
 
   // Carousel effect for buttons on mobile
   useEffect(() => {
@@ -144,7 +142,8 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   return (
     <section id="home" className="relative flex flex-col">
       <div className="content-video-wrapper">
-        <img src={bgImage} alt="Hero Background" className="content-image-bg" />
+        {/* LCP element — must load eagerly and at high priority. */}
+        <img src={bgImage} alt="" fetchPriority="high" decoding="async" className="content-image-bg" />
         <div className="content-video-fade-overlay"></div>
         <div
           className="flex flex-col items-center justify-center flex-1 content-on-top"
@@ -164,7 +163,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
           </p>
           <div className="hero-stats">
             <div className="hero-stat">
-              <h3>$300K+</h3>
+              <h3>$150k+</h3>
               <p>Partner Revenue<br />Generated</p>
             </div>
 
@@ -174,7 +173,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
             </div>
 
             <div className="hero-stat">
-              <h3>90K+</h3>
+              <h3>90k+</h3>
               <p>Partner Followers<br />Gained</p>
             </div>
          </div>
@@ -204,7 +203,7 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
         </div>
         <div className="client-logos-grid-container">
           {logos.map((logo, idx) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={logo}
               src={logo}
               alt="client-logo"

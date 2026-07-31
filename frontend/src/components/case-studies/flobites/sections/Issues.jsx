@@ -1,8 +1,8 @@
 import React from 'react';
 import './Issues.css';
-import issueHeroScreenshot from '../../../../assets/flobites/issue-hero-screenshot.png';
-import issueNewArrivalGrid from '../../../../assets/flobites/issue-new-arrival-grid.png';
-import issueBalanceBite from '../../../../assets/flobites/issue-balance-bite.png';
+import issueHeroScreenshot from '../../../../assets/flobites/issue-hero-screenshot.webp';
+import issueNewArrivalGrid from '../../../../assets/flobites/issue-new-arrival-grid.webp';
+import issueBalanceBite from '../../../../assets/flobites/issue-balance-bite.webp';
 import annotationOne from '../../../../assets/flobites/annotation-one.svg';
 import annotationTwo from '../../../../assets/flobites/annotation-two.svg';
 
@@ -19,13 +19,12 @@ const Issues = () => (
           <div className="flobites-issues-card">
             <div className="flobites-issues-note">
               <p>
-               Content about<strong> FloBites</strong> and its parent company
-                <strong>(THE)</strong> was added on a single page, which made it confusing for users to navigate and figure out what to read about.
-
+               Content about FloBites and its parent company 
+                  (THE) was added on a single page, which made it <strong> confusing for users to navigate</strong> and figure out what to read about.
               </p>
             </div>
             <div className="flobites-issues-shot flobites-issues-shot--framed">
-              <img src={issueHeroScreenshot} alt="THE website hero screenshot reading Daily Support Made Simple" />
+              <img loading="lazy" decoding="async" src={issueHeroScreenshot} alt="THE website hero screenshot reading Daily Support Made Simple" />
               
             </div>
           </div>
@@ -41,7 +40,7 @@ const Issues = () => (
             </div>
 
             <div className="flobites-issues-shot">
-              <img src={issueNewArrivalGrid} alt="New Arrivals product grid screenshot showing FloBites pack of 1 and pack of 6" />
+              <img loading="lazy" decoding="async" src={issueNewArrivalGrid} alt="New Arrivals product grid screenshot showing FloBites pack of 1 and pack of 6" />
             </div>
           </div>
         </div>
@@ -56,7 +55,7 @@ const Issues = () => (
               </p>
             </div>
             <div className="flobites-issues-shot flobites-issues-shot--wide">
-              <img src={issueBalanceBite} alt="New Arrivals screenshot reading Balance in Every Bite" />
+              <img loading="lazy" decoding="async" src={issueBalanceBite} alt="New Arrivals screenshot reading Balance in Every Bite" />
             </div>
           </div>
         </div>

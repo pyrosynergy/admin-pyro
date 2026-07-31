@@ -25,7 +25,6 @@ const pillRows = [
   ['hiring support', 'research & development', 'content strategy', 'founder advisory', 'website development'],
   ['market study', 'AI automations', 'landing page development', 'systems building', 'QA & testing'],
   ['brand identity & guidelines design', 'technical consulting', 'customer acquisition strategy', 'business modeling'],
-  ['social media strategy', 'email marketing', 'investor pitch decks', 'onboarding flows', 'community building'],
 ];
 
 const MIN_SEQUENCE_COPIES = 3;
@@ -77,6 +76,8 @@ const PillRow = ({ labels, rowNumber, isMobile }) => {
     return () => resizeObserver.disconnect();
   }, [labels]);
 
+
+
   return (
     <div className={`banner-pill-row ${isOdd ? 'banner-pill-row--dark' : 'banner-pill-row--light'}`} ref={rowRef}>
       <div
@@ -118,21 +119,30 @@ const Banner = () => {
     return () => mq.removeEventListener('change', update);
   }, []);
 
+
+  const rows = [...pillRows];
+  if (isMobile) {
+    rows.push(...pillRows.slice(0, 4));
+  }
+
+
+
+
   return (
     <section className="banner-section">
       <div className="banner-pills-bg" aria-hidden="true">
-        {pillRows.map((labels, i) => (
+        {rows.map((labels, i) => (
           <PillRow key={i} labels={labels} rowNumber={i + 1} isMobile={isMobile} />
         ))}
       </div>
 
       <div className="banner-card">
-        <span className="banner-eyebrow">an individual services provider</span>
+        <span className="banner-eyebrow">An individual services provider</span>
         <h2 className="banner-heading">
-          your growth partner for the <em>whole</em> picture.
+          Your growth partner for the <em>whole</em> picture.
         </h2>
         <p className="banner-desc">
-          agencies usually sell you a service or two, but growth doesn&apos;t happen that way. we work on it as a complete &quot;solution&quot;; a package of the right moves made in the right order.
+          Agencies usually sell you a service or two, but growth doesn&apos;t happen that way. We work on it as a complete &quot;solution&quot;; a package of the right moves made in the right order.
         </p>
       </div>
     </section>

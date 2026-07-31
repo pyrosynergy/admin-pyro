@@ -1,0 +1,125 @@
+.verify-page {
+  min-height: 100vh;
+  /* Same dark blue gradient as the policy pages. */
+  background: linear-gradient(135deg, #0d0b02 0%, #1a1a2e 20%, #16213e 40%, #0f0f23 60%, #0d0b02 100%);
+  background-attachment: fixed;
+  font-family: 'Albert Sans', sans-serif;
+  color: #1E102B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.verify-card {
+  /* Lavender gradient (previously the page background). */
+  background: linear-gradient(290.63deg, #ECCEFF 0.93%, #FCF7FF 46.2%, #ECCEFF 100%);
+  border: 1px solid rgba(236, 206, 255, 0.4);
+  border-radius: 12px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+
+.verify-brand {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(30, 16, 43, 0.55);
+  margin: 0 0 20px;
+}
+
+.verify-status {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 32px;
+  padding: 8px 24px;
+  margin-bottom: 10px;
+}
+
+.verify-status.valid {
+  background: rgba(22, 163, 74, 0.15);
+  color: #15803D;
+}
+
+.verify-status.under-process {
+  background: rgba(234, 179, 8, 0.18);
+  color: #A16207;
+}
+
+.verify-status.invalid {
+  background: rgba(220, 38, 38, 0.12);
+  color: #B91C1C;
+}
+
+.verify-muted {
+  color: rgba(30, 16, 43, 0.65);
+  font-size: 0.95rem;
+  margin: 0 0 20px;
+}
+
+.verify-photo {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(114, 41, 181, 0.25);
+  margin: 8px auto 16px;
+  display: block;
+}
+
+.verify-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(114, 41, 181, 0.08);
+  color: rgba(30, 16, 43, 0.35);
+}
+
+.verify-name {
+  font-family: 'Bricolage Grotesque', 'Albert Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.verify-designation {
+  font-size: 1.02rem;
+  color: rgba(30, 16, 43, 0.75);
+  margin: 0 0 24px;
+}
+
+.verify-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  text-align: left;
+  border-top: 1px solid rgba(114, 41, 181, 0.15);
+  padding-top: 20px;
+}
+
+.verify-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.verify-details dt {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(30, 16, 43, 0.6);
+}
+
+.verify-details dd {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}

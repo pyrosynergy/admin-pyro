@@ -2,9 +2,13 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 90px 20px 170px;
+  /* Bottom padding is the whole gap down to the FAQ below (which adds its own
+     50px top) — keep it tight so the two read as one panel. */
+  padding: 90px 20px 70px;
   box-sizing: border-box;
-  background: black;
+  /* The lilac gradient lives on the shared .empathy-faq-panel wrapper so it
+     runs unbroken into the FAQ below — see App.css. */
+  background: transparent;
 }
 
 .empathy-banner {
@@ -52,7 +56,7 @@
 
 @media (max-width: 767px) {
   .empathy-banner-section {
-    padding: 60px 20px 100px;
+    padding: 60px 20px 44px;
   }
 
   .empathy-banner {

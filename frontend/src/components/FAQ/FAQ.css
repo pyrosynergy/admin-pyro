@@ -8,7 +8,9 @@
   isolation: isolate;
   position: relative;
   width: 100%;
-  background: linear-gradient(290.63deg, #ECCEFF 0.93%, #FCF7FF 46.2%, #ECCEFF 100%);
+  /* Gradient hoisted to .empathy-faq-panel (App.css) so the banner above and
+     this section share one continuous ramp instead of two. */
+  background: transparent;
   box-sizing: border-box;
   overflow: hidden;
 }

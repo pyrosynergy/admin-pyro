@@ -5,6 +5,16 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  /* Same black as .pyrostack-section, which follows this one — together
+     they form a single uninterrupted dark panel. This section opens it, so
+     it carries the rounded top edge; the negative margin tucks the curve
+     over the bottom padding of the light Testimonials section above. */
+  background-color: #050505;
+  border-top-left-radius: 48px;
+  border-top-right-radius: 48px;
+  margin-top: -48px;
+  position: relative;
+  z-index: 1;
 }
 
 .founder-container {
@@ -39,12 +49,18 @@
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 600px;
+  /* Sized off the photo, not the other way round: founder.webp is only
+     453x404 with the subject occupying ~333x361 of it, so anything much
+     taller than this upscales the cut-out and it goes soft. See
+     .founder-photo below for the arithmetic. */
+  height: 320px;
   background-color: #c6a0d6;
   /* Light purple from the screenshot */
   border-radius: 17px;
   display: flex;
-  justify-content: center;
+  /* Photo is absolutely positioned on the left, so the identity block is the
+     only in-flow child — flex-end parks it in the right half. */
+  justify-content: flex-end;
   align-items:center;
   margin-bottom: 21px;
   margin-top: 21px;
@@ -53,12 +69,44 @@
 .founder-photo {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: auto;
+  /* Still breaks out of the top, just less far: 320px * 125% = 400px of
+     element, which puts the 361px-tall subject on screen at ~357px — 1:1
+     with the source, instead of the ~1.9x it was being blown up before.
+     If a higher-res export of the photo ever lands, this and the wrapper
+     height can go back up together. */
   height: 125%;
-  /* Makes image break out of the top */
   object-fit: cover;
   object-position: bottom center;
   z-index: 2;
+}
+
+.founder-identity {
+  position: relative;
+  /* Above the photo: the cut-out is ~1.12:1, so at 125% height it reaches
+     past the midpoint and its transparent right edge runs under this text. */
+  z-index: 3;
+  width: min(36%, 420px);
+  padding-right: clamp(4px, 0.8vw, 14px);
+  text-align: center;
+  color: #2b1236;
+}
+
+.founder-name {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.8vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.founder-role {
+  margin: clamp(6px, 1vw, 14px) 0 0;
+  font-size: clamp(0.75rem, 1.3vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(43, 18, 54, 0.72);
 }
 
 .linkedin-link {
@@ -130,8 +178,10 @@
 
 @media (max-width: 768px) {
   .founder-section{
-    width:100%;          
+    width:100%;
     box-sizing: border-box;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
   }
   .founder-container {
     padding: 30px 20px;

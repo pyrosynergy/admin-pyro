@@ -1,9 +1,9 @@
 import React from 'react';
 import './Shift.css';
-import barsPolaroid from '../../../../assets/flobites/bars-polaroid.png';
-import seedsBowl from '../../../../assets/flobites/seeds-bowl.png';
+import barsPolaroid from '../../../../assets/flobites/bars-polaroid.webp';
+import seedsBowl from '../../../../assets/flobites/seeds-bowl.webp';
 import curvyDots from '../../../../assets/flobites/curvy-dots.svg';
-import womenPolaroid from '../../../../assets/flobites/women-polaroid.png';
+import womenPolaroid from '../../../../assets/flobites/women-polaroid.webp';
 
 const Shift = () => (
   <div className="flobites-shift">
@@ -24,7 +24,7 @@ const Shift = () => (
         </p>
       </div>
       <div className="flobites-shift-image">
-        <img src={barsPolaroid} alt="Two FloBites bars styled as a polaroid photo" />
+        <img loading="lazy" decoding="async" src={barsPolaroid} alt="Two FloBites bars styled as a polaroid photo" />
       </div>
     </div>
 
@@ -40,8 +40,8 @@ const Shift = () => (
         </p>
       </div>
       <div className="flobites-shift-image flobites-shift-image--bowl">
-        <img src={seedsBowl} alt="Bowl of FloBites super seeds ingredients" />
-        <img src={curvyDots} alt="" className="flobites-shift-curvy-dots" />
+        <img loading="lazy" decoding="async" src={seedsBowl} alt="Bowl of FloBites super seeds ingredients" />
+        <img loading="lazy" decoding="async" src={curvyDots} alt="" className="flobites-shift-curvy-dots" />
       </div>
       <span className="flobites-shift-number flobites-shift-number--standalone">02</span>
     </div>
@@ -59,7 +59,7 @@ const Shift = () => (
         </p>
       </div>
       <div className="flobites-shift-image">
-        <img src={womenPolaroid} alt="Smiling woman polaroid with a Women on Flo note card" />
+        <img loading="lazy" decoding="async" src={womenPolaroid} alt="Smiling woman polaroid with a Women on Flo note card" />
       </div>
     </div>
   </div>

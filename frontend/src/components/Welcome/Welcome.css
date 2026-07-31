@@ -61,18 +61,32 @@
   margin-bottom: 2rem;
 }
 
+/* A <button> so the logo can route home — the reset keeps it looking
+   exactly like the plain container it replaced. */
 .pyro-logo-container {
   width: 100px;
   height: 100px;
   margin: 0 auto 1.5rem;
   border-radius: 50%;
   background: transparent;
+  border: none;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.pyro-logo-container:hover {
+  transform: scale(1.05);
+}
+
+.pyro-logo-container:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 4px;
 }
 
 .pyro-logo-img {
@@ -120,12 +134,21 @@
 }
 
 .pyro-company-description {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #c0c0c0;
   line-height: 1.5;
   max-width: 380px;
-  margin: 0 auto;
+  margin: 1rem auto 0;
   opacity: 0.8;
+}
+
+/* Opening line carries a touch more weight than the sentence that follows, and
+   sits on its own block so the two lines get breathing room between them. */
+.pyro-company-description-lead {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #d8d8d8;
 }
 
 /* Links Section */
@@ -135,137 +158,96 @@
   gap: 0.8rem;
 }
 
-.pyro-cta-text {
-  font-size: 1rem;
-  color: #ffffff;
-  font-weight: 600;
+/* Pill CTAs mirroring the site's primary/secondary pair (.pyrostack-cta-*),
+   stacking the title over its one-line description. */
+.pyro-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 40px;
+  font-family: 'Albert Sans', sans-serif;
   text-align: center;
-  margin-bottom: 0.5rem;
-  padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.pyro-nav-item {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  padding: 1.2rem 1.5rem;
-  text-align: left;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-  transform: translateY(0);
 }
 
-.pyro-nav-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.pyro-nav-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.6s;
-}
-
-.pyro-nav-item:hover::before {
-  left: 100%;
-}
-
-.pyro-nav-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-.pyro-nav-icon {
-  font-size: 1.3rem;
-  color: #ffffff;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  flex-shrink: 0;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.pyro-nav-item:hover .pyro-nav-icon {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.1);
-}
-
-.pyro-nav-icon-img {
-  width: 24px;
-  height: 24px;
-  filter: invert(1);
-  transition: all 0.3s ease;
-}
-
-.pyro-nav-item:hover .pyro-nav-icon-img {
-  filter: invert(1) brightness(1.2);
-}
-
-.pyro-nav-text {
-  flex: 1;
-}
-
-.pyro-nav-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
+.pyro-cta-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #ffffff;
-  margin: 0 0 0.25rem 0;
   letter-spacing: -0.2px;
 }
 
-.pyro-nav-subtitle {
+.pyro-cta-subtitle {
   font-size: 0.85rem;
-  color: #b8b8b8;
-  margin: 0;
   line-height: 1.3;
   opacity: 0.85;
 }
 
-.pyro-nav-arrow {
-  font-size: 1.2rem;
-  color: #ffffff;
-  opacity: 0.6;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 1;
+.pyro-cta-primary {
+  background: linear-gradient(90deg, #d6c7f5 0%, #9279c3 100%);
+  border: none;
+  color: #0d0b02;
+  box-shadow: 0 6px 20px rgba(146, 121, 195, 0.35);
 }
 
-.pyro-nav-item:hover .pyro-nav-arrow {
-  opacity: 1;
-  transform: translateX(4px);
+.pyro-cta-primary:hover {
+  background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(146, 121, 195, 0.5);
+}
+
+.pyro-cta-secondary {
+  background: rgba(56, 32, 92, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.pyro-cta-secondary:hover {
+  background: rgba(56, 32, 92, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.pyro-cta:focus-visible,
+.pyro-social-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+/* Instagram / LinkedIn, reduced to icon-only links under the CTAs. */
+.pyro-social-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.pyro-social-link {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.pyro-social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px) scale(1.05);
 }
 
 /* Mobile Responsive */
@@ -308,32 +290,22 @@
     font-size: 1.7rem;
   }
   
-  .pyro-nav-item {
-    padding: 1rem 1.2rem;
+  .pyro-cta {
+    padding: 0.9rem 1.2rem;
   }
-  
-  .pyro-nav-title {
+
+  .pyro-cta-title {
     font-size: 1rem;
   }
-  
-  .pyro-nav-subtitle {
+
+  .pyro-cta-subtitle {
     font-size: 0.8rem;
   }
-  
-  .pyro-nav-icon {
-    width: 38px;
-    height: 38px;
-    font-size: 1.2rem;
-  }
-  
-  .pyro-nav-icon-img {
-    width: 22px;
-    height: 22px;
-  }
-  
-  .pyro-cta-text {
-    font-size: 0.9rem;
-    padding: 0.7rem 0.9rem;
+
+  .pyro-social-link {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
   }
 }
 
@@ -380,36 +352,25 @@
     font-size: 1.5rem;
   }
   
-  .pyro-nav-item {
-    padding: 0.9rem 1rem;
+  .pyro-cta {
+    padding: 0.85rem 1rem;
   }
-  
-  .pyro-nav-title {
+
+  .pyro-cta-title {
     font-size: 0.95rem;
   }
-  
-  .pyro-nav-subtitle {
+
+  .pyro-cta-subtitle {
     font-size: 0.75rem;
   }
-  
-  .pyro-nav-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 1.1rem;
+
+  .pyro-social-link {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
-  
-  .pyro-nav-icon-img {
-    width: 20px;
-    height: 20px;
-  }
-  
+
   .pyro-navigation-menu {
     gap: 0.7rem;
-  }
-  
-  .pyro-cta-text {
-    font-size: 0.85rem;
-    padding: 0.6rem 0.8rem;
-    margin-bottom: 0.3rem;
   }
 }

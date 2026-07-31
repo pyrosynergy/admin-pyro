@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/Group 1.svg';
 
@@ -12,6 +13,18 @@ const Header = ({
   handleNavigateToHome,
   openCalendarPopup
 }) => {
+  const navigate = useNavigate();
+
+  /* Case Studies is a route of its own, not a section on the home page, so it
+     can't go through handleNavClick's scroll-to-id path. */
+  const handleRouteClick = (e, path) => {
+    e.preventDefault();
+    navigate(path);
+    if (handleLinkClick) {
+      handleLinkClick();
+    }
+  };
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     
@@ -49,7 +62,7 @@ const Header = ({
         className="brand-logo-link" 
         onClick={(e) => handleNavClick(e, 'home')}
       >
-        <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
+        <img src={logo} alt="PyroSynergy" width="195" height="47" decoding="async" className="brand-logo-img" />
       </a>
       
       <nav ref={navRef} className="main-navigation">
@@ -71,8 +84,16 @@ const Header = ({
             </a>
           </li>
           <li>
-            <a 
-              href="#contact" 
+            <a
+              href="/case-studies"
+              onClick={(e) => handleRouteClick(e, '/case-studies')}
+            >
+              Case Studies
+            </a>
+          </li>
+          <li>
+            <a
+              href="#contact"
               className="book-call-btn"
               onClick={(e) => {
                 e.preventDefault();
@@ -143,6 +164,14 @@ const Header = ({
                 onClick={(e) => handleNavClick(e, 'work')}
               >
                 What Founders Said
+              </a>
+            </li>
+            <li>
+              <a
+                href="/case-studies"
+                onClick={(e) => handleRouteClick(e, '/case-studies')}
+              >
+                Case Studies
               </a>
             </li>
           </ul>

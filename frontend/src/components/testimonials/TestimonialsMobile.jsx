@@ -1,103 +1,74 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowRight, FaChevronLeft, FaChevronRight, FaImage, FaQuoteLeft, FaUser } from 'react-icons/fa';
+import { FaArrowRight, FaChevronLeft, FaChevronRight, FaQuoteLeft, FaUser } from 'react-icons/fa';
 import './TestimonialsMobile.css';
 
-import logoFlobites from '../../assets/logo_fb_the.png';
-import logoViali from '../../assets/logo_viali.png';
+import { testimonials, stripQuoteMarks } from './testimonialsData.js';
 
 /*
- * Single data source for the mobile carousel. `type` drives which slide
- * component renders: 'case-study' (CaseStudyCard) or 'reviews'
- * (ReviewsSlide, two stacked ReviewCards). Adding a new case study or
- * review pair later is just adding another object here — nothing else
- * needs to change.
+ * The carousel is built from the same testimonials the desktop bento grid
+ * renders — one shared list, so a founder, quote or logo only ever has to be
+ * edited in testimonialsData.js.
  *
- * Metrics for FloBites/Viali and the review headlines below are
- * placeholder copy (dummy, not real reported numbers) — the same
- * convention used for every other "not finalized yet" testimonial
- * elsewhere in this section.
+ * Featured entries (desktop variants 'A' and 'B') each get their own slide;
+ * the compact ones (variant 'C') are paired two-to-a-slide, which is what the
+ * stacked review layout was built for. Slide order follows the data order.
  */
-const mobileSlides = [
-  {
-    type: 'case-study',
-    id: 'flobites-cs',
-    company: 'FloBites',
-    title: 'Nutrition, made simple.',
-    metrics: [
-      { value: '3.2x', label: 'engagement lift' },
-      { value: '150%', label: 'traffic growth' },
-    ],
-    quote: "They didn't just design a website, they translated exactly how we think about nutrition into every pixel.",
-    name: 'Aanya Kapoor',
-    role: 'Co-Founder, FloBites',
-    logo: logoFlobites,
-    logoAlt: 'FloBites logo',
-    ctaPath: '/case-studies/flobites',
-  },
-  {
-    type: 'reviews',
-    id: 'reviews-1',
-    reviews: [
-      {
-        id: 'delicacy',
-        layout: 'text-left',
-        title: 'A true collaborator',
-        quote: 'They work in collaboration with me, are open for input, and encourage me to expand my ideas.',
-        name: 'Myriam Joseph-Raymond',
-        role: 'Founder, Delicacy of Haiti',
-      },
-      {
-        id: 'vj',
-        layout: 'image-left',
-        title: 'Sharp and honest',
-        quote: "Sharp, fast, and refreshingly honest about what would and wouldn't work for us.",
-        name: 'Vishal Jain',
-        role: 'Founder, VJ',
-      },
-    ],
-  },
-  {
-    type: 'case-study',
-    id: 'viali-cs',
-    company: 'Viali Hair Care',
-    title: 'Growth, on repeat.',
-    metrics: [
-      { value: '2.4x', label: 'social reach' },
-      { value: '40%', label: 'CAC reduction' },
-    ],
-    quote: 'This was literally a blessing in disguise! Finally an agency who I can rely on with my business now.',
-    name: 'Rosemay J. Martelly',
-    role: 'Founder & CEO, Viali Hair Care',
-    logo: logoViali,
-    logoAlt: 'Viali Hair Care logo',
-    ctaPath: null,
-  },
-  {
-    type: 'reviews',
-    id: 'reviews-2',
-    reviews: [
-      {
-        id: 'mih',
-        layout: 'text-left',
-        title: 'Built for us, not templated',
-        quote: "Every deliverable felt like it was built for our business, not templated for anyone else's.",
-        name: 'Aditi Rao',
-        role: 'Founder, MIH',
-      },
-      {
-        id: 'tog',
-        layout: 'image-left',
-        title: 'Understood the brief',
-        quote: "The team understood our product and requirements, and I'm happy with how the website turned out.",
-        name: 'Grace Anderson',
-        role: 'Founder, Touch of Grace',
-      },
-    ],
-  },
-];
+const REVIEWS_PER_SLIDE = 2;
+
+const buildMobileSlides = (items) => {
+  const slides = [];
+  let pending = [];
+
+  const flushReviews = () => {
+    if (!pending.length) return;
+    slides.push({
+      type: 'reviews',
+      id: `reviews-${pending.map((r) => r.id).join('-')}`,
+      reviews: pending.map((item, i) => ({
+        ...item,
+        // Alternate which side the media sits on down the stack.
+        layout: i % 2 === 0 ? 'text-left' : 'image-left',
+      })),
+    });
+    pending = [];
+  };
+
+  items.forEach((item) => {
+    if (item.variant === 'C') {
+      pending.push(item);
+      if (pending.length === REVIEWS_PER_SLIDE) flushReviews();
+      return;
+    }
+    slides.push({ ...item, type: 'case-study', id: `${item.id}-cs` });
+  });
+
+  flushReviews();
+  return slides;
+};
+
+const mobileSlides = buildMobileSlides(testimonials);
 
 const AUTOPLAY_MS = 5000;
+
+/* A founder portrait wins over the brand logo when there is one — same rule
+   the desktop footer follows. */
+const Avatar = ({ item, small = false }) => (
+  <div
+    className={`tm-avatar${small ? ' tm-avatar--sm' : ''}${item.founderPhoto ? ' tm-avatar--photo' : item.logo ? ' tm-avatar--logo' : ''
+      } tm-avatar--${item.id}`}
+  >
+    {item.founderPhoto ? (
+      <img loading="lazy" decoding="async" src={item.founderPhoto} alt={item.name} />
+    ) : item.logo ? (
+      <img loading="lazy" decoding="async" src={item.logo} alt={item.logoAlt} />
+    ) : item.initials ? (
+      <span className="tm-avatar-initials">{item.initials}</span>
+    ) : (
+      <FaUser aria-hidden="true" />
+    )}
+  </div>
+);
 
 const CaseStudyCard = ({ data, onCtaClick }) => (
   <article className="tm-cs-card">
@@ -105,60 +76,53 @@ const CaseStudyCard = ({ data, onCtaClick }) => (
       <span className="tm-cs-badge">{data.company}</span>
     </div>
 
-    <h3 className="tm-cs-title">{data.title}</h3>
-
-    <div className="tm-cs-metrics">
-      {data.metrics.slice(0, 3).map((metric) => (
-        <div className="tm-cs-metric" key={metric.label}>
-          <span className="tm-cs-metric-value">{metric.value}</span>
-          <span className="tm-cs-metric-label">{metric.label}</span>
+    {data.metricLabel && (
+      <div className="tm-cs-metrics">
+        <div className="tm-cs-metric">
+          {data.metric && <span className="tm-cs-metric-value">{data.metric}</span>}
+          <span className="tm-cs-metric-label">{data.metricLabel}</span>
         </div>
-      ))}
-    </div>
+      </div>
+    )}
 
     <blockquote className="tm-cs-quote">
       <FaQuoteLeft className="tm-quote-mark" aria-hidden="true" />
-      <p>{data.quote}</p>
+      <p>{stripQuoteMarks(data.quote || data.description)}</p>
     </blockquote>
 
-    <div className="tm-cs-person">
-      <div className={`tm-avatar${data.logo ? ' tm-avatar--logo' : ''}`}>
-        {data.logo ? (
-          <img src={data.logo} alt={data.logoAlt} />
-        ) : (
-          <FaUser aria-hidden="true" />
-        )}
-      </div>
-      <div className="tm-person-copy">
-        <span className="tm-person-name">{data.name}</span>
-        <span className="tm-person-role">{data.role}</span>
-      </div>
+    {/* Entries that credit the brand rather than a person (desktop variant
+        'B') carry no name — show the logo on its own instead. */}
+    <div className={`tm-cs-person${data.name ? '' : ' tm-cs-person--logo-only'}`}>
+      <Avatar item={data} />
+      {data.name && (
+        <div className="tm-person-copy">
+          <span className="tm-person-name">{data.name}</span>
+          {data.role && <span className="tm-person-role">{data.role}</span>}
+        </div>
+      )}
     </div>
 
-    <button type="button" className="tm-cs-cta" onClick={onCtaClick}>
-      View Case Study
-      <FaArrowRight className="tm-cs-cta-arrow" aria-hidden="true" />
-    </button>
+    {data.caseStudyPath && (
+      <button type="button" className="tm-cs-cta" onClick={onCtaClick}>
+        View Case Study
+        <FaArrowRight className="tm-cs-cta-arrow" aria-hidden="true" />
+      </button>
+    )}
   </article>
 );
 
 const ReviewCard = ({ data }) => (
   <article className={`tm-review-card tm-review--${data.layout}`}>
-    <div className="tm-review-media" aria-hidden="true">
-      <FaImage />
+    <div className="tm-review-media">
+      <Avatar item={data} />
     </div>
 
     <div className="tm-review-body">
-      <h4 className="tm-review-title">{data.title}</h4>
-
       <blockquote className="tm-review-quote">
-        <p>&quot;{data.quote}&quot;</p>
+        <p>&quot;{stripQuoteMarks(data.quote)}&quot;</p>
       </blockquote>
 
       <div className="tm-review-person">
-        <div className="tm-avatar tm-avatar--sm">
-          <FaUser aria-hidden="true" />
-        </div>
         <div className="tm-person-copy">
           <span className="tm-person-name">{data.name}</span>
           <span className="tm-person-role">{data.role}</span>
@@ -247,8 +211,6 @@ const TestimonialsMobile = () => {
     touchStartX.current = null;
   }, [goTo]);
 
-  const slide = mobileSlides[activeIndex];
-
   return (
     <div
       className="tm-carousel"
@@ -262,14 +224,29 @@ const TestimonialsMobile = () => {
           phase === 'in' ? (animDir === 'left' ? 'tm-anim-from-left' : 'tm-anim-from-right') : ''
         }`}
       >
-        {slide.type === 'case-study' ? (
-          <CaseStudyCard
-            data={slide}
-            onCtaClick={() => slide.ctaPath && navigate(slide.ctaPath)}
-          />
-        ) : (
-          <ReviewsSlide data={slide} />
-        )}
+        {/*
+          Every slide stays mounted and they all share one grid cell, so the
+          frame is always as tall as the tallest slide and its height never
+          changes as you move between them. Only the active one is visible —
+          `visibility: hidden` also keeps the others out of the tab order and
+          the accessibility tree.
+        */}
+        {mobileSlides.map((s, i) => (
+          <div
+            key={s.id}
+            className={`tm-slide${i === activeIndex ? ' tm-slide-active' : ''}`}
+            aria-hidden={i !== activeIndex}
+          >
+            {s.type === 'case-study' ? (
+              <CaseStudyCard
+                data={s}
+                onCtaClick={() => s.caseStudyPath && navigate(s.caseStudyPath)}
+              />
+            ) : (
+              <ReviewsSlide data={s} />
+            )}
+          </div>
+        ))}
       </div>
 
       <div className="tm-nav">

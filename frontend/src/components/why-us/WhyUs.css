@@ -87,6 +87,7 @@
   font-weight: 450;
   display: inline-block;
   font-family: 'bricolage grotesque', 'DM Sans', sans-serif;
+  padding-right: 2px;
   letter-spacing: -2.5px;
 }
 .why-us-subtitle {
@@ -299,6 +300,10 @@
     width:100%  !important;
   }
   .why-us-header h2 { font-size: 1.9rem; }
+  /* The hard break before "handles" is tuned for the desktop measure; at this
+     width the line already wraps on its own, so keeping it forces a third,
+     lopsided line. Let the heading find its own break points. */
+  .why-us-header h2 br { display: none; }
   .why-us-subtitle { font-size: 0.85rem; }
   .whyus-bubble { max-width: 75%; font-size: 1rem; padding: 28px 18px; }
   .hw{font-size: 0.95rem !important;}

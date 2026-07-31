@@ -5,35 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
 
-    <!-- Favicon Links for Browser Tabs (REVERTED TO YOUR ORIGINAL MAIN LOGO) -->
+    <!-- Favicon Links for Browser Tabs -->
     <link rel="icon" href="/Mainlogo3.png" />
     <link rel="apple-touch-icon" href="/Mainlogo3.png" />
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- Fonts Layout Structure -->
+    <!-- Fonts: one request for every family the site uses. Kept as a <link>
+         rather than a CSS @import so the browser can start fetching during HTML
+         parse. Plus Jakarta Sans belongs here rather than in a component's
+         @import: lazy-loaded routes get their own CSS chunk, so a page that
+         only *uses* the family (e.g. the Viali case study) would otherwise
+         render in fallback sans-serif whenever the chunk that imports it
+         hasn't loaded. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;1,500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Architects+Daughter&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet">
 
-    <!-- Search Engine Meta Tags -->
-    <title>PyroSynergy</title>
+    <!-- Search Engine Meta Tags. These are defaults only — each route overrides
+         them at runtime via src/components/SEO/SEO.jsx -->
+    <title>PyroSynergy — The Framework for Founders</title>
     <meta name="title" content="PyroSynergy — The Framework for Founders" />
     <meta name="description" content="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly." />
+    <link rel="canonical" href="https://pyrosynergy.com/" />
 
-    <meta property="og:site_name" content="PyroSynergy" />
-    <meta property="og:image:alt" content="PyroSynergy — The Framework for Founders" />
-
-    <!-- Open Graph / Facebook / LinkedIn / WhatsApp Card Meta Tags (KEEPING THE SVG PREVIEW FOR SHARING) -->
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp Card Meta Tags -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://staging.pyrosynergy.com/" />
+    <meta property="og:site_name" content="PyroSynergy" />
+    <meta property="og:url" content="https://pyrosynergy.com/" />
     <meta property="og:title" content="PyroSynergy — The Framework for Founders" />
     <meta property="og:description" content="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly." />
-    <meta property="og:image" content="https://staging.pyrosynergy.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content="https://pyrosynergy.com/og-image.png" />
+    <meta property="og:image:alt" content="PyroSynergy — The Framework for Founders" />
     <meta property="og:image:type" content="image/png" />
 
     <!-- Twitter / X Card Meta Tags -->
@@ -42,8 +46,27 @@
     <meta name="twitter:title" content="PyroSynergy — The Framework for Founders" />
     <meta name="twitter:description" content="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly." />
     <meta name="twitter:image" content="https://pyrosynergy.com/og-image.png" />
-    
-    <!-- Microsoft Clarity Analytics Tracking -->
+
+    <!-- Organization structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PyroSynergy",
+      "url": "https://pyrosynergy.com/",
+      "logo": "https://pyrosynergy.com/Mainlogo3.png",
+      "description": "Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly.",
+      "email": "subs@pyrosynergy.com"
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Microsoft Clarity Analytics. Placed at the end of <body> so the injector
+         itself never blocks the initial render. -->
     <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -51,10 +74,5 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "rzuj7q7mkm");
     </script>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -5,9 +5,52 @@
   touch-action: pan-y;
 }
 
+/*
+ * All slides occupy the same grid cell, so the frame's height is the tallest
+ * slide's height and stays put when the active slide changes — no reflow of
+ * the dots, the arrows, or anything below the section.
+ */
 .tm-slide-frame {
   width: 100%;
   margin-bottom: 0px;
+  display: grid;
+}
+
+.tm-slide {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tm-slide-active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Fill the frame so the white card itself is also a constant height, rather
+   than sitting short with dead space beneath it on the smaller slides. */
+.tm-cs-card,
+.tm-reviews-slide {
+  height: 100%;
+}
+
+/* Pins the CTA to the bottom edge of whatever slack the tallest slide sets —
+   or the person block, on the cards that have no case study to link to. */
+.tm-cs-cta,
+.tm-cs-person:last-child {
+  margin-top: auto;
+}
+
+.tm-reviews-slide .tm-review-card {
+  flex: 1 1 0;
+}
+
+/* An odd number of compact quotes leaves one slide holding a single card —
+   let it keep its natural height instead of stretching to fill the frame. */
+.tm-reviews-slide .tm-review-card:only-child {
+  flex: 0 0 auto;
 }
 
 /* ── Case study (Type I) ── */
@@ -37,16 +80,6 @@
   text-transform: uppercase;
   color: #5b21b6;
   font-weight: 600;
-}
-
-.tm-cs-title {
-  margin: 0 0 18px;
-  font-family: 'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-  color: #1a1330;
 }
 
 .tm-cs-metrics {
@@ -106,6 +139,20 @@
   margin-bottom: 20px;
 }
 
+/* Matches the desktop allowance for JRJP's near-square mark, which is
+   illegible at the 44px the wide wordmarks are fine with. */
+.tm-avatar--jrjp {
+  width: 62px;
+  height: 62px;
+  padding: 4px;
+}
+
+/* Brand-only credit: the logo sits a touch larger with no name beside it. */
+.tm-cs-person--logo-only .tm-avatar {
+  width: 56px;
+  height: 56px;
+}
+
 .tm-avatar {
   flex-shrink: 0;
   width: 44px;
@@ -142,6 +189,29 @@
   object-fit: contain;
 }
 
+/* A person, not a mark — fills the circle edge to edge instead of being
+   inset on a white ground like a logo. */
+.tm-avatar--photo {
+  overflow: hidden;
+  background: rgba(20, 16, 32, 0.06);
+}
+
+.tm-avatar--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Stand-in for the brands that don't ship a logo (matches the desktop
+   grid's .pt-logo-fallback). */
+.tm-avatar-initials {
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #7c3aed;
+}
+
 .tm-person-copy {
   display: flex;
   flex-direction: column;
@@ -160,28 +230,42 @@
   color: rgba(32, 29, 42, 0.55);
 }
 
+/* Same gradient pill as the desktop grid's .pt-b-cta, so the two views read
+   as one component. */
 .tm-cs-cta {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0;
-  border: none;
-  background: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: #ffffff;
   cursor: pointer;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #1a1330;
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              filter 0.3s ease;
+}
+
+.tm-cs-cta:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5), 0 0 12px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.08);
 }
 
 .tm-cs-cta-arrow {
+  color: #ffffff;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tm-cs-cta:active .tm-cs-cta-arrow {
-  transform: translateX(5px);
+  transform: translateX(4px);
 }
 
 /* ── Reviews (Type II): two stacked cards, alternating media side ── */
@@ -213,16 +297,21 @@
   flex-direction: row-reverse;
 }
 
+/* Holds the brand's own logo/initials avatar, so the slot itself stays
+   transparent and lets .tm-avatar supply the ground. */
 .tm-review-media {
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(216, 74, 238, 0.1));
-  color: rgba(124, 58, 237, 0.45);
+  font-size: 1.4rem;
+}
+
+.tm-review-media .tm-avatar {
+  width: 100%;
+  height: 100%;
   font-size: 1.4rem;
 }
 
@@ -231,14 +320,6 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-}
-
-.tm-review-title {
-  margin: 0 0 8px;
-  font-family: 'bricolage grotesque', 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #1a1330;
 }
 
 .tm-review-quote {
@@ -343,10 +424,6 @@
 @media (max-width: 380px) {
   .tm-cs-card {
     padding: 22px;
-  }
-
-  .tm-cs-title {
-    font-size: 1.3rem;
   }
 
   .tm-review-card {

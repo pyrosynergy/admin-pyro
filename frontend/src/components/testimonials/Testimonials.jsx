@@ -4,83 +4,14 @@ import { FaQuoteLeft, FaArrowRight, FaUser } from 'react-icons/fa';
 import './Testimonials.css';
 import TestimonialsMobile from './TestimonialsMobile.jsx';
 
+import { findById } from './testimonialsData.js';
 import logoViali from '../../assets/logo_viali.png';
-import logoFlobites from '../../assets/logo_fb_the.png';
-import logoJrjp from '../../assets/jrjplogopyro.png';
-import logoMih from '../../assets/mih.png';
-import logoTog from '../../assets/logo_tog.png';
 
-/*
- * Single source of truth for every testimonial. `variant` drives which
- * flavor of TestimonialCard renders: 'A' (featured, photo + heading quote),
- * 'B' (metric / case study), 'C' (compact quote). Order here matches the
- * wireframe's reading order: B centered on top, then the upper row
- * (A, C, C, A), then the lower row (C, A, C).
- */
-const testimonials = [
-  {
-    id: 'jrjp',
-    variant: 'B',
-    label: 'Jai Rajendra Jewel Palace',
-    metric: '30.2K+',
-    metricLabel: 'Instagram followers',
-    description: 'AI brand ambassador built from zero, scaling organic reach profitably.',
-    cta: 'VIEW CASE STUDY',
-    logo: logoJrjp,
-    logoAlt: 'Jai Rajendra Jewel Palace logo',
-  },
-  {
-    id: 'viali',
-    variant: 'A',
-    accent: 'viali',
-    quote: '"This was literally a blessing in disguise! Finally an agency who I can rely on with my business now."',
-    name: 'Rosemay J. Martelly',
-    role: 'Founder & CEO, Viali Hair Care',
-    logo: logoViali,
-    logoAlt: 'Viali Hair Care logo',
-    caseStudyPath: '/case-studies/viali',
-  },
-  {
-    id: 'flobites',
-    variant: 'A',
-    accent: 'flobites',
-    quote: "\"They didn't just design a website, they translated exactly how we think about nutrition into every pixel.\"",
-    name: 'Aanya Kapoor',
-    role: 'Co-Founder, FloBites',
-    logo: logoFlobites,
-    logoAlt: 'FloBites logo',
-    caseStudyPath: '/case-studies/flobites',
-  },
-  {
-    id: 'tog',
-    variant: 'C',
-    quote: "\"The team understood our product and requirements, and I'm happy with how the website turned out.\"",
-    name: 'Grace Anderson',
-    role: 'Founder, Touch of Grace',
-    logo: logoTog,
-    logoAlt: 'Touch of Grace logo',
-  },
-  {
-    id: 'delicacy',
-    variant: 'A',
-    accent: 'delicacy',
-    quote: '"They work in collaboration with me, are open for input, and encourage me to expand my ideas."',
-    name: 'Myriam Joseph-Raymond',
-    role: 'Founder, Delicacy of Haiti',
-    logo: null,
-    logoAlt: 'Delicacy of Haiti logo',
-    initials: 'DH',
-  },
-  {
-    id: 'elytrix',
-    variant: 'C',
-    quote: "\"PyroSynergy became the technical co-founder we didn't have the bandwidth to hire.\"",
-    name: 'Rohan Mehta',
-    role: 'Founder, Elytrix',
-    logo: null,
-    initials: 'EX',
-  },
-];
+import imgPhoneCollage from '../../assets/flobites/device-tablet-mockup.png';
+import imgThreePhones from '../../assets/flobites/three-phones.png';
+import imgLaptopMockup from '../../assets/flobites/device-laptop-mockup.png';
+import imgVialiDevices from '../../assets/viali/showcase-devices.png';
+import imgAmbassador from '../../assets/JRJP_AI_Ambassaror.webp';
 
 const TestimonialCard = ({ item }) => {
   const navigate = useNavigate();
@@ -120,13 +51,37 @@ const TestimonialCard = ({ item }) => {
 
   return (
     <article
-      className={`pt-card ${isFeatured ? 'pt-card--a' : 'pt-card--c'}${
-        item.accent ? ` pt-accent-${item.accent}` : ''
-      }`}
+      className={`pt-card ${isFeatured ? 'pt-card--a' : 'pt-card--c'}${item.accent ? ` pt-accent-${item.accent}` : ''
+        }`}
     >
       {isFeatured && (
         <div className="pt-a-media">
-          <FaUser className="pt-a-media-icon" aria-hidden="true" />
+          {item.id === 'flobites' ? (
+            <div className="flobites-collage">
+              <img src={imgThreePhones} className="img-three-phones" alt="Three phones mockup" />
+              <img src={imgLaptopMockup} className="img-laptop" alt="Laptop mockup" />
+              <img src={imgPhoneCollage} className="img-phone-collage" alt="Phone collage mockup" />
+            </div>
+          ) : item.id === 'viali' ? (
+            <div className="viali-collage">
+              <img src={imgVialiDevices} className="viali-devices" alt="Viali devices mockup" />
+              <img src={logoViali} className="viali-logo" alt="Viali logo" />
+            </div>
+          ) : item.id === 'jrjp' ? (
+            <div className="jrjp-ambassador">
+              <img
+                src={imgAmbassador}
+                className="jrjp-ambassador-img"
+                alt="Ira, the AI brand ambassador built for Jai Rajendra Jewel Palace"
+              />
+              <div className="jrjp-ambassador-copy">
+                <span className="jrjp-ambassador-name">Ira</span>
+                <span className="jrjp-ambassador-role">AI Brand Ambassador</span>
+              </div>
+            </div>
+          ) : (
+            <FaUser className="pt-a-media-icon" aria-hidden="true" />
+          )}
         </div>
       )}
 
@@ -141,29 +96,43 @@ const TestimonialCard = ({ item }) => {
           className="pt-b-cta pt-a-cta"
           onClick={() => navigate(item.caseStudyPath)}
         >
-          VIEW CASE STUDY
+          View Case Study
           <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
         </button>
       )}
 
-      <footer className={isFeatured ? 'pt-a-footer' : 'pt-c-footer'}>
+      {/* A founder portrait and the brand logo are alternatives, not a pair:
+          the photo takes the lead slot and the logo steps aside. */}
+      <footer
+        className={`${isFeatured ? 'pt-a-footer' : 'pt-c-footer'}${item.founderPhoto ? ' pt-footer--photo' : ''
+          }`}
+      >
+        {item.founderPhoto && (
+          <div className="pt-founder-photo">
+            <img src={item.founderPhoto} alt={item.name} />
+          </div>
+        )}
+
         <div className={isFeatured ? 'pt-a-person' : 'pt-c-person'}>
           <span className={isFeatured ? 'pt-a-name' : 'pt-c-name'}>{item.name}</span>
-          <span className={isFeatured ? 'pt-a-role' : 'pt-c-role'}>{item.role}</span>
-        </div>
-        <div className={isFeatured ? 'pt-a-logo' : 'pt-c-logo'}>
-          {item.logo ? (
-            <img src={item.logo} alt={item.logoAlt} />
-          ) : (
-            <span className="pt-logo-fallback">{item.initials}</span>
+          {item.role && (
+            <span className={isFeatured ? 'pt-a-role' : 'pt-c-role'}>{item.role}</span>
           )}
         </div>
+
+        {!item.founderPhoto && (
+          <div className={`${isFeatured ? 'pt-a-logo' : 'pt-c-logo'} pt-logo--${item.id}`}>
+            {item.logo ? (
+              <img src={item.logo} alt={item.logoAlt} />
+            ) : (
+              <span className="pt-logo-fallback">{item.initials}</span>
+            )}
+          </div>
+        )}
       </footer>
     </article>
   );
 };
-
-const findById = (id) => testimonials.find((item) => item.id === id);
 
 const Testimonials = () => {
   const [isMobile, setIsMobile] = useState(() =>
@@ -180,8 +149,8 @@ const Testimonials = () => {
 
   const featured = findById('jrjp');
   const viali = findById('viali');
-  
-  
+
+
   const flobites = findById('flobites');
   const tog = findById('tog');
   const delicacy = findById('delicacy');
@@ -213,8 +182,8 @@ const Testimonials = () => {
           </div>
 
           <div className="pt-bento-col pt-bento-col-center">
-            <TestimonialCard item={featured} />
             <TestimonialCard item={delicacy} />
+            <TestimonialCard item={featured} />
           </div>
 
           <div className="pt-bento-col">

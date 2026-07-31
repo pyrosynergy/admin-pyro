@@ -3,14 +3,15 @@
   width: 100%;
   overflow: hidden;
   padding: 220px 20px;
-  background:#eee8f5;
+  background: #eee8f5;
   /*background:  rgb(146, 67, 163);*/
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  
+
 }
+
 /* ── Live pill background ── */
 .banner-pills-bg {
   position: absolute;
@@ -26,6 +27,8 @@
 .banner-pill-row {
   width: 100%;
   overflow: hidden;
+  padding: 6px 0;
+  margin: 4px 0;
 }
 
 .banner-pill-track {
@@ -50,6 +53,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     /* Shifts by exactly one measured sequence-copy width (set inline per
        row as --pill-step), never a guessed percentage of the whole track —
@@ -61,23 +65,33 @@
 .banner-pill {
   flex-shrink: 0;
   white-space: nowrap;
-  padding: 12px 24px;
+  padding: 18px 36px;
   border-radius: 999px;
   font-family: "Albert Sans", sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: #2c2438;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(110, 50, 150, 0.04);
 }
 
 .banner-pill {
-  background: linear-gradient(
-  90deg,
-  #efd6fc 0%,
-  #ead0fb 25%,
-  #e5c9fa 50%,
-  #e2c5fa 75%,
-  #e9d0fc 100%
-);
+  background: linear-gradient(90deg,
+      rgba(239, 214, 252, 0.73) 0%,
+      rgba(234, 208, 251, 0.73) 25%,
+      rgba(229, 201, 250, 0.73) 50%,
+      rgba(226, 197, 250, 0.73) 75%,
+      rgba(233, 208, 252, 0.73) 100%);
+}
+
+.banner-pill-row--light .banner-pill {
+  background: linear-gradient(90deg,
+      rgba(247, 234, 253, 0.58) 0%,
+      rgba(244, 231, 253, 0.58) 25%,
+      rgba(242, 228, 252, 0.58) 50%,
+      rgba(240, 226, 252, 0.58) 75%,
+      rgba(244, 231, 253, 0.58) 100%);
 }
 
 /* ── Glass card ── */
@@ -86,22 +100,20 @@
   z-index: 2;
   width: 100%;
   max-width: 720px;
-  height:280px;
+  height: 280px;
   margin: 0 auto;
-  padding: 56px 64px;
+  padding: 56px 126px;
   border-radius: 32px;
   text-align: center;
   overflow: hidden;
   /* Lower opacity than before so the moving pills read through the blur
      rather than being fully masked by a near-solid tint. */
-  background: linear-gradient(
-    135deg,
-    rgba(183, 116, 205, 0.58) 0%,
-    rgba(173, 112, 206, 0.52) 30%,
-    rgba(160, 89, 200, 0.55) 55%,
-    rgba(185, 121, 219, 0.52) 75%,
-    rgba(188, 130, 217, 0.58) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(183, 116, 205, 0.58) 0%,
+      rgba(173, 112, 206, 0.52) 30%,
+      rgba(160, 89, 200, 0.55) 55%,
+      rgba(185, 121, 219, 0.52) 75%,
+      rgba(188, 130, 217, 0.58) 100%);
 
   backdrop-filter: blur(8px) saturate(180%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);
@@ -183,70 +195,89 @@
        more lines, so the fixed height must give way to the real content
        height instead of clipping it. */
     height: auto;
-    padding: 46px 40px;
+    padding: 76px 40px;
+    max-width: 600px;
   }
 
   .banner-heading {
-    font-size: 2.3rem;
+    font-size: 2.8rem;
     line-height: 1.15;
     letter-spacing: -1px;
   }
 
   .banner-eyebrow {
-    font-size: 1.05rem;
+    font-size: 1.7rem;
   }
 
   .banner-desc {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     line-height: 1.5;
   }
 }
 
 @media (max-width: 767px) {
   .banner-section {
-    padding: 100px 16px;
-    padding-bottom: 120px;
-    /* max-width: 1023px still applies below 767px too, so its min-height:
-       900px (sized for the full 8-row tablet marquee) was otherwise still
-       forcing this height here — on the reduced 5-row, smaller-pill mobile
-       layout that left a large empty gap above and below. Only 5 rows are
-       actually rendered at this width, so let the section size to its own
-       content again. */
-    min-height: 0;
-    margin-bottom: 0px;
+    min-height: 90svh;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner-pills-bg {
+    gap: 16px;
   }
 
   .banner-card {
-    max-width: 340px;
-    padding: 24px 20px;
-    border-radius: 22px;
-    height: auto;
+    max-width: 500px;
+    padding: 96px 24px;
   }
+
 
   .banner-eyebrow {
     margin-bottom: 8px;
-    font-size: 0.85rem;
+    font-size: 1.5rem;
   }
 
   .banner-heading {
-    font-size: 1.6rem;
+    font-size: 2.8rem;
     line-height: 1.15;
     letter-spacing: -0.5px;
     margin-bottom: 14px;
   }
 
   .banner-desc {
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1.4;
-    max-width: 280px;
-  }
-
-  .banner-pills-bg {
-    gap: 8px;
+    max-width: 380px;
   }
 
   .banner-pill {
-    padding: 8px 16px;
-    font-size: 0.75rem;
+    padding: 6px 12px;
+    font-size: 1rem;
   }
+}
+
+@media (max-width: 594px) {
+  .banner-card {
+    max-width: 300px;
+    padding: 96px 28px;
+  }
+
+  .banner-pills-bg {
+    gap: 12px;
+  }
+
+  .banner-pill {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+
+  .banner-heading {
+    font-size: 2.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+
 }

@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import fireIcon from '../../assets/pyro-satck-fire.svg';
-import './PyroStack.css';
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import fireIcon from "../../assets/pyro-satck-fire.svg";
+import "./PyroStack.css";
 
-const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
+const PyroStack = ({ openCalendarPopup }) => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [svgPath, setSvgPath] = useState('');
-  const [svgViewBox, setSvgViewBox] = useState('0 0 100 1000');
+  const [svgPath, setSvgPath] = useState("");
+  const [svgViewBox, setSvgViewBox] = useState("0 0 100 1000");
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia('(max-width: 768px)').matches : false
+    typeof window !== "undefined"
+      ? window.matchMedia("(max-width: 768px)").matches
+      : false,
   );
   const cardRefs = useRef([]);
   const nodeRefs = useRef([]);
@@ -16,36 +20,33 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
 
   const steps = [
     {
-      title: 'founder & product audit',
+      title: "Founder & Product Audit",
       content: [
-        'through several audits and discussions, we get an end-to end understanding of how your product works, what markets it serves, and how your current team operates.',
-
+        "Through several audits and discussions, we get an end-to-end understanding of how your product works, what markets it serves, and how your current team operates.",
       ],
-      number: '01'
+      number: "01",
     },
     {
-      title: 'PyroStack™',
+      title: "PyroStack™",
       content: [
-        'once all information is gathered, we put it together using PyroStackTM, our proprietary growth evaluation framework with 35+ technical and business logical touchpoints, determining the next steps for your business’ growth.',
-
+        "Once all information is gathered, we put it together using PyroStack™, our proprietary growth evaluation framework with 35+ technical and business logical touchpoints, determining the next steps for your business’ growth.",
       ],
-      number: '02'
+      number: "02",
     },
     {
-      title: 'strategy + execution plan',
+      title: "Strategy + Execution Plan",
       content: [
-        'post evaluation using PyroStackTM, we carefully curate a strategic execution plan, and structure a timeline that works best for your audience in the market',
+        "Post evaluation using PyroStack™, we carefully curate a strategic execution plan and structure a timeline that works best for your audience in the market.",
       ],
-      number: '03'
+      number: "03",
     },
     {
-      title: 'build & launch',
+      title: "Build & Launch",
       content: [
-        'our team of developers and growth experts start building according to the strategic execution plan, utilising the structured timeline for testing, building, and launching.',
-
+        "Our team of developers and growth experts start building according to the strategic execution plan, utilising the structured timeline for testing, building, and launching.",
       ],
-      number: '04',
-    }
+      number: "04",
+    },
   ];
 
   const computePath = useCallback(() => {
@@ -57,11 +58,11 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
 
     const timelineRect = timeline.getBoundingClientRect();
 
-    const points = validNodes.map(node => {
+    const points = validNodes.map((node) => {
       const rect = node.getBoundingClientRect();
       return {
-        x: (rect.left + rect.width / 2) - timelineRect.left,
-        y: (rect.top + rect.height / 2) - timelineRect.top,
+        x: rect.left + rect.width / 2 - timelineRect.left,
+        y: rect.top + rect.height / 2 - timelineRect.top,
       };
     });
 
@@ -90,11 +91,11 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
 
   // Detect mobile breakpoint
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
+    const mq = window.matchMedia("(max-width: 768px)");
     const update = () => setIsMobile(mq.matches);
     update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
 
   // Desktop: IntersectionObserver on cards + SVG snake path
@@ -102,38 +103,40 @@ const PyroStack = ({ handleNavigateToQuestionnaire, openCalendarPopup }) => {
     if (isMobile) return;
 
     const observer = new IntersectionObserver(
-  () => {
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-    const viewportCenter = window.innerHeight * 0.4;
+      () => {
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        const viewportCenter = window.innerHeight * 0.4;
 
-    cardRefs.current.forEach((card, index) => {
-      if (!card) return;
+        cardRefs.current.forEach((card, index) => {
+          if (!card) return;
 
-      const rect = card.getBoundingClientRect();
-      const cardCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(cardCenter - viewportCenter);
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(cardCenter - viewportCenter);
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        setActiveIndex(closestIndex);
+      },
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
     });
-
-    setActiveIndex(closestIndex);
-  },
-  {
-    threshold: [0, 0.25, 0.5, 0.75, 1],
-  }
-);
-
-cardRefs.current.forEach((card) => {
-  if (card) observer.observe(card);
-});
 
     requestAnimationFrame(computePath);
 
-    const resizeObserver = new ResizeObserver(() => requestAnimationFrame(computePath));
+    const resizeObserver = new ResizeObserver(() =>
+      requestAnimationFrame(computePath),
+    );
     if (timelineRef.current) {
       resizeObserver.observe(timelineRef.current);
     }
@@ -150,51 +153,49 @@ cardRefs.current.forEach((card) => {
 
     setActiveIndex(0);
 
-  const handleScroll = () => {
-  const focusPoint = window.innerHeight * 0.4;
+    const handleScroll = () => {
+      const focusPoint = window.innerHeight * 0.4;
 
-  let closestIndex = 0;
-  let closestDistance = Infinity;
+      let closestIndex = 0;
+      let closestDistance = Infinity;
 
-  cardRefs.current.forEach((card, index) => {
-    if (!card) return;
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
 
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.top + rect.height / 2;
-    const distance = Math.abs(cardCenter - focusPoint);
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(cardCenter - focusPoint);
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = index;
-    }
-  });
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
 
-  setActiveIndex(closestIndex);
-};
-     
+      setActiveIndex(closestIndex);
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
 
   return (
     <section id="pyrostack" className="pyrostack-section">
       <div className="pyrostack-container">
         <h2 className="pyrostack-title">How It Works</h2>
-        
 
         {isMobile ? (
           <div className="pyrostack-mobile-timeline" ref={timelineRef}>
             {steps.map((step, index) => (
               <div
-                className={`mobile-timeline-item ${activeIndex === index ? 'is-active' : ''}`}
+                className={`mobile-timeline-item ${activeIndex === index ? "is-active" : ""}`}
                 ref={(el) => (itemRefs.current[index] = el)}
                 key={index}
               >
                 <div
                   ref={(el) => (nodeRefs.current[index] = el)}
-                  className={`mobile-timeline-node ${activeIndex === index ? 'is-active' : ''}`}
+                  className={`mobile-timeline-node ${activeIndex === index ? "is-active" : ""}`}
                 >
                   <span className="node-number">{step.number}</span>
                 </div>
@@ -202,7 +203,7 @@ cardRefs.current.forEach((card) => {
                 <div
                   ref={(el) => (cardRefs.current[index] = el)}
                   data-index={index}
-                  className={`mobile-timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+                  className={`mobile-timeline-card ${activeIndex === index ? "is-active" : ""}`}
                 >
                   <h3 className="mobile-timeline-card-title">{step.title}</h3>
                   <div className="mobile-timeline-card-desc-wrap">
@@ -227,7 +228,13 @@ cardRefs.current.forEach((card) => {
               aria-hidden="true"
             >
               <defs>
-                <linearGradient id="pyrostackLineGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="pyrostackLineGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="rgba(99, 102, 241, 0.75)" />
                   <stop offset="50%" stopColor="rgba(139, 92, 246, 0.6)" />
                   <stop offset="100%" stopColor="rgba(192, 132, 252, 0.5)" />
@@ -246,14 +253,14 @@ cardRefs.current.forEach((card) => {
 
             {steps.map((step, index) => (
               <div
-                className={`timeline-item ${activeIndex === index ? 'is-active' : ''}`}
+                className={`timeline-item ${activeIndex === index ? "is-active" : ""}`}
                 ref={(el) => (itemRefs.current[index] = el)}
                 key={index}
               >
                 <div className="timeline-node-wrapper">
                   <div
                     ref={(el) => (nodeRefs.current[index] = el)}
-                    className={`timeline-node ${activeIndex === index ? 'is-active' : ''}`}
+                    className={`timeline-node ${activeIndex === index ? "is-active" : ""}`}
                   >
                     <span className="node-number">{step.number}</span>
                   </div>
@@ -262,7 +269,7 @@ cardRefs.current.forEach((card) => {
                 <div
                   ref={(el) => (cardRefs.current[index] = el)}
                   data-index={index}
-                  className={`timeline-card ${activeIndex === index ? 'is-active' : ''}`}
+                  className={`timeline-card ${activeIndex === index ? "is-active" : ""}`}
                 >
                   <div className="card-text-content">
                     <h3 className="timeline-card-title">{step.title}</h3>
@@ -276,7 +283,12 @@ cardRefs.current.forEach((card) => {
                   <div className="timeline-card-bg-element">
                     {step.isFlame ? (
                       <div className="flame-icon-wrapper">
-                        <img src={fireIcon} alt="" />
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={fireIcon}
+                          alt=""
+                        />
                       </div>
                     ) : (
                       <span className="bg-number">{step.number}</span>
@@ -293,13 +305,14 @@ cardRefs.current.forEach((card) => {
             className="pyrostack-cta pyrostack-cta-primary"
             onClick={openCalendarPopup}
           >
-            Book a <span className="pyrostack-cta-highlight">FREE</span> Audit call
+            Book a <span className="pyrostack-cta-highlight">FREE</span> Audit
+            call
           </button>
           <button
             className="pyrostack-cta pyrostack-cta-secondary"
-            onClick={handleNavigateToQuestionnaire}
+            onClick={() => navigate("/case-studies")}
           >
-            Take the Decode Quiz
+            View Case Studies
           </button>
         </div>
       </div>
