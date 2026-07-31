@@ -297,6 +297,20 @@
   flex-direction: row-reverse;
 }
 
+/* Top card: the credit is a third flex item that wraps onto its own line, so
+   it spans the card's full width along the bottom edge — below the logo and
+   left-aligned with it, but free to use the whole card to wrap in rather than
+   being boxed into the logo's column. Leaves the quote at its full width, so
+   the card grows only by the height of this row. */
+.tm-review--credit-below {
+  flex-wrap: wrap;
+}
+
+.tm-review--credit-below .tm-review-person {
+  width: 100%;
+  margin-top: 16px;
+}
+
 /* Holds the brand's own logo/initials avatar, so the slot itself stays
    transparent and lets .tm-avatar supply the ground. */
 .tm-review-media {
@@ -329,6 +343,7 @@
 .tm-review-quote p {
   margin: 0;
   font-size: 0.86rem;
+  font-weight: 700;
   line-height: 1.45;
   color: rgba(32, 29, 42, 0.82);
 }
@@ -408,6 +423,9 @@
   to { opacity: 0; transform: translateX(-28px); }
 }
 
+/* These four durations are mirrored by PHASE_OUT_MS / PHASE_IN_MS in
+   TestimonialsMobile.jsx, which sequences the two halves — change one and the
+   other has to move with it, or the swap will cut off or hang. */
 .tm-phase-out-right { animation: tm-outRight 0.16s ease both; }
 .tm-phase-out-left  { animation: tm-outLeft  0.16s ease both; }
 .tm-anim-from-right { animation: tm-fromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }

@@ -77,12 +77,12 @@ export const testimonials = [
   {
     id: 'tog',
     variant: 'C',
-    company: 'Thuch of Grace',
+    company: 'Tuhch of Grace',
     quote: '“I really liked the designs and creativity that PyroSynergy brings to the table.”',
     name: 'Marie B. Georges',
     role: 'Founder, Thuch of Grace',
     logo: logoTog,
-    logoAlt: 'Thuch of Grace logo',
+    logoAlt: 'Tuhch of Grace logo',
     initials: 'TG',
   },
   {

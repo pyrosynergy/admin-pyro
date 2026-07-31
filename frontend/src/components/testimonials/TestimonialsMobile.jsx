@@ -19,14 +19,19 @@ const REVIEWS_PER_SLIDE = 2;
 
 /*
  * Entries that share a slide here no matter what the desktop grid does with
- * them — each inner array is one reviews slide, and every entry named in one
- * renders as a compact review card even if `variant` would otherwise feature
- * it. JRJP is a desktop 'A', but its quote credits the brand rather than a
- * person and carries no role line, so it reads fine compact; pairing it with
- * Elytrix also means neither is left holding a slide on its own. `variant`
- * stays untouched, so the desktop bento grid is unaffected.
+ * them — each inner array is one reviews slide, listed top card first, and
+ * every entry named in one renders as a compact review card even if `variant`
+ * would otherwise feature it. JRJP is a desktop 'A', but its quote credits the
+ * brand rather than a person and carries no role line, so it reads fine
+ * compact. `variant` stays untouched, so the desktop bento grid is unaffected.
+ *
+ * Anything not named here still falls back to the generic rule below: compact
+ * ('C') entries pair up two-to-a-slide in data order.
  */
-const PAIRED_SLIDES = [['jrjp', 'elytrix']];
+const PAIRED_SLIDES = [
+  ['jrjp', 'delicacy'],
+  ['tog', 'elytrix'],
+];
 
 const buildMobileSlides = (items) => {
   const slides = [];
@@ -99,7 +104,20 @@ const interleaveBySize = (slides) => {
 
 const mobileSlides = interleaveBySize(buildMobileSlides(testimonials));
 
-const AUTOPLAY_MS = 5000;
+/* How long a slide rests before autoplay moves to the next one. The paired
+   review slides carry two quotes, so this is the read-time budget, not just a
+   pacing knob. Independent of the swap animation timings below. */
+const AUTOPLAY_MS = 8000;
+
+/*
+ * The swap runs in two halves — the outgoing slide animates away, then the
+ * incoming one animates in — and these sequence them. Both must stay equal to
+ * the animation durations on .tm-phase-out-* and .tm-anim-from-* in
+ * TestimonialsMobile.css: too short and the animation is cut off mid-way, too
+ * long and the carousel sits still before the next half starts.
+ */
+const PHASE_OUT_MS = 160;
+const PHASE_IN_MS = 220;
 
 /* A founder portrait wins over the brand logo when there is one — same rule
    the desktop footer follows. */
@@ -161,28 +179,47 @@ const CaseStudyCard = ({ data, onCtaClick }) => (
   </article>
 );
 
-const ReviewCard = ({ data }) => (
-  <article className={`tm-review-card tm-review--${data.layout}`}>
-    <div className="tm-review-media">
-      <Avatar item={data} />
-    </div>
+const ReviewCard = ({ data }) => {
+  // On the top card of a slide the logo sits in the left column, so the credit
+  // drops to its own full-width row along the card's bottom edge — below the
+  // logo, left-aligned, with the whole card width to wrap in. The bottom card
+  // has its logo on the right, where that would read as belonging to nothing,
+  // so it keeps the credit beneath the quote.
+  const creditBelow = data.layout === 'text-left';
 
-    <div className="tm-review-body">
-      <blockquote className="tm-review-quote">
-        <p>&quot;{stripQuoteMarks(data.quote)}&quot;</p>
-      </blockquote>
-
-      <div className="tm-review-person">
-        <div className="tm-person-copy">
-          <span className="tm-person-name">{data.name}</span>
-          {/* Brand-credited entries (JRJP) carry no role — same guard the
-              case-study card's footer uses. */}
-          {data.role && <span className="tm-person-role">{data.role}</span>}
-        </div>
+  const credit = (
+    <div className="tm-review-person">
+      <div className="tm-person-copy">
+        <span className="tm-person-name">{data.name}</span>
+        {/* Brand-credited entries (JRJP) carry no role — same guard the
+            case-study card's footer uses. */}
+        {data.role && <span className="tm-person-role">{data.role}</span>}
       </div>
     </div>
-  </article>
-);
+  );
+
+  return (
+    <article
+      className={`tm-review-card tm-review--${data.layout}${
+        creditBelow ? ' tm-review--credit-below' : ''
+      }`}
+    >
+      <div className="tm-review-media">
+        <Avatar item={data} />
+      </div>
+
+      <div className="tm-review-body">
+        <blockquote className="tm-review-quote">
+          <p>&quot;{stripQuoteMarks(data.quote)}&quot;</p>
+        </blockquote>
+
+        {!creditBelow && credit}
+      </div>
+
+      {creditBelow && credit}
+    </article>
+  );
+};
 
 const ReviewsSlide = ({ data }) => (
   <div className="tm-reviews-slide">
@@ -224,8 +261,8 @@ const TestimonialsMobile = () => {
       setTimeout(() => {
         setPhase('idle');
         animatingRef.current = false;
-      }, 220);
-    }, 160);
+      }, PHASE_IN_MS);
+    }, PHASE_OUT_MS);
   }, []);
 
   const startAutoplay = useCallback(() => {

@@ -155,3 +155,36 @@ body.loading {
 .route-fallback {
   min-height: 100vh;
 }
+
+/* Shown by RouteErrorBoundary when a route chunk fails outright. Deliberately
+   plain: it has to render correctly when the page's own stylesheet is exactly
+   what failed to arrive, so it leans only on these rules. */
+.route-error {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.route-error-text {
+  margin: 0;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 1.05rem;
+  color: #e5e5e5;
+}
+
+.route-error-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(90deg, #d6c7f5 0%, #9279c3 100%);
+  color: #0d0b02;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}

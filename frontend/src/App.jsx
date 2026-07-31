@@ -10,6 +10,8 @@ import Loading from "./components/Loading/Loading.jsx";
 import SEO from "./components/SEO/SEO.jsx";
 // Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
+// Must be eager: it exists to catch lazy chunks failing to load.
+import RouteErrorBoundary from "./components/RouteErrorBoundary/RouteErrorBoundary.jsx";
 
 // --- Lazy: below-the-fold homepage sections ---
 const WhyUs = lazy(() => import("./components/why-us/WhyUs.jsx"));
@@ -409,6 +411,7 @@ function App() {
             openCalendarPopup={openCalendarPopup}
           />
         )}
+        <RouteErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
         <Routes>
           <Route path="/realitycheck" element={<Page path="/realitycheck"><Questionnaire /></Page>} />
@@ -469,6 +472,7 @@ function App() {
           <Route path="*" element={<><SEO path={location.pathname} {...NOT_FOUND_META} /><NotFound /></>} />
         </Routes>
         </Suspense>
+        </RouteErrorBoundary>
   {!hideFooter && <Footer openCalendarPopup={openCalendarPopup} />}
       </div>
     </div>

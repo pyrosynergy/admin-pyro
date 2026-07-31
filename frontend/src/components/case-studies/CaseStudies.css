@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&display=swap');
+/* Bricolage Grotesque is already loaded by the single preconnected <link> in
+   index.html, so the @import that used to sit here was redundant — and worse
+   than redundant: as a lazy-route stylesheet it made rendering this page
+   depend on a third-party request completing, which is why a blocked or slow
+   fonts.googleapis.com took the whole route down. Same rule as App.css. */
 
 /* ---- Page shell ---- */
 .cs-section {
