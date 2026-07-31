@@ -68,8 +68,20 @@
 
 .tm-cs-top {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   margin-bottom: 14px;
+}
+
+/* Height-capped rather than width-capped, so wordmarks of different aspect
+   ratios (FloBites 1.67, Viali 1.54) sit on a common baseline instead of one
+   towering over the other. */
+.tm-cs-logo {
+  height: 38px;
+  width: auto;
+  max-width: 65%;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .tm-cs-badge {  
@@ -113,8 +125,18 @@
 }
 
 .tm-cs-quote {
-  margin: 0 0 22px;
+  /* The bottom margin is the gap down to the founder block — widened so that
+     block sits clearly lower rather than crowding the quote. */
+  margin: 0 0 40px;
   padding-top: 16px;
+  /* Every slide shares the frame's height, so a card shorter than the tallest
+     one used to end in a band of blank white. Letting the quote take the slack
+     and centre itself within it spreads that space around the copy instead of
+     pooling it in one visible gap. */
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .tm-quote-mark {
@@ -126,7 +148,7 @@
 
 .tm-cs-quote p {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.45;
   color: #1a1330;
@@ -243,7 +265,7 @@
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
   color: #ffffff;
   cursor: pointer;
-  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;

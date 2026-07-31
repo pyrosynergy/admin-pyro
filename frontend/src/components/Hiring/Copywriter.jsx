@@ -12,11 +12,6 @@ const Copywriter = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // preserve original scroll behaviour only
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);

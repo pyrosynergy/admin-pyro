@@ -52,7 +52,7 @@ const TestimonialCard = ({ item }) => {
   return (
     <article
       className={`pt-card ${isFeatured ? 'pt-card--a' : 'pt-card--c'}${item.accent ? ` pt-accent-${item.accent}` : ''
-        }`}
+        } pt-card--${item.id}`}
     >
       {isFeatured && (
         <div className="pt-a-media">
@@ -72,10 +72,12 @@ const TestimonialCard = ({ item }) => {
               <img
                 src={imgAmbassador}
                 className="jrjp-ambassador-img"
-                alt="Ira, the AI brand ambassador built for Jai Rajendra Jewel Palace"
+                alt="Aira, the AI brand ambassador built for Jai Rajendra Jewel Palace"
               />
               <div className="jrjp-ambassador-copy">
-                <span className="jrjp-ambassador-name">Ira</span>
+                <span className="jrjp-ambassador-metric">31.2k+</span>
+                <span className="jrjp-ambassador-metric-label">Instagram followers</span>
+                <span className="jrjp-ambassador-name">Aira</span>
                 <span className="jrjp-ambassador-role">AI Brand Ambassador</span>
               </div>
             </div>
@@ -101,8 +103,9 @@ const TestimonialCard = ({ item }) => {
         </button>
       )}
 
-      {/* A founder portrait and the brand logo are alternatives, not a pair:
-          the photo takes the lead slot and the logo steps aside. */}
+      {/* The portrait leads the footer and the brand logo closes it on the
+          right, so every card carries its mark in the same corner whether or
+          not there's a founder photo to show alongside it. */}
       <footer
         className={`${isFeatured ? 'pt-a-footer' : 'pt-c-footer'}${item.founderPhoto ? ' pt-footer--photo' : ''
           }`}
@@ -120,15 +123,13 @@ const TestimonialCard = ({ item }) => {
           )}
         </div>
 
-        {!item.founderPhoto && (
-          <div className={`${isFeatured ? 'pt-a-logo' : 'pt-c-logo'} pt-logo--${item.id}`}>
-            {item.logo ? (
-              <img src={item.logo} alt={item.logoAlt} />
-            ) : (
-              <span className="pt-logo-fallback">{item.initials}</span>
-            )}
-          </div>
-        )}
+        <div className={`${isFeatured ? 'pt-a-logo' : 'pt-c-logo'} pt-logo--${item.id}`}>
+          {item.logo ? (
+            <img src={item.logo} alt={item.logoAlt} />
+          ) : (
+            <span className="pt-logo-fallback">{item.initials}</span>
+          )}
+        </div>
       </footer>
     </article>
   );

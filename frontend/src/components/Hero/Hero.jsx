@@ -208,6 +208,7 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
               src={logo}
               alt="client-logo"
               className={`client-logo-grid-item
+                ${logo.includes('logo_tog') ? 'client-logo--tog' : ''}
                 ${fadingOut.includes(idx) ? 'logo-fade-out' : ''}
                 ${fadingIn.includes(idx) ? 'logo-fade-in' : ''}`}
             />

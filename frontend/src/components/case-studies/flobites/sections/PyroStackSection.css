@@ -50,7 +50,6 @@
 }
 
 .flobites-pyrostack-btn:hover {
-  transform: translateY(-2px);
   box-shadow: 0 16px 34px rgba(124, 58, 237, 0.36);
 }
 

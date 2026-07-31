@@ -26,10 +26,17 @@
   box-sizing: border-box;
 }
 
+/* Type treatment is kept in sync with the "How It Works" heading
+   (.pyrostack-title in PyroStack.css) so the two section titles read as one
+   family. The margin below stays this section's own — the founder photo needs
+   more breathing room under the heading than the timeline does. */
 .founder-title {
-  color: white;
-  font-size: 5rem;
-  font-weight: 500;
+  color: #ffffff;
+  font-family: "Albert Sans", sans-serif;
+  font-size: clamp(2.15rem, 4.65vw, 4.65rem);
+  font-weight: 450;
+  line-height: 1.14;
+  letter-spacing: -2.5px;
   margin-bottom: 74px;
   text-align: center;
   position: relative;
@@ -46,9 +53,18 @@
 }
 
 .founder-image-wrapper {
+  /* How far the photo and the name are held off the banner's own left/right
+     edges, so neither sits flush against the corner and the pair reads as
+     centred rather than pushed apart. Zeroed on mobile, where the banner is
+     already only as wide as the screen and there's no room to give away. */
+  --banner-inset: clamp(16px, 3.5%, 48px);
+
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  /* Trimmed in from 1200px. The section now steps down in width as it goes:
+     the bordered card (1400px) is wider than this banner, which stays wider
+     than the description paragraph below it (900px). */
+  max-width: 1040px;
   /* Sized off the photo, not the other way round: founder.webp is only
      453x404 with the subject occupying ~333x361 of it, so anything much
      taller than this upscales the cut-out and it goes soft. See
@@ -69,7 +85,7 @@
 .founder-photo {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: var(--banner-inset);
   width: auto;
   /* Still breaks out of the top, just less far: 320px * 125% = 400px of
      element, which puts the 361px-tall subject on screen at ~357px — 1:1
@@ -88,6 +104,9 @@
      past the midpoint and its transparent right edge runs under this text. */
   z-index: 3;
   width: min(36%, 420px);
+  /* Mirrors the photo's left offset, so the two are inset by the same amount
+     and stay balanced about the banner's centre line. */
+  margin-right: var(--banner-inset);
   padding-right: clamp(4px, 0.8vw, 14px);
   text-align: center;
   color: #2b1236;
@@ -189,7 +208,9 @@
   }
 
   .founder-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    letter-spacing: -1.45px;
+    padding: 0 10px;
     margin-bottom: 30px;
   }
 
@@ -204,6 +225,9 @@
   .founder-image-wrapper {
     height: auto;
     aspect-ratio: 100 / 46;
+    /* The photo and the name each already take close to half the banner at
+       this width — the desktop inset would push them into each other. */
+    --banner-inset: 0px;
   }
 
   .founder-photo {

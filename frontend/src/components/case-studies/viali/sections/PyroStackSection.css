@@ -50,7 +50,6 @@
 }
 
 .viali-pyrostack-btn:hover {
-  transform: translateY(-2px);
   box-shadow: 0 16px 34px rgba(157, 23, 77, 0.36);
 }
 

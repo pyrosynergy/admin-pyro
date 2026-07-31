@@ -41,7 +41,7 @@
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  font-family: 'Bricolage Grotesque';
+  font-family: 'albert sans';
 }
 
 .cs-subtitle {
@@ -79,9 +79,10 @@
               border-color 0.3s ease;
 }
 
+/* Hover/focus keeps the glow and border shift, but the card itself does not
+   move or scale. */
 .cs-card:hover,
 .cs-card:focus-visible {
-  transform: translateY(-10px) scale(1.02);
   border-color: rgba(168, 85, 247, 0.4);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.12);
 }
@@ -136,9 +137,7 @@
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cs-card:hover .cs-card-logo-badge {
-  transform: scale(1.06);
-}
+/* The logo badge holds its size on hover. */
 
 .cs-card-logo {
   max-width: 100%;
@@ -201,9 +200,7 @@
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cs-card:hover .cs-card-arrow {
-  transform: translateX(6px);
-}
+/* The arrow stays in place on hover. */
 
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {

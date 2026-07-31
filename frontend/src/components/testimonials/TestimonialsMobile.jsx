@@ -140,8 +140,20 @@ const Avatar = ({ item, small = false }) => (
 
 const CaseStudyCard = ({ data, onCtaClick }) => (
   <article className="tm-cs-card">
+    {/* The brand's own mark stands in for the name it used to spell out. The
+        text badge stays as the fallback for any entry without a logo. */}
     <div className="tm-cs-top">
-      <span className="tm-cs-badge">{data.company}</span>
+      {data.logo ? (
+        <img
+          loading="lazy"
+          decoding="async"
+          className="tm-cs-logo"
+          src={data.logo}
+          alt={data.logoAlt || data.company}
+        />
+      ) : (
+        <span className="tm-cs-badge">{data.company}</span>
+      )}
     </div>
 
     {data.metricLabel && (

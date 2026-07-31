@@ -1,5 +1,6 @@
 import logoViali from '../../assets/logo_viali.png';
 import photoRosemay from '../../assets/viali/founder-rosemay.png';
+import photoSantosh from '../../assets/santosh_founder_circle.webp';
 import logoFlobites from '../../assets/logo_fb_the.png';
 import logoJrjp from '../../assets/jrjplogopyro.png';
 import logoTog from '../../assets/logo_tog.png';
@@ -36,7 +37,7 @@ export const testimonials = [
     variant: 'A',
     accent: 'delicacy',
     company: 'Jai Rajendra Jewel Palace',
-    quote: '"We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. that\'s superb."',
+    quote: '"We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. That\'s superb."',
     // Credited to the brand rather than a person, so the company name takes
     // the bold name line and there's no role beneath it.
     name: 'Jai Rajendra Jewel Palace',
@@ -68,10 +69,13 @@ export const testimonials = [
     company: 'FloBites',
     quote: "\"The team understood our product and requirements, and I'm happy with how the website turned out.\"",
     name: 'Santosh Parachuri',
-    role: 'Co-Founder, FloBites',
+    role: 'Co-Founder, FloBites by THE',
     logo: logoFlobites,
     logoAlt: 'FloBites logo',
     initials: 'FB',
+    // Portrait over the brand mark in the card footer, same as Viali — the
+    // logo now heads the card, so repeating it beside the name said nothing.
+    founderPhoto: photoSantosh,
     caseStudyPath: '/case-studies/flobites',
   },
   {
@@ -80,7 +84,7 @@ export const testimonials = [
     company: 'Tuhch of Grace',
     quote: '“I really liked the designs and creativity that PyroSynergy brings to the table.”',
     name: 'Marie B. Georges',
-    role: 'Founder, Thuch of Grace',
+    role: 'Founder, Tuhch of Grace',
     logo: logoTog,
     logoAlt: 'Tuhch of Grace logo',
     initials: 'TG',
@@ -90,7 +94,7 @@ export const testimonials = [
     variant: 'C',
     company: 'Delicacy of Haiti',
     quote: '"They work in collaboration with me, are open for input, and encourage me to expand my ideas."',
-    name: 'Myriam Joseph',
+    name: 'Myriam Raymond',
     role: 'Founder, Delicacy of Haiti',
     logo: logoDelicacy,
     logoAlt: 'Delicacy of Haiti logo',

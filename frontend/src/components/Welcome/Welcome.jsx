@@ -24,8 +24,11 @@ const SOCIAL_LINKS = [
 const Welcome = () => {
   const navigate = useNavigate();
 
+  // Same reasoning as openCalendarPopup in App.jsx: no feature string, so this
+  // lands in a new tab instead of a popup window.
   const openExternal = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    const tab = window.open(url, '_blank');
+    if (tab) tab.opener = null;
   };
 
   return (

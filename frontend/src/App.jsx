@@ -71,15 +71,21 @@ const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, log
 const CALENDAR_URL = "https://cal.com/pyrosynergy/founder-audit";
 
 const openCalendarPopup = () => {
-  // Opens in a new tab (or a new window, depending on browser settings)
-  const popup = window.open(CALENDAR_URL, "_blank", "noopener,noreferrer");
+  // No feature string on purpose. Passing one asks for a sized popup *window*
+  // rather than a tab, and per spec a `noopener` feature makes window.open
+  // return null even when it succeeded — which used to trip the fallback below
+  // and navigate this tab away on top of opening the new one.
+  const tab = window.open(CALENDAR_URL, "_blank");
 
-  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-    // Popup was blocked — fall back to same-tab navigation
-    window.location.href = CALENDAR_URL;
-  } else {
-    popup.focus();
+  if (tab) {
+    tab.opener = null; // the protection the `noopener` feature was there for
+    tab.focus();
+    return;
   }
+
+  // Nothing opened at all (blocker with no user-gesture credit) — only then do
+  // we give up this tab, so the booking link is never a dead click.
+  window.location.href = CALENDAR_URL;
 };
 
 // --- Single source of truth for route chrome + per-page metadata ---
@@ -114,7 +120,9 @@ const ROUTES = {
   },
   '/hiring': {
     header: false,
-    footer: false,
+    // Renders the shared site Footer. This page used to ship its own
+    // HiringFooter, a fork that had drifted behind the main one.
+    footer: true,
     meta: {
       title: 'Careers & Internships — PyroSynergy',
       description: 'Open internship and full-time roles at PyroSynergy. Work on real growth problems for founders across 12+ industries.',
@@ -439,7 +447,7 @@ function App() {
           <Route path="/" element={
             <>
               <SEO
-                title="PyroSynergy — The Framework for Founders"
+                title="PyroSynergy — Growth Partners for Founders"
                 description="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly."
                 path="/"
               />

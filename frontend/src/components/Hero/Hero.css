@@ -94,7 +94,19 @@
   max-height: 40px;
   object-fit: contain;
   justify-self: center;
-  filter: grayscale(100%);
+  /* Per-logo correction, kept in a variable because the fade keyframes below
+     redeclare `filter` outright — without this they would drop the correction
+     for the length of every transition. */
+  --logo-brightness: 1;
+  filter: grayscale(100%) brightness(var(--logo-brightness));
+}
+
+/* Tuhch of Grace's mark is dark green on transparency: mean luminance 53/255
+   where the rest of the set runs 126-251. Against this section's near-black
+   background it all but disappears, so it is lifted into the same range as
+   its neighbours rather than lightening the whole row. */
+.client-logo-grid-item.client-logo--tog {
+  --logo-brightness: 2.6;
 }
 
 /* --- Typography & Text Styles --- */
@@ -273,13 +285,13 @@
 }
 
 @keyframes logoFadeOut {
-  0%   { opacity: 1; filter: grayscale(100%) blur(0px); }
-  100% { opacity: 0; filter: grayscale(100%) blur(8px); }
+  0%   { opacity: 1; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(0px); }
+  100% { opacity: 0; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(8px); }
 }
 
 @keyframes logoFadeIn {
-  0%   { opacity: 0; filter: grayscale(100%) blur(8px); }
-  100% { opacity: 1; filter: grayscale(100%) blur(0px); }
+  0%   { opacity: 0; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(8px); }
+  100% { opacity: 1; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(0px); }
 }
 
 /* Button carousel animations for mobile */
