@@ -2,11 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Welcome.css';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
-
-// Same booking link the site's "Book a FREE Audit call" CTAs use (see
-// CALENDAR_URL in App.jsx) — this page previously pointed at the retired
-// Google Calendar appointment schedule.
-const CALENDAR_URL = 'https://cal.com/pyrosynergy/founder-audit';
+import { CALENDAR_URL, openExternalTab } from '../../lib/calendar.js';
 
 const SOCIAL_LINKS = [
   {
@@ -23,13 +19,6 @@ const SOCIAL_LINKS = [
 
 const Welcome = () => {
   const navigate = useNavigate();
-
-  // Same reasoning as openCalendarPopup in App.jsx: no feature string, so this
-  // lands in a new tab instead of a popup window.
-  const openExternal = (url) => {
-    const tab = window.open(url, '_blank');
-    if (tab) tab.opener = null;
-  };
 
   return (
     <div className="pyro-landing-wrapper">
@@ -71,7 +60,7 @@ const Welcome = () => {
           <button
             type="button"
             className="pyro-cta pyro-cta-primary"
-            onClick={() => openExternal(CALENDAR_URL)}
+            onClick={() => openExternalTab(CALENDAR_URL)}
           >
             <span className="pyro-cta-title">Book a Call</span>
             <span className="pyro-cta-subtitle">Schedule a FREE audit call</span>
@@ -94,7 +83,7 @@ const Welcome = () => {
                 key={social.label}
                 type="button"
                 className="pyro-social-link"
-                onClick={() => openExternal(social.url)}
+                onClick={() => openExternalTab(social.url)}
                 aria-label={social.label}
               >
                 {social.icon}

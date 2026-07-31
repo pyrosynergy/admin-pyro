@@ -211,6 +211,9 @@
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    /* Without this the column's default `stretch` pulls the logo — a replaced
+       element with `width: auto` — across the full 520px. */
+    align-items: flex-start;
     gap: 1.2rem;
   }
 

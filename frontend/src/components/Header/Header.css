@@ -254,6 +254,16 @@
     box-sizing: border-box !important;
   }
 
+  /* The `position: absolute !important` above pinned the bar to the top of the
+     document at every scroll position, so on mobile it scrolled away for good
+     and the scroll-up gesture did nothing. Desktop switches to `fixed` when
+     App.jsx sets .scrolled — at the top of the page, or on any upward scroll —
+     and mobile now does the same. Needs !important of its own to outrank the
+     rule above; both positions are out of flow, so nothing shifts. */
+  .top-nav.scrolled {
+    position: fixed !important;
+  }
+
   /* --- FORCE LOGO TO RENDER ON THE FAR LEFT --- */
   .brand-logo-link {
     display: flex !important;

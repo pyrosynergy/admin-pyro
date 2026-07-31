@@ -32,7 +32,7 @@ const CaseStudies = () => {
     <section className="cs-section">
       <div className="cs-header">
         <h1 className="cs-title">
-          Real Brands. Real <span className="cs-title-accent">Results.</span>
+          Real Brands. <br className="cs-title-break" />Real <span className="cs-title-accent">Results.</span>
         </h1>
         <p className="cs-subtitle">
           A closer look at the founders we've partnered with and the growth systems we built for them.

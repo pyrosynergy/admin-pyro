@@ -10,6 +10,7 @@ import Loading from "./components/Loading/Loading.jsx";
 import SEO from "./components/SEO/SEO.jsx";
 // Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
+import { openCalendarPopup } from "./lib/calendar.js";
 // Must be eager: it exists to catch lazy chunks failing to load.
 import RouteErrorBoundary from "./components/RouteErrorBoundary/RouteErrorBoundary.jsx";
 
@@ -67,26 +68,6 @@ import logo10 from "./assets/logo_tog.webp";
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
 const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
-
-const CALENDAR_URL = "https://cal.com/pyrosynergy/founder-audit";
-
-const openCalendarPopup = () => {
-  // No feature string on purpose. Passing one asks for a sized popup *window*
-  // rather than a tab, and per spec a `noopener` feature makes window.open
-  // return null even when it succeeded — which used to trip the fallback below
-  // and navigate this tab away on top of opening the new one.
-  const tab = window.open(CALENDAR_URL, "_blank");
-
-  if (tab) {
-    tab.opener = null; // the protection the `noopener` feature was there for
-    tab.focus();
-    return;
-  }
-
-  // Nothing opened at all (blocker with no user-gesture credit) — only then do
-  // we give up this tab, so the booking link is never a dead click.
-  window.location.href = CALENDAR_URL;
-};
 
 // --- Single source of truth for route chrome + per-page metadata ---
 // `header`/`footer` replace the three hand-maintained path arrays this file used

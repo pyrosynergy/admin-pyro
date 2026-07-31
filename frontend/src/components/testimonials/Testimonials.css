@@ -580,7 +580,9 @@
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
   color: white;
   cursor: pointer;
-  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  /* Matches .tm-cs-cta, the same button on mobile, which was already on Albert
+     Sans while this one sat on Bricolage. */
+  font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -838,3 +840,28 @@
   }
 }
 
+
+/* The base clamp bottoms out at its 1.85rem floor across every phone width,
+   which left this heading smaller than WhyUs's (1.9rem here) and smaller than
+   the section warrants. Driven by vw instead of a flat value so it keeps
+   growing with the screen — roughly 34px on a 390px phone and 38px on a 430px
+   one, against the 30px it used to hold everywhere — while the 1.9rem floor
+   protects the narrowest devices, where the second line is close to filling
+   its measure. Capped at 2.4rem so it hands over to the base clamp at 600px
+   without a jump.
+
+   Letter-spacing eases off with the size: -2.5px is tuned for the 4rem desktop
+   setting and both crowds the glyphs and, at this width, is load-bearing for
+   whether "after working with us" stays on one line. */
+@media (max-width: 600px) {
+  .testimonials-header h2 {
+    font-size: clamp(1.9rem, 8.8vw, 2.4rem);
+    letter-spacing: -1.8px;
+  }
+
+  /* .highlight-purple carries its own -2.5px, which the rule above can't
+     reach — it sits on the span, not the h2. */
+  .testimonials-header h2 .highlight-purple {
+    letter-spacing: -1.8px;
+  }
+}

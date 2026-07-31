@@ -12,10 +12,16 @@ const isMobileDevice = () => {
 // Add this function at the top after imports
 const submitToBackend = async (formData) => {
   try {
-    // Normalize base URL (remove trailing slash), then add path with leading slash
-    const rawBase = process.env.NODE_ENV === 'production'
-      ? 'https://admin-pyro-backend.vercel.app'
-      : 'http://localhost:5000';
+    // Normalize base URL (remove trailing slash), then add path with leading slash.
+    // `import.meta.env` rather than `process.env`: `process` is a Node global
+    // that doesn't exist in the browser, and this matches how the rest of the
+    // app resolves the API host (see Verify.jsx and Admin/api.js). VITE_API_BASE
+    // lets a local production build point at a local server.
+    const rawBase =
+      import.meta.env.VITE_API_BASE ||
+      (import.meta.env.PROD
+        ? 'https://admin-pyro-backend.vercel.app'
+        : 'http://localhost:5000');
     const API_BASE_URL = rawBase.replace(/\/$/, '');
     const endpoint = `${API_BASE_URL}/api/questionnaire/submit`;
 
@@ -30,7 +36,7 @@ const submitToBackend = async (formData) => {
     let result;
     try {
       result = await response.json();
-    } catch (parseErr) {
+    } catch {
       throw new Error('Invalid JSON response from server');
     }
 
@@ -168,7 +174,9 @@ const Questionnaire = () => {
   // Reset progress and state
   const handleReset = () => {
     console.log('🔁 Restart button clicked — resetting questionnaire');
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    // Storage can throw in private mode or with cookies blocked; a failed
+    // clear shouldn't stop the rest of the reset from running.
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignored */ }
     setFormData({
       name: '',
       businessStage: '',
@@ -500,8 +508,9 @@ const Questionnaire = () => {
         setCurrentStep(-1);
         setShowAnalytics(false);
         setIsSubmitting(false);
-      } catch (error) {
-        // Error toast - show server message if available
+      } catch {
+        // submitToBackend has already logged the underlying error. The toast
+        // stays generic on purpose — server messages aren't written for users.
         setToastType('error');
         setToastMessage('Failed to send insights. Please try again.');
         setShowToast(true);
@@ -574,7 +583,7 @@ const Questionnaire = () => {
             ))}
           </select>
         );
-      case 'button-select':
+      case 'button-select': {
         const hasOtherOption = currentQuestion.options.some(option => option.value === 'other');
         const showOtherInput = hasOtherOption && value === 'other';
         const otherFieldId = currentQuestion.id + 'Other';
@@ -606,6 +615,7 @@ const Questionnaire = () => {
             )}
           </div>
         );
+      }
       case 'scale':
         return (
           <div className="scale-container">
@@ -629,7 +639,7 @@ const Questionnaire = () => {
             </div>
           </div>
         );
-      case 'tag-select':
+      case 'tag-select': {
         const selectedTags = value ? value.split(',').filter(tag => tag.trim()) : [];
         return (
           <div className="tag-select-container">
@@ -673,6 +683,7 @@ const Questionnaire = () => {
             />
           </div>
         );
+      }
       default:
         return null;
     }
@@ -955,14 +966,6 @@ const Questionnaire = () => {
         </div>
       </div>
     );
-  };
-
-  const handleStart = () => {
-    setCurrentStep(0);
-  };
-
-  const closeAlert = () => {
-    setIsAlertVisible(false);
   };
 
   // Show loading screen

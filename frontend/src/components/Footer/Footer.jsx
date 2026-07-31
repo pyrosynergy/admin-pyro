@@ -15,6 +15,9 @@ const Footer = ({ openCalendarPopup }) => {
     if (targetId === 'hiring') {
       navigate('/hiring');
       window.scrollTo(0, 0);
+    } else if (targetId === 'case-studies') {
+      navigate('/case-studies');
+      window.scrollTo(0, 0);
     } else if (targetId === 'terms') {
       navigate('/policy-pages');
       window.scrollTo(0, 0);
@@ -72,7 +75,7 @@ const Footer = ({ openCalendarPopup }) => {
             <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
           </div>
           <div className="footer-links-col">
-            <a href="#work" onClick={(e) => handleNavClick(e, 'work')}>Case Studies</a>
+            <a href="/case-studies" onClick={(e) => handleNavClick(e, 'case-studies')}>Case Studies</a>
             <a
               href="#book"
               onClick={(e) => {

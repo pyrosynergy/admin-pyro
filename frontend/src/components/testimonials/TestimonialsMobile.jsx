@@ -109,6 +109,12 @@ const mobileSlides = interleaveBySize(buildMobileSlides(testimonials));
    pacing knob. Independent of the swap animation timings below. */
 const AUTOPLAY_MS = 8000;
 
+/* A swipe or a dot tap means someone is reading deliberately rather than
+   letting it play, so the slide they picked gets a longer hold than the
+   autoplay budget before anything moves on its own. After that one longer
+   rest the carousel returns to the normal AUTOPLAY_MS cadence. */
+const MANUAL_REST_MS = 15000;
+
 /*
  * The swap runs in two halves — the outgoing slide animates away, then the
  * incoming one animates in — and these sequence them. Both must stay equal to
@@ -249,6 +255,7 @@ const TestimonialsMobile = () => {
   const animatingRef = useRef(false);
   const activeIndexRef = useRef(0);
   const intervalRef = useRef(null);
+  const restRef = useRef(null);
   const touchStartX = useRef(null);
 
   useEffect(() => {
@@ -277,24 +284,41 @@ const TestimonialsMobile = () => {
     }, PHASE_OUT_MS);
   }, []);
 
-  const startAutoplay = useCallback(() => {
+  const clearTimers = useCallback(() => {
     clearInterval(intervalRef.current);
+    clearTimeout(restRef.current);
+  }, []);
+
+  const startAutoplay = useCallback(() => {
+    clearTimers();
     intervalRef.current = setInterval(() => {
       advance(activeIndexRef.current + 1, 'right');
     }, AUTOPLAY_MS);
-  }, [advance]);
+  }, [advance, clearTimers]);
+
+  // Holds the slide the user landed on for MANUAL_REST_MS, then advances once
+  // and hands back to the regular interval — so the long rest applies to that
+  // slide only, not to every slide after it.
+  const restThenResume = useCallback(() => {
+    clearTimers();
+    restRef.current = setTimeout(() => {
+      advance(activeIndexRef.current + 1, 'right');
+      startAutoplay();
+    }, MANUAL_REST_MS);
+  }, [advance, startAutoplay, clearTimers]);
 
   useEffect(() => {
     startAutoplay();
-    return () => clearInterval(intervalRef.current);
-  }, [startAutoplay]);
+    return clearTimers;
+  }, [startAutoplay, clearTimers]);
 
-  // Any manual navigation (swipe or dot) restarts the autoplay countdown,
-  // so it never fires right on top of a swipe the user just made.
+  // Any manual navigation (swipe or dot) cancels the pending advance so it
+  // never fires on top of the move the user just made, and buys them the
+  // longer rest before autoplay takes over again.
   const goTo = useCallback((nextIndex, dir) => {
     advance(nextIndex, dir);
-    startAutoplay();
-  }, [advance, startAutoplay]);
+    restThenResume();
+  }, [advance, restThenResume]);
 
   const handleTouchStart = useCallback((e) => {
     touchStartX.current = e.touches[0].clientX;

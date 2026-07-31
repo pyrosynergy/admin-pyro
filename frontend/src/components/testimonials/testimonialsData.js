@@ -5,6 +5,7 @@ import logoFlobites from '../../assets/logo_fb_the.png';
 import logoJrjp from '../../assets/jrjplogopyro.png';
 import logoTog from '../../assets/logo_tog.png';
 import logoDelicacy from '../../assets/logo_889.png';
+import logoElytrix from '../../assets/ElytriX__1_.webp';
 
 /*
  * Single source of truth for every testimonial, shared by the desktop bento
@@ -107,7 +108,9 @@ export const testimonials = [
     quote: '“Prachet (PY) and his team helped me understand my competitors better, given how vast the health care space is becoming.”',
     name: 'Dr. J. Sravanthi',
     role: 'Founder, Elytrix',
-    logo: null,
+    logo: logoElytrix,
+    logoAlt: 'Elytrix logo',
+    // Kept as the fallback both renderers drop to if the logo ever goes missing.
     initials: 'EX',
   },
 ];

@@ -35,13 +35,21 @@
   color:black;
 }
 
+/* Reads as one continuous heading — same black as the words around it, rather
+   than the purple gradient this used to carry. The span stays so the gradient
+   is one rule away if it's ever wanted back. */
 .cs-title-accent {
-  background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
   font-family: 'albert sans';
+  color: inherit;
+  /* The gradient set this to transparent; it needs an explicit reset, since
+     -webkit-text-fill-color wins over `color` where it's supported. */
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Splits the title after "Real Brands." on phones. Hidden by default so the
+   desktop heading stays on one line and wraps on its own. */
+.cs-title-break {
+  display: none;
 }
 
 .cs-subtitle {
@@ -266,6 +274,24 @@
   }
 }
 
+@media (max-width: 600px) {
+  .cs-title-break {
+    display: inline;
+  }
+
+  /* The header capped itself at 720px and the subtitle held another 70px of
+     padding on each side — on a phone that stacked two insets on top of the
+     section's own 20px gutter and squeezed the copy into the middle third of
+     the screen. The section padding is the only gutter needed here. */
+  .cs-header {
+    max-width: 100%;
+  }
+
+  .cs-subtitle {
+    padding: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .cs-card-info {
     flex-direction: column;
@@ -275,8 +301,5 @@
 
   .cs-card-arrow {
     align-self: flex-end;
-  }
-  .cs-subtitle{
-    padding: 0px 50px;
   }
 }
