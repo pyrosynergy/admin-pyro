@@ -506,7 +506,10 @@
 .pt-a-role {
   margin-top: 4px;
   font-size: 0.78rem;
-  color: rgba(0, 0, 0, 0.55);
+  /* Solid black, matching .pt-c-role on the smaller cards. At 55% opacity this
+     line — which carries the designation and the company name — read as washed
+     out next to the identical line on every other card in the grid. */
+  color: black;
 }
 
 /* ── Category B: metric / case study ── */
