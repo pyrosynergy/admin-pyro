@@ -5,8 +5,8 @@ import React from 'react';
  * before a deploy asking for a hashed filename that no longer exists.
  *
  * main.jsx handles the common case by reloading once on `vite:preloadError`.
- * This catches everything that gets past it: the second failure inside the
- * reload cooldown, a chunk that is genuinely gone rather than stale, or any
+ * This catches everything that gets past it: any failure after that one
+ * per-session reload, a chunk that is genuinely gone rather than stale, or any
  * other error thrown while rendering a route. Without it React unmounts the
  * tree and the empty Suspense fallback is all that's left, which on this
  * site's near-black background reads as a dead page.

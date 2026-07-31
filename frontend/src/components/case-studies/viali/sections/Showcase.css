@@ -1,6 +1,7 @@
 /* ---- Final showcase section ---- */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700;1,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+/* Playfair Display and Libre Baskerville now load from the single preconnected
+   <link> in index.html — see the note in Flobites.css for why an @import here
+   was worse than redundant. */
 .viali-showcase {
   width: 100%;
   max-width: 1140px;

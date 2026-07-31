@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+/* Plus Jakarta Sans loads from the single preconnected <link> in index.html —
+   see the note in Flobites.css for why an @import here was worse than
+   redundant. */
 
 .pyrostack-section {
   background-color: #050505;

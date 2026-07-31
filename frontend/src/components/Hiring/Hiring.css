@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+/* Space Grotesk loads from the single preconnected <link> in index.html — see
+   the note in Flobites.css for why an @import here was worse than redundant. */
 
 .role-back-button {
   position: fixed;

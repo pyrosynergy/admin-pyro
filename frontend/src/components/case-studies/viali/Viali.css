@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+/* Architects Daughter loads from the single preconnected <link> in index.html
+   — see the note in Flobites.css for why an @import here was worse than
+   redundant. */
 
 .viali-section {
   background-color: #fbf8f5;
