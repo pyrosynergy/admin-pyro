@@ -12,7 +12,8 @@ import { testimonials, stripQuoteMarks } from './testimonialsData.js';
  *
  * Featured entries (desktop variants 'A' and 'B') each get their own slide;
  * the compact ones (variant 'C') are paired two-to-a-slide, which is what the
- * stacked review layout was built for. Slide order follows the data order.
+ * stacked review layout was built for. The two kinds are then interleaved so
+ * the carousel alternates big, small, big, small — see interleaveBySize.
  */
 const REVIEWS_PER_SLIDE = 2;
 
@@ -55,8 +56,8 @@ const buildMobileSlides = (items) => {
   items.forEach((item) => {
     const pair = PAIRED_SLIDES.find((ids) => ids.includes(item.id));
     if (pair) {
-      // The slide lands where the pair's first member sits in the data, so
-      // slide order still reads off testimonialsData.js.
+      // The slide lands where the pair's first member sits in the data, which
+      // is what fixes its position among the other reviews slides.
       if (paired.has(item.id)) return;
       pair.forEach((id) => paired.add(id));
       pushReviewSlide(pair.map((id) => byId.get(id)).filter(Boolean));
@@ -75,7 +76,28 @@ const buildMobileSlides = (items) => {
   return slides;
 };
 
-const mobileSlides = buildMobileSlides(testimonials);
+/*
+ * Alternates the two slide sizes — featured case-study slide, then a paired
+ * reviews slide, and so on — so the carousel never shows two big or two small
+ * slides back to back. Relative order within each kind still follows the data
+ * order; this only decides how the two kinds are dealt out. If the kinds
+ * aren't evenly matched, whichever runs out first simply stops contributing
+ * and the remainder trails in order.
+ */
+const interleaveBySize = (slides) => {
+  const featured = slides.filter((s) => s.type === 'case-study');
+  const reviews = slides.filter((s) => s.type === 'reviews');
+  const ordered = [];
+
+  while (featured.length || reviews.length) {
+    if (featured.length) ordered.push(featured.shift());
+    if (reviews.length) ordered.push(reviews.shift());
+  }
+
+  return ordered;
+};
+
+const mobileSlides = interleaveBySize(buildMobileSlides(testimonials));
 
 const AUTOPLAY_MS = 5000;
 
