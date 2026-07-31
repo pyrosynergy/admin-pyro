@@ -5,9 +5,13 @@ const Loading = () => {
   return (
     <div id="loading">
       <div className="logo-container">
-        <img 
-          src="/Mainlogo3.png" 
-          alt="PyroSynergy Logo" 
+        {/* Splash screen logo — the one image that must never be deferred. */}
+        <img
+          src="/Mainlogo3.webp"
+          alt="PyroSynergy Logo"
+          width="250"
+          height="250"
+          fetchPriority="high"
           className="loading-logo"
         />
         <div className="logo-glow"></div>

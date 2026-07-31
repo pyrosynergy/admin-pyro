@@ -11,9 +11,6 @@ const ContentStrategist = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // preserve original scroll behaviour only
-    window.scrollTo(0, 0);
-
     // Detect mobile device
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);

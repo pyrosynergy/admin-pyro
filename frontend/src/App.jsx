@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import "./App.css";
 
-// Component imports
+// --- Eager imports: chrome + above-the-fold homepage content (part of the entry chunk) ---
 import Header from "./components/Header/Header.jsx";
 import Hero from "./components/Hero/Hero.jsx";
 import Services from "./components/Services/Services.jsx";
@@ -35,78 +35,224 @@ import Verify from "./components/Verify/Verify.jsx";
 const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || "/ROrnJSKyI6TTf4q1xnrNWmgd";
 
 // Asset Imports
-import logo1 from "./assets/viali.png";
-import logo3 from "./assets/mih.png";
-import logo5 from "./assets/riMLand.png";
-import logo7 from "./assets/gro vnr.png";
-import logo8 from "./assets/nasa.png";
-import logo9 from "./assets/recens_logo.png";
-import logo10 from "./assets/acm.png";
-import service1 from './assets/Thinking face-rafiki.svg';
-import service3 from "./assets/13107135_5143310.svg";
-import service2 from './assets/Kids Studying from Home-rafiki.svg'
-// --- UPDATED Data for Services Section (Based on sketches) ---
-const servicesData = [
-  {
-    title: '"My business is solid. Now I want to bring it online."',
-    shortStatement:
-      "Isn't this the best time to turn your offline hustle into a digital experience?",
-     
-    ctaText: "Let's go ",
-    Image: service1, // Added image for visual context
-  },
-  {
-    title:
-      '"I\'m up and running online, but I\'m not reaching the right audience."',
-    shortStatement:
-      "Your products is great, no doubt. But have you positioned it right?",
-   
-    ctaText: "Let's grow ",
-    Image: service2, // Added image for visual context
-  },
-  {
-    title:
-      '"My company is picking up, and I want to scale without the burnout."',
-    shortStatement:
-      "You've figured out the fundamentals. How about streaming your operations?",
-    ctaText: "Let's optimize ", // Slightly adjusted CTA for clarity
-    Image: service3, // Added image for visual context
-  },
-];
+import logo1 from "./assets/logo_798.webp";
+import logo2 from "./assets/logo_889.webp";
+import logo3 from "./assets/logo_891.webp";
+import logo4 from "./assets/logo_fb_the.webp";
+import logo5 from "./assets/logo_brb.webp";
+import logo6 from "./assets/logo_viali.webp";
+import logo7 from "./assets/THElogopyro.webp"; 
+import logo8 from "./assets/jrjplogopyro.webp";
+import logo9 from "./assets/vnrlogo.webp";
+import logo10 from "./assets/logo_tog.webp";
 
 // Data for the animated hero heading
 const highlightedWords = ["AI-ready.", "future-proof.", "omnichannel."];
 
-const clientLogos = [logo1, logo3, logo5, logo7, logo8, logo9, logo10];
+const clientLogos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
 
-const openCalendarPopup = () => {
-  console.log('Opening calendar popup'); // Add for debugging
-  const calendarUrl =
-    "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0iZ6GBUpEp6xEXcYQ0wZLryUc6bprkId2iHVJjJF88E3JTJGM917FiwtH6mwtuwUuyOVr2Whwm?gv=true";
-  const popupFeatures = "width=1000,height=700,scrollbars=yes,resizable=yes,location=yes,menubar=no,toolbar=no,status=no";
-  
-  // Check if popup is blocked
-  const popup = window.open(calendarUrl, "googleCalendarPopup", popupFeatures);
-  
-  if (!popup || popup.closed || typeof popup.closed == 'undefined') {
-    // Popup was blocked, show alternative
-    alert('Popup blocked! Please allow popups for this site or visit: ' + calendarUrl);
-    // Alternative: open in same tab
-    // window.location.href = calendarUrl;
-  } else {
-    popup.focus();
-  }
+// --- Single source of truth for route chrome + per-page metadata ---
+// `header`/`footer` replace the three hand-maintained path arrays this file used
+// to carry; `meta` drives the <SEO> tag rendered for each route.
+const ROUTES = {
+  '/': { header: true, footer: true },
+  '/realitycheck': {
+    header: true,
+    footer: false,
+    meta: {
+      title: 'Reality Check — PyroSynergy',
+      description: 'Take the PyroSynergy reality check and find out where your business actually stands before you scale.',
+    },
+  },
+  '/decode': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Decode Your Business — PyroSynergy',
+      description: 'Answer a few questions and get a clear read on the gaps between where your business is and where you want it to go.',
+    },
+  },
+  '/welcome': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Welcome — PyroSynergy',
+      description: 'Welcome to PyroSynergy.',
+      noindex: true,
+    },
+  },
+  '/hiring': {
+    header: false,
+    // Renders the shared site Footer. This page used to ship its own
+    // HiringFooter, a fork that had drifted behind the main one.
+    footer: true,
+    meta: {
+      title: 'Careers & Internships — PyroSynergy',
+      description: 'Open internship and full-time roles at PyroSynergy. Work on real growth problems for founders across 12+ industries.',
+    },
+  },
+  '/hiring/copywriter_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Copywriter Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Copywriter Intern and write the words that move founders, brands and their audiences.',
+    },
+  },
+  '/hiring/videsign_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Visual Designer Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Visual Designer Intern and shape the visual identity of growing brands.',
+    },
+  },
+  '/hiring/uxdesign_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'UX Designer Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a UX Designer Intern and design experiences that turn visitors into customers.',
+    },
+  },
+  '/hiring/nocodeweb_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'No-Code Web Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a No-Code Web Intern and ship fast, polished websites for founder-led brands.',
+    },
+  },
+  '/hiring/sales_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Sales Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Sales Intern and learn founder-level outreach, positioning and closing.',
+    },
+  },
+  '/hiring/content_intern_1': { header: false, footer: false },
+  '/hiring/social_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Social Media Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a Social Media Intern and grow real audiences for real businesses.',
+    },
+  },
+  '/hiring/uiuxvd_intern_1': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'UI/UX & Visual Design Intern — Careers at PyroSynergy',
+      description: 'Join PyroSynergy as a UI/UX & Visual Design Intern and own design end to end, from wireframe to launch.',
+    },
+  },
+  '/policy-pages': {
+    header: true,
+    footer: false,
+    meta: {
+      title: 'Policies — PyroSynergy',
+      description: 'Privacy, refund, cancellation and terms of service policies for PyroSynergy.',
+    },
+  },
+  '/policy-pages/privacy-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Privacy Policy — PyroSynergy',
+      description: 'How PyroSynergy collects, uses and protects your personal data.',
+    },
+  },
+  '/policy-pages/refund-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Refund Policy — PyroSynergy',
+      description: 'PyroSynergy refund terms and eligibility.',
+    },
+  },
+  '/policy-pages/cancellation-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Cancellation Policy — PyroSynergy',
+      description: 'PyroSynergy cancellation terms for engagements and subscriptions.',
+    },
+  },
+  '/policy-pages/terms-and-conditions': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Terms & Conditions — PyroSynergy',
+      description: 'The terms governing your use of PyroSynergy services.',
+    },
+  },
+  '/case-studies/flobites': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Flobites Case Study — PyroSynergy',
+      description: 'How PyroSynergy helped Flobites sharpen its positioning, rebuild its digital experience and reach the right audience.',
+    },
+  },
+  '/case-studies': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Case Studies — PyroSynergy',
+      description: 'How PyroSynergy helps early-stage founders turn strategy into execution — the work, the decisions and the results.',
+    },
+  },
+  '/case-studies/viali': {
+    header: true,
+    footer: true,
+    meta: {
+      title: 'Viali Hair Care Case Study — PyroSynergy',
+      description: 'How PyroSynergy helped Viali Hair Care grow its social reach and bring down customer acquisition cost.',
+    },
+  },
+  // Admin console: renders its own Header, so the global chrome stays off, and
+  // it must never be indexed. /verify/:token is deliberately absent — it is a
+  // dynamic path, so it falls through to the no-chrome default below.
+  [ADMIN_PATH]: {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Admin — PyroSynergy',
+      description: 'PyroSynergy internal admin console.',
+      noindex: true,
+    },
+  },
+};
+
+const NOT_FOUND_META = {
+  title: 'Page Not Found — PyroSynergy',
+  description: 'The page you are looking for does not exist.',
+  noindex: true,
+};
+
+/** Wraps a route element with its per-page metadata. */
+const Page = ({ path, children }) => {
+  const meta = ROUTES[path]?.meta;
+  return (
+    <>
+      {meta && <SEO path={path} {...meta} />}
+      {children}
+    </>
+  );
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Automatically skips loading screen on staging or local environments
+    const isStaging = window.location.hostname.includes('staging') || window.location.hostname.includes('localhost');
+    return !isStaging;
+  });
+  const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
-  const [expandedCardIndex, setExpandedCardIndex] = useState(null); // Add this line
   const navRef = useRef(null);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const [closingCardIndex, setClosingCardIndex] = useState(null);
-  const closeTimerRef = useRef(null); // To manage the timeout
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -130,77 +276,37 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Add loading effect
+  // Dismiss the loading screen as soon as the page has actually finished loading,
+  // rather than after a fixed delay. The timeout is only a safety cap so a slow
+  // third-party asset can never hold the splash screen up indefinitely.
   useEffect(() => {
-    // Simulate loading time - adjust as needed
-    const loadingTimer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1800); // Reduced from probably 3000-5000ms to 1000ms (1 second)
+    if (!isLoading) return;
 
-    // Cleanup
-    return () => clearTimeout(loadingTimer);
-  }, []);
+    const done = () => setIsLoading(false);
 
-  // --- EVENT HANDLERS FOR INTERACTIVE SERVICES ---
-  const handleCardClick = (index) => {
-     // Clear any pending instant-close state if a new card is clicked
-    if (closeTimerRef.current) {
-        clearTimeout(closeTimerRef.current);
-        closeTimerRef.current = null;
-    }
-    if (closingCardIndex !== null) {
-        setClosingCardIndex(null); // Explicitly turn off the instant-close state for the previous card
+    if (document.readyState === "complete") {
+      done();
+      return;
     }
 
-    if (expandedCardIndex !== index) {
-      setExpandedCardIndex(index);
-    }
-    // If clicking the already expanded card, the click is on the wrapper behind the modal,
-    // which should probably just keep the modal open. The close button handles closing.
-  };
+    const capTimer = setTimeout(done, 1800);
+    window.addEventListener("load", done);
 
-  // Wrap handleCloseCard in useCallback to maintain reference stability
-  const handleCloseCard = useCallback((e) => {
-    if (e) e.stopPropagation(); // Prevents the click from bubbling up to the card's onClick
-
-    // Only trigger close if a card is actually expanded
-    if (expandedCardIndex !== null) {
-        // Clear any existing timeout before starting a new one
-        if (closeTimerRef.current) {
-            clearTimeout(closeTimerRef.current);
-        }
-
-        // Set the currently expanded card as the one that should close instantly
-        setClosingCardIndex(expandedCardIndex);
-        setExpandedCardIndex(null); // This will remove the 'expanded' class from the card
-
-        // Set a timeout to remove the 'closing-instant' class after a minimal delay
-        // The delay needs to be just enough for React to render the state change
-        closeTimerRef.current = setTimeout(() => {
-            setClosingCardIndex(null); // Remove the closing-instant class
-            closeTimerRef.current = null; // Clean up the ref
-        }, 50); // 50ms should be sufficient for the browser to register the change
-    }
-  }, [expandedCardIndex]); // Add expandedCardIndex as a dependency
-  
-  // ======================================================================
-  // ========== NEW: EFFECT TO HANDLE BODY SCROLL ON MOBILE MODAL =========
-  // ======================================================================
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    // Lock body scroll when loading or when a card is expanded on mobile
-    if (isLoading || (expandedCardIndex !== null && isMobile)) {
-      document.body.style.overflow = "hidden";
-    } else {
-      // Otherwise, ensure it's unlocked
-      document.body.style.overflow = "auto";
-    }
-    // Cleanup function to ensure scroll is always restored on component unmount
     return () => {
-      document.body.style.overflow = "auto";
+      clearTimeout(capTimer);
+      window.removeEventListener("load", done);
     };
-  }, [expandedCardIndex, isLoading]); // Add isLoading to dependencies
-  // ======================================================================
+  }, [isLoading]);
+
+  // Lock body scroll while the loading screen is up. Remove the inline override
+  // (rather than forcing "auto") so body doesn't become its own scroll container,
+  // which breaks position:sticky for descendants relying on the page scroll.
+  useEffect(() => {
+    document.body.style.overflow = isLoading ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoading]);
 
   // Click handler for mobile nav links
   const handleLinkClick = () => {
@@ -219,26 +325,32 @@ function App() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Hide/show the navbar on scroll. Throttled to one state update per animation
+  // frame and registered as passive so it never blocks scrolling.
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    let lastScrollY = window.scrollY;
+    let ticking = false;
 
+    const update = () => {
+      const currentScrollY = window.scrollY;
 
-  // Handle escape key to close expanded card
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === "Escape") {
-        if (expandedCardIndex !== null) { // Only close if a card is expanded
-             handleCloseCard(event); // Use the modified handler
-        }
+      // Show at the top of the page, or when scrolling up; hide when scrolling down.
+      setIsScrolled(currentScrollY < 50 || currentScrollY < lastScrollY);
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
       }
     };
-    // The useEffect now has a stable reference to handleCloseCard
-    window.addEventListener("keydown", handleEscKey);
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [expandedCardIndex, handleCloseCard]);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Add navigation handler
   const handleNavigateToQuestionnaire = () => {
@@ -251,13 +363,16 @@ function App() {
 
   return (
     <div className="App">
+      {/* Resets scroll on route change; skips hash links. Renders nothing. */}
+      <ScrollToTop />
+
       {/* Loading Screen */}
       {isLoading && <Loading />}
 
       {/* Main Content */}
       <div className={isLoading ? 'main-content-hidden' : 'main-content-visible'}>
         {!hideHeader && (
-          <Header 
+          <Header
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
@@ -265,8 +380,11 @@ function App() {
             handleLinkClick={handleLinkClick}
             currentPage={currentPage} // Add this line
             handleNavigateToHome={handleNavigateToHome} // Add this line
+            openCalendarPopup={openCalendarPopup}
           />
         )}
+        <RouteErrorBoundary resetKey={location.pathname}>
+        <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
         <Routes>
           <Route path="/decode" element={<Questionnaire />} />
           <Route path="/realitycheck" element={<Navigate to="/decode" replace />} />
@@ -289,33 +407,42 @@ function App() {
           <Route path="/verify/:token" element={<Verify />} />
           <Route path="/" element={
             <>
-              <Hero 
+              <SEO
+                title="PyroSynergy — Growth Partners for Founders"
+                description="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly."
+                path="/"
+              />
+              <Hero
                 highlightedWords={highlightedWords}
                 highlightedIndex={highlightedIndex}
                 clientLogos={clientLogos}
                 openCalendarPopup={openCalendarPopup}
+              />
+
+              <WhyUs />
+              <Banner />
+              <Testimonials />
+
+
+              <Founder />
+              <PyroStack
+                openCalendarPopup={openCalendarPopup}
                 handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
               />
-  
-              <Services 
-                servicesData={servicesData}
-                expandedCardIndex={expandedCardIndex}
-                closingCardIndex={closingCardIndex} // Add this line
-                handleCardClick={handleCardClick}
-                handleCloseCard={handleCloseCard} // Add this line
-                openCalendarPopup={openCalendarPopup} // Make sure this is passed
-              />
-  
-              
-  
-              <FAQ openCalendarPopup={openCalendarPopup} />
+              {/* One gradient across both — see .empathy-faq-panel in App.css */}
+              <div className="empathy-faq-panel">
+                <EmpathyBanner />
+                <FAQ openCalendarPopup={openCalendarPopup} />
+              </div>
 
               <Contact />
             </>
           } />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<><SEO path={location.pathname} {...NOT_FOUND_META} /><NotFound /></>} />
         </Routes>
-  {!hideFooter && <Footer />}
+        </Suspense>
+        </RouteErrorBoundary>
+  {!hideFooter && <Footer openCalendarPopup={openCalendarPopup} />}
       </div>
     </div>
   );

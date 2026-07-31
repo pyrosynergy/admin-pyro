@@ -38,7 +38,7 @@ const HiringFooter = () => {
     <footer className="hiring-footer">
       <div className="hiring-footer-content">
         <div className="hiring-footer-names">
-          <img src={logo} alt="PuroSynergy" className="hiring-brand-logo-img" />
+          <img loading="lazy" decoding="async" src={logo} alt="PuroSynergy" className="hiring-brand-logo-img" />
           <span className="hiring-brand-copyright-text">
             © Copyright 2025-26 PyroSynergy LLP. All rights reserved.
           </span>

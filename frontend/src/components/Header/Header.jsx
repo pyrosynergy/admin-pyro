@@ -1,6 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
-import logo from '../../assets/Frame 2.svg';
+import logo from '../../assets/Group 1.svg';
 
 const Header = ({ 
   isScrolled, 
@@ -9,8 +10,21 @@ const Header = ({
   navRef, 
   handleLinkClick, 
   currentPage, 
-  handleNavigateToHome 
+  handleNavigateToHome,
+  openCalendarPopup
 }) => {
+  const navigate = useNavigate();
+
+  /* Case Studies is a route of its own, not a section on the home page, so it
+     can't go through handleNavClick's scroll-to-id path. */
+  const handleRouteClick = (e, path) => {
+    e.preventDefault();
+    navigate(path);
+    if (handleLinkClick) {
+      handleLinkClick();
+    }
+  };
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     
@@ -41,89 +55,123 @@ const Header = ({
   };
 
   return (
-    <header className={`top-nav ${isScrolled ? "fixed-header" : ""}`}>
+    <header className={`top-nav ${isScrolled ? "scrolled" : ""}`}>
       {/* Logo - clicking goes to home */}
       <a 
         href="#home" 
         className="brand-logo-link" 
         onClick={(e) => handleNavClick(e, 'home')}
       >
-        <img src={logo} alt="PyroSynergy" className="brand-logo-img" />
+        <img src={logo} alt="PyroSynergy" width="195" height="47" decoding="async" className="brand-logo-img" />
       </a>
       
       <nav ref={navRef} className="main-navigation">
         <ul className="nav-links">
           <li>
             <a 
-              href="#home" 
-              onClick={(e) => handleNavClick(e, 'home')}
+              href="#How It Works" 
+              onClick={(e) => handleNavClick(e, 'pyrostack')}
             >
-              Home
+              How It Works
             </a>
           </li>
           <li>
             <a
-              href="#services"
-              onClick={(e) => handleNavClick(e, 'services')}
+              href="#What Founders Said"
+              onClick={(e) => handleNavClick(e, 'work')}
             >
-              Solutions
+              What Founders Said
             </a>
           </li>
           <li>
             <a
-              href="#faq"
-              onClick={(e) => handleNavClick(e, 'faq')}
+              href="/case-studies"
+              onClick={(e) => handleRouteClick(e, '/case-studies')}
             >
-              FAQs
+              Case Studies
             </a>
           </li>
           <li>
-            <a href="mailto:py@pyrosynergy.com">
-              Contact
+            <a
+              href="#contact"
+              className="book-call-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                if (openCalendarPopup) openCalendarPopup();
+                if (handleLinkClick) handleLinkClick();
+              }}
+            >
+              Book a Call
+              <span className="arrow-icon-wrapper">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
             </a>
           </li>
         </ul>
         
         {/* Mobile Navigation */}
         <div className="mobile-nav-wrapper">
+          <a
+            href="#contact"
+            className="book-call-btn mobile-book-call-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              if (openCalendarPopup) openCalendarPopup();
+              if (handleLinkClick) handleLinkClick();
+            }}
+          >
+            Book a Call
+            <span className="arrow-icon-wrapper">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
           <button
             className="hamburger-menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
+            {isMenuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            ) : (
+              <>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+              </>
+            )}
           </button>
-          
+
           <ul className={`mobile-nav ${isMenuOpen ? "is-active" : ""}`}>
             <li>
-              <a 
-                href="#home" 
-                onClick={(e) => handleNavClick(e, 'home')}
+              <a
+                href="#How It Works"
+                onClick={(e) => handleNavClick(e, 'pyrostack')}
               >
-                Home
+                How It Works
               </a>
             </li>
             <li>
               <a
-                href="#services"
-                onClick={(e) => handleNavClick(e, 'services')}
+                href="#What Founders Said"
+                onClick={(e) => handleNavClick(e, 'work')}
               >
-                Solutions
+                What Founders Said
               </a>
             </li>
             <li>
               <a
-                href="#faq"
-                onClick={(e) => handleNavClick(e, 'faq')}
+                href="/case-studies"
+                onClick={(e) => handleRouteClick(e, '/case-studies')}
               >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a href="mailto:py@pyrosynergy.com" onClick={handleLinkClick}>
-                Contact
+                Case Studies
               </a>
             </li>
           </ul>

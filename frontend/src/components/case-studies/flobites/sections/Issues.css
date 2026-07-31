@@ -1,0 +1,273 @@
+/* ---- Uncovering the Issues section ---- */
+/*
+  3-part overlapping structure (wrapper > dome-top + core + dome-bottom).
+  --issues-dome-depth is how far the dome's curve pokes ABOVE/BELOW the
+  core's flat edge (the visible "arch"). --issues-dome-overlap is a small
+  extra amount the dome extends back DOWN/UP into the core, so the two
+  same-colour layers always overlap by a few px and never leave a gap,
+  even under sub-pixel rounding on resize.
+*/
+.flobites-issues {
+  --issues-dome-depth: 160px;
+  --issues-dome-overlap: 6px;
+  position: relative;
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 100px;
+}
+
+.flobites-issues-dome {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(var(--issues-dome-depth) + var(--issues-dome-overlap));
+  background-color: #FA3558;
+}
+
+.flobites-issues-dome--top {
+  top: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.flobites-issues-dome--bottom {
+  bottom: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.flobites-issues-core {
+  position: relative;
+  width: 100%;
+  background-color: #FA3558;
+  margin-top: var(--issues-dome-depth);
+  margin-bottom: var(--issues-dome-depth);
+  padding: 40px 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-issues-inner {
+  width: 100%;
+  max-width: 1260px;
+}
+
+.flobites-issues-title {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-size: 3.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin: -40px 0 80px;
+}
+
+.flobites-issues-item {
+  position: relative;
+  padding-top: 80px;
+  margin-bottom: 90px;
+}
+
+.flobites-issues-item:last-child {
+  margin-bottom: 0;
+}
+
+.flobites-issues-number {
+  position: absolute;
+  top: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 7rem;
+  color: #ffffff;
+  line-height: 1;
+  z-index: 2;
+}
+
+.flobites-issues-number--left {
+  left: 0;
+  width: 402px; /* same as note width */
+  text-align: center;
+  top: 80px;
+}
+
+.flobites-issues-number--right {
+  right: 0;
+  width: 402px; /* same as note width */
+  text-align: center;
+  top: 80px;
+}
+
+/*
+  Notched "L-shape" card: the note column starts lower (below the giant
+  number) while the shot column starts at the top, creating a stepped
+  top edge. The fillet element smooths the concave inner corner where
+  the two backgrounds meet, using a radial-gradient quarter-circle.
+*/
+:root {
+  --issues-notch-h: 125.5px;
+  --issues-fillet: 32px;
+  --issues-radius: 20px;
+  --issues-beige: #F9DBD0;
+}
+
+.flobites-issues-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.flobites-issues-card--reverse {
+  flex-direction: row-reverse;
+}
+
+.flobites-issues-note {
+  position: relative;
+  flex: 0 0 402px;
+  width: 402px;
+  min-height: 202px;
+  margin-top: var(--issues-notch-h);
+  background-color: var(--issues-beige);
+  border-radius: var(--issues-radius) 0 0 var(--issues-radius);
+  padding: 28px 28px 28px 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.flobites-issues-card--reverse .flobites-issues-note {
+  border-radius: 0 var(--issues-radius) var(--issues-radius) 0;
+  text-align: right;
+}
+
+.flobites-issues-note--center {
+  text-align: center;
+}
+
+.flobites-issues-note p {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: #1a1a1a;
+  padding: 50px;
+}
+
+.flobites-issues-note p strong {
+  color: #FA3558;
+  font-weight: 700;
+}
+
+.flobites-issues-shot {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 3.8 / 2.8;
+  overflow: hidden;
+  background-color: var(--issues-beige);
+  padding: 22px 22px 22px 22px;
+  box-sizing: border-box;
+  z-index: 2;
+  border-radius: var(--issues-radius) var(--issues-radius) var(--issues-radius) 0;
+}
+
+.flobites-issues-card--reverse .flobites-issues-shot {
+  padding: 22px 22px 22px 22px;
+  border-radius: var(--issues-radius) var(--issues-radius) 0 var(--issues-radius);
+}
+
+.flobites-issues-shot--bleed-right {
+  margin-right: -100px;
+}
+
+.flobites-issues-shot--bleed-left {
+  margin-left: -100px;
+}
+
+.flobites-issues-shot--wide {
+  flex: 1.6;
+}
+
+.flobites-issues-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center 50%;
+  border-radius: var(--issues-radius);
+}
+
+
+@media (max-width: 1400px) {
+  .flobites-issues {
+  .flobites-issues {
+  --issues-dome-depth: 60px;
+  width: 100%;
+  max-width: none;
+  margin: 80px 0 0;
+  transform: none;
+  overflow: visible;
+}
+  }
+
+  .flobites-issues-core {
+    padding: 24px 20px;
+    box-sizing: border-box;
+  }
+
+  .flobites-issues-title {
+    font-size: 1.7rem;
+    margin: 0 0 56px;
+  }
+
+  .flobites-issues-number {
+    font-size: 4rem;
+  }
+
+  .flobites-issues-number--left,
+  .flobites-issues-number--right {
+    width: auto;
+    top: 0;
+  }
+
+  .flobites-issues-card,
+  .flobites-issues-card--reverse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .flobites-issues-note::before,
+  .flobites-issues-card--reverse .flobites-issues-note::before {
+    display: none;
+  }
+
+  .flobites-issues-note,
+  .flobites-issues-card--reverse .flobites-issues-note {
+    flex: 1 1 auto;
+    width: auto;
+    min-height: 0;
+    margin-top: 0;
+    padding: 20px;
+    border-radius: 18px;
+    text-align: left;
+  }
+
+  .flobites-issues-note p {
+    padding: 0;
+    font-size: 1rem;
+  }
+
+  .flobites-issues-note--center {
+    text-align: left;
+  }
+
+  .flobites-issues-shot,
+  .flobites-issues-card--reverse .flobites-issues-shot {
+    padding: 10px;
+    height:auto;
+    aspect-ratio: auto;
+    border-radius: var(--issues-radius) var(--issues-radius) var(--issues-radius) var(--issues-radius);
+  }
+
+  .flobites-issues-shot--bleed-right,
+  .flobites-issues-shot--bleed-left {
+    margin: 0;
+  }
+}

@@ -1,0 +1,574 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+.pyrostack-section {
+  background-color: #050505;
+  color: #ffffff;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  position: relative;
+  overflow: hidden;
+  /* The rounded top edge now lives on .founder-section, which opens the
+     black run above this one — the two sections share #050505 and read as
+     one continuous panel, so a curve here would cut it in half. */
+}
+
+.pyrostack-container {
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Typography mirrors the "What founders said" heading (Testimonials.css)
+   so both section titles read as one system — only the colour differs,
+   since this section sits on black. */
+.pyrostack-title {
+  font-size: clamp(2.15rem, 4.65vw, 4.65rem);
+  font-weight: 450;
+  line-height: 1.14;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: -2.5px;
+  color: #ffffff;
+  font-family: "Albert Sans", sans-serif;
+}
+
+/* Elegant and clean global resizing for your trademark superscript */
+.pyrostack-title sup {
+  font-size: 0.55em;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+
+.pyrostack-timeline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15vh;
+  padding-left: 10px;
+  margin-top:60px;
+}
+
+/* Snake curve — position and viewBox are controlled dynamically via JS measurements */
+.timeline-line {
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  gap: 0;
+  width: 100%;
+}
+
+.timeline-item--wave-offset {
+  padding-left: 80px;
+}
+
+.timeline-node-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+  margin-right: -32px; /* pull card left so node center sits on card's left edge */
+}
+
+.timeline-node {
+  width: 100px;
+  height: 100px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  border: 5px solid #050505;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.05);
+  flex-shrink: 0;
+  z-index: 3;
+  transition: background 0.6s ease, box-shadow 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scroll-driven highlight for the centered timeline node */
+.timeline-node.is-active {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.65), inset 0 2px 5px rgba(255,255,255,0.1);
+  transform: scale(1.01);
+}
+
+.timeline-card {
+  position: relative; /* Essential for relative positioning layer alignment */
+  background: linear-gradient(135deg, #000000 0%, #111111 100%);
+  border: 1px solid rgba(250, 244, 244, 0.07);
+  border-radius: 30px;
+  padding: 20px 65px 30px 80px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden; /* Clips the background hover color overlay inside corner radius */
+  box-shadow: inset 0 1px 1px rgba(82, 80, 80, 0.25);
+  min-height: 180px;
+  z-index: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Modern hardware-accelerated transitions */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s ease,
+              box-shadow 0.5s ease;
+}
+
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.2);   
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Base structural states for typography transitions */
+.timeline-card-title,
+.timeline-card-desc,
+.bg-number {
+  transition: color 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), opacity 0.3s ease-in-out;
+}
+
+
+
+/* --- SCROLL-DRIVEN ACTIVE STATE (IntersectionObserver) --- */
+
+/* Separate overlay layer so it can cross-fade independently of the hover overlay */
+.timeline-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 40px rgba(168, 85, 247, 0.25);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.timeline-card.is-active {
+  transform: scale(1.02);
+  border-color: transparent;
+  box-shadow: 0 25px 60px rgba(168, 85, 247, 0.35);
+}
+
+.timeline-card.is-active::after {
+  opacity: 1;
+  background: linear-gradient(135deg, #beaae3 0%, #a385e8 60%, #9573e4 100%);
+  box-shadow: inset 0 0 40px rgba(168, 85, 247, 0.25);
+}
+
+.timeline-card.is-active .timeline-card-title {
+  color: #4c1d95;
+  opacity: 1;
+}
+
+.timeline-card.is-active .timeline-card-desc {
+  color: #5b21b6;
+  opacity: 1;
+}
+
+.timeline-card.is-active .bg-number {
+  color: #760ec5;
+  opacity: 0.8;
+}
+
+.timeline-card.is-active .flame-icon-wrapper img,
+.timeline-card.is-active .flame-icon-wrapper svg {
+  filter: grayscale(0%) brightness(1) drop-shadow(0 0 14px rgba(255, 120, 40, 0.45));
+}
+
+.card-text-content {
+  position: relative;
+  z-index: 2;
+  max-width: 75%;
+}
+
+.timeline-card-title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.timeline-card-desc {
+  font-size: 0.95rem;
+  color: #dfdcdc;
+  line-height: 1.4;
+}
+
+.timeline-card-desc p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-right: 40px;
+}
+
+.timeline-card-desc p:last-child {
+  margin-bottom: 0;
+}
+
+/* Node number: hidden on desktop, shown on mobile */
+.node-number {
+  display: none;
+}
+
+/* Background number/icon styles */
+.timeline-card-bg-element {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bg-number {
+  font-size: 7rem;
+  font-weight: 800;
+  color: rgba(194, 190, 190, 0.37); /* Large muted gray base */
+  letter-spacing: -4px;
+  line-height: 1;
+}
+
+.flame-icon-wrapper {
+  width: 160px;
+  height: 160px;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.flame-icon-wrapper svg,
+.flame-icon-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.85);
+  transition: filter 0.4s ease;
+}
+
+.timeline-card:hover .flame-icon-wrapper img,
+.timeline-card:hover .flame-icon-wrapper svg,
+.timeline-card.is-hovered .flame-icon-wrapper img,
+.timeline-card.is-hovered .flame-icon-wrapper svg {
+  filter: grayscale(0%) brightness(1) drop-shadow(0 0 14px rgba(255, 120, 40, 0.45));
+}
+
+.pyrostack-buttons-container {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.pyrostack-cta {
+  display: block;
+  margin: 0;
+  font-family: 'Albert Sans', sans-serif;
+  color: #fff;
+  text-align: center;
+  border-radius: 40px;
+  padding: 20px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pyrostack-cta-primary {
+  background: linear-gradient(90deg, #D6C7F5 0%, #9279C3 100%);
+  border: none;
+  color: #0d0b02;
+  font-weight: 600;
+}
+
+.pyrostack-cta-primary:hover {
+  background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
+  transform: translateY(-2px);
+}
+
+.pyrostack-cta-secondary {
+  background: rgba(56, 32, 92, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 260px;
+}
+
+.pyrostack-cta-secondary:hover {
+  background: rgba(56, 32, 92, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.pyrostack-cta-highlight {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+@media(max-width: 1120px){
+  .timeline-card-title{
+    font-size:2.5rem;
+  }
+}
+
+/* ── Mobile: shared section/typography tweaks ── */
+@media (max-width: 768px) {
+  .pyrostack-section {
+    padding: 70px 20px;
+  }
+
+  .pyrostack-container {
+    padding: 0 4px;
+  }
+
+  .pyrostack-title {
+    font-size: 1.75rem;
+    /* -2.5px is tuned for the desktop size; scale it to keep the same
+       optical tightness as the founders heading at this size. */
+    letter-spacing: -1.45px;
+    text-align: center;
+    margin-bottom: 14px;
+    padding: 0 10px;
+  }
+
+  .pyrostack-subtitle {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 44px;
+    padding: 0 40px;
+    color: rgba(212, 206, 206, 0.6);
+  }
+
+  .pyrostack-subtitle br {
+    display: none;
+  }
+
+  .pyrostack-buttons-container {
+    margin-top: 100px;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pyrostack-cta {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.8rem 0.5rem !important;
+    font-size: 0.85rem;
+  }
+
+  .pyrostack-cta-highlight{
+    font-size:1rem;
+  }
+
+  .pyrostack-cta-secondary {
+    min-width: auto;
+  }
+
+}
+
+/*
+ * ── Mobile timeline: standalone structure (rendered only when isMobile) ──
+ * Circle sits centered above its card; a single vertical rule runs through
+ * every circle's center. Not a media-query override of the desktop
+ * .timeline-* classes — this is its own markup and its own styles.
+ */
+
+
+.pyrostack-mobile-timeline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.pyrostack-mobile-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(139, 92, 246, 0.7),
+    rgba(139, 92, 246, 0.35) 85%,
+    transparent
+  );
+  z-index: 0;
+}
+
+.mobile-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 100px;
+  gap:0px;
+  min-height: 150px;  
+
+}
+
+.mobile-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Circle, centered on the vertical rule */
+.mobile-timeline-node {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  background-color: #0e0618;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition:
+        transform .4s cubic-bezier(.22,1,.36,1),
+        background-color .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.mobile-timeline-node .node-number {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.5px;
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.mobile-timeline-node.is-active {
+  background: #d9baff;
+  border-color: #d9baff;
+  box-shadow: 0 0 30px 6px rgba(217, 186, 255, 0.4);
+}
+
+.mobile-timeline-node.is-active .node-number {
+  color: #410082;
+}
+
+/* Card, directly below its circle */
+.mobile-timeline-card {
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+  margin-top: 5px;
+  background: #14101a;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 18px;
+  padding: 18px 20px;
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: none;
+  transition:
+        transform .45s cubic-bezier(.22,1,.36,1),
+        opacity .45s cubic-bezier(.22,1,.36,1),
+        background-color .45s ease,
+        box-shadow .45s ease,
+        border-color .45s ease;
+  will-change: transform, opacity;
+
+}
+.mobile-timeline-card:not(.is-active){
+    transform: scale(.97);
+    opacity: .72;
+}
+
+.mobile-timeline-card.is-active{
+    transform: scale(1);
+    opacity: 1;
+}
+
+.mobile-timeline-card-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.32);
+  margin: 0;
+  line-height: 1.3;
+  transition: color 0.4s ease, font-size 0.4s ease, font-weight 0.4s ease;
+}
+
+/* Smooth height reveal for the description, no JS/max-height guessing */
+.mobile-timeline-card-desc-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-timeline-card-desc-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.mobile-timeline-card-desc {
+  font-size: 0.92rem;
+  color: #c4b5d8;
+  line-height: 1.6;
+  padding-top: 14px;
+}
+
+.mobile-timeline-card-desc p {
+  margin: 0 0 14px;
+}
+
+.mobile-timeline-card-desc p:last-child {
+  margin-bottom: 0;
+}
+
+.mobile-timeline-card.is-active {
+  background: #1d1225;
+  border-color: #5c3d6d;
+  padding: 22px 22px 26px;
+  box-shadow: 0 8px 36px rgba(100, 40, 200, 0.18);
+}
+
+.mobile-timeline-card.is-active .mobile-timeline-card-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.mobile-timeline-card.is-active .mobile-timeline-card-desc-wrap {
+  grid-template-rows: 1fr;
+}

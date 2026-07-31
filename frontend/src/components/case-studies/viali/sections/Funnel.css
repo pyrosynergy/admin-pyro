@@ -1,0 +1,220 @@
+/* ---- Funnel section ---- */
+.viali-funnel {
+  width: 100%;
+  max-width: 1440px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 54px;
+  box-sizing: border-box;
+}
+
+.viali-funnel-title {
+  font-family: "Albert Sans";
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.3;
+  margin: 0 0 64px;
+}
+
+.viali-funnel-title-accent {
+  color: #ec4899;
+}
+
+.viali-funnel-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 72px;
+}
+
+/* ---- Diagram column ----
+   Fixed width + flex-shrink:0 so the column never resizes independently
+   of the 440x574 box below — the text column's point markers are
+   positioned by percentage against that same 574px height, so the two
+   have to stay in lockstep for the dotted connectors to land on each
+   shape's true vertical center. */
+.viali-funnel-diagram {
+  flex: 0 0 440px;
+  width: 440px;
+  height: 554px;
+}
+
+.viali-funnel-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.viali-funnel-shape {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.viali-funnel-shape--pink {
+  stroke: #ec5a92;
+}
+
+.viali-funnel-shape--blue {
+  stroke: #4a8fd8;
+}
+
+.viali-funnel-label {
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+  fill: #000;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* ---- Text column ----
+   Same 574px height as the diagram (see above); each point is pinned to
+   the vertical center of its funnel shape via a top percentage of that
+   shared height, then re-centered on that line with translateY(-50%).
+*/
+.viali-funnel-text {
+  position: relative;
+  flex: 1;
+  height: 574px;
+  min-width: 0;
+}
+
+.viali-funnel-point {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+}
+
+.viali-funnel-point--top {
+  top: 13.75%;
+}
+
+.viali-funnel-point--mid {
+  top: 42.0833%;
+}
+
+.viali-funnel-point--bottom {
+  top: 68.75%;
+}
+
+.viali-funnel-connector {
+  flex: 0 0 200px;
+  height: 0;
+  margin-right: 16px;
+  border-top: 2px dotted currentColor;
+  position: relative;
+}
+
+.viali-funnel-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+.viali-funnel-connector--pink {
+  color: #ec5a92;
+}
+
+.viali-funnel-connector--blue {
+  color: #4a8fd8;
+}
+
+/* Mobile-only heading shown above each description (see 900px query
+   below) — hidden on desktop/tablet since the diagram already labels
+   each shape directly. */
+.viali-funnel-point-heading {
+  display: none;
+}
+
+.viali-funnel-point p {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #000;
+  text-align: left;
+  margin: 0;
+  padding-left:50px;
+  font-weight: 400;
+}
+
+@media (max-width: 1200px) {
+  .viali-funnel-row {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .viali-funnel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .viali-funnel-title {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+  }
+
+  .viali-funnel-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .viali-funnel-diagram {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 460 / 600;
+  }
+
+  .viali-funnel-text {
+    position: static;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .viali-funnel-point {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .viali-funnel-point-heading {
+    display: block;
+    font-family: "Albert Sans", sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #000;
+    margin: 0 0 8px;
+  }
+
+  .viali-funnel-connector {
+    display: none;
+  }
+
+  .viali-funnel-point p {
+    text-align: left;
+    font-size: 1rem;
+  }
+}

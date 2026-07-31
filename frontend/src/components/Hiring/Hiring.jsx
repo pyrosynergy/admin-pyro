@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Hiring.css";
-import HiringFooter from "./HiringFooter";
 
 const roles = [
   {
@@ -29,12 +28,8 @@ const roles = [
 
 const Hiring = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
-    <>
     <section className="hiring-section">
       <button
         className="role-back-button"
@@ -66,7 +61,7 @@ const Hiring = () => {
               </ul>
               <div className="card-cta">
               <button
-                  className="nav-button next-button hiring-cta"
+                  className="hiring-cta"
                   onClick={() => {
                     if (role.title === "UI/UX & Visual Designer Intern") {
                       navigate("/hiring/uiuxvd_intern_1");
@@ -85,8 +80,6 @@ const Hiring = () => {
         </div>
       </div>
     </section>
-    <HiringFooter />
-    </>
   );
 };
 

@@ -1,0 +1,22 @@
+/* ---- Hero card ---- */
+.flobites-hero-wrap {
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  padding: 48px;
+  margin-top: 50px;
+  box-sizing: border-box;
+}
+
+.flobites-hero-static-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .flobites-hero-wrap {
+    padding:0px;
+    margin-top: 24px;
+  }
+}

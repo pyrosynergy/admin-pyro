@@ -20,14 +20,6 @@ const Services = ({
 
   return (
     <section id="services" className="services-section">
-      <div className="section-heading">
-        <h2 className="services-title">Our Capabilities</h2>
-        <p className="services-subtitle">
-          We turn ambitious ideas into intelligent, scalable, and beautiful
-          digital solutions.
-        </p>
-      </div>
-
       <div className="services-interactive-container">
         {servicesData.map((service, index) => (
           <div

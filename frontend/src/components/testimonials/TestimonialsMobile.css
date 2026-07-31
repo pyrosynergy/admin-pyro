@@ -1,0 +1,479 @@
+.tm-carousel {
+  width: 100%;
+  max-width: 480px;
+  margin: 20px auto 100px;
+  touch-action: pan-y;
+}
+
+/*
+ * All slides occupy the same grid cell, so the frame's height is the tallest
+ * slide's height and stays put when the active slide changes — no reflow of
+ * the dots, the arrows, or anything below the section.
+ */
+.tm-slide-frame {
+  width: 100%;
+  margin-bottom: 0px;
+  display: grid;
+}
+
+.tm-slide {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tm-slide-active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Fill the frame so the white card itself is also a constant height, rather
+   than sitting short with dead space beneath it on the smaller slides. */
+.tm-cs-card,
+.tm-reviews-slide {
+  height: 100%;
+}
+
+/* Pins the CTA to the bottom edge of whatever slack the tallest slide sets —
+   or the person block, on the cards that have no case study to link to. */
+.tm-cs-cta,
+.tm-cs-person:last-child {
+  margin-top: auto;
+}
+
+.tm-reviews-slide .tm-review-card {
+  flex: 1 1 0;
+}
+
+/* An odd number of compact quotes leaves one slide holding a single card —
+   let it keep its natural height instead of stretching to fill the frame. */
+.tm-reviews-slide .tm-review-card:only-child {
+  flex: 0 0 auto;
+}
+
+/* ── Case study (Type I) ── */
+.tm-cs-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(20, 16, 32, 0.06);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 20px 45px rgba(88, 28, 180, 0.14);
+}
+
+.tm-cs-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 14px;
+}
+
+/* Height-capped rather than width-capped, so wordmarks of different aspect
+   ratios (FloBites 1.67, Viali 1.54) sit on a common baseline instead of one
+   towering over the other. */
+.tm-cs-logo {
+  height: 38px;
+  width: auto;
+  max-width: 65%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.tm-cs-badge {  
+  padding: 6px 0px;
+  font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #5b21b6;
+  font-weight: 600;
+}
+
+.tm-cs-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-bottom: 20px;
+}
+
+.tm-cs-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.tm-cs-metric-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #7c3aed 0%, #5b21b6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.tm-cs-metric-label {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: rgba(32, 29, 42, 0.55);
+}
+
+.tm-cs-quote {
+  /* The bottom margin is the gap down to the founder block — widened so that
+     block sits clearly lower rather than crowding the quote. */
+  margin: 0 0 40px;
+  padding-top: 16px;
+  /* Every slide shares the frame's height, so a card shorter than the tallest
+     one used to end in a band of blank white. Letting the quote take the slack
+     and centre itself within it spreads that space around the copy instead of
+     pooling it in one visible gap. */
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tm-quote-mark {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: rgba(124, 58, 237, 0.5);
+}
+
+.tm-cs-quote p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #1a1330;
+}
+
+.tm-cs-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Matches the desktop allowance for JRJP's near-square mark, which is
+   illegible at the 44px the wide wordmarks are fine with. */
+.tm-avatar--jrjp {
+  width: 62px;
+  height: 62px;
+  padding: 4px;
+}
+
+/* Brand-only credit: the logo sits a touch larger with no name beside it. */
+.tm-cs-person--logo-only .tm-avatar {
+  width: 56px;
+  height: 56px;
+}
+
+.tm-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(216, 74, 238, 0.12));
+  color: rgba(124, 58, 237, 0.6);
+  font-size: 1.1rem;
+}
+
+.tm-avatar--sm {
+  width: 36px;
+  height: 36px;
+  font-size: 0.95rem;
+}
+
+/* Real company logo instead of the generic person icon — a rounded
+   square with a plain white ground fits an arbitrary logo without the
+   circular purple-gradient badge clipping or clashing with its colors. */
+.tm-avatar--logo {
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(20, 16, 32, 0.08);
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.tm-avatar--logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* A person, not a mark — fills the circle edge to edge instead of being
+   inset on a white ground like a logo. */
+.tm-avatar--photo {
+  overflow: hidden;
+  background: rgba(20, 16, 32, 0.06);
+}
+
+.tm-avatar--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Stand-in for the brands that don't ship a logo (matches the desktop
+   grid's .pt-logo-fallback). */
+.tm-avatar-initials {
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #7c3aed;
+}
+
+.tm-person-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tm-person-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1a1330;
+}
+
+.tm-person-role {
+  margin-top: 2px;
+  font-size: 0.76rem;
+  color: rgba(32, 29, 42, 0.55);
+}
+
+/* Same gradient pill as the desktop grid's .pt-b-cta, so the two views read
+   as one component. */
+.tm-cs-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              filter 0.3s ease;
+}
+
+.tm-cs-cta:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5), 0 0 12px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.08);
+}
+
+.tm-cs-cta-arrow {
+  color: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tm-cs-cta:active .tm-cs-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Reviews (Type II): two stacked cards, alternating media side ── */
+.tm-reviews-slide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tm-review-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(20, 16, 32, 0.06);
+  border-radius: 10px;
+  padding: 40px 20px;
+  box-shadow: 0 16px 36px rgba(88, 28, 180, 0.1);
+}
+
+/* Top card: text left, image right. */
+.tm-review--text-left {
+  flex-direction: row;
+}
+
+/* Bottom card: image left, text right. */
+.tm-review--image-left {
+  flex-direction: row-reverse;
+}
+
+/* Top card: the credit is a third flex item that wraps onto its own line, so
+   it spans the card's full width along the bottom edge — below the logo and
+   left-aligned with it, but free to use the whole card to wrap in rather than
+   being boxed into the logo's column. Leaves the quote at its full width, so
+   the card grows only by the height of this row. */
+.tm-review--credit-below {
+  flex-wrap: wrap;
+}
+
+.tm-review--credit-below .tm-review-person {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Holds the brand's own logo/initials avatar, so the slot itself stays
+   transparent and lets .tm-avatar supply the ground. */
+.tm-review-media {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.tm-review-media .tm-avatar {
+  width: 100%;
+  height: 100%;
+  font-size: 1.4rem;
+}
+
+.tm-review-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tm-review-quote {
+  margin: 0 0 12px;
+}
+
+.tm-review-quote p {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: rgba(32, 29, 42, 0.82);
+}
+
+.tm-review-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Prev/next arrows + pagination dots ── */
+.tm-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.tm-nav-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tm-nav-arrow:active {
+  transform: scale(0.92);
+  background: rgba(124, 58, 237, 0.18);
+}
+
+.tm-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tm-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(124, 58, 237, 0.25);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.tm-dot-active {
+  background: #7c3aed;
+  transform: scale(1.35);
+}
+
+/* ── Slide transition ── */
+@keyframes tm-fromRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes tm-fromLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes tm-outRight {
+  to { opacity: 0; transform: translateX(28px); }
+}
+@keyframes tm-outLeft {
+  to { opacity: 0; transform: translateX(-28px); }
+}
+
+/* These four durations are mirrored by PHASE_OUT_MS / PHASE_IN_MS in
+   TestimonialsMobile.jsx, which sequences the two halves — change one and the
+   other has to move with it, or the swap will cut off or hang. */
+.tm-phase-out-right { animation: tm-outRight 0.16s ease both; }
+.tm-phase-out-left  { animation: tm-outLeft  0.16s ease both; }
+.tm-anim-from-right { animation: tm-fromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.tm-anim-from-left  { animation: tm-fromLeft  0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-anim-from-right,
+  .tm-anim-from-left {
+    animation: none;
+  }
+}
+
+/* ── Small phones ── */
+@media (max-width: 380px) {
+  .tm-cs-card {
+    padding: 22px;
+  }
+
+  .tm-review-card {
+    padding: 34px 16px;
+    gap: 12px;
+
+  }
+
+  .tm-review-media {
+    width: 60px;
+    height: 60px;
+  }
+}

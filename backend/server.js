@@ -38,15 +38,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// MongoDB Connection with simplified options
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-  console.log('MongoDB Atlas connected successfully');
-  console.log('Database:', mongoose.connection.name);
-})
-.catch((err) => {
-  console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit if can't connect to database
+// Ensure the DB is connected before any route runs. This sits after CORS so a
+// failure still carries the CORS headers and reaches the browser as a readable
+// 503 instead of an opaque "Failed to fetch".
+// Scoped to /api so /health stays answerable while the DB is down.
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDb();
+    next();
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    res.status(503).json({
+      success: false,
+      message: 'Database unavailable. Please try again in a moment.',
+    });
+  }
 });
 
 // Handle MongoDB connection events
@@ -69,12 +75,21 @@ app.get('/', (req, res) => {
   res.json({ message: 'PyroSynergy Backend API' });
 });
 
-// Health check route
-app.get('/health', (req, res) => {
-  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
-  res.json({ 
-    status: 'ok', 
-    database: dbStatus,
+// Health check route. Deliberately outside the /api DB guard so it still
+// answers while Mongo is unreachable — that is exactly when it is needed.
+// `mongoUriConfigured` separates "env var missing" from "cannot reach Atlas".
+app.get('/health', async (req, res) => {
+  let dbError = null;
+  try {
+    await connectDb();
+  } catch (err) {
+    dbError = err.message;
+  }
+  res.json({
+    status: 'ok',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    mongoUriConfigured: Boolean(process.env.MONGODB_URI),
+    dbError,
     timestamp: new Date().toISOString()
   });
 });

@@ -2,28 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const Copywriter = () => {
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    // preserve original scroll behaviour only
-    window.scrollTo(0, 0);
-
-    // Detect mobile device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

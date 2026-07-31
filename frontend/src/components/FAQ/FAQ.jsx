@@ -45,6 +45,40 @@ const faqs = [
   }
 ];
 
+// Plain-text mirror of `faqs` above, used only for the FAQPage structured data.
+// Kept separate because several rendered answers are JSX, which schema.org needs
+// flattened to text. Keep in sync with `faqs` when questions change.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      question: 'What services do you offer?',
+      answer: 'We offer growth services (we like to comprehensively call them "solutions"), which cover both strategy and execution. Strategy involves getting a deep understanding of your business (and its bottlenecks) through our PyroStack framework. Execution involves everything needed to implement the strategy; including UI/UX design, brand identity, web development, content design, social media management, AI creatives, workflows and automations.',
+    },
+    {
+      question: 'Why PyroSynergy, when other agencies exist?',
+      answer: 'Most agencies skip the strategy and sell you execution. We understand the need for empathy, especially when you are early-stage. PyroSynergy identifies and helps 0-to-traction businesses building a solid, market-viable product who needs growth strategies and execution.',
+    },
+    {
+      question: 'How does the pricing work?',
+      answer: 'Every project is a custom solution, scoped and priced based on what is actually needed. Once we understand your goals and where you are, we put together a clear proposal. Engagements typically start at $1k, with most projects ranging from $3k-$15k.',
+    },
+    {
+      question: 'What kind of founders does PyroSynergy work with?',
+      answer: 'Typically early-stage founders who have pushed their product to the real world, regardless of industry or domain, and are receiving any form of market validation; be it recognition, revenue, or both.',
+    },
+    {
+      question: 'How does a typical engagement work?',
+      answer: 'We start with a series of discovery calls and questions to understand your product, goals, and bottlenecks. This is followed by a strategy call, where we define the scope, deliverables, and timeline required to grow your business. Upon agreement, we jump right into building and execution.',
+    },
+  ].map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+
 const FAQ = ({ openCalendarPopup }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -54,20 +88,21 @@ const FAQ = ({ openCalendarPopup }) => {
 
   return (
     <section id="faq" className="faq-section">
-      {/* Decorative blurs */}
+      {/* Enables FAQ rich results in search. React 19 hoists this into <head>. */}
+      <script type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </script>
       <div className="faq-blur faq-blur-1"></div>
       <div className="faq-blur faq-blur-2"></div>
 
       <div className="faq-container">
         <div className="faq-left">
           <div className="faq-left-inner">
-            <h2 className="faq-title">FAQs</h2>
-            <p className="faq-subtitle">
-              Clear answers to help you understand how we work, what to expect, and whether this is the right fit for you.
-            </p>
+            <h2 className="faq-title">Frequently <br />Asked Questions</h2>
+            
             <div className="faq-cta-box">
               <p className="faq-cta-heading">Still have questions?</p>
-              <p className="faq-cta-desc">Our experts are ready to guide you through the transition.</p>
+              <p className="faq-cta-desc">Our growth team is ready to guide you through the process.</p>
               <button className="faq-cta-button" onClick={openCalendarPopup}>
                 Book a FREE discovery call
               </button>
@@ -84,7 +119,7 @@ const FAQ = ({ openCalendarPopup }) => {
               <button className="faq-question" onClick={() => toggle(index)}>
                 <span className="faq-question-text">{faq.question}</span>
                 <span className="faq-icon">
-                  <span className="faq-icon-symbol">{openIndex === index ? '−' : '+'}</span>
+                  <span className="faq-icon-symbol">{openIndex === index ? '-' : '+'}</span>
                 </span>
               </button>
               <div className="faq-answer-wrapper">

@@ -8,7 +8,9 @@
   isolation: isolate;
   position: relative;
   width: 100%;
-  background: linear-gradient(290.63deg, #ECCEFF 0.93%, #FCF7FF 46.2%, #ECCEFF 100%);
+  /* Gradient hoisted to .empathy-faq-panel (App.css) so the banner above and
+     this section share one continuous ramp instead of two. */
+  background: transparent;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -229,11 +231,12 @@
 .faq-answer-wrapper {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease;
+  transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: max-height;
 }
 
 .faq-item-open .faq-answer-wrapper {
-  max-height: 500px;
+  max-height: 400px;
 }
 
 .faq-answer {
@@ -309,36 +312,74 @@
 @media (max-width: 768px) {
   .faq-section {
     padding: 48px 20px;
-  }
-
-  .faq-container {
+    display: flex;
     flex-direction: column;
-    gap: 40px;
   }
 
-  .faq-left {
-    flex: none;
+  /* 1. Make the wrappers "invisible" to the layout engine so their children can be reordered globally */
+  .faq-container,
+  .faq-left,
+  .faq-left-inner {
+    display: contents; 
+  }
+
+  /* 2. ORDER 1: Title goes to the absolute top */
+  .faq-title {
+    order: 1;
+    font-size: 0px;
+    line-height: 44px;
+    text-align: left; /* Kept left aligned like your screenshot */
+    margin-bottom: 0px;
     width: 100%;
   }
-
-  .faq-left-inner {
-    padding: 0;
-    gap: 32px;
+  .faq-title::after {
+    content: "FAQ's";
+    font-size: 40px; /* Bring the font size back up for the new text */
+    font-weight: 700;
+    color: #1E102B;
   }
 
-  .faq-title {
-    font-size: 40px;
-    line-height: 48px;
+  /* Fix the line break so it fits mobile screen widths nicely */
+  .faq-title br {
+    display: none;
   }
 
+  /* 3. ORDER 2: All the FAQ items block sits right below the title */
+  .faq-right {
+    order: 2;
+    width: 100%;
+    margin-bottom: 40px; /* Space between last FAQ and the CTA card */
+  }
+
+  /* 4. ORDER 3: The "Still have questions" card drops to the absolute bottom */
+  .faq-cta-box {
+    order: 3;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centers the button horizontally */
+    text-align: center;
+  }
+  .faq-cta-heading {
+    font-size: 20px;
+    text-align: center;
+  }
+  .faq-cta-desc {
+    font-size: 14px;
+    padding:0 10px;
+    text-align: center;
+  }
+  .faq-cta-button {
+    font-size: 14px;
+  }
+
+  /* --- REST OF YOUR MOBILE OVERRIDES --- */
   .faq-subtitle {
     width: 100%;
     font-size: 16px;
     line-height: 22px;
-  }
-
-  .faq-cta-box {
-    padding: 24px;
   }
 
   .faq-question {

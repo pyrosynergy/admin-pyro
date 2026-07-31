@@ -18,7 +18,7 @@ const PolicyPages = () => {
       <main className="terms-page">
         <section className="terms-container">
           <h1>Legal Policies &amp; Terms</h1>
-          <p className="terms-updated">Effective Date: June 2025</p>
+          <p className="terms-updated">Last Updated: May 2026</p>
 
           <p>
             This page outlines how PyroSynergy handles your data, and the terms that
@@ -41,7 +41,7 @@ const PolicyPages = () => {
 
           <address className="terms-address">
             PyroSynergy LLP<br />
-            Ground Floor, 16-11-741/C/A/39, SBH Colony, Moosarambagh, Hyderabad, Telangana, India - 500036
+            "VJ Hub", Vignana Jyothi Nagar, Bachupally (S.O.), Hyderabad TG 500118
           </address>
 
           <p className="copyright">

@@ -1,0 +1,870 @@
+.testimonials-section {
+  background:#eee8f5 ;
+  padding: 50px 20px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Albert Sans", sans-serif;
+  color: #29292a;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 150px;
+}
+
+.testimonials-header h2 {
+  margin: 0;
+  font-size: clamp(1.85rem, 4vw, 4rem);
+  line-height: 1.14;
+  font-weight: 450;
+  letter-spacing: -2.5px;
+  color: #040404;
+}
+
+.highlight-purple {
+  background: linear-gradient(90deg, #d84aee 0%,#af3cc1 20%, #875ceb 45%,#6d49c2 60%, #1c4fbd 80%,#2563e8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 450;
+  display: inline-block;
+  font-family:'bricolage grotesque', 'DM Sans', sans-serif;
+  letter-spacing: -2.5px;
+  padding-right: 1px;
+}
+
+/*
+ * ── Bento layout ──
+ * Three independent masonry columns sharing one top edge. B lives inside
+ * the center column (not a separate full-width row above everything), so
+ * the outer A cards start level with B instead of below it — that's what
+ * gives the section a staggered outline rather than a flat rectangular
+ * one. Each column stacks its own cards at its own natural height, so the
+ * center column's second card (Delicacy) starts right after its short
+ * VJ/MIH pair instead of matching the outer columns' tall first card, and
+ * each outer C sits directly beneath its own column's A. No pixel spans
+ * are guessed; every offset comes from real content height.
+ */
+.pt-bento-columns {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pt-bento-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1 1 300px;
+  max-width: 420px;
+}
+
+.pt-bento-col-center {
+  /* ~13% narrower than the old standalone B row (620px), so B reads less
+     dominant and the center column sits comfortably between the two A's. */
+  flex: 1 1 480px;
+  max-width: 340px;
+  margin-top:-70px;
+}
+
+.pt-bento-pair {
+  display: flex;
+  gap: 20px;
+}
+
+.pt-bento-pair > * {
+  flex: 1;
+}
+
+/* ── Shared card shell ── */
+.pt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: white;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s ease,
+              border-color 0.45s ease;
+}
+
+.pt-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.28), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.pt-card:hover {
+  /* transform: translateY(-8px); */
+  border-color: rgba(168, 85, 247, 0.35);
+  box-shadow: 0 10px 40px rgba(88, 28, 180, 0.28), 0 0 0 1px rgba(168, 85, 247, 0.10);
+}
+
+/* .pt-card:hover::before {
+  opacity: 1;
+} */
+
+.pt-logo-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.28), rgba(99, 102, 241, 0.14));
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* ── Shared logo treatment: mid-size, bottom-right in every card type ── */
+.pt-a-logo,
+.pt-b-logo,
+.pt-c-logo {
+  flex-shrink: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pt-a-logo img,
+.pt-b-logo img,
+.pt-c-logo img {
+  max-height: 32px;
+  max-width: 100px;
+  object-fit: contain;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.pt-card:hover .pt-a-logo img,
+.pt-card:hover .pt-b-logo img,
+.pt-card:hover .pt-c-logo img {
+  opacity: 1;
+}
+
+/* Footer with a founder portrait: the photo and the name sit together on the
+   left rather than being pushed to opposite edges. Needs both classes to
+   outrank .pt-a-footer's space-between further down. */
+.pt-a-footer.pt-footer--photo,
+.pt-c-footer.pt-footer--photo {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+/* flex-start above would leave the logo sitting against the name; this returns
+   it to the right edge, matching the corner it occupies on the cards that have
+   no portrait. */
+.pt-footer--photo .pt-a-logo,
+.pt-footer--photo .pt-c-logo {
+  margin-left: auto;
+}
+
+.pt-founder-photo {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.pt-founder-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* The 32px height cap suits the wide wordmarks, but JRJP's mark is nearly
+   square (127x114) — under that cap it lands at ~36x32 and its detail is
+   unreadable, so it gets a taller allowance. */
+.pt-logo--jrjp {
+  height: 66px;
+  /* Nudged toward the card's right edge — the card's 32px padding leaves it
+     sitting further in than the wide wordmarks appear to, since those fill
+     their box and this near-square mark doesn't. */
+  margin-right: -10px;
+}
+
+.pt-logo--jrjp img {
+  max-height: 66px;
+  max-width: 80px;
+}
+
+/* ── Category A: large testimonial ── */
+.pt-a-media {
+  position: relative;
+  height: 128px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pt-a-media-icon {
+  font-size: 2.6rem;
+  color: rgba(255, 255, 255, 0.35);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover no longer moves or scales anything — the card keeps its shadow /
+   border lift only. */
+
+.pt-accent-viali .pt-a-media {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.28), rgba(139, 92, 246, 0.22));
+}
+
+.pt-accent-flobites .pt-a-media {
+  background: linear-gradient(135deg, rgba(255, 138, 178, 0.28), rgba(255, 196, 140, 0.18));
+}
+
+/* JRJP: Aira, the AI brand ambassador. The portrait holds the left half of the
+   media box and feathers out across the right, so the name can sit over the
+   faded end without a scrim behind it. */
+.jrjp-ambassador {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Owns the left half outright — the copy is a sibling flex item, not an
+   overlay, so the two never sit on top of each other. `contain` keeps the
+   whole portrait in view instead of cropping it to the box. */
+.jrjp-ambassador-img {
+  /* Sized off its own aspect rather than a share of the box: full height,
+     width follows. That is the largest the portrait can be with nothing
+     cropped, and it makes the element exactly as wide as the image, so the
+     fade below lands on the picture instead of on empty letterbox. */
+  flex: 0 0 auto;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  /* Fully opaque to the midpoint, then a linear ramp to nothing across the
+     back half. Because the element is exactly as wide as the picture, the
+     ramp runs over the image itself and finishes at its real right edge —
+     which is why this must stay `contain` with an auto width. */
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 50%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 50%, transparent 100%);
+}
+
+.jrjp-ambassador-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 16px;
+}
+
+/* The headline figure the card is really about, so it outsizes the name
+   beneath it. */
+.jrjp-ambassador-metric {
+  font-family: 'albert sans', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  color: #12101a;
+}
+
+.jrjp-ambassador-metric-label {
+  margin-top: 3px;
+  font-family: 'albert sans', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(18, 16, 26, 0.6);
+}
+
+/* Parts the metric from the ambassador's own credit, so the four lines read
+   as two blocks rather than one list. */
+.jrjp-ambassador-metric-label + .jrjp-ambassador-name {
+  margin-top: 12px;
+}
+
+.jrjp-ambassador-name {
+  font-family: 'albert sans', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.4px;
+  color: #12101a;
+}
+
+.jrjp-ambassador-role {
+  margin-top: 5px;
+  font-family: 'albert sans', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(18, 16, 26, 0.6);
+}
+
+/* The metric adds two more lines to the copy, which no longer clears the
+   shared 128px media height. The portrait is height-driven, so this also
+   enlarges it — from 147x128 to 172x150 — which is as far as it can go before
+   the copy beside it loses more width than it can spare. No width cap and no
+   `cover` here: cropping the picture is what made the fade land on solid
+   content instead of running out at the image's own edge. */
+.pt-card--jrjp .pt-a-media {
+  height: 150px;
+}
+
+/* Flobites Collage */
+.flobites-collage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flobites-collage img {
+  position: absolute;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+/* Left: three phones mockup */
+.flobites-collage .img-three-phones {
+  left: -2%;
+  bottom: -20px;
+  height: 100%;
+  z-index: 3;
+  transform-origin: bottom left;
+}
+
+/* Center: laptop mockup */
+.flobites-collage .img-laptop {
+  left: 32%;
+  bottom: -5px;
+  height: 90%;
+  z-index: 2;
+  transform-origin: bottom center;
+}
+
+/* Right: phone collage (tab) */
+.flobites-collage .img-phone-collage {
+  right: 2%;
+  bottom: 15px;
+  height: 90%;
+  z-index: 1;
+  transform-origin: bottom right;
+}
+
+/* No hover movement on the collage — the artwork stays put. */
+
+/* Viali Collage */
+.viali-collage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.viali-collage img {
+  position: absolute;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+/* Right: showcase devices mockup */
+.viali-collage .viali-devices {
+  right: 2%;
+  bottom: 1px;
+  height: 95%;
+  z-index: 1;
+  transform-origin: bottom right;
+}
+
+/* Left: glass-morphic viali logo container */
+.viali-collage .viali-logo {
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: 50px;
+  max-width: 100px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transform-origin: center center;
+}
+
+/* Hover keeps the logo's shadow/background lift but no movement. The
+   translateY(-50%) below is the badge's own vertical centering, not a hover
+   offset — it has to stay or the badge drops out of place. */
+.pt-card:hover .viali-collage .viali-logo {
+  transform: translateY(-50%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.pt-accent-delicacy .pt-a-media {
+  background: linear-gradient(135deg, rgba(245, 197, 106, 0.26), rgba(168, 85, 247, 0.18));
+}
+
+.pt-quote-mark {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: rgba(168, 85, 247, 0.55);
+}
+
+.pt-a-quote {
+  flex: 1;
+  margin: 0;
+}
+
+.pt-a-quote p {
+  margin: 0;
+  font-family: 'albert sans', sans-serif;
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.3px;
+  color: black;
+}
+
+.pt-a-cta {
+  align-self: flex-start;
+  margin: 16px 0 4px;
+}
+
+.pt-a-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pt-a-person {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-a-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: black;
+}
+
+/* JRJP's name is the full brand name — the longest in the set — and it shares
+   the footer with a logo, leaving it about 196px. At the shared 0.95rem it
+   runs ~187px and sits on one line with room to spare; nowrap holds it there.
+   Enlarging this is what pushed it onto a second line, so it stays at the
+   shared size. */
+.pt-card--jrjp .pt-a-name {
+  white-space: nowrap;
+}
+
+.pt-a-role {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  /* Solid black, matching .pt-c-role on the smaller cards. At 55% opacity this
+     line — which carries the designation and the company name — read as washed
+     out next to the identical line on every other card in the grid. */
+  color: black;
+}
+
+/* ── Category B: metric / case study ── */
+.pt-b-label {
+  display: block;
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: black;
+}
+
+.pt-b-footer {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* No CTA button (e.g. JRJP has no caseStudyPath) means the logo is the
+   only child left in this row — explicit flex-start rather than relying
+   on how a lone flex child happens to resolve under space-between. */
+.pt-b-footer--logo-left {
+  justify-content: flex-start;
+}
+
+.pt-b-metric {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.pt-b-number {
+  font-family: "bricolage grotesque", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(3rem, 5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #bd66d3 0%, #8f13e2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.pt-b-metric-label {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: black;
+}
+
+.pt-b-desc {
+  flex: 1;
+  margin: 18px 0 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: black;
+}
+
+.pt-b-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: white;
+  cursor: pointer;
+  /* Matches .tm-cs-cta, the same button on mobile, which was already on Albert
+     Sans while this one sat on Bricolage. */
+  font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background 0.3s ease,
+              filter 0.3s ease;
+}
+
+.pt-b-cta:hover {
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5), 0 0 12px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.08);
+}
+
+.pt-b-cta-arrow {
+  color: white;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The arrow stays in place on hover. */
+
+/* ── Category C: small quote ── */
+.pt-card--c {
+  padding: 26px 24px;
+}
+
+.pt-c-quote {
+  flex: 1;
+  margin: 0;
+}
+
+.pt-c-quote p {
+  margin: 0;
+  font-family: 'albert sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.2px;
+  color: black;
+}
+
+.pt-c-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pt-c-person {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-c-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: black;
+}
+
+.pt-c-role {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  color: black;
+}
+
+/*
+ * ── Proportional scale-down, 992–1169px ──
+ * This range sits above where <TestimonialsMobile /> takes over (≤991px,
+ * see Testimonials.jsx), so the desktop 3-column masonry is still what's
+ * rendered here — same DOM, same flex-wrap row, same column order, same
+ * A>B>C hierarchy. Nothing here changes display mode, reorders cards, or
+ * reflows columns; every value is just the desktop one scaled down
+ * (~0.8×) so the identical composition fits a narrower viewport without
+ * wrapping to a second row, rather than becoming a different tablet
+ * layout.
+ */
+@media (max-width: 1169px) {
+  .pt-bento-columns {
+    max-width: 960px;
+    gap: 16px;
+    padding-bottom:50px;
+  }
+
+  .pt-bento-col {
+    flex-basis: 235px;
+    max-width: 250px;
+    gap: 16px;
+  }
+
+  /*
+   * Left column (Viali A, ToG C) and right column (FloBites A, Elytrix C)
+   * only — :not(.pt-bento-col-center) excludes the middle column (JRJP,
+   * VJ/MIH pair, Delicacy). Width was already equal (flex's default
+   * align-items: stretch fills each column's resolved width). Height is
+   * NOT forced to match between A and C — an A card (photo + quote + CTA +
+   * footer) genuinely has more content than a C card (quote + footer
+   * only), and giving them the same height left the C cards with a large
+   * dead gap above the footer.
+   *
+   * Instead, A matches A and C matches C, each fixed to its own shared
+   * height: Viali and FloBites's quotes are different lengths, so without
+   * this their two columns drift out of alignment by however many extra
+   * lines one quote wraps to — everything below (the C card) inherits
+   * that offset. Fixing both A cards to one height keeps the two columns
+   * level, and ToG/Elytrix then start at the same row in both columns too.
+   */
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card {
+    width: 100%;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
+    min-height: 400px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
+    min-height: 190px;
+  }
+
+  .pt-bento-col-center {
+    flex-basis: 400px;
+    max-width: 420px;
+    margin-top: -56px;
+  }
+
+  .pt-bento-pair {
+    gap: 16px;
+  }
+
+  .pt-card {
+    padding: 26px;
+  }
+
+  .pt-a-media {
+    height: 104px;
+    margin-bottom: 20px;
+  }
+
+  .pt-a-quote p {
+    font-size: 1.12rem;
+  }
+
+  .pt-a-footer {
+    margin-top: 20px;
+    padding-top: 14px;
+  }
+
+  .pt-b-metric {
+    margin-top: 20px;
+  }
+
+  .pt-b-number {
+    font-size: 2.3rem;
+  }
+
+  .pt-b-desc {
+    font-size: 0.82rem;
+  }
+
+  .pt-c-quote p {
+    font-size: 0.92rem;
+  }
+}
+
+/*
+ * ── Further scale-down, 767–991px ──
+ * The 1169px tier's column widths (250 + 420 + 250 + 2×16 gap ≈ 952px)
+ * only just fit at 992px and don't fit a 768px viewport (~730px available
+ * after section padding) — with flex-wrap still active, that pushed the
+ * third column onto its own row. This tier scales everything down further
+ * (not reordered, not stacked) and, unlike the tier above, drops
+ * flex-grow entirely (flex: 0 1 …) so each column is deterministically
+ * its stated width and can never expand to fill leftover space — no
+ * dependency on how the browser resolves flex-grow once one column hits
+ * its max-width cap.
+ */
+@media (max-width: 991px) {
+  .testimonials-section {
+    padding: 80px 16px 10px;
+  }
+
+  .testimonials-header {
+    margin-bottom: 70px;
+    padding-right: 5px;
+  }
+
+  .pt-bento-columns {
+    max-width: 660px;
+    gap: 10px;
+  }
+
+  .pt-bento-col {
+    flex: 0 1 170px;
+    max-width: 170px;
+    gap: 10px;
+  }
+
+  .pt-bento-col-center {
+    flex: 0 1 280px;
+    max-width: 280px;
+    margin-top: -36px;
+  }
+
+  .pt-bento-pair {
+    gap: 10px;
+  }
+
+  .pt-card {
+    padding: 18px;
+  }
+
+  .pt-card--c {
+    padding: 16px 14px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--a {
+    min-height: 360px;
+  }
+
+  .pt-bento-col:not(.pt-bento-col-center) .pt-card--c {
+    min-height: 160px;
+  }
+
+  .pt-a-media {
+    height: 76px;
+    margin-bottom: 14px;
+  }
+
+  .pt-a-quote p {
+    font-size: 0.88rem;
+  }
+
+  .pt-a-footer {
+    margin-top: 14px;
+    padding-top: 10px;
+  }
+
+  .pt-b-metric {
+    margin-top: 14px;
+  }
+
+  .pt-b-number {
+    font-size: 1.7rem;
+  }
+
+  .pt-b-desc {
+    font-size: 0.7rem;
+  }
+
+  .pt-c-quote p {
+    font-size: 0.75rem;
+  }
+}
+
+
+/* The base clamp bottoms out at its 1.85rem floor across every phone width,
+   which left this heading smaller than WhyUs's (1.9rem here) and smaller than
+   the section warrants. Driven by vw instead of a flat value so it keeps
+   growing with the screen — roughly 34px on a 390px phone and 38px on a 430px
+   one, against the 30px it used to hold everywhere — while the 1.9rem floor
+   protects the narrowest devices, where the second line is close to filling
+   its measure. Capped at 2.4rem so it hands over to the base clamp at 600px
+   without a jump.
+
+   Letter-spacing eases off with the size: -2.5px is tuned for the 4rem desktop
+   setting and both crowds the glyphs and, at this width, is load-bearing for
+   whether "after working with us" stays on one line. */
+@media (max-width: 600px) {
+  .testimonials-header h2 {
+    font-size: clamp(1.9rem, 8.8vw, 2.4rem);
+    letter-spacing: -1.8px;
+  }
+
+  /* .highlight-purple carries its own -2.5px, which the rule above can't
+     reach — it sits on the span, not the h2. */
+  .testimonials-header h2 .highlight-purple {
+    letter-spacing: -1.8px;
+  }
+}

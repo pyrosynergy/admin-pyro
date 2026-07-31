@@ -14,9 +14,17 @@
   ========================================
   */
 
-@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+/* Google Fonts are loaded via a single preconnected <link> in index.html.
+   They are deliberately NOT @import-ed here: a CSS @import is render-blocking
+   and only starts downloading after this stylesheet itself has arrived. */
+
+@font-face {
+    font-family: "Arlette Heavy";
+    src: url("./assets/fonts/arlette-heavy.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
@@ -59,6 +67,29 @@ html {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  /* "clip" (not "hidden") avoids forcing overflow-y to auto, which would
+     turn body into a phantom scroll container and break position:sticky
+     for descendants relying on the real page/viewport scroll. */
+  overflow-x: clip;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+/*
+  EmpathyBanner + FAQ share one lilac wash. Painting the same gradient on
+  each section separately restarts the ramp per box, and because a 290.63deg
+  gradient's colour at a given point depends on that box's dimensions, the
+  two edges never resolve to the same colour — which reads as a hairline
+  border at the join. One wrapper, one gradient, no seam.
+*/
+.empathy-faq-panel {
+  background: linear-gradient(290.63deg, #ECCEFF 0.93%, #FCF7FF 46.2%, #ECCEFF 100%);
 }
 
 /*
@@ -117,4 +148,43 @@ html {
 /* Prevent scrolling during loading */
 body.loading {
   overflow: hidden;
+}
+
+/* Placeholder held while a lazily-loaded route chunk is fetched. Reserves
+   viewport height so the header doesn't collapse onto the footer mid-load. */
+.route-fallback {
+  min-height: 100vh;
+}
+
+/* Shown by RouteErrorBoundary when a route chunk fails outright. Deliberately
+   plain: it has to render correctly when the page's own stylesheet is exactly
+   what failed to arrive, so it leans only on these rules. */
+.route-error {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.route-error-text {
+  margin: 0;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 1.05rem;
+  color: #e5e5e5;
+}
+
+.route-error-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(90deg, #d6c7f5 0%, #9279c3 100%);
+  color: #0d0b02;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
 }

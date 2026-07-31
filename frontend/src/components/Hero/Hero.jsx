@@ -1,15 +1,88 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Marquee from "react-fast-marquee";
 import './Hero.css';
-import bgvideo from "../../assets/bgvideo.mp4";
+import bgImage from "../../assets/hero_bg.webp";
 
-const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPopup, handleNavigateToQuestionnaire }) => {
+const Hero = ({ clientLogos, openCalendarPopup }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
   const lastChangeTime = useRef(Date.now());
-  const navigate = useNavigate();
+  const [logos, setLogos] = useState(() => clientLogos.slice(0, 6));
+  const logosRef = useRef(clientLogos.slice(0, 6));
+
+  useEffect(() => {
+    logosRef.current = logos;
+  }, [logos]);
+
+  const [fadingOut, setFadingOut] = useState([]); // indices currently fading out
+  const [fadingIn, setFadingIn] = useState([]);   // indices currently fading in
+
+  // Random shuffle effect for logos (instant change, no animation)
+  useEffect(() => {
+  let timeoutId;
+  let cancelled = false;
+
+  const shuffle = (arr) => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const runSwap = () => {
+    if (cancelled) return;
+
+    const currentLogos = logosRef.current;
+
+    // logos NOT currently on screen — the bench
+    const bench = clientLogos.filter(logo => !currentLogos.includes(logo));
+
+    // randomly swap 1 or 2, capped by bench size
+    const swapCount = Math.min(Math.random() < 0.5 ? 1 : 2, bench.length);
+    if (swapCount === 0) {
+      timeoutId = setTimeout(runSwap, 3500);
+      return;
+    }
+
+    // pick random slots from the displayed grid
+    const chosenIndices = shuffle(currentLogos.map((_, i) => i)).slice(0, swapCount);
+
+    // pick random incoming logos from bench (no duplicates guaranteed since bench has no current logos)
+    const incoming = shuffle(bench).slice(0, swapCount);
+
+    // Phase 1: fade out the chosen slots
+    setFadingOut(chosenIndices);
+
+    timeoutId = setTimeout(() => {
+      if (cancelled) return;
+
+      // swap in the new logos
+      setLogos(curr => {
+        const updated = [...curr];
+        chosenIndices.forEach((idx, i) => { updated[idx] = incoming[i]; });
+        return updated;
+      });
+      setFadingOut([]);
+      setFadingIn(chosenIndices);
+
+      timeoutId = setTimeout(() => {
+        if (cancelled) return;
+        setFadingIn([]);
+        // next swap only starts after this one is fully done
+        timeoutId = setTimeout(runSwap, 3500);
+      }, 450);
+    }, 450);
+  };
+
+  timeoutId = setTimeout(runSwap, 3500);
+
+  return () => {
+    cancelled = true;
+    clearTimeout(timeoutId);
+  };
+}, [clientLogos]);
 
   // Carousel effect for buttons on mobile
   useEffect(() => {
@@ -50,6 +123,14 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
     };
   }, [isHovered]);
 
+  const handleNavClick = (e, targetId) => {
+    if (e) e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -61,93 +142,77 @@ const Hero = ({ highlightedWords, highlightedIndex, clientLogos, openCalendarPop
   return (
     <section id="home" className="relative flex flex-col">
       <div className="content-video-wrapper">
-        <video autoPlay loop muted playsInline className="content-video-bg">
-          <source src={bgvideo} type="video/mp4" />
-        </video>
+        {/* LCP element — must load eagerly and at high priority. */}
+        <img src={bgImage} alt="" fetchPriority="high" decoding="async" className="content-image-bg" />
         <div className="content-video-fade-overlay"></div>
         <div
           className="flex flex-col items-center justify-center flex-1 content-on-top"
           style={{
             minHeight: "40vh",
-            paddingTop: "130px",
+            paddingTop: "100px",
             paddingBottom: "0px",
           }}
         >
-          <div 
-            className="hiring-announcement"
-            onClick={() => navigate('/hiring')}
-            role="button"
-            tabIndex={0}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                navigate('/hiring');
-              }
-            }}
-          >
-            We're Hiring! — Join our team →
-          </div>
-          <h1 className="hero-heading leading-snug">
-            <div>Let's make your business</div>
-            <div className="highlighted-container">
-              {highlightedWords.map((word, index) => (
-                <span
-                  key={index}
-                  className={`highlighted ${
-                    index === highlightedIndex ? "active" : ""
-                  }`}
-                >
-                  {word}
-                </span>
-              ))}
-            </div>
+
+          <h1 className="hero-heading max-w-5xl mx-auto text-center">
+          The growth partner <br></br>for founders who're <span className="purple-italic">done </span> <br></br> figuring it out alone.
           </h1>
           <p className="hero-desc">
-            From strategy to scale, we rebuild and redesign your brand into
-            its most{" "}
-            <span className="desc-highlight">
-              efficient, effective, and elegant
-            </span>{" "}
-            form — empowering you to{" "}
-            <span className="desc-italic">outgrow</span> your competitors in
-            sales and success.
+           We handle growth for your business early-on, right from <br/>
+            initial outreach strategy to market-level execution.
           </p>
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <h3>$150k+</h3>
+              <p>Partner Revenue<br />Generated</p>
+            </div>
+
+            <div className="hero-stat">
+              <h3>12+</h3>
+              <p>Industries<br />Served</p>
+            </div>
+
+            <div className="hero-stat">
+              <h3>90k+</h3>
+              <p>Partner Followers<br />Gained</p>
+            </div>
+         </div>
           <div 
             className="hero-buttons-container"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
+            
             <button
-              className={`hero-button strategy-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
+              className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
+                currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
               }`}
               onClick={openCalendarPopup}
             >
-              schedule a <span className="free-highlight">FREE</span> strategy
-              call
+              Book a <span className="free-highlight">FREE</span> Audit call
             </button>
             <button
-              className={`hero-button questionnaire-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
+              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
+                currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
               }`}
-              onClick={handleNavigateToQuestionnaire}
+              onClick={() => handleNavClick(null, 'pyrostack')}
             >
-              take <span className="free-highlight">3-minute</span> PyroReality Check
+              See How It Works
             </button>
           </div>
         </div>
-        <div className="marquee-outer-padding-container ">
-          <div className="marquee-inner-content-container hero-marquee">
-            <Marquee speed={100} pauseOnHover={true} pauseOnClick={false}>
-              {clientLogos.map((logo, idx) => (
-                <img
-                  key={idx}
-                  src={logo}
-                  alt={`client-${idx}`}
-                  className="client-logo"
-                />
-              ))}
-            </Marquee>
-          </div>
+        <div className="client-logos-grid-container">
+          {logos.map((logo, idx) => (
+            <img loading="lazy" decoding="async"
+              key={logo}
+              src={logo}
+              alt="client-logo"
+              className={`client-logo-grid-item
+                ${logo.includes('logo_tog') ? 'client-logo--tog' : ''}
+                ${fadingOut.includes(idx) ? 'logo-fade-out' : ''}
+                ${fadingIn.includes(idx) ? 'logo-fade-in' : ''}`}
+            />
+          ))}
         </div>
       </div>
     </section>
