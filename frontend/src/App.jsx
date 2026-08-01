@@ -262,11 +262,7 @@ const Page = ({ path, children }) => {
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(() => {
-    // Automatically skips loading screen on staging or local environments
-    const isStaging = window.location.hostname.includes('staging') || window.location.hostname.includes('localhost');
-    return !isStaging;
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
   const navRef = useRef(null);
