@@ -78,7 +78,7 @@ const ROUTES = {
     header: true,
     footer: false,
     meta: {
-      title: 'Reality Check — PyroSynergy',
+      title: 'Reality Check | PyroSynergy',
       description: 'Take the PyroSynergy reality check and find out where your business actually stands before you scale.',
     },
   },
@@ -86,7 +86,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Decode Your Business — PyroSynergy',
+      title: 'Decode Your Business | PyroSynergy',
       description: 'Answer a few questions and get a clear read on the gaps between where your business is and where you want it to go.',
     },
   },
@@ -94,7 +94,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Welcome — PyroSynergy',
+      title: 'Welcome | PyroSynergy',
       description: 'Welcome to PyroSynergy.',
       noindex: true,
     },
@@ -105,7 +105,7 @@ const ROUTES = {
     // HiringFooter, a fork that had drifted behind the main one.
     footer: true,
     meta: {
-      title: 'Careers & Internships — PyroSynergy',
+      title: 'Careers & Internships | PyroSynergy',
       description: 'Open internship and full-time roles at PyroSynergy. Work on real growth problems for founders across 12+ industries.',
     },
   },
@@ -170,7 +170,7 @@ const ROUTES = {
     header: true,
     footer: false,
     meta: {
-      title: 'Policies — PyroSynergy',
+      title: 'Policies | PyroSynergy',
       description: 'Privacy, refund, cancellation and terms of service policies for PyroSynergy.',
     },
   },
@@ -178,7 +178,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Privacy Policy — PyroSynergy',
+      title: 'Privacy Policy | PyroSynergy',
       description: 'How PyroSynergy collects, uses and protects your personal data.',
     },
   },
@@ -186,7 +186,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Refund Policy — PyroSynergy',
+      title: 'Refund Policy | PyroSynergy',
       description: 'PyroSynergy refund terms and eligibility.',
     },
   },
@@ -194,7 +194,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Cancellation Policy — PyroSynergy',
+      title: 'Cancellation Policy | PyroSynergy',
       description: 'PyroSynergy cancellation terms for engagements and subscriptions.',
     },
   },
@@ -202,7 +202,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Terms & Conditions — PyroSynergy',
+      title: 'Terms & Conditions | PyroSynergy',
       description: 'The terms governing your use of PyroSynergy services.',
     },
   },
@@ -218,7 +218,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Case Studies — PyroSynergy',
+      title: 'Case Studies | PyroSynergy',
       description: 'How PyroSynergy helps early-stage founders turn strategy into execution — the work, the decisions and the results.',
     },
   },
@@ -237,7 +237,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Admin — PyroSynergy',
+      title: 'Admin | PyroSynergy',
       description: 'PyroSynergy internal admin console.',
       noindex: true,
     },
@@ -245,7 +245,7 @@ const ROUTES = {
 };
 
 const NOT_FOUND_META = {
-  title: 'Page Not Found — PyroSynergy',
+  title: 'Page Not Found | PyroSynergy',
   description: 'The page you are looking for does not exist.',
   noindex: true,
 };
@@ -263,6 +263,7 @@ const Page = ({ path, children }) => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  
   const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
   const navRef = useRef(null);
