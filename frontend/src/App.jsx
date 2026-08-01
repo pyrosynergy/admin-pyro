@@ -262,10 +262,7 @@ const Page = ({ path, children }) => {
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(() => {
-    //splash screen hidden completely for all environments.
-    const [isLoading, setIsLoading] = useState(false);
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this line
   const navRef = useRef(null);
