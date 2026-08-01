@@ -84,7 +84,7 @@ const ROUTES = {
   },
   '/decode': {
     header: true,
-    footer: true,
+    footer: false,
     meta: {
       title: 'Decode Your Business | PyroSynergy',
       description: 'Answer a few questions and get a clear read on the gaps between where your business is and where you want it to go.',
@@ -111,7 +111,7 @@ const ROUTES = {
   },
   '/hiring/copywriter_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Copywriter Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Copywriter Intern and write the words that move founders, brands and their audiences.',
@@ -119,7 +119,7 @@ const ROUTES = {
   },
   '/hiring/videsign_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Visual Designer Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Visual Designer Intern and shape the visual identity of growing brands.',
@@ -127,7 +127,7 @@ const ROUTES = {
   },
   '/hiring/uxdesign_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'UX Designer Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a UX Designer Intern and design experiences that turn visitors into customers.',
@@ -135,7 +135,7 @@ const ROUTES = {
   },
   '/hiring/nocodeweb_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'No-Code Web Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a No-Code Web Intern and ship fast, polished websites for founder-led brands.',
@@ -143,16 +143,16 @@ const ROUTES = {
   },
   '/hiring/sales_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Sales Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Sales Intern and learn founder-level outreach, positioning and closing.',
     },
   },
-  '/hiring/content_intern_1': { header: false, footer: false },
+  '/hiring/content_intern_1': { header: false, footer: true },
   '/hiring/social_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Social Media Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Social Media Intern and grow real audiences for real businesses.',
@@ -160,7 +160,7 @@ const ROUTES = {
   },
   '/hiring/uiuxvd_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'UI/UX & Visual Design Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a UI/UX & Visual Design Intern and own design end to end, from wireframe to launch.',
@@ -168,7 +168,7 @@ const ROUTES = {
   },
   '/policy-pages': {
     header: true,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Policies | PyroSynergy',
       description: 'Privacy, refund, cancellation and terms of service policies for PyroSynergy.',

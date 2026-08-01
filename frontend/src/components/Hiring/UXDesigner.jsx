@@ -318,7 +318,6 @@ We’ll only go through eye-catching submissions that show an emotion and tell a
           </div>
         </div>
       </div>
-      <HiringFooter />
     </section>
   );
 };

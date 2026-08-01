@@ -351,7 +351,6 @@ We'll only go through eye-catching portfolios that show an emotion and tell a st
           </div>
         </div>
       </div>
-      <HiringFooter />
     </section>
   );
 };

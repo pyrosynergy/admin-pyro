@@ -348,7 +348,6 @@ We'll only go through eye-catching submissions that aren't too ChatGPT-like. If 
           </div>
         </div>
       </div>
-      <HiringFooter />
     </section>
   );
 };

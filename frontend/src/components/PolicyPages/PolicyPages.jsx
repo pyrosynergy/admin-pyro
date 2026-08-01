@@ -49,7 +49,6 @@ const PolicyPages = () => {
           </p>
         </section>
       </main>
-      <Footer/>
     </>
   );
 };
