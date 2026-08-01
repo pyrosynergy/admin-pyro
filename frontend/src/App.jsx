@@ -78,15 +78,15 @@ const ROUTES = {
     header: true,
     footer: false,
     meta: {
-      title: 'Reality Check — PyroSynergy',
+      title: 'Reality Check | PyroSynergy',
       description: 'Take the PyroSynergy reality check and find out where your business actually stands before you scale.',
     },
   },
   '/decode': {
     header: true,
-    footer: true,
+    footer: false,
     meta: {
-      title: 'Decode Your Business — PyroSynergy',
+      title: 'Decode Your Business | PyroSynergy',
       description: 'Answer a few questions and get a clear read on the gaps between where your business is and where you want it to go.',
     },
   },
@@ -94,7 +94,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Welcome — PyroSynergy',
+      title: 'Welcome | PyroSynergy',
       description: 'Welcome to PyroSynergy.',
       noindex: true,
     },
@@ -105,13 +105,13 @@ const ROUTES = {
     // HiringFooter, a fork that had drifted behind the main one.
     footer: true,
     meta: {
-      title: 'Careers & Internships — PyroSynergy',
+      title: 'Careers & Internships | PyroSynergy',
       description: 'Open internship and full-time roles at PyroSynergy. Work on real growth problems for founders across 12+ industries.',
     },
   },
   '/hiring/copywriter_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Copywriter Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Copywriter Intern and write the words that move founders, brands and their audiences.',
@@ -119,7 +119,7 @@ const ROUTES = {
   },
   '/hiring/videsign_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Visual Designer Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Visual Designer Intern and shape the visual identity of growing brands.',
@@ -127,7 +127,7 @@ const ROUTES = {
   },
   '/hiring/uxdesign_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'UX Designer Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a UX Designer Intern and design experiences that turn visitors into customers.',
@@ -135,7 +135,7 @@ const ROUTES = {
   },
   '/hiring/nocodeweb_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'No-Code Web Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a No-Code Web Intern and ship fast, polished websites for founder-led brands.',
@@ -143,16 +143,16 @@ const ROUTES = {
   },
   '/hiring/sales_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Sales Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Sales Intern and learn founder-level outreach, positioning and closing.',
     },
   },
-  '/hiring/content_intern_1': { header: false, footer: false },
+  '/hiring/content_intern_1': { header: false, footer: true },
   '/hiring/social_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'Social Media Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a Social Media Intern and grow real audiences for real businesses.',
@@ -160,7 +160,7 @@ const ROUTES = {
   },
   '/hiring/uiuxvd_intern_1': {
     header: false,
-    footer: false,
+    footer: true,
     meta: {
       title: 'UI/UX & Visual Design Intern — Careers at PyroSynergy',
       description: 'Join PyroSynergy as a UI/UX & Visual Design Intern and own design end to end, from wireframe to launch.',
@@ -168,9 +168,9 @@ const ROUTES = {
   },
   '/policy-pages': {
     header: true,
-    footer: false,
+    footer: true,
     meta: {
-      title: 'Policies — PyroSynergy',
+      title: 'Policies | PyroSynergy',
       description: 'Privacy, refund, cancellation and terms of service policies for PyroSynergy.',
     },
   },
@@ -178,7 +178,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Privacy Policy — PyroSynergy',
+      title: 'Privacy Policy | PyroSynergy',
       description: 'How PyroSynergy collects, uses and protects your personal data.',
     },
   },
@@ -186,7 +186,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Refund Policy — PyroSynergy',
+      title: 'Refund Policy | PyroSynergy',
       description: 'PyroSynergy refund terms and eligibility.',
     },
   },
@@ -194,7 +194,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Cancellation Policy — PyroSynergy',
+      title: 'Cancellation Policy | PyroSynergy',
       description: 'PyroSynergy cancellation terms for engagements and subscriptions.',
     },
   },
@@ -202,7 +202,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Terms & Conditions — PyroSynergy',
+      title: 'Terms & Conditions | PyroSynergy',
       description: 'The terms governing your use of PyroSynergy services.',
     },
   },
@@ -210,7 +210,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Flobites Case Study — PyroSynergy',
+      title: 'FloBites – Case Study | PyroSynergy',
       description: 'How PyroSynergy helped Flobites sharpen its positioning, rebuild its digital experience and reach the right audience.',
     },
   },
@@ -218,7 +218,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Case Studies — PyroSynergy',
+      title: 'Case Studies | PyroSynergy',
       description: 'How PyroSynergy helps early-stage founders turn strategy into execution — the work, the decisions and the results.',
     },
   },
@@ -226,7 +226,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Viali Hair Care Case Study — PyroSynergy',
+      title: 'Viali Hair Care – Case Study | PyroSynergy',
       description: 'How PyroSynergy helped Viali Hair Care grow its social reach and bring down customer acquisition cost.',
     },
   },
@@ -237,7 +237,7 @@ const ROUTES = {
     header: false,
     footer: false,
     meta: {
-      title: 'Admin — PyroSynergy',
+      title: 'Admin | PyroSynergy',
       description: 'PyroSynergy internal admin console.',
       noindex: true,
     },
@@ -245,7 +245,7 @@ const ROUTES = {
 };
 
 const NOT_FOUND_META = {
-  title: 'Page Not Found — PyroSynergy',
+  title: 'Page Not Found | PyroSynergy',
   description: 'The page you are looking for does not exist.',
   noindex: true,
 };
@@ -424,8 +424,8 @@ function App() {
           <Route path="/" element={
             <>
               <SEO
-                title="PyroSynergy — Growth Partners for Founders"
-                description="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly."
+                title="PyroSynergy – The Growth Partner for Founders in Motion"
+                description="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction."
                 path="/"
               />
               <Hero

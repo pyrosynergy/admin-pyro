@@ -322,7 +322,6 @@ We’ll only go through eye-catching submissions that tell a story through your 
           </div>
         </div>
       </div>
-      <HiringFooter />
     </section>
   );
 };

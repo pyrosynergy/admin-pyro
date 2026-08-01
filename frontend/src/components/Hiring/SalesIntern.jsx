@@ -361,7 +361,6 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
           </div>
         </div>
       </div>
-      <HiringFooter />
     </section>
   );
 };

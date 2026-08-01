@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PolicyPages.css';
-import HiringFooter from '../Hiring/HiringFooter';
+import Footer from '../Footer/Footer.jsx';
 
 const policyCards = [
   { id: 'privacy', title: 'Privacy Policy', route: '/policy-pages/privacy-policy' },
@@ -49,7 +49,6 @@ const PolicyPages = () => {
           </p>
         </section>
       </main>
-      <HiringFooter />
     </>
   );
 };
