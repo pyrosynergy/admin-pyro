@@ -210,7 +210,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Flobites Case Study — PyroSynergy',
+      title: 'FloBites – Case Study | PyroSynergy',
       description: 'How PyroSynergy helped Flobites sharpen its positioning, rebuild its digital experience and reach the right audience.',
     },
   },
@@ -226,7 +226,7 @@ const ROUTES = {
     header: true,
     footer: true,
     meta: {
-      title: 'Viali Hair Care Case Study — PyroSynergy',
+      title: 'Viali Hair Care – Case Study | PyroSynergy',
       description: 'How PyroSynergy helped Viali Hair Care grow its social reach and bring down customer acquisition cost.',
     },
   },
@@ -424,8 +424,8 @@ function App() {
           <Route path="/" element={
             <>
               <SEO
-                title="PyroSynergy — Growth Partners for Founders"
-                description="Dealing your businesses with empathy, right from strategy to AI. We help founders break down complex problems, lay strong foundations, and execute seamlessly."
+                title="PyroSynergy – The Growth Partner for Founders in Motion"
+                description="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction."
                 path="/"
               />
               <Hero
