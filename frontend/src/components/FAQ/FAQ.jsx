@@ -27,7 +27,7 @@ const faqs = [
     question: 'How does the pricing work?',
     answer: (
       <>
-        <p>Every project is a custom solution, scoped and priced based on what's actually needed. Once we understand your goals and where you are, we put together a clear proposal. Engagements typically start at ₹25k, with most projects ranging from ₹50k-5L.</p>
+        <p>Every project is a custom solution, scoped and priced based on what's actually needed. Once we understand your goals and where you are, we put together a clear proposal. Engagements typically start at $1k, with most projects ranging from $3k-$15k.</p>
       </>
     )
   },
