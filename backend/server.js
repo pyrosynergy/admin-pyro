@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
+const connectDb = require('./config/db');
 
 const { ALLOWED_ORIGINS } = require('./config/origins');
 
