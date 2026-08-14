@@ -48,8 +48,8 @@ const HiringFooter = () => {
           <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
           <a href="#services" onClick={(e) => handleNavClick(e, 'services')}>Solutions</a>
           <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
-          <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
-          <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+          <a href="/hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
+          <a href="/policy-pages" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
         </div>
 
         <div className="hiring-social-icons">

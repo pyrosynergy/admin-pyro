@@ -1,18 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './PolicyPages.css';
 
 const TermsAndConditions = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="terms-modal-overlay" style={{ animation: 'none', opacity: 1 }}>
       <div className="terms-modal-box">
         <div className="terms-modal-header">
           <h2>Terms & Conditions</h2>
-          <button className="terms-modal-close-icon" onClick={() => navigate('/policy-pages')}>
+          <Link className="terms-modal-close-icon" to="/policy-pages">
             &times;
-          </button>
+          </Link>
         </div>
         <div className="terms-modal-content">
           <p>
@@ -67,11 +65,7 @@ const TermsAndConditions = () => {
             PyroSynergy may update these terms at any time. Changes will be reflected on this page with a revised effective date. Continued use of our website or services following any update constitutes acceptance of the revised terms.
           </p>
         </div>
-        <div className="terms-modal-footer">
-          <button className="terms-modal-close-btn" onClick={() => navigate('/policy-pages')}>
-            Take Me Back
-          </button>
-        </div>
+        
       </div>
     </div>
   );

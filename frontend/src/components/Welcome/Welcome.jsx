@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Welcome.css';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { CALENDAR_URL, openExternalTab } from '../../lib/calendar.js';
@@ -18,17 +18,14 @@ const SOCIAL_LINKS = [
 ];
 
 const Welcome = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="pyro-landing-wrapper">
       <div className="pyro-landing-main">
         {/* Profile Section */}
         <div className="pyro-company-info">
-          <button
-            type="button"
+          <Link
             className="pyro-logo-container"
-            onClick={() => navigate('/')}
+            to="/"
             aria-label="Go to the PyroSynergy home page"
           >
             <img loading="lazy" decoding="async"
@@ -41,7 +38,7 @@ const Welcome = () => {
               }}
             />
             <div className="pyro-logo-fallback" style={{display: 'none'}}>PS</div>
-          </button>
+          </Link>
           <h1 className="pyro-company-title">PyroSynergy</h1>
           <p className="pyro-company-tagline">
             Your growth partner, right from strategy to execution.
@@ -66,28 +63,28 @@ const Welcome = () => {
             <span className="pyro-cta-subtitle">Schedule a FREE audit call</span>
           </button>
 
-          <button
-            type="button"
+          <Link
             className="pyro-cta pyro-cta-secondary"
-            onClick={() => navigate('/')}
+            to="/"
           >
             <span className="pyro-cta-title">Website</span>
             <span className="pyro-cta-subtitle">Visit our website</span>
-          </button>
+          </Link>
 
           {/* Instagram left, LinkedIn right — the two social boxes collapsed
               into icon-only links sitting under the CTAs. */}
           <div className="pyro-social-row">
             {SOCIAL_LINKS.map((social) => (
-              <button
+              <a
                 key={social.label}
-                type="button"
                 className="pyro-social-link"
-                onClick={() => openExternalTab(social.url)}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.label}
               >
                 {social.icon}
-              </button>
+              </a>
             ))}
           </div>
         </div>

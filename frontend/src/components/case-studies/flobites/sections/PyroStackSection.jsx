@@ -12,7 +12,7 @@ const PyroStackSection = () => {
     navigate('/');
     // Wait for the landing page to mount before scrolling to its section.
     setTimeout(() => {
-      const element = document.getElementById('pyrostack');
+      const element = document.getElementById('howitworks');
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
@@ -25,7 +25,7 @@ const PyroStackSection = () => {
           <h2 className="flobites-pyrostack-title">How did we pull this off?</h2>
 
         </div>
-        <a href="/#pyrostack" className="flobites-pyrostack-btn" onClick={handleViewMoreClick}>Learn More About Our Framework</a>
+        <a href="/#howitworks" className="flobites-pyrostack-btn" onClick={handleViewMoreClick}>Learn More About Our Framework</a>
       </div>
 
       <div className="flobites-pyrostack-grid">
@@ -67,7 +67,7 @@ const PyroStackSection = () => {
 
       <div className="flobites-pyrostack-detail">
         <span className="flobites-pyrostack-detail-number">3</span>
-        <h3 className="flobites-pyrostack-detail-heading">Strategy + execution plan</h3>
+        <h3 className="flobites-pyrostack-detail-heading">Strategy + Execution plan</h3>
         <p className="flobites-pyrostack-detail-body">
            A content strategy, a revised brand kit, a new website layout with a clear path to purchase, and an execution timeline were built based on the evaluation.</p>
         <div className="flobites-build-visual">

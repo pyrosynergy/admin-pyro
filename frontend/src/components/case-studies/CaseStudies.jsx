@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './CaseStudies.css';
 import flobitesLogo from '../../assets/logo_fb_the.png';
 import vialiLogo from '../../assets/logo_viali.png';
@@ -26,8 +26,6 @@ const caseStudies = [
 ];
 
 const CaseStudies = () => {
-  const navigate = useNavigate();
-
   return (
     <section className="cs-section">
       <div className="cs-header">
@@ -41,11 +39,10 @@ const CaseStudies = () => {
 
       <div className="cs-grid">
         {caseStudies.map((cs) => (
-          <button
-            type="button"
+          <Link
             key={cs.id}
             className={`cs-card cs-card--${cs.accent}`}
-            onClick={() => navigate(cs.path)}
+            to={cs.path}
           >
             <div className="cs-card-media">
               <div className="cs-card-glow" aria-hidden="true"></div>
@@ -66,7 +63,7 @@ const CaseStudies = () => {
                 </svg>
               </span>
             </div>
-          </button>
+          </Link>
         ))}
       </div>
     </section>

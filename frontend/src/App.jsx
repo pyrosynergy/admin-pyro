@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import Lenis from "lenis";
 import "./App.css";
 
 // --- Eager imports: chrome + above-the-fold homepage content (part of the entry chunk) ---
@@ -10,6 +11,7 @@ import Loading from "./components/Loading/Loading.jsx";
 import SEO from "./components/SEO/SEO.jsx";
 // Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
+import BackToTop from "./components/BackToTop/BackToTop.jsx";
 import { openCalendarPopup } from "./lib/calendar.js";
 // Must be eager: it exists to catch lazy chunks failing to load.
 import RouteErrorBoundary from "./components/RouteErrorBoundary/RouteErrorBoundary.jsx";
@@ -271,6 +273,27 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname;
+
+  // useEffect(() => {
+  // const lenis = new Lenis({
+  //   duration: 3,
+  //   smoothWheel: true,
+  //   wheelMultiplier: 0.7,
+  //   lerp: 0.04,
+  //   touchMultiplier: 1,
+  // });
+
+  // function raf(time) {
+  //   lenis.raf(time);
+  //   requestAnimationFrame(raf);
+  // }
+
+  // requestAnimationFrame(raf);
+
+  // return () => {
+  //   lenis.destroy();
+  // };
+  // }, []);
   // Header/footer visibility now comes from the ROUTES config above rather than
   // three separate hand-maintained path arrays. Unknown paths render the 404,
   // which shows neither.
@@ -379,6 +402,9 @@ function App() {
       {/* Resets scroll on route change; skips hash links. Renders nothing. */}
       <ScrollToTop />
 
+      {/* Mobile-only floating back-to-top button; hidden entirely on desktop. */}
+      <BackToTop />
+
       {/* Loading Screen */}
       {isLoading && <Loading />}
 
@@ -421,40 +447,62 @@ function App() {
           <Route path="/case-studies/viali" element={<Page path="/case-studies/viali"><Viali /></Page>} />
           <Route path={ADMIN_PATH} element={<Page path={ADMIN_PATH}><Admin /></Page>} />
           <Route path="/verify/:token" element={<Verify />} />
-          <Route path="/" element={
-            <>
-              <SEO
-                title="PyroSynergy – The Growth Partner for Founders in Motion"
-                description="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction."
-                path="/"
-              />
-              <Hero
-                highlightedWords={highlightedWords}
-                highlightedIndex={highlightedIndex}
-                clientLogos={clientLogos}
-                openCalendarPopup={openCalendarPopup}
-              />
+          <Route path="/"element={<>
+                {/* Hero */}
+                <section data-header-theme="dark">
+                  <Hero
+                    highlightedWords={highlightedWords}
+                    highlightedIndex={highlightedIndex}
+                    clientLogos={clientLogos}
+                    openCalendarPopup={openCalendarPopup}
+                  />
+                </section>
 
-              <WhyUs />
-              <Banner />
-              <Testimonials />
+                {/* Why Us */}
+                <section data-header-theme="light">
+                  <WhyUs />
+                </section>
 
+                {/* Banner */}
+                <section data-header-theme="light">
+                  <Banner />
+                </section>
 
-              <Founder />
-              <PyroStack
-                openCalendarPopup={openCalendarPopup}
-                handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
-              />
-              {/* One gradient across both — see .empathy-faq-panel in App.css */}
-              <div className="empathy-faq-panel">
-                <EmpathyBanner />
-                <FAQ openCalendarPopup={openCalendarPopup} />
-              </div>
+                {/* Testimonials */}
+                <section data-header-theme="light">
+                  <Testimonials />
+                </section>
 
-              <Contact />
-            </>
-          } />
-          <Route path="*" element={<><SEO path={location.pathname} {...NOT_FOUND_META} /><NotFound /></>} />
+                {/* Founder */}
+                <section data-header-theme="dark">
+                  <Founder />
+                </section>
+
+                {/* PyroStack */}
+                <section data-header-theme="dark">
+                  <PyroStack
+                    openCalendarPopup={openCalendarPopup}
+                    handleNavigateToQuestionnaire={handleNavigateToQuestionnaire}
+                  />
+                </section>
+
+                {/* Empathy + FAQ */}
+                <div
+                  className="empathy-faq-panel"
+                  data-header-theme="light"
+                >
+                  <EmpathyBanner />
+                  <FAQ openCalendarPopup={openCalendarPopup} />
+                </div>
+
+                {/* Contact */}
+                <section data-header-theme="dark">
+                  <Contact />
+                </section>
+              </>
+            }
+          />
+        <Route path="*" element={<><SEO path={location.pathname} {...NOT_FOUND_META} /><NotFound /></>} />
         </Routes>
         </Suspense>
         </RouteErrorBoundary>

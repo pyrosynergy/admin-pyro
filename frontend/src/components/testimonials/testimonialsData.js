@@ -38,7 +38,7 @@ export const testimonials = [
     variant: 'A',
     accent: 'delicacy',
     company: 'Jai Rajendra Jewel Palace',
-    quote: '"We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. That\'s superb."',
+    quote: 'We didn\'t even know such AI characters could be used as our AI brand ambassador in social media marketing. That\'s superb.',
     // Credited to the brand rather than a person, so the company name takes
     // the bold name line and there's no role beneath it.
     name: 'Jai Rajendra Jewel Palace',
@@ -52,7 +52,7 @@ export const testimonials = [
     variant: 'A',
     accent: 'viali',
     company: 'Viali Hair Care',
-    quote: '"This was literally a blessing in disguise! Finally an agency who I can rely on with my business now."',
+    quote: 'This was literally a blessing in disguise! Finally an agency who I can rely on with my business now.',
     name: 'Rosemay J. Martelly',
     role: 'Founder & CEO, Viali Hair Care',
     logo: logoViali,
@@ -68,7 +68,7 @@ export const testimonials = [
     variant: 'A',
     accent: 'flobites',
     company: 'FloBites',
-    quote: "\"The team understood our product and requirements, and I'm happy with how the website turned out.\"",
+    quote: "The team understood our product and requirements, and I'm happy with how the website turned out.",
     name: 'Santosh Parachuri',
     role: 'Co-Founder, FloBites by THE',
     logo: logoFlobites,

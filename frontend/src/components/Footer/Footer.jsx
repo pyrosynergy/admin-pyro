@@ -71,8 +71,8 @@ const Footer = ({ openCalendarPopup }) => {
             <a href="#why-us" onClick={(e) => handleNavClick(e, 'services')}>Why Us</a>
           </div>
           <div className="footer-links-col">
-            <a href="#pyrostack" onClick={(e) => handleNavClick(e, 'pyrostack')}>How It Works</a>
-            <a href="#hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
+            <a href="#howitworks" onClick={(e) => handleNavClick(e, 'howitworks')}>How It Works</a>
+            <a href="/hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
           </div>
           <div className="footer-links-col">
             <a href="/case-studies" onClick={(e) => handleNavClick(e, 'case-studies')}>Case Studies</a>
@@ -93,7 +93,7 @@ const Footer = ({ openCalendarPopup }) => {
         <img loading="lazy" decoding="async" src={footerVector} alt="" className="footer-vector" />
         <div className="footer-bottom-row">
           <span>&copy; 2025-26 PyroSynergy LLP.<br />All rights reserved.</span>
-          <a href="#terms" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+          <a href="/policy-pages" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 .faq-section {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   padding: 50px 90px;
   gap: 84px;
   isolation: isolate;
@@ -153,12 +153,13 @@
 .faq-right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-start;
+  align-items: stretch;
   padding: 0;
   gap: 0;
   flex: 0 0 70%;
   width: 70%;
+  margin-top:100px;
   box-sizing: border-box;
   border-top: 1px solid rgba(30, 16, 43, 0.25);
 }
@@ -349,6 +350,7 @@
     order: 2;
     width: 100%;
     margin-bottom: 40px; /* Space between last FAQ and the CTA card */
+    margin-top:0px;
   }
 
   /* 4. ORDER 3: The "Still have questions" card drops to the absolute bottom */

@@ -1,18 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './PolicyPages.css';
 
 const RefundPolicy = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="terms-modal-overlay" style={{ animation: 'none', opacity: 1 }}>
       <div className="terms-modal-box">
         <div className="terms-modal-header">
           <h2>Refund Policy</h2>
-          <button className="terms-modal-close-icon" onClick={() => navigate('/policy-pages')}>
+          <Link className="terms-modal-close-icon" to="/policy-pages">
             &times;
-          </button>
+          </Link>
         </div>
         <div className="terms-modal-content">
           <p>
@@ -49,11 +47,7 @@ const RefundPolicy = () => {
             professionally and promptly.
           </p>
         </div>
-        <div className="terms-modal-footer">
-          <button className="terms-modal-close-btn" onClick={() => navigate('/policy-pages')}>
-            Take Me Back
-          </button>
-        </div>
+        
       </div>
     </div>
   );

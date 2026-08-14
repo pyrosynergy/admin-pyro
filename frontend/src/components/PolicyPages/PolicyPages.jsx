@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './PolicyPages.css';
 import Footer from '../Footer/Footer.jsx';
 
@@ -11,8 +11,6 @@ const policyCards = [
 ];
 
 const PolicyPages = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <main className="terms-page">
@@ -29,13 +27,13 @@ const PolicyPages = () => {
 
           <div className="terms-grid">
             {policyCards.map((section) => (
-              <div
+              <Link
                 key={section.id}
                 className="terms-card"
-                onClick={() => navigate(section.route)}
+                to={section.route}
               >
                 {section.title}
-              </div>
+              </Link>
             ))}
           </div>
 

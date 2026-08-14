@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Copywriter.css";
 import HiringFooter from "./HiringFooter";
 import useIsMobile from "../../hooks/useIsMobile";
 
 const SalesIntern = () => {
-  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
@@ -223,14 +222,13 @@ If qualified, you’ll receive a follow-up email with instructions for the inter
 
   return (
     <section className="role-section">
-      <button
+      <Link
         className="role-back-button"
-        type="button"
         aria-label="Back to all openings"
-        onClick={() => navigate("/hiring")}
+        to="/hiring"
       >
         <span className="role-back-icon" aria-hidden="true">↩</span>
-      </button>
+      </Link>
       <div className="role-container">
         <div className="role-card">
           <div className="role-text">

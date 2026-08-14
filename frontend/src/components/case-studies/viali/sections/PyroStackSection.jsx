@@ -12,7 +12,7 @@ const PyroStackSection = () => {
     navigate('/');
     // Wait for the landing page to mount before scrolling to its section.
     setTimeout(() => {
-      const element = document.getElementById('pyrostack');
+      const element = document.getElementById('howitworks');
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
@@ -25,7 +25,7 @@ const PyroStackSection = () => {
           <h2 className="viali-pyrostack-title">How did we pull this off?</h2>
 
         </div>
-        <a href="/#pyrostack" className="viali-pyrostack-btn" onClick={handleViewMoreClick}>Learn More About Our Framework</a>
+        <a href="/#howitworks" className="viali-pyrostack-btn" onClick={handleViewMoreClick}>Learn More About Our Framework</a>
       </div>
 
       <div className="viali-pyrostack-grid">

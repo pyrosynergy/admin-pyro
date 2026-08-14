@@ -264,6 +264,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
   color: #ffffff;
+  text-decoration: none;
   cursor: pointer;
   font-family: "albert sans", "Plus Jakarta Sans", sans-serif;
   font-size: 0.8rem;

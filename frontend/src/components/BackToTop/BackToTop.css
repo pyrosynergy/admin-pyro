@@ -1,0 +1,80 @@
+/* Desktop: not part of the layout at all — only the mobile media query below
+   turns this into a flex circle, so nothing here affects wider viewports. */
+.back-to-top-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .back-to-top-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  z-index: 999;
+
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+
+  /* Glass effect */
+  background: rgba(154, 125, 243);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Glass border */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  color: #ffffff;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Soft glass glow */
+  box-shadow:
+    0 6px 20px rgba(99, 51, 210, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+
+  opacity: 0;
+  transform: translateY(14px) scale(0.85);
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+  .back-to-top-btn.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+ 
+
+  .back-to-top-btn:active {
+    transform: translateY(0) scale(0.92);
+    box-shadow: 0 4px 12px rgba(99, 51, 210, 0.4);
+  }
+
+  .back-to-top-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 3px;
+  }
+
+  .back-to-top-btn span {
+    transform: translateY(-1px);
+  }
+}
+
+/* Belt-and-braces: guarantee it never renders above the mobile breakpoint,
+   even if some ancestor overrides display. */
+@media (min-width: 769px) {
+  .back-to-top-btn {
+    display: none !important;
+  }
+}

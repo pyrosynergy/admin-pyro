@@ -134,6 +134,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  text-decoration: none;
   font-family: "Albert Sans", sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
@@ -219,10 +220,12 @@
 }
 
 .terms-modal-close-icon {
+  display: inline-block;
   background: none;
   border: none;
   color: #fff;
   font-size: 2rem;
+  text-decoration: none;
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.3s ease;

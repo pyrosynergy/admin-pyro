@@ -4,7 +4,7 @@
   justify-content: center;
   /* Bottom padding is the whole gap down to the FAQ below (which adds its own
      50px top) — keep it tight so the two read as one panel. */
-  padding: 90px 20px 70px;
+  padding: 90px 20px 20px;
   box-sizing: border-box;
   /* The lilac gradient lives on the shared .empathy-faq-panel wrapper so it
      runs unbroken into the FAQ below — see App.css. */

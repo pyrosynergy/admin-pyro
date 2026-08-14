@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Hero.css';
-import bgImage from "../../assets/hero_bg.webp";
+import bgImage from "../../assets/hero_bg.png";
 
 const Hero = ({ clientLogos, openCalendarPopup }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
@@ -177,29 +177,40 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
               <p>Partner Followers<br />Gained</p>
             </div>
          </div>
-          <div 
-            className="hero-buttons-container"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            
-            <button
-              className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 1 ? 'button-active' : 'button-inactive'
-              }`}
-              onClick={openCalendarPopup}
-            >
-              Book a <span className="free-highlight">FREE</span> Audit call
-            </button>
-            <button
-              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
-                currentButtonIndex === 0 ? 'button-active' : 'button-inactive'
-              }`}
-              onClick={() => handleNavClick(null, 'pyrostack')}
-            >
-              See How It Works
-            </button>
-          </div>
+         <div className="hero-buttons-container">
+
+  {/* Book Audit Call */}
+  <a
+    href="#contact"
+    className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
+      currentButtonIndex === 1
+        ? 'button-active'
+        : 'button-inactive'
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      if (openCalendarPopup) openCalendarPopup();
+      if (handleLinkClick) handleLinkClick();
+    }}
+  >
+    <span>
+      Book a <span className="free-highlight">FREE</span> Audit call
+    </span>
+  </a>
+
+  {/* See How It Works */}
+  <a
+    href="#howitworks"
+    className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
+      currentButtonIndex === 0
+        ? 'button-active'
+        : 'button-inactive'
+    }`}
+  >
+    <span>See How It Works</span>
+  </a>
+
+</div>
         </div>
         <div className="client-logos-grid-container">
           {logos.map((logo, idx) => (

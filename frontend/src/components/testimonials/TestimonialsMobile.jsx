@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowRight, FaChevronLeft, FaChevronRight, FaQuoteLeft, FaUser } from 'react-icons/fa';
 import './TestimonialsMobile.css';
 
@@ -144,7 +144,7 @@ const Avatar = ({ item, small = false }) => (
   </div>
 );
 
-const CaseStudyCard = ({ data, onCtaClick }) => (
+const CaseStudyCard = ({ data }) => (
   <article className="tm-cs-card">
     {/* The brand's own mark stands in for the name it used to spell out. The
         text badge stays as the fallback for any entry without a logo. */}
@@ -189,10 +189,10 @@ const CaseStudyCard = ({ data, onCtaClick }) => (
     </div>
 
     {data.caseStudyPath && (
-      <button type="button" className="tm-cs-cta" onClick={onCtaClick}>
+      <Link className="tm-cs-cta" to={data.caseStudyPath}>
         View Case Study
         <FaArrowRight className="tm-cs-cta-arrow" aria-hidden="true" />
-      </button>
+      </Link>
     )}
   </article>
 );
@@ -248,7 +248,6 @@ const ReviewsSlide = ({ data }) => (
 );
 
 const TestimonialsMobile = () => {
-  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState('idle'); // 'idle' | 'out' | 'in'
   const [animDir, setAnimDir] = useState('right');
@@ -363,10 +362,7 @@ const TestimonialsMobile = () => {
             aria-hidden={i !== activeIndex}
           >
             {s.type === 'case-study' ? (
-              <CaseStudyCard
-                data={s}
-                onCtaClick={() => s.caseStudyPath && navigate(s.caseStudyPath)}
-              />
+              <CaseStudyCard data={s} />
             ) : (
               <ReviewsSlide data={s} />
             )}

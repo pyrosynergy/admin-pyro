@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import fireIcon from "../../assets/pyro-satck-fire.svg";
 import "./PyroStack.css";
 
 const PyroStack = ({ openCalendarPopup }) => {
-  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [svgPath, setSvgPath] = useState("");
   const [svgViewBox, setSvgViewBox] = useState("0 0 100 1000");
@@ -181,7 +180,7 @@ const PyroStack = ({ openCalendarPopup }) => {
   }, [isMobile]);
 
   return (
-    <section id="pyrostack" className="pyrostack-section">
+    <section id="howitworks" className="pyrostack-section">
       <div className="pyrostack-container">
         <h2 className="pyrostack-title">How It Works</h2>
 
@@ -301,19 +300,22 @@ const PyroStack = ({ openCalendarPopup }) => {
         )}
 
         <div className="pyrostack-buttons-container">
-          <button
-            className="pyrostack-cta pyrostack-cta-primary"
-            onClick={openCalendarPopup}
-          >
-            Book a <span className="pyrostack-cta-highlight">FREE</span> Audit
-            call
-          </button>
-          <button
+          <a
+  href="#contact"
+  className="pyrostack-cta pyrostack-cta-primary"
+  onClick={(e) => {
+    e.preventDefault();
+    if (openCalendarPopup) openCalendarPopup();
+  }}
+>
+  Book a <span className="pyrostack-cta-highlight">FREE</span> Audit call
+</a>
+          <Link
             className="pyrostack-cta pyrostack-cta-secondary"
-            onClick={() => navigate("/case-studies")}
+            to="/case-studies"
           >
             View Case Studies
-          </button>
+          </Link>
         </div>
       </div>
     </section>

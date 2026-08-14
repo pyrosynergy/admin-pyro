@@ -94,19 +94,7 @@
   max-height: 40px;
   object-fit: contain;
   justify-self: center;
-  /* Per-logo correction, kept in a variable because the fade keyframes below
-     redeclare `filter` outright — without this they would drop the correction
-     for the length of every transition. */
-  --logo-brightness: 1;
-  filter: grayscale(100%) brightness(var(--logo-brightness));
-}
-
-/* Tuhch of Grace's mark is dark green on transparency: mean luminance 53/255
-   where the rest of the set runs 126-251. Against this section's near-black
-   background it all but disappears, so it is lifted into the same range as
-   its neighbours rather than lightening the whole row. */
-.client-logo-grid-item.client-logo--tog {
-  --logo-brightness: 2.6;
+  filter: grayscale(100%);
 }
 
 /* --- Typography & Text Styles --- */
@@ -118,7 +106,7 @@
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -2px;
-  color: #fff;
+  color: #E8E4E4;
   text-align: center;
   padding: 15px 0px 30px 0px;
  
@@ -202,7 +190,7 @@
   font-family: "Albert Sans", sans-serif;
   font-size: 2.25rem;
   font-weight: 600;
-  color: #fff;
+  color: #E8E4E4;
   line-height: 1;
   margin-bottom: 0.4rem;
 }
@@ -218,12 +206,16 @@
   display: block;
   margin: 0;
   font-family: "Albert Sans", sans-serif;
-  color: #fff;
+  color: #E8E4E4;
   text-align: center;
   border-radius: 31px;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 /* Discovery button - primary */
@@ -235,20 +227,27 @@
   min-width: 500px;
   padding: 1rem 2rem;
   font-size: 28px;
+  display: inline-flex;
 }
 
 .-button:hover {
   background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
   color: #0d0b02;
 }
+.discovery-button .free-highlight {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
 
 /* fit button - secondary */
 .fit-button {
   background: rgba(56, 32, 92, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  min-width: 500px;
+  min-width: 300px;
   padding: 1rem 2rem;
   font-size: 28px;
+  text-decoration: none;
 }
 
 .fit-button:hover {
@@ -256,11 +255,7 @@
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-.fit-button .free-highlight {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-}
+
 
 /* Add these styles for the new button container */
 .hero-buttons-container {
@@ -285,20 +280,20 @@
 }
 
 @keyframes logoFadeOut {
-  0%   { opacity: 1; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(0px); }
-  100% { opacity: 0; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(8px); }
+  0%   { opacity: 1; filter: grayscale(100%) blur(0px); }
+  100% { opacity: 0; filter: grayscale(100%) blur(8px); }
 }
 
 @keyframes logoFadeIn {
-  0%   { opacity: 0; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(8px); }
-  100% { opacity: 1; filter: grayscale(100%) brightness(var(--logo-brightness)) blur(0px); }
+  0%   { opacity: 0; filter: grayscale(100%) blur(8px); }
+  100% { opacity: 1; filter: grayscale(100%) blur(0px); }
 }
 
 /* Button carousel animations for mobile */
 @media (max-width: 767px) {
   .hero-heading{
-    padding-top:40px;
-     font-size: 2.t3rem 
+    padding-top:20px;
+     font-size: 2.3rem 
   }
   
   .hero-stats {
@@ -391,7 +386,7 @@
   }
 }
 
-@media (min-width: 668px) {
+@media (min-width: 768px) {
   .hero-buttons-container {
     flex-direction: row;
     justify-content: center;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Hiring.css";
 
 const roles = [
@@ -9,6 +9,7 @@ const roles = [
     location: "Location: Remote-first/Hybrid (Hyderabad, India)",
     start: "Starts: Immediately",
     cta: "Know More",
+    path: "/hiring/uiuxvd_intern_1",
   },
   {
     title: "Sales Intern (Commission-Based)",
@@ -16,6 +17,7 @@ const roles = [
     location: "Location: Remote-first/Hybrid (Hyderabad, India)",
     start: "Starts: Immediately",
     cta: "Know More",
+    path: "/hiring/sales_intern_1",
   },
   {
     title: "No-Code Web Developer Intern (Wix Studio)",
@@ -23,22 +25,20 @@ const roles = [
     location: "Location: Remote-first/Hybrid (Hyderabad, India)",
     start: "Starts: January 2026",
     cta: "Know More",
+    path: "/hiring/nocodeweb_intern_1",
   },
 ];
 
 const Hiring = () => {
-  const navigate = useNavigate();
-
   return (
     <section className="hiring-section">
-      <button
+      <Link
         className="role-back-button"
-        type="button"
         aria-label="Back to home"
-        onClick={() => navigate("/")}
+        to="/"
       >
         <span className="role-back-icon" aria-hidden="true">↩</span>
-      </button>
+      </Link>
       <div className="hiring-grid-overlay" aria-hidden="true"></div>
       <div className="hiring-container">
         <div className="hiring-intro">
@@ -60,20 +60,9 @@ const Hiring = () => {
                 <li>{role.start}</li>
               </ul>
               <div className="card-cta">
-              <button
-                  className="hiring-cta"
-                  onClick={() => {
-                    if (role.title === "UI/UX & Visual Designer Intern") {
-                      navigate("/hiring/uiuxvd_intern_1");
-                    } else if (role.title === "Sales Intern (Commission-Based)") {
-                      navigate("/hiring/sales_intern_1");
-                    } else if (role.title === "No-Code Web Developer Intern (Wix Studio)") {
-                      navigate("/hiring/nocodeweb_intern_1");
-                    }
-                  }}
-                >
+                <Link className="hiring-cta" to={role.path}>
                   {role.cta}
-                </button>
+                </Link>
               </div>
             </article>
           ))}

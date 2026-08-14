@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/Group 1.svg';
@@ -24,6 +24,21 @@ const Header = ({
       handleLinkClick();
     }
   };
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY <= 1);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
@@ -55,12 +70,15 @@ const Header = ({
   };
 
   return (
-    <header className={`top-nav ${isScrolled ? "scrolled" : ""}`}>
+    <header
+      className={`top-nav ${
+        currentPage === "/" && isAtTop ? "hero-top" : ""
+      } ${isScrolled ? "scrolled" : ""}`}
+    >
       {/* Logo - clicking goes to home */}
       <a 
-        href="#home" 
-        className="brand-logo-link" 
-        onClick={(e) => handleNavClick(e, 'home')}
+        href="/" 
+        className="brand-logo-link"        
       >
         <img src={logo} alt="PyroSynergy" width="195" height="47" decoding="async" className="brand-logo-img" />
       </a>
@@ -68,9 +86,9 @@ const Header = ({
       <nav ref={navRef} className="main-navigation">
         <ul className="nav-links">
           <li>
-            <a 
-              href="#How It Works" 
-              onClick={(e) => handleNavClick(e, 'pyrostack')}
+            <a
+              href="#howitworks"
+              onClick={(e) => handleNavClick(e, 'howitworks')}
             >
               How It Works
             </a>
@@ -152,8 +170,8 @@ const Header = ({
           <ul className={`mobile-nav ${isMenuOpen ? "is-active" : ""}`}>
             <li>
               <a
-                href="#How It Works"
-                onClick={(e) => handleNavClick(e, 'pyrostack')}
+                href="#howitworks"
+                onClick={(e) => handleNavClick(e, 'howitworks')}
               >
                 How It Works
               </a>

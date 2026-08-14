@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaQuoteLeft, FaArrowRight, FaUser } from 'react-icons/fa';
 import './Testimonials.css';
 import TestimonialsMobile from './TestimonialsMobile.jsx';
@@ -14,8 +14,6 @@ import imgVialiDevices from '../../assets/viali/showcase-devices.png';
 import imgAmbassador from '../../assets/JRJP_AI_Ambassaror.webp';
 
 const TestimonialCard = ({ item }) => {
-  const navigate = useNavigate();
-
   if (item.variant === 'B') {
     return (
       <article className="pt-card pt-card--b">
@@ -29,14 +27,13 @@ const TestimonialCard = ({ item }) => {
         <p className="pt-b-desc">{item.description}</p>
         <footer className={`pt-b-footer${!item.caseStudyPath ? ' pt-b-footer--logo-left' : ''}`}>
           {item.caseStudyPath && (
-            <button
-              type="button"
+            <Link
               className="pt-b-cta"
-              onClick={() => navigate(item.caseStudyPath)}
+              to={item.caseStudyPath}
             >
               {item.cta}
               <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
-            </button>
+            </Link>
           )}
 
           <div className="pt-b-logo">
@@ -93,14 +90,13 @@ const TestimonialCard = ({ item }) => {
       </blockquote>
 
       {isFeatured && item.caseStudyPath && (
-        <button
-          type="button"
+        <Link
           className="pt-b-cta pt-a-cta"
-          onClick={() => navigate(item.caseStudyPath)}
+          to={item.caseStudyPath}
         >
           View Case Study
           <FaArrowRight className="pt-b-cta-arrow" aria-hidden="true" />
-        </button>
+        </Link>
       )}
 
       {/* The portrait leads the footer and the brand logo closes it on the
