@@ -2,6 +2,7 @@ import React from 'react';
 import './Process.css';
 import phoneCollage from '../../../../assets/flobites/phone-collage.webp';
 import nothingExtraPhone from '../../../../assets/flobites/nothing-extra-phone.webp';
+import flobitesPalette from '../../../../assets/flobites/palette.png';
 
 const Process = () => (
   <div className="flobites-process">
@@ -9,9 +10,10 @@ const Process = () => (
       Turning nutrition into <div className="flobites-process-title-accent">digital experience.</div>
     </h2>
 
-    <div className="flobites-process-row">
-      <div className="flobites-process-image">
-        <img loading="lazy" decoding="async" src={phoneCollage} alt="FloBites app screens shown on tilted phone mockups" />
+    <div className="flobites-process-row flobites-process-row--first">
+      <div className="flobites-process-image flobites-process-image-first">
+        <img loading="lazy" decoding="async" src={phoneCollage} alt="FloBites app screens shown on tilted phone mockups" className="flobites-phone-collage" />
+        <img loading="lazy" decoding="async" src={flobitesPalette} alt="FloBites brand color palette" className="flobites-palette" />
       </div>
       <div className="flobites-process-text flobites-process-text1">
         <p className="flobites-process-lead">

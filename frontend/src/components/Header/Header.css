@@ -39,7 +39,7 @@
 
   box-sizing: border-box;
 
-    transition:
+  transition:
     width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     max-width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     border-radius 0.7s cubic-bezier(0.22, 1, 0.36, 1),
@@ -57,11 +57,6 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-
-
-
-
-
 
 /* --- Main Navigation Wrapper --- */
 .main-navigation {

@@ -1,4 +1,5 @@
-/* ----3. Process / design language section ---- */
+/* ---- Process / Design Language Section ---- */
+
 .flobites-process {
   width: 100%;
   max-width: 1140px;
@@ -24,35 +25,75 @@
   font-family: "Bricolage Grotesque";
 }
 
+
+/* =========================
+   ROWS
+========================= */
+
 .flobites-process-row {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 56px;
+  gap: 45px;
   margin-bottom: 64px;
 }
 
-.flobites-process-image {
-  display: flex;
-  justify-content: center;
+.flobites-process-row--first {
+  gap: 35px;
 }
 
-.flobites-process-image img {
-  width: 100%;
-  max-width: 700px;
-  transform: rotate(-1.72deg);
+
+/* =========================
+   FIRST ROW IMAGE GROUP
+========================= */
+
+.flobites-process-image-first {
+  flex: 1 1 58%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+
+/* Phone collage */
+
+.flobites-phone-collage {
+  width: 100% !important;
+  max-width: 500px !important;
+  min-width: 0;
   height: auto;
   object-fit: contain;
+  transform: rotate(-1.72deg);
 }
 
-.flobites-process-image--small img {
-  max-width: 300px !important;
-  width: 100%;
-  transform: rotate(0);
+
+/* Palette - DESKTOP */
+
+.flobites-palette {
+  width: 38% !important;
+  max-width: 280px !important;
+  min-width: 0;
+  height: auto;
+  object-fit: contain;
+  transform: none !important;
 }
+
+
+/* =========================
+   TEXT
+========================= */
 
 .flobites-process-text {
   flex: 1;
+  min-width: 0;
+}
+
+.flobites-process-text1 {
+  flex: 1 1 42%;
+  min-width: 0;
+  padding: 0 clamp(16px, 4vw, 80px) !important;
 }
 
 .flobites-process-lead {
@@ -61,17 +102,7 @@
   font-size: 2rem;
   color: #000;
   margin: 0 0 14px;
-  line-height: 1.1; 
-  text-align: center;
-  
-}
-
-.flobites-process-subheading {
-  font-family: 'Albert sans';
-  font-weight: 500;
-  font-size: 2rem;
-  color: #000;
-  margin: 0 0 18px;
+  line-height: 1.1;
   text-align: center;
 }
 
@@ -84,10 +115,6 @@
   font-weight: 400;
 }
 
-.flobites-process-text2 {
-  padding: 0px 120px;
-}
-
 .flobites-process-body strong {
   color: #1a1a1a;
 }
@@ -96,9 +123,47 @@
   margin-bottom: 0;
 }
 
+
+/* =========================
+   SECOND ROW
+========================= */
+
+.flobites-process-text2 {
+  flex: 1;
+  padding: 0 80px;
+}
+
+.flobites-process-image--small {
+  flex: 0 0 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.flobites-process-image--small img {
+  width: 100%;
+  max-width: 230px !important;
+  height: auto;
+  object-fit: contain;
+  transform: none;
+}
+
+.flobites-process-subheading {
+  font-family: "Albert Sans";
+  font-weight: 500;
+  font-size: 2rem;
+  color: #000;
+  margin: 0 0 18px;
+  text-align: center;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 900px) {
 
-  .flobites-process{
+  .flobites-process {
     margin-top: 10px;
   }
 
@@ -116,26 +181,61 @@
     flex-direction: column-reverse;
   }
 
-  .flobites-process-image,
-  .flobites-process-image--small {
-    flex: 0 0 auto;
+
+  /* First row image group */
+
+  .flobites-process-image-first {
+    flex: none;
+    width: 100%;
+    gap: 0px;
+    justify-content: center;
   }
 
-  .flobites-process-image img {
-    max-width: 400px !important; /* Forces both images to scale to a max of 400px */
-    width: 100% !important;
-    height: auto;
-    margin: 0 auto;            /* Centers the images if they are smaller than the screen */
+
+  /* Phone stays reasonably large */
+
+  .flobites-phone-collage {
+    width: 58% !important;
+    max-width: 340px !important;
   }
-  .flobites-process-image--small img {
-    max-width: 150px !important; /* Forces both images to scale to a max of 400px */
-    width: 100% !important;
+
+
+  /* Palette ONLY gets smaller on mobile */
+
+  .flobites-palette {
+    width: 30% !important;
+    max-width: 130px !important;
+    min-width: 0 !important;
     height: auto;
-    margin: 0 auto;            /* Centers the images if they are smaller than the screen */
+    margin-left:-30px;
+  }
+
+
+  /* Second row image */
+
+  .flobites-process-image--small {
+    flex: none;
+    width: 100%;
+  }
+
+  .flobites-process-image--small img {
+    width: 100%;
+    max-width: 150px !important;
+    height: auto;
+    margin: 0 auto;
+  }
+
+
+  /* Text */
+
+  .flobites-process-text1 {
+    flex: none;
+    width: 100%;
+    padding: 0 16px !important;
   }
 
   .flobites-process-text2 {
-    padding: 0px 10px;
+    padding: 0 10px;
   }
 
   .flobites-process-lead,
@@ -145,6 +245,6 @@
 
   .flobites-process-body {
     font-size: 1rem;
-    padding: 10px;;
+    padding: 10px;
   }
 }
