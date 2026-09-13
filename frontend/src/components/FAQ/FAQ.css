@@ -1,5 +1,6 @@
-/* --- FAQ Section --- */
+/* --- FAQ Section (v2) --- */
 .faq-section {
+  --faq-version: 2;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
