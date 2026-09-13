@@ -79,7 +79,7 @@ const faqSchema = {
   })),
 };
 
-const FAQ = ({ openCalendarPopup }) => {
+const FAQ = ({ openCalendarPopup = () => {} }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggle = (index) => {

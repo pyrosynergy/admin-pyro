@@ -43,7 +43,12 @@ class RouteErrorBoundary extends React.Component {
         <button
           type="button"
           className="route-error-btn"
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            try {
+              sessionStorage.removeItem('chunk-reload-attempted');
+            } catch {}
+            window.location.reload();
+          }}
         >
           Reload page
         </button>
