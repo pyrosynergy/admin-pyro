@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './HiringFooter.css';
 import logo from '../../assets/Frame 2.svg';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { showCookiePreferences } from '../../lib/cookieConsent.js';
 
 const HiringFooter = () => {
   const navigate = useNavigate();
@@ -50,6 +51,13 @@ const HiringFooter = () => {
           <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
           <a href="/hiring" onClick={(e) => handleNavClick(e, 'hiring')}>Hiring</a>
           <a href="/policy-pages" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+          <button
+            type="button"
+            className="hiring-footer-cookie-settings-btn"
+            onClick={() => showCookiePreferences()}
+          >
+            Cookie Settings
+          </button>
         </div>
 
         <div className="hiring-social-icons">

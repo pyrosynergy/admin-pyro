@@ -8,6 +8,7 @@ const policyCards = [
   { id: 'refund', title: 'Refund Policy', route: '/policy-pages/refund-policy' },
   { id: 'cancellation', title: 'Cancellation Policy', route: '/policy-pages/cancellation-policy' },
   { id: 'terms', title: 'Terms And Conditions', route: '/policy-pages/terms-and-conditions' },
+  { id: 'cookies', title: 'Cookie Policy', route: '/policy-pages/cookie-policy' },
 ];
 
 const PolicyPages = () => {
@@ -16,7 +17,7 @@ const PolicyPages = () => {
       <main className="terms-page">
         <section className="terms-container">
           <h1>Legal Policies &amp; Terms</h1>
-          <p className="terms-updated">Last Updated: May 2026</p>
+          <p className="terms-updated">Last Updated: September 2026</p>
 
           <p>
             This page outlines how PyroSynergy handles your data, and the terms that
@@ -31,6 +32,7 @@ const PolicyPages = () => {
                 key={section.id}
                 className="terms-card"
                 to={section.route}
+                state={{ fromPolicyHub: true }}
               >
                 {section.title}
               </Link>

@@ -1,60 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
 
-    <!-- Favicon Links for Browser Tabs -->
-    <link rel="icon" href="/Mainlogo3.png" />
-    <link rel="apple-touch-icon" href="/Mainlogo3.png" />
-    <link rel="manifest" href="/manifest.json" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
 
-    <!-- Fonts: one request for every family the site uses. Kept as a <link>
+  <!-- Favicon Links for Browser Tabs -->
+  <link rel="icon" href="/Mainlogo3.png" />
+  <link rel="apple-touch-icon" href="/Mainlogo3.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Fonts: one request for every family the site uses. Kept as a <link>
          rather than a CSS @import so the browser can start fetching during HTML
          parse. Plus Jakarta Sans belongs here rather than in a component's
          @import: lazy-loaded routes get their own CSS chunk, so a page that
          only *uses* the family (e.g. the Viali case study) would otherwise
          render in fallback sans-serif whenever the chunk that imports it
          hasn't loaded. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Every webfont the app uses, in one non-blocking request. Route
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Every webfont the app uses, in one non-blocking request. Route
          stylesheets must never @import fonts themselves: an @import is
          render-blocking, and inside a lazy-route chunk it makes that route
          depend on fonts.googleapis.com responding. Caveat and Playfair Display
          are carried here for parity with the imports they replaced, though no
          rule currently references either. -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Architects+Daughter&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@100..900&family=Libre+Baskerville:wght@400;700&family=Playfair+Display:ital,wght@1,700;1,800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Architects+Daughter&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@100..900&family=Libre+Baskerville:wght@400;700&family=Playfair+Display:ital,wght@1,700;1,800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet">
 
-    <!-- Search Engine Meta Tags. These are defaults only — each route overrides
+  <!-- Search Engine Meta Tags. These are defaults only — each route overrides
          them at runtime via src/components/SEO/SEO.jsx -->
-    <title>PyroSynergy – The Growth Partner for Founders in Motion</title>
-    <meta name="title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
-    <meta name="description" content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
-    <link rel="canonical" href="https://pyrosynergy.com/" />
+  <title>PyroSynergy – The Growth Partner for Founders in Motion</title>
+  <meta name="title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
+  <meta name="description"
+    content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
+  <link rel="canonical" href="https://pyrosynergy.com/" />
 
-    <!-- Open Graph / Facebook / LinkedIn / WhatsApp Card Meta Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="PyroSynergy" />
-    <meta property="og:url" content="https://pyrosynergy.com/" />
-    <meta property="og:title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
-    <meta property="og:description" content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
-    <meta property="og:image" content="https://pyrosynergy.com/og-image.png" />
-    <meta property="og:image:alt" content="PyroSynergy – The Growth Partner for Founders in Motion" />
-    <meta property="og:image:type" content="image/png" />
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp Card Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PyroSynergy" />
+  <meta property="og:url" content="https://pyrosynergy.com/" />
+  <meta property="og:title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
+  <meta property="og:description"
+    content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
+  <meta property="og:image" content="https://pyrosynergy.com/og-image.png" />
+  <meta property="og:image:alt" content="PyroSynergy – The Growth Partner for Founders in Motion" />
+  <meta property="og:image:type" content="image/png" />
 
-    <!-- Twitter / X Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://pyrosynergy.com/" />
-    <meta name="twitter:title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
-    <meta name="twitter:description" content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
-    <meta name="twitter:image" content="https://pyrosynergy.com/og-image.png" />
+  <!-- Twitter / X Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://pyrosynergy.com/" />
+  <meta name="twitter:title" content="PyroSynergy – The Growth Partner for Founders in Motion" />
+  <meta name="twitter:description"
+    content="We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction." />
+  <meta name="twitter:image" content="https://pyrosynergy.com/og-image.png" />
 
-    <!-- Organization structured data -->
-    <script type="application/ld+json">
+  <!-- Organization structured data -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -62,23 +66,19 @@
       "url": "https://pyrosynergy.com/",
       "logo": "https://pyrosynergy.com/Mainlogo3.png",
       "description": "We build growth systems with founders early-on, breaking down complex problems and executing for real, measurable traction.",
-      "email": "subs@pyrosynergy.com"
+      "email": "py@pyrosynergy.com"
     }
     </script>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+</head>
 
-    <!-- Microsoft Clarity Analytics. Placed at the end of <body> so the injector
-         itself never blocks the initial render. -->
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rzuj7q7mkm");
-    </script>
-  </body>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Microsoft Clarity Analytics used to load unconditionally here. It's now
+         gated behind Analytics cookie consent — see src/lib/cookieConsent.js,
+         which injects the same snippet only after the visitor opts in. -->
+</body>
+
 </html>

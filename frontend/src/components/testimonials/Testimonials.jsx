@@ -162,16 +162,7 @@ const Testimonials = () => {
       {isMobile ? (
         <TestimonialsMobile />
       ) : (
-        /*
-          Three independent masonry columns sharing one top edge — B lives
-          inside the center column instead of its own full-width row above
-          everything. That's what lets the outer A cards start at the same
-          height as B (not below it), giving the section a staggered outline
-          instead of a flat rectangular one, and what lets the center
-          column's second card (Delicacy) start right after the short
-          VJ/MIH pair rather than waiting for the tall outer A cards. Each
-          outer C card sits directly beneath its own column's A card.
-        */
+        
         <div className="pt-bento-columns">
           <div className="pt-bento-col">
             <TestimonialCard item={tog} />

@@ -113,23 +113,51 @@
   }
 }
 
-/* NEW: Interactive Grid Layout for Sections */
+/* Interactive Grid Layout for Policy Sections (2-3 Staggered Layout) */
 .terms-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
 
 @media (min-width: 768px) {
   .terms-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Row 1: 2 cards centered, each sitting over the gap between cards below */
+  .terms-grid .terms-card:nth-child(1) {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+  }
+
+  .terms-grid .terms-card:nth-child(2) {
+    grid-column: 4 / span 2;
+    grid-row: 1;
+  }
+
+  /* Row 2: 3 cards */
+  .terms-grid .terms-card:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+  }
+
+  .terms-grid .terms-card:nth-child(4) {
+    grid-column: 3 / span 2;
+    grid-row: 2;
+  }
+
+  .terms-grid .terms-card:nth-child(5) {
+    grid-column: 5 / span 2;
+    grid-row: 2;
   }
 }
 
 .terms-card {
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -356,3 +384,93 @@
 body.terms-modal-open .main-navigation {
   display: none;
 }
+
+/* Policy Modal Subheadings & Content Styling */
+.terms-modal-content h4 {
+  color: #79adff;
+  font-family: "Bricolage Grotesque", sans-serif;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.cookie-settings-inline-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #55c2ff;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.cookie-settings-inline-btn:hover {
+  color: #b1e0ff;
+  text-shadow: 0 0 8px rgba(85, 194, 255, 0.5);
+}
+
+.terms-contact-address {
+  font-style: normal;
+  font-family: "Albert Sans", sans-serif;
+  color: #d4d4d4;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+/* Tables within Policy Modals */
+.terms-table-wrapper {
+  overflow-x: auto;
+  margin: 1.25rem 0 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 10, 20, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.terms-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.terms-table th {
+  background: rgba(61, 114, 255, 0.16);
+  color: #55c2ff;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+
+.terms-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #d4d4d4;
+  vertical-align: top;
+}
+
+.terms-table tr:last-child td {
+  border-bottom: none;
+}
+
+.terms-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.terms-table code,
+.terms-modal-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(61, 114, 255, 0.15);
+  color: #79adff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}

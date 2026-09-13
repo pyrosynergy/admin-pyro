@@ -12,6 +12,8 @@ import SEO from "./components/SEO/SEO.jsx";
 // Renders null — kept eager since lazy-loading a scroll-reset would defeat it.
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
 import BackToTop from "./components/BackToTop/BackToTop.jsx";
+// Renders null; must run on every route so the banner/consent gate is never skippable.
+import CookieConsent from "./components/CookieConsent/CookieConsent.jsx";
 import { openCalendarPopup } from "./lib/calendar.js";
 // Must be eager: it exists to catch lazy chunks failing to load.
 import RouteErrorBoundary from "./components/RouteErrorBoundary/RouteErrorBoundary.jsx";
@@ -43,6 +45,7 @@ const PrivacyPolicy = lazy(() => import("./components/PolicyPages/PrivacyPolicy.
 const RefundPolicy = lazy(() => import("./components/PolicyPages/RefundPolicy.jsx"));
 const CancellationPolicy = lazy(() => import("./components/PolicyPages/CancellationPolicy.jsx"));
 const TermsAndConditions = lazy(() => import("./components/PolicyPages/TermsAndConditions.jsx"));
+const CookiePolicy = lazy(() => import("./components/PolicyPages/CookiePolicy.jsx"));
 const NotFound = lazy(() => import("./components/NotFound/NotFound.jsx"));
 const Flobites = lazy(() => import("./components/case-studies/flobites/Flobites.jsx"));
 const Viali = lazy(() => import("./components/case-studies/viali/Viali.jsx"));
@@ -206,6 +209,14 @@ const ROUTES = {
     meta: {
       title: 'Terms & Conditions | PyroSynergy',
       description: 'The terms governing your use of PyroSynergy services.',
+    },
+  },
+  '/policy-pages/cookie-policy': {
+    header: false,
+    footer: false,
+    meta: {
+      title: 'Cookie Policy | PyroSynergy',
+      description: 'How PyroSynergy uses cookies and how to manage your preferences.',
     },
   },
   '/case-studies/flobites': {
@@ -405,6 +416,9 @@ function App() {
       {/* Mobile-only floating back-to-top button; hidden entirely on desktop. */}
       <BackToTop />
 
+      {/* Cookie consent banner/preferences modal. Renders nothing itself. */}
+      <CookieConsent />
+
       {/* Loading Screen */}
       {isLoading && <Loading />}
 
@@ -442,6 +456,7 @@ function App() {
           <Route path="/policy-pages/refund-policy" element={<Page path="/policy-pages/refund-policy"><RefundPolicy /></Page>} />
           <Route path="/policy-pages/cancellation-policy" element={<Page path="/policy-pages/cancellation-policy"><CancellationPolicy /></Page>} />
           <Route path="/policy-pages/terms-and-conditions" element={<Page path="/policy-pages/terms-and-conditions"><TermsAndConditions /></Page>} />
+          <Route path="/policy-pages/cookie-policy" element={<Page path="/policy-pages/cookie-policy"><CookiePolicy /></Page>} />
           <Route path="/case-studies" element={<Page path="/case-studies"><CaseStudies /></Page>} />
           <Route path="/case-studies/flobites" element={<Page path="/case-studies/flobites"><Flobites /></Page>} />
           <Route path="/case-studies/viali" element={<Page path="/case-studies/viali"><Viali /></Page>} />

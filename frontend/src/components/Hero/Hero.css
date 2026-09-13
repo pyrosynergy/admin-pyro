@@ -1,5 +1,3 @@
-
-
 /* --- Hero, Marquee & Video --- */
 .hiring-announcement {
   display: inline-block;
@@ -99,17 +97,19 @@
 
 /* --- Typography & Text Styles --- */
 .hero-heading {
-  margin-bottom: 0px; /* Keep this unchanged */
-  margin-top: 0px; /* Changed from 0rem to 1rem to move heading down even more */
+  margin-bottom: 0px;
+  /* Keep this unchanged */
+  margin-top: 0px;
+  /* Changed from 0rem to 1rem to move heading down even more */
   font-family: "albert sans", sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem);
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -2px;
   color: #E8E4E4;
   text-align: center;
   padding: 15px 0px 30px 0px;
- 
+
 }
 
 
@@ -145,7 +145,8 @@
 .hero-desc {
   width: 95%;
   max-width: 700px;
-  margin: 0.5rem auto; /* Reduced from 1rem to bring content closer */
+  margin: 0.5rem auto;
+  /* Reduced from 1rem to bring content closer */
   padding: 0px 2px;
   font-family: "Albert Sans", sans-serif;
   font-size: 20px;
@@ -153,6 +154,10 @@
   letter-spacing: -0.5px;
   color: #ccc;
   text-align: center;
+}
+
+.hero-desc-br {
+  display: inline;
 }
 
 .hero-desc .desc-highlight {
@@ -173,6 +178,11 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+.hero-nowrap {
+  white-space: nowrap;
+}
+
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -198,7 +208,7 @@
 .hero-stat p {
   font-family: "Albert Sans", sans-serif;
   font-size: 0.95rem;
-  color: rgba(255,255,255,.65);
+  color: rgba(255, 255, 255, .65);
   line-height: 1.35;
 }
 
@@ -234,6 +244,7 @@
   background: linear-gradient(90deg, #e3d8fa 0%, #a894d4 100%);
   color: #0d0b02;
 }
+
 .discovery-button .free-highlight {
   font-family: "Space Grotesk", sans-serif;
   font-size: 20px;
@@ -265,10 +276,11 @@
   align-items: center;
   width: 100%;
   max-width: 600px;
-  margin: 0rem auto 0 auto; /* Added 1.5rem top margin */
+  margin: 0rem auto 0 auto;
+  /* Added 1.5rem top margin */
   position: relative;
   min-height: 80px;
-  padding:0px 0px 40px 0px;
+  padding: 0px 0px 40px 0px;
 }
 
 .client-logo-grid-item.logo-fade-out {
@@ -280,87 +292,178 @@
 }
 
 @keyframes logoFadeOut {
-  0%   { opacity: 1; filter: grayscale(100%) blur(0px); }
-  100% { opacity: 0; filter: grayscale(100%) blur(8px); }
+  0% {
+    opacity: 1;
+    filter: grayscale(100%) blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    filter: grayscale(100%) blur(8px);
+  }
 }
 
 @keyframes logoFadeIn {
-  0%   { opacity: 0; filter: grayscale(100%) blur(8px); }
-  100% { opacity: 1; filter: grayscale(100%) blur(0px); }
+  0% {
+    opacity: 0;
+    filter: grayscale(100%) blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: grayscale(100%) blur(0px);
+  }
 }
 
 /* Button carousel animations for mobile */
 @media (max-width: 767px) {
-  .hero-heading{
-    padding-top:20px;
-     font-size: 2.3rem 
+  .hero-heading {
+    padding-top: 20px;
+    font-size: clamp(2rem, 8.2vw, 3.15rem);
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: -1.4px;
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
-  
+
+  .hero-desc {
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    width: 100%;
+    max-width: 660px;
+    margin: 0.8rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    text-wrap: balance;
+  }
+
+  .hero-desc-br {
+    display: none;
+  }
+
   .hero-stats {
-    gap: 1.5rem;
-    margin: 1.5rem auto 0rem;
+    gap: clamp(1.5rem, 4.5vw, 3.8rem);
+    margin: 1.8rem auto 0rem;
+    width: 100%;
+    max-width: 640px;
+    justify-content: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
     flex-wrap: wrap;
   }
 
   .hero-stat h3 {
-    font-size: 1.6rem;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
   }
 
   .hero-stat p {
-    font-size: 0.8rem;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
   }
 
+  /* Between 600px and 767px: buttons are next to each other */
   .hero-buttons-container {
     display: flex;
-    flex-direction: column; /* Stacks items vertically */
-    gap: 1rem;             /* Adds spacing between the two buttons */
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
     width: 100%;
-    max-width: 600px;
-    margin: 2.5rem auto 4.5rem auto;
-    min-height: auto;       /* Reset the forced height */
+    max-width: 680px;
+    margin: 2.2rem auto 3.5rem auto;
+    min-height: auto;
     overflow: visible;
-    padding: 0px;
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
-  
+
   .hero-button {
-   position: static;       /* Removes absolute stacking */
-    transform: none;        /* Resets centering offsets */
-    width: 100%;
-    max-width: 300px;       /* Keeps button width consistent */
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    width: auto;
+    max-width: none;
     margin: 0 !important;
   }
-  
-  
-  /* Mobile specific button sizes - SAME SIZE FOR BOTH */
-  .fit-button, .discovery-button {
-    min-width: 300px;
-    padding: 0.8rem 1.2rem;
-    font-size: 16px;
+
+  .fit-button,
+  .discovery-button {
+    min-width: 0;
+    width: auto;
+    padding: 0.85rem clamp(1.2rem, 2.5vw, 1.8rem);
+    font-size: clamp(15px, 2vw, 17px);
+    white-space: nowrap;
   }
-  
+
   .discovery-button .free-highlight {
-    font-size: 18px;
+    font-size: clamp(17px, 2.2vw, 19px);
   }
 
   .client-logos-grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  justify-items: center;
-  gap: 4rem 3rem;
-  width: 100%;
-  max-width: 280px;
-  margin: 3rem auto 3rem auto;
-  padding: 0 1.5rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+    gap: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    width: 100%;
+    max-width: clamp(280px, 80vw, 620px);
+    margin: 3rem auto 3rem auto;
+    padding: 0 1.5rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
 }
 
+/* Below 600px: buttons stack vertically for narrow mobile screens */
+@media (max-width: 599px) {
+  .hero-buttons-container {
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 300px;
+    margin: 1.8rem auto 3.5rem auto;
+  }
 
-.hero-desc{
-  font-size:0.95rem;
+  .hero-button {
+    width: 100%;
+    max-width: 290px;
+  }
+
+  .fit-button,
+  .discovery-button {
+    width: 100%;
+    min-width: 0;
+    max-width: 290px;
+    padding: 0.72rem 1.2rem;
+    font-size: 15px;
+    justify-content: center;
+  }
+
+  .discovery-button .free-highlight {
+    font-size: 16px;
+  }
 }
+
+/* Extra small mobile screens (e.g. Samsung Galaxy S8+ at 360px, iPhone SE at 375px) */
+@media (max-width: 380px) {
+  .hero-heading {
+    font-size: 1.85rem;
+    letter-spacing: -1.2px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .hero-desc {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-wrap: balance;
+  }
 }
 
 /* Keyframes for button carousel animations */
@@ -369,6 +472,7 @@
     opacity: 0;
     transform: translateX(-50%) translateY(30px) scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: translateX(-50%) translateY(0) scale(1);
@@ -380,6 +484,7 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0) scale(1);
   }
+
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(-30px) scale(0.9);
@@ -393,7 +498,7 @@
     gap: 2rem;
     min-height: auto;
   }
-  
+
   /* Reset button positioning for desktop */
   .hero-button {
     position: static;
@@ -403,7 +508,7 @@
     width: auto;
     max-width: none;
   }
-  
+
   .hero-button.button-active,
   .hero-button.button-inactive {
     position: static;
@@ -412,31 +517,32 @@
     pointer-events: auto;
     animation: none;
   }
-  
+
   /* Desktop button sizes */
   .fit-button {
     min-width: 260px;
     padding: 1rem 2rem;
     font-size: 16px;
   }
-  
+
   .discovery-button {
     min-width: auto;
     padding: 1rem 2rem;
     font-size: 16px;
   }
-  
+
   .discovery-button .free-highlight {
     font-size: 18px;
   }
-  
+
   .hero-heading {
-    font-size: 4.3rem !important;
+    font-size: clamp(3.3rem, 4.2vw, 3.85rem) !important;
     letter-spacing: -2.4px;
     max-width: 780px;
     width: 100%;
-    margin-top: 20px!important;
+    margin-top: 20px !important;
   }
+
   .hero-desc {
     font-size: 1.15rem !important;
   }
@@ -444,17 +550,17 @@
 
 
 
-@media (min-width: 1024px) {  
+@media (min-width: 1024px) {
   .hero-heading {
-    font-size: 4.375rem;
+    font-size: 4.3rem !important;
     letter-spacing: -2.4px;
     margin-top: 0rem;
   }
-  
+
   .hero-desc {
     font-size: 1.15rem;
   }
-  
+
   .client-logo-grid-item {
     max-height: 50px;
     max-width: 180px;

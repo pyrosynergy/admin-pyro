@@ -5,6 +5,7 @@ import logo from '../../assets/Frame 2.svg';
 import footerVector from '../../assets/footer_vector.webp';
 import iconInstagram from '../../assets/icon_instagram.webp';
 import iconLinkedIn from '../../assets/icon_linkedin.webp';
+import { showCookiePreferences } from '../../lib/cookieConsent.js';
 
 const Footer = ({ openCalendarPopup }) => {
   const navigate = useNavigate();
@@ -92,8 +93,20 @@ const Footer = ({ openCalendarPopup }) => {
       <div className="footer-bottom">
         <img loading="lazy" decoding="async" src={footerVector} alt="" className="footer-vector" />
         <div className="footer-bottom-row">
-          <span>&copy; 2025-26 PyroSynergy LLP.<br />All rights reserved.</span>
-          <a href="/policy-pages" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+          <div className="footer-copyright">
+            <span className="footer-copyright-name">&copy; 2025-26 PyroSynergy LLP.</span>
+            <span className="footer-copyright-rights">All rights reserved.</span>
+          </div>
+          <div className="footer-bottom-links">
+            <a href="/policy-pages" onClick={(e) => handleNavClick(e, 'terms')}>Policy Pages</a>
+            <button
+              type="button"
+              className="footer-cookie-settings-btn"
+              onClick={() => showCookiePreferences()}
+            >
+              Cookie Settings
+            </button>
+          </div>
         </div>
       </div>
     </div>

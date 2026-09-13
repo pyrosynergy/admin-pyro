@@ -1,0 +1,1171 @@
+/* Theme & Layout styling for vanilla-cookieconsent
+   Styled with PyroSynergy's purple palette, glassmorphism, and typography. */
+
+#cc-main {
+  --cc-font-family: "Albert Sans", sans-serif;
+  --cc-modal-border-radius: 20px;
+  --cc-btn-border-radius: 999px;
+  --cc-modal-margin: 1rem;
+  --cc-z-index: 999999;
+
+  --cc-bg: #1c1130;
+  --cc-primary-color: #ffffff;
+  --cc-secondary-color: rgba(255, 255, 255, 0.78);
+
+  --cc-cookie-category-block-bg: rgba(255, 255, 255, 0.04);
+  --cc-cookie-category-block-border: rgba(255, 255, 255, 0.12);
+  --cc-cookie-category-block-hover-bg: rgba(255, 255, 255, 0.07);
+  --cc-cookie-category-expanded-block-bg: transparent;
+  --cc-cookie-category-expanded-block-hover-bg: transparent;
+  --cc-section-category-border: rgba(255, 255, 255, 0.1);
+  --cc-separator-border-color: rgba(255, 255, 255, 0.12);
+
+  /* Primary button: lavender pill matching "Book a Call", purple on hover */
+  --cc-btn-primary-bg: #e4d9fb;
+  --cc-btn-primary-border-color: #e4d9fb;
+  --cc-btn-primary-color: #000000;
+  --cc-btn-primary-hover-bg: rgba(154, 125, 243, 1);
+  --cc-btn-primary-hover-border-color: rgba(154, 125, 243, 1);
+  --cc-btn-primary-hover-color: #ffffff;
+
+  /* Secondary button: glass pill with subtle white border */
+  --cc-btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --cc-btn-secondary-border-color: rgba(255, 255, 255, 0.25);
+  --cc-btn-secondary-color: #ffffff;
+  --cc-btn-secondary-hover-bg: rgba(255, 255, 255, 0.16);
+  --cc-btn-secondary-hover-border-color: rgba(255, 255, 255, 0.45);
+  --cc-btn-secondary-hover-color: #ffffff;
+
+  --cc-toggle-on-bg: rgba(154, 125, 243, 1);
+  --cc-toggle-off-bg: rgba(255, 255, 255, 0.2);
+  --cc-toggle-on-knob-bg: #ffffff;
+  --cc-toggle-off-knob-bg: #ffffff;
+  --cc-toggle-readonly-bg: rgba(154, 125, 243, 0.4);
+  --cc-toggle-readonly-knob-bg: #ffffff;
+  --cc-toggle-readonly-knob-icon-color: rgba(154, 125, 243, 1);
+  --cc-toggle-enabled-icon-color: #ffffff;
+  --cc-toggle-disabled-icon-color: rgba(255, 255, 255, 0.45);
+
+  --cc-link-color: #d6c7f5;
+  --cc-footer-bg: #170d28;
+  --cc-footer-color: rgba(255, 255, 255, 0.78);
+  --cc-footer-border-color: rgba(255, 255, 255, 0.12);
+
+  --cc-overlay-bg: rgba(10, 5, 20, 0.75);
+  --cc-webkit-scrollbar-bg: rgba(255, 255, 255, 0.06);
+  --cc-webkit-scrollbar-hover-bg: rgba(154, 125, 243, 0.6);
+}
+
+/* ==========================================================================
+   Consent Banner (.cm) - Compact Floating Rectangle on Desktop (Left side)
+   ========================================================================== */
+
+/* 1. Outer Floating Banner: Compact Vertical Rectangle on Bottom-Left */
+#cc-main .cm,
+#cc-main .cm--box,
+#cc-main .cm--bar,
+#cc-main .cm--bottom,
+#cc-main .cm--left {
+  position: fixed !important;
+  bottom: 1.75rem !important;
+  left: 1.75rem !important;
+  right: auto !important;
+  top: auto !important;
+  width: 355px !important;
+  max-width: calc(100vw - 3.5rem) !important;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 !important;
+  border-radius: 16px !important;
+  background: rgba(30, 18, 50, 0.94) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 18px 45px rgba(10, 5, 20, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  z-index: 999999 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(1.5rem) !important;
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease !important;
+}
+
+/* Explicitly hidden whenever aria-hidden="true" or show--consent is missing */
+#cc-main .cm[aria-hidden="true"],
+html:not(.show--consent) #cc-main .cm,
+html:not(.show--consent) #cc-main .cm--box,
+html:not(.show--consent) #cc-main .cm--bar {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(1.5rem) !important;
+}
+
+/* Visible state when consent banner is open */
+.show--consent #cc-main .cm:not([aria-hidden="true"]),
+.show--consent #cc-main .cc--anim .cm:not([aria-hidden="true"]),
+.show--consent #cc-main .cc--anim .cm--box:not([aria-hidden="true"]),
+.show--consent #cc-main .cc--anim .cm--bar:not([aria-hidden="true"]),
+.show--consent #cc-main .cm--bottom:not([aria-hidden="true"]),
+.show--consent #cc-main .cm--left:not([aria-hidden="true"]) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
+}
+
+@media (min-width: 1400px) {
+  #cc-main .cm,
+  #cc-main .cm--box,
+  #cc-main .cm--bar,
+  #cc-main .cm--bottom,
+  #cc-main .cm--left {
+    bottom: 2.25rem !important;
+    left: 2.25rem !important;
+  }
+}
+
+/* 2. Inner Body (Spacious Vertical Flow) */
+#cc-main .cm__body,
+#cc-main .cm--box .cm__body,
+#cc-main .cm--bar .cm__body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  padding: 1.35rem 1.35rem 0.65rem 1.35rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+
+/* 3. Text Block (Title & Description) */
+#cc-main .cm__texts {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0.35rem !important;
+}
+
+#cc-main .cm__title {
+  font-family: "Albert Sans", sans-serif !important;
+  font-size: 0.98rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+#cc-main .cm__desc {
+  font-family: "Albert Sans", sans-serif !important;
+  font-size: 0.82rem !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* 4. Buttons Container with generous gaps */
+#cc-main .cm__btns,
+#cc-main .cm--box .cm__btns,
+#cc-main .cm--bar .cm__btns {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.65rem !important;
+  width: 100% !important;
+  border-top: none !important;
+  border-left: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#cc-main .cm__btn-group {
+  display: contents !important;
+}
+
+#cc-main .cm__btn,
+#cc-main .cm--box .cm__btn,
+#cc-main .cm--bar .cm__btn {
+  font-family: "Albert Sans", sans-serif !important;
+  font-size: 0.79rem !important;
+  font-weight: 600 !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 0.6rem !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+  letter-spacing: -0.01em !important;
+}
+
+#cc-main .cm__btn span {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+  vertical-align: middle !important;
+}
+
+#cc-main .cm__btn+.cm__btn,
+#cc-main .cm__btn-group+.cm__btn-group {
+  margin: 0 !important;
+}
+
+/* Button 1: Accept All (Primary lavender pill on Row 1) */
+#cc-main .cm__btn[data-role="all"] {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  background: #e4d9fb !important;
+  border: 1px solid #e4d9fb !important;
+  color: #000000 !important;
+}
+
+#cc-main .cm__btn[data-role="all"]:hover {
+  background: rgba(154, 125, 243, 1) !important;
+  border-color: rgba(154, 125, 243, 1) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(154, 125, 243, 0.4) !important;
+}
+
+/* Button 2: Reject Non-Essential (Secondary glass pill on Row 2 Col 1) */
+#cc-main .cm__btn[data-role="necessary"] {
+  grid-column: 1 / 2 !important;
+  grid-row: 2 !important;
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+}
+
+#cc-main .cm__btn[data-role="necessary"]:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Button 3: Manage Preferences (Secondary glass pill on Row 2 Col 2) */
+#cc-main .cm__btn[data-role="show"] {
+  grid-column: 2 / 3 !important;
+  grid-row: 2 !important;
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+}
+
+#cc-main .cm__btn[data-role="show"]:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+#cc-main .cm__btn:focus-visible,
+#cc-main .pm__btn:focus-visible,
+#cc-main .pm__close-btn:focus-visible,
+#cc-main a:focus-visible,
+#cc-main input:focus-visible+.toggle__icon {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* 5. Footer Links: Positioned neatly below the buttons */
+#cc-main .cm__footer,
+#cc-main .cm--box .cm__footer,
+#cc-main .cm--bar .cm__footer {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border-top: none !important;
+  padding: 0.25rem 1.35rem 1.25rem 1.35rem !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#cc-main .cm__links {
+  display: flex !important;
+  align-items: start !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+#cc-main .cm__link-group {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  width: 100% !important;
+  font-size: 0.78rem !important;
+}
+
+#cc-main .cm__link-group a {
+  font-family: "Albert Sans", sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  color: #d6c7f5 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.2s ease, opacity 0.2s ease !important;
+  opacity: 0.85 !important;
+}
+
+#cc-main .cm__link-group a:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+#cc-main .cm__policy-sep {
+  color: rgba(255, 255, 255, 0.35) !important;
+  margin: 0 0.5rem !important;
+  font-size: 0.78rem !important;
+  user-select: none !important;
+}
+
+/* 6. Mobile Layout for Floating Consent Banner (< 768px) */
+@media (max-width: 767px) {
+
+  #cc-main .cm,
+  #cc-main .cm--box,
+  #cc-main .cm--bar,
+  #cc-main .cm--bottom,
+  #cc-main .cm--left {
+    width: calc(100% - 1.5rem) !important;
+    max-width: calc(100% - 1.5rem) !important;
+    bottom: 0.75rem !important;
+    border-radius: 14px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, 1.5rem) !important;
+  }
+
+  #cc-main .cm[aria-hidden="true"],
+  html:not(.show--consent) #cc-main .cm,
+  html:not(.show--consent) #cc-main .cm--box,
+  html:not(.show--consent) #cc-main .cm--bar {
+    transform: translate(-50%, 1.5rem) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .show--consent #cc-main .cm:not([aria-hidden="true"]),
+  .show--consent #cc-main .cc--anim .cm:not([aria-hidden="true"]),
+  .show--consent #cc-main .cc--anim .cm--box:not([aria-hidden="true"]),
+  .show--consent #cc-main .cc--anim .cm--bar:not([aria-hidden="true"]),
+  .show--consent #cc-main .cm--bottom:not([aria-hidden="true"]),
+  .show--consent #cc-main .cm--left:not([aria-hidden="true"]) {
+    transform: translate(-50%, 0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  #cc-main .cm__body,
+  #cc-main .cm--box .cm__body,
+  #cc-main .cm--bar .cm__body {
+    gap: 0.85rem !important;
+    padding: 1.1rem 1.1rem 0.55rem 1.1rem !important;
+  }
+
+  #cc-main .cm__texts {
+    gap: 0.25rem !important;
+  }
+
+  #cc-main .cm__title {
+    font-size: 0.92rem !important;
+    line-height: 1.2 !important;
+  }
+
+  #cc-main .cm__desc {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Mobile buttons with generous spacing */
+  #cc-main .cm__btns,
+  #cc-main .cm--box .cm__btns,
+  #cc-main .cm--bar .cm__btns {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+    border-top: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #cc-main .cm__btn-group {
+    display: contents !important;
+  }
+
+  #cc-main .cm__btn,
+  #cc-main .cm--box .cm__btn,
+  #cc-main .cm--bar .cm__btn {
+    font-size: clamp(0.72rem, 3vw, 0.78rem) !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 0 0.4rem !important;
+    margin: 0 !important;
+    text-align: center !important;
+    letter-spacing: -0.01em !important;
+    box-sizing: border-box !important;
+  }
+
+  #cc-main .cm__btn span {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    vertical-align: middle !important;
+  }
+
+  /* Mobile footer below buttons */
+  #cc-main .cm__footer,
+  #cc-main .cm--box .cm__footer,
+  #cc-main .cm--bar .cm__footer {
+    padding: 0.2rem 1.1rem 1rem 1.1rem !important;
+  }
+}
+
+/* ==========================================================================
+   Preferences Modal (.pm / .pm--box)
+   ========================================================================== */
+
+/* Dark Blurred Backdrop */
+#cc-main .pm-overlay {
+  background: var(--cc-overlay-bg) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999998 !important;
+}
+
+/* Main Modal Box */
+#cc-main .pm--box,
+#cc-main .pm,
+.show--preferences #cc-main .pm--box,
+.show--preferences #cc-main .cc--anim .pm--box,
+.show--preferences #cc-main .cc--anim .pm {
+  width: min(600px, calc(100% - 2rem)) !important;
+  max-width: min(600px, calc(100% - 2rem)) !important;
+  max-height: 85vh !important;
+  height: auto !important;
+  background: linear-gradient(180deg, #24163e 0%, #170d28 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 60px rgba(10, 5, 20, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  margin: 0 auto !important;
+  transform: translateY(-50%) !important;
+  z-index: 999999 !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-sizing: border-box !important;
+}
+
+/* 1. Fixed Header */
+#cc-main .pm__header {
+  flex-shrink: 0 !important;
+  background: #251640 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 1.2rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  z-index: 10 !important;
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+}
+
+#cc-main .pm__header .pm__title {
+  font-family: "Bricolage Grotesque", "Albert Sans", sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em;
+}
+
+#cc-main .pm__close-btn {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+}
+
+#cc-main .pm__close-btn:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: scale(1.05) !important;
+}
+
+#cc-main .pm__close-btn span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cc-main .pm__close-btn svg {
+  stroke: #ffffff !important;
+  transform: scale(0.55) !important;
+}
+
+/* 2. Scrollable Middle Body */
+#cc-main .pm__body {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 1.25rem 1.5rem !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(154, 125, 243, 0.4) transparent !important;
+  background: transparent !important;
+}
+
+#cc-main .pm__body::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+#cc-main .pm__body::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+#cc-main .pm__body::-webkit-scrollbar-thumb {
+  background: rgba(154, 125, 243, 0.4) !important;
+  border-radius: 999px !important;
+}
+
+#cc-main .pm__body::-webkit-scrollbar-thumb:hover {
+  background: rgba(154, 125, 243, 0.7) !important;
+}
+
+/* ==========================================================================
+   Section Blocks (Clean, Non-Overlapping Design)
+   ========================================================================== */
+
+/* Section 1: Introduction text block */
+#cc-main .pm__section:first-child {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 0 1rem 0 !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+#cc-main .pm__section:first-child .pm__section-title {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin-bottom: 0.35rem !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+#cc-main .pm__section:first-child .pm__section-desc {
+  font-size: 0.9rem !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  line-height: 1.55 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Category Blocks: Necessary & Analytics */
+#cc-main .pm__section--toggle {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 14px !important;
+  margin-bottom: 0.85rem !important;
+  overflow: hidden !important;
+  transition: border-color 0.2s ease, background 0.2s ease !important;
+}
+
+#cc-main .pm__section--toggle:hover {
+  border-color: rgba(154, 125, 243, 0.3) !important;
+}
+
+/* The clickable title row for the category */
+#cc-main .pm__section--toggle>.pm__section-title {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-height: 56px !important;
+  padding: 0.9rem 4.5rem 0.9rem 1.15rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease !important;
+}
+
+#cc-main .pm__section--toggle>.pm__section-title:hover {
+  background: rgba(255, 255, 255, 0.025) !important;
+}
+
+/* Expandable chevron indicator for Analytics */
+#cc-main .pm__section--expandable>.pm__section-title {
+  padding-left: 3.25rem !important;
+}
+
+#cc-main .pm__section-arrow {
+  position: absolute !important;
+  left: 1.15rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.25s ease, background 0.2s ease !important;
+  pointer-events: none !important;
+}
+
+#cc-main .pm__section-arrow svg {
+  stroke: rgba(255, 255, 255, 0.8) !important;
+  transform: scale(0.5) !important;
+  transition: transform 0.25s ease !important;
+}
+
+#cc-main .pm__section--toggle.is-expanded .pm__section-arrow {
+  background: rgba(154, 125, 243, 0.25) !important;
+}
+
+#cc-main .pm__section--toggle.is-expanded .pm__section-arrow svg {
+  stroke: #ffffff !important;
+  transform: scale(0.5) rotate(180deg) !important;
+}
+
+/* Title text & Service Badge */
+#cc-main .pm__section-title-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+#cc-main .pm__section-title-wrapper span.pm__section-title {
+  font-size: 0.98rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+#cc-main .pm__badge,
+#cc-main .pm__service-counter {
+  display: none !important;
+}
+
+/* Category Toggle Switch */
+#cc-main .section__toggle-wrapper:not(.toggle-service) {
+  position: absolute !important;
+  right: 1.15rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 44px !important;
+  height: 24px !important;
+  cursor: pointer !important;
+  z-index: 2 !important;
+}
+
+#cc-main .section__toggle {
+  position: absolute !important;
+  width: 44px !important;
+  height: 24px !important;
+  opacity: 0 !important;
+  cursor: pointer !important;
+  z-index: 3 !important;
+  margin: 0 !important;
+}
+
+#cc-main .section__toggle:disabled {
+  cursor: not-allowed !important;
+}
+
+#cc-main .toggle__icon {
+  width: 44px !important;
+  height: 24px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  transition: all 0.25s ease !important;
+}
+
+#cc-main .toggle__icon-circle {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+  transition: transform 0.25s ease, background-color 0.25s ease !important;
+}
+
+#cc-main .section__toggle:checked~.toggle__icon {
+  background: rgba(154, 125, 243, 1) !important;
+}
+
+#cc-main .section__toggle:checked~.toggle__icon .toggle__icon-circle {
+  transform: translateX(20px) !important;
+}
+
+#cc-main .section__toggle:checked:disabled~.toggle__icon {
+  background: rgba(154, 125, 243, 0.45) !important;
+}
+
+#cc-main .section__toggle:checked:disabled~.toggle__icon .toggle__icon-circle {
+  background: #ffffff !important;
+  transform: translateX(20px) !important;
+}
+
+/* ==========================================================================
+   Expanded Analytics Content & Services (Microsoft Clarity)
+   ========================================================================== */
+
+#cc-main .pm__section--toggle .pm__section-desc-wrapper {
+  display: none;
+}
+
+#cc-main .pm__section--toggle.is-expanded .pm__section-desc-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-radius: 0 !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  padding: 1.35rem 1.25rem 1.25rem !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+#cc-main .pm__section--toggle .pm__section-desc {
+  font-size: 0.88rem !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  line-height: 1.55 !important;
+  padding: 0.75rem 0.35rem 0.25rem 0.35rem !important;
+  margin: 0 !important;
+}
+
+/* Services Container */
+#cc-main .pm__section-services {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Service Row: Microsoft Clarity + Service Toggle */
+#cc-main .pm__service {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  padding: 0.85rem 1rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+
+#cc-main .pm__service:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(154, 125, 243, 0.3) !important;
+}
+
+#cc-main .pm__service-header {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  margin: 0 1rem 0 0 !important;
+}
+
+#cc-main .pm__service-icon {
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
+  border-radius: 50% !important;
+  background: #9a7df3 !important;
+  border: none !important;
+  margin: 0 0.75rem 0 0 !important;
+  flex-shrink: 0 !important;
+}
+
+#cc-main .pm__service-title {
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Toggle Switch for Service (Microsoft Clarity) */
+#cc-main .toggle-service {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: 40px !important;
+  height: 22px !important;
+  flex: 0 0 40px !important;
+  margin: 0 0 0 auto !important;
+  display: block !important;
+  cursor: pointer !important;
+  align-self: center !important;
+}
+
+#cc-main .toggle-service .section__toggle {
+  position: absolute !important;
+  width: 40px !important;
+  height: 22px !important;
+  opacity: 0 !important;
+  z-index: 3 !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+}
+
+#cc-main .toggle-service .toggle__icon {
+  width: 40px !important;
+  height: 22px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  transition: all 0.25s ease !important;
+}
+
+#cc-main .toggle-service .toggle__icon-circle {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.25s ease !important;
+}
+
+#cc-main .toggle-service .section__toggle:checked~.toggle__icon {
+  background: rgba(154, 125, 243, 1) !important;
+}
+
+#cc-main .toggle-service .section__toggle:checked~.toggle__icon .toggle__icon-circle {
+  transform: translateX(18px) !important;
+}
+
+/* Section 4: More information block (plain styling matching intro, no box/border) */
+#cc-main .pm__section:not(.pm__section--toggle):not(:first-child) {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 0 0 0 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+#cc-main .pm__section:not(.pm__section--toggle):not(:first-child) .pm__section-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin-bottom: 0.35rem !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+#cc-main .pm__section:not(.pm__section--toggle):not(:first-child) .pm__section-desc {
+  font-size: 0.9rem !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  line-height: 1.55 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   3. Fixed Footer
+   ========================================================================== */
+#cc-main .pm__footer {
+  flex-shrink: 0 !important;
+  background: #170d28 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 1.15rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0.75rem !important;
+  position: relative !important;
+  z-index: 10 !important;
+  border-bottom-left-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
+
+#cc-main .pm__btn-group {
+  display: flex !important;
+  gap: 0.6rem !important;
+  align-items: center !important;
+}
+
+#cc-main .pm__btn {
+  font-family: "Albert Sans", sans-serif !important;
+  font-size: 0.86rem !important;
+  font-weight: 600 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  border-radius: 999px !important;
+  padding: 0 1.25rem !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+#cc-main .pm__btn--primary {
+  background: #e4d9fb !important;
+  color: #000000 !important;
+  border: 1px solid #e4d9fb !important;
+}
+
+#cc-main .pm__btn--primary:hover {
+  background: rgba(154, 125, 243, 1) !important;
+  border-color: rgba(154, 125, 243, 1) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(154, 125, 243, 0.35) !important;
+}
+
+#cc-main .pm__btn--secondary {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+#cc-main .pm__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   Cookie Preferences - Category Borders & Outlines Fix
+   ========================================================================== */
+
+/* Ensure the outer category card maintains its single border collapsed and expanded */
+#cc-main .pm__section--toggle,
+#cc-main .pm__section--toggle.is-expanded {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 14px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  --cc-cookie-category-block-border: transparent !important;
+  --cc-cookie-category-block-hover-border: transparent !important;
+  --cc-cookie-category-expanded-block-hover-bg: transparent !important;
+}
+
+/* Remove the inner border, dome-shaped border, and focus outline from category headers */
+#cc-main .pm__section--toggle .pm__section-title,
+#cc-main .pm__section--toggle .pm__section-title:hover,
+#cc-main .pm__section--toggle .pm__section-title:focus,
+#cc-main .pm__section--toggle .pm__section-title:focus-visible,
+#cc-main .pm__section--toggle .pm__section-title:active,
+#cc-main .pm__section--toggle.is-expanded .pm__section-title,
+#cc-main .pm__section--toggle.is-expanded .pm__section-title:hover,
+#cc-main .pm__section--toggle.is-expanded .pm__section-title:focus,
+#cc-main .pm__section--toggle.is-expanded .pm__section-title:focus-visible {
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove focus outline/ring from the toggle container */
+#cc-main .pm__section--toggle:focus,
+#cc-main .pm__section--toggle:focus-visible,
+#cc-main .pm__section--toggle:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any extra border or outline on category title wrapper */
+#cc-main .pm__section-title-wrapper {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure expanded content sits inside single outer container without extra border/outline */
+#cc-main .pm__section--toggle .pm__section-desc-wrapper,
+#cc-main .pm__section--toggle.is-expanded .pm__section-desc-wrapper {
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   Responsive Mobile Adjustments
+   ========================================================================== */
+@media (max-width: 640px) {
+
+  #cc-main .pm--box,
+  #cc-main .pm,
+  .show--preferences #cc-main .pm--box,
+  .show--preferences #cc-main .cc--anim .pm--box,
+  .show--preferences #cc-main .cc--anim .pm {
+    width: calc(100% - 2.5rem) !important;
+    max-width: calc(100% - 2.5rem) !important;
+    max-height: 84vh !important;
+    border-radius: 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    box-sizing: border-box !important;
+  }
+
+  #cc-main .pm__header {
+    padding: 1rem 1.15rem !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+  }
+
+  #cc-main .pm__header .pm__title {
+    font-size: 1.15rem !important;
+    min-width: 0 !important;
+    word-break: break-word !important;
+  }
+
+  #cc-main .pm__body {
+    padding: 1rem 1.15rem !important;
+    overflow-x: hidden !important;
+  }
+
+  #cc-main .pm__footer {
+    flex-direction: column-reverse !important;
+    padding: 1rem 1.15rem !important;
+    gap: 0.6rem !important;
+    border-bottom-left-radius: 16px !important;
+    border-bottom-right-radius: 16px !important;
+  }
+
+  #cc-main .pm__btn-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+
+  #cc-main .pm__btn {
+    width: 100% !important;
+    min-height: 42px !important;
+  }
+
+  #cc-main .pm__section--toggle .pm__section-title {
+    padding-left: 2.85rem !important;
+    padding-right: 3.6rem !important;
+  }
+
+  #cc-main .pm__section-arrow {
+    left: 0.9rem !important;
+  }
+
+  #cc-main .section__toggle-wrapper:not(.toggle-service) {
+    right: 0.9rem !important;
+  }
+
+  #cc-main .pm__service {
+    padding: 0.65rem 0.8rem !important;
+  }
+
+  #cc-main .pm__service-title {
+    font-size: 0.88rem !important;
+  }
+}

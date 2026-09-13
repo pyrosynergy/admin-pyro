@@ -1,14 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './PolicyPages.css';
 
 const RefundPolicy = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClose = (e) => {
+    if (e) e.preventDefault();
+    if (location.state?.fromPolicyHub) {
+      navigate(-1);
+    } else {
+      navigate('/policy-pages', { replace: true });
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose(e);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [location.state]);
+
   return (
-    <div className="terms-modal-overlay" style={{ animation: 'none', opacity: 1 }}>
+    <div
+      className="terms-modal-overlay"
+      style={{ animation: 'none', opacity: 1 }}
+      onClick={handleOverlayClick}
+    >
       <div className="terms-modal-box">
         <div className="terms-modal-header">
           <h2>Refund Policy</h2>
-          <Link className="terms-modal-close-icon" to="/policy-pages">
+          <Link
+            className="terms-modal-close-icon"
+            to="/policy-pages"
+            replace
+            onClick={handleClose}
+            aria-label="Close"
+          >
             &times;
           </Link>
         </div>

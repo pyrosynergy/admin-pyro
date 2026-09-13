@@ -19,70 +19,70 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
 
   // Random shuffle effect for logos (instant change, no animation)
   useEffect(() => {
-  let timeoutId;
-  let cancelled = false;
+    let timeoutId;
+    let cancelled = false;
 
-  const shuffle = (arr) => {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
+    const shuffle = (arr) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
 
-  const runSwap = () => {
-    if (cancelled) return;
-
-    const currentLogos = logosRef.current;
-
-    // logos NOT currently on screen — the bench
-    const bench = clientLogos.filter(logo => !currentLogos.includes(logo));
-
-    // randomly swap 1 or 2, capped by bench size
-    const swapCount = Math.min(Math.random() < 0.5 ? 1 : 2, bench.length);
-    if (swapCount === 0) {
-      timeoutId = setTimeout(runSwap, 3500);
-      return;
-    }
-
-    // pick random slots from the displayed grid
-    const chosenIndices = shuffle(currentLogos.map((_, i) => i)).slice(0, swapCount);
-
-    // pick random incoming logos from bench (no duplicates guaranteed since bench has no current logos)
-    const incoming = shuffle(bench).slice(0, swapCount);
-
-    // Phase 1: fade out the chosen slots
-    setFadingOut(chosenIndices);
-
-    timeoutId = setTimeout(() => {
+    const runSwap = () => {
       if (cancelled) return;
 
-      // swap in the new logos
-      setLogos(curr => {
-        const updated = [...curr];
-        chosenIndices.forEach((idx, i) => { updated[idx] = incoming[i]; });
-        return updated;
-      });
-      setFadingOut([]);
-      setFadingIn(chosenIndices);
+      const currentLogos = logosRef.current;
+
+      // logos NOT currently on screen — the bench
+      const bench = clientLogos.filter(logo => !currentLogos.includes(logo));
+
+      // randomly swap 1 or 2, capped by bench size
+      const swapCount = Math.min(Math.random() < 0.5 ? 1 : 2, bench.length);
+      if (swapCount === 0) {
+        timeoutId = setTimeout(runSwap, 3500);
+        return;
+      }
+
+      // pick random slots from the displayed grid
+      const chosenIndices = shuffle(currentLogos.map((_, i) => i)).slice(0, swapCount);
+
+      // pick random incoming logos from bench (no duplicates guaranteed since bench has no current logos)
+      const incoming = shuffle(bench).slice(0, swapCount);
+
+      // Phase 1: fade out the chosen slots
+      setFadingOut(chosenIndices);
 
       timeoutId = setTimeout(() => {
         if (cancelled) return;
-        setFadingIn([]);
-        // next swap only starts after this one is fully done
-        timeoutId = setTimeout(runSwap, 3500);
+
+        // swap in the new logos
+        setLogos(curr => {
+          const updated = [...curr];
+          chosenIndices.forEach((idx, i) => { updated[idx] = incoming[i]; });
+          return updated;
+        });
+        setFadingOut([]);
+        setFadingIn(chosenIndices);
+
+        timeoutId = setTimeout(() => {
+          if (cancelled) return;
+          setFadingIn([]);
+          // next swap only starts after this one is fully done
+          timeoutId = setTimeout(runSwap, 3500);
+        }, 450);
       }, 450);
-    }, 450);
-  };
+    };
 
-  timeoutId = setTimeout(runSwap, 3500);
+    timeoutId = setTimeout(runSwap, 3500);
 
-  return () => {
-    cancelled = true;
-    clearTimeout(timeoutId);
-  };
-}, [clientLogos]);
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+  }, [clientLogos]);
 
   // Carousel effect for buttons on mobile
   useEffect(() => {
@@ -90,11 +90,11 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      
+
       const normalDelay = 3000;
       const hoveredDelay = 6000;
       const timeSinceLastChange = Date.now() - lastChangeTime.current;
-      
+
       // Calculate remaining time based on current state
       let delay;
       if (isHovered) {
@@ -106,7 +106,7 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
         delay = normalDelay - (timeSinceLastChange % normalDelay);
         if (delay <= 0) delay = normalDelay;
       }
-      
+
       timeoutRef.current = setTimeout(() => {
         setCurrentButtonIndex((prevIndex) => (prevIndex + 1) % 2);
         lastChangeTime.current = Date.now();
@@ -155,10 +155,10 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
         >
 
           <h1 className="hero-heading max-w-5xl mx-auto text-center">
-          The growth partner <br></br>for founders who're <span className="purple-italic">done </span> <br></br> figuring it out alone.
+            The growth partner <br />for founders <span className="hero-nowrap">who're <span className="purple-italic">done</span></span> <br /> figuring it out alone.
           </h1>
           <p className="hero-desc">
-           We handle growth for your business early-on, right from <br/>
+            We handle growth for your business early-on, right from <br className="hero-desc-br" />
             initial outreach strategy to market-level execution.
           </p>
           <div className="hero-stats">
@@ -176,41 +176,39 @@ const Hero = ({ clientLogos, openCalendarPopup }) => {
               <h3>90k+</h3>
               <p>Partner Followers<br />Gained</p>
             </div>
-         </div>
-         <div className="hero-buttons-container">
+          </div>
+          <div className="hero-buttons-container">
 
-  {/* Book Audit Call */}
-  <a
-    href="#contact"
-    className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${
-      currentButtonIndex === 1
-        ? 'button-active'
-        : 'button-inactive'
-    }`}
-    onClick={(e) => {
-      e.preventDefault();
-      if (openCalendarPopup) openCalendarPopup();
-      if (handleLinkClick) handleLinkClick();
-    }}
-  >
-    <span>
-      Book a <span className="free-highlight">FREE</span> Audit call
-    </span>
-  </a>
+            {/* Book Audit Call */}
+            <a
+              href="#contact"
+              className={`hero-button discovery-button mx-auto mt-4 mb-8 md:mb-12 ${currentButtonIndex === 1
+                  ? 'button-active'
+                  : 'button-inactive'
+                }`}
+              onClick={(e) => {
+                e.preventDefault();
+                if (openCalendarPopup) openCalendarPopup();
+                if (handleLinkClick) handleLinkClick();
+              }}
+            >
+              <span>
+                Book a <span className="free-highlight">FREE</span> Audit call
+              </span>
+            </a>
 
-  {/* See How It Works */}
-  <a
-    href="#howitworks"
-    className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${
-      currentButtonIndex === 0
-        ? 'button-active'
-        : 'button-inactive'
-    }`}
-  >
-    <span>See How It Works</span>
-  </a>
+            {/* See How It Works */}
+            <a
+              href="#howitworks"
+              className={`hero-button fit-button mx-auto mt-4 mb-8 md:mb-12 ${currentButtonIndex === 0
+                  ? 'button-active'
+                  : 'button-inactive'
+                }`}
+            >
+              <span>See How It Works</span>
+            </a>
 
-</div>
+          </div>
         </div>
         <div className="client-logos-grid-container">
           {logos.map((logo, idx) => (

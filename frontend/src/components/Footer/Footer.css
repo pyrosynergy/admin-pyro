@@ -56,9 +56,11 @@
 .brand-logo-link {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Forces the internal image asset to the absolute left boundary */
+  justify-content: flex-start;
+  /* Forces the internal image asset to the absolute left boundary */
   text-decoration: none;
-  width: max-content;          /* Keeps the bounding box tight around the asset size */
+  width: max-content;
+  /* Keeps the bounding box tight around the asset size */
 }
 
 .footer-desc {
@@ -122,7 +124,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem 3rem;
   justify-items: center;
-  padding:20px 0px;
+  padding: 20px 0px;
   text-align: center;
 }
 
@@ -161,7 +163,7 @@
   width: 100%;
   display: block;
   object-fit: fill;
-  height:70px;
+  height: 70px;
   transform: scaleY(1.2);
   transform-origin: bottom;
 }
@@ -175,10 +177,36 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 0.4rem;
+  gap: 0.5rem;
   text-align: left;
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 1.25rem;
   background: linear-gradient(to top, rgba(63, 3, 88, 0.7) 0%, transparent 100%);
+  box-sizing: border-box;
+}
+
+.footer-copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 0;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.footer-copyright-name {
+  white-space: nowrap;
+  font-size: 12px;
+  color: #cecbcb;
+  font-weight: 500;
+  display: block;
+}
+
+.footer-copyright-rights {
+  white-space: nowrap;
+  font-size: 11px;
+  color: #a09fa4;
+  display: block;
 }
 
 .footer-bottom a {
@@ -190,6 +218,60 @@
 
 .footer-bottom a:hover {
   color: #fff;
+}
+
+.footer-bottom-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.35rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.footer-bottom-links a,
+.footer-cookie-settings-btn {
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+/* Reset <button> defaults so "Cookie Settings" matches the "Policy Pages"
+   link next to it exactly — it's an action (reopens the preferences modal),
+   not a navigation link, hence <button> rather than <a>. */
+.footer-cookie-settings-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.footer-cookie-settings-btn:hover {
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .footer-bottom-row {
+    padding: 0.75rem 1rem;
+  }
+
+  .footer-copyright-name {
+    font-size: clamp(10px, 3.1vw, 11.5px);
+  }
+
+  .footer-copyright-rights {
+    font-size: clamp(9.5px, 2.9vw, 10.5px);
+  }
+
+  .footer-bottom-links a,
+  .footer-cookie-settings-btn {
+    font-size: clamp(10px, 3.1vw, 11.5px);
+  }
 }
 
 /* --- Desktop Layout --- */
@@ -218,13 +300,15 @@
   }
 
   .social-icons {
-    grid-area: unset; 
+    grid-area: unset;
     justify-self: start;
     align-self: start;
-    margin-top: 0.5rem; 
+    margin-top: 0.5rem;
   }
+
   .footer-desc {
-    max-width: 580px !important; /* Limits width just enough to force a clean 2-line break */
+    max-width: 580px !important;
+    /* Limits width just enough to force a clean 2-line break */
     text-align: left;
     width: 100% !important;
     /* The brand column's own 1.2rem gap spaces this on desktop, so drop the
@@ -236,7 +320,7 @@
     grid-area: links;
     gap: 1.5rem 2.5rem;
     justify-items: center;
-    text-align:center;
+    text-align: center;
   }
 
   .footer-links-col {
@@ -252,11 +336,36 @@
   .footer-bottom-row {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 5rem;
   }
 
+  .footer-copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    text-align: left;
+  }
+
+  .footer-copyright-name,
+  .footer-copyright-rights {
+    font-size: 13px;
+  }
+
+  .footer-bottom-links {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer-bottom-links a,
+  .footer-cookie-settings-btn {
+    font-size: 13px;
+  }
+
   .footer-vector {
-   height: 120px !important;
-}
-  
+    height: 120px !important;
+  }
+
 }

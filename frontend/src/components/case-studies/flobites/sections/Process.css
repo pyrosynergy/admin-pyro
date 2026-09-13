@@ -188,7 +188,6 @@
     flex: none;
     width: 100%;
     gap: 0px;
-    justify-content: center;
   }
 
 
@@ -197,6 +196,7 @@
   .flobites-phone-collage {
     width: 58% !important;
     max-width: 340px !important;
+    margin-left:-30px;
   }
 
 
@@ -207,7 +207,7 @@
     max-width: 130px !important;
     min-width: 0 !important;
     height: auto;
-    margin-left:-30px;
+    margin-left:-40px;
   }
 
 
