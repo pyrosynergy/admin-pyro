@@ -79,7 +79,7 @@ const faqSchema = {
   })),
 };
 
-const FAQ = ({ openCalendarPopup = () => {} }) => {
+const FAQ = ({ openCalendarPopup = () => { } }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggle = (index) => {
@@ -99,7 +99,7 @@ const FAQ = ({ openCalendarPopup = () => {} }) => {
         <div className="faq-left">
           <div className="faq-left-inner">
             <h2 className="faq-title">Frequently <br />Asked Questions</h2>
-            
+
             <div className="faq-cta-box">
               <p className="faq-cta-heading">Still have questions?</p>
               <p className="faq-cta-desc">Our growth team is ready to guide you through the process.</p>

@@ -8,7 +8,7 @@
   background-attachment: fixed;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 0.5rem;
   font-family: 'Albert Sans', sans-serif;
   position: relative;
   overflow: hidden;
@@ -22,8 +22,8 @@
   right: 0;
   bottom: 0;
   background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(119, 198, 255, 0.3) 0%, transparent 50%);
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(119, 198, 255, 0.3) 0%, transparent 50%);
   pointer-events: none;
   background-attachment: fixed;
 }
@@ -32,9 +32,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -52,7 +54,7 @@
   padding: 2rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
 
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -206,7 +208,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  box-sizing: border-box;
 }
 
 .pyro-cta-secondary:hover {
@@ -258,41 +260,41 @@
   .pyro-landing-wrapper {
     padding: 1.2rem;
   }
-  
+
   .pyro-landing-main {
     max-width: 360px;
     padding: 1.8rem 1.3rem;
   }
-  
+
   .pyro-company-title {
     font-size: 2.2rem;
   }
-  
+
   .pyro-company-tagline {
     font-size: 0.95rem;
   }
-  
+
   .pyro-company-description {
     font-size: 0.9rem;
   }
-  
+
   .pyro-logo-container {
     width: 85px;
     height: 85px;
     margin-bottom: 1.2rem;
   }
-  
+
   .pyro-logo-img {
     width: 85px;
     height: 85px;
   }
-  
+
   .pyro-logo-fallback {
     width: 85px;
     height: 85px;
     font-size: 1.7rem;
   }
-  
+
   .pyro-cta {
     padding: 0.9rem 1.2rem;
   }
@@ -316,45 +318,45 @@
   .pyro-landing-wrapper {
     padding: 1rem;
   }
-  
+
   .pyro-landing-main {
     max-width: 320px;
     padding: 1.5rem 1.2rem;
   }
-  
+
   .pyro-company-info {
     margin-bottom: 1.8rem;
   }
-  
+
   .pyro-company-title {
     font-size: 2rem;
   }
-  
+
   .pyro-company-tagline {
     font-size: 0.9rem;
   }
-  
+
   .pyro-company-description {
     font-size: 0.85rem;
   }
-  
+
   .pyro-logo-container {
     width: 80px;
     height: 80px;
     margin-bottom: 1rem;
   }
-  
+
   .pyro-logo-img {
     width: 80px;
     height: 80px;
   }
-  
+
   .pyro-logo-fallback {
     width: 80px;
     height: 80px;
     font-size: 1.5rem;
   }
-  
+
   .pyro-cta {
     padding: 0.85rem 1rem;
   }
