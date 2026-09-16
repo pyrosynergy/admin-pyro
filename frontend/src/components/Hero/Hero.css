@@ -319,7 +319,7 @@
 @media (max-width: 767px) {
   .hero-heading {
     padding-top: 20px;
-    font-size: clamp(2rem, 8.2vw, 3.15rem);
+    font-size: clamp(2rem, 8.56vw, 3.15rem);
     font-weight: 400;
     line-height: 1.14;
     letter-spacing: -1.4px;
@@ -333,11 +333,11 @@
   }
 
   .hero-desc {
-    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    font-size: clamp(0.95rem, 3.53vw, 1.15rem);
     width: 100%;
-    max-width: 660px;
-    margin: 0.8rem auto;
-    padding: 0 1rem;
+    max-width: 700px;
+    margin: 0.5rem auto;
+    padding: 0 2px;
     box-sizing: border-box;
     text-wrap: balance;
   }
@@ -424,27 +424,30 @@
   .hero-buttons-container {
     flex-direction: column;
     gap: 0.85rem;
-    max-width: 300px;
+    width: 100%;
+    max-width: 340px;
     margin: 1.8rem auto 3.5rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
 
   .hero-button {
     width: 100%;
-    max-width: 290px;
+    max-width: 340px;
   }
 
   .fit-button,
   .discovery-button {
     width: 100%;
     min-width: 0;
-    max-width: 290px;
-    padding: 0.72rem 1.2rem;
-    font-size: 15px;
+    max-width: 350px;
+    padding: 0.85rem 1.5rem;
+    font-size: 17px;
     justify-content: center;
   }
 
   .discovery-button .free-highlight {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 
